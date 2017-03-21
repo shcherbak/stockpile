@@ -5,7 +5,7 @@
 -- Dumped from database version 9.5.6
 -- Dumped by pg_dump version 9.5.6
 
--- Started on 2017-03-21 11:49:19 EET
+-- Started on 2017-03-21 13:49:52 EET
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -26,7 +26,7 @@ CREATE SCHEMA adjustmentcredit;
 ALTER SCHEMA adjustmentcredit OWNER TO postgres;
 
 --
--- TOC entry 3875 (class 0 OID 0)
+-- TOC entry 3881 (class 0 OID 0)
 -- Dependencies: 12
 -- Name: SCHEMA adjustmentcredit; Type: COMMENT; Schema: -; Owner: postgres
 --
@@ -45,7 +45,7 @@ CREATE SCHEMA adjustmentdebit;
 ALTER SCHEMA adjustmentdebit OWNER TO postgres;
 
 --
--- TOC entry 3876 (class 0 OID 0)
+-- TOC entry 3882 (class 0 OID 0)
 -- Dependencies: 13
 -- Name: SCHEMA adjustmentdebit; Type: COMMENT; Schema: -; Owner: postgres
 --
@@ -84,7 +84,7 @@ CREATE SCHEMA binding;
 ALTER SCHEMA binding OWNER TO postgres;
 
 --
--- TOC entry 3877 (class 0 OID 0)
+-- TOC entry 3883 (class 0 OID 0)
 -- Dependencies: 16
 -- Name: SCHEMA binding; Type: COMMENT; Schema: -; Owner: postgres
 --
@@ -271,7 +271,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 3880 (class 0 OID 0)
+-- TOC entry 3886 (class 0 OID 0)
 -- Dependencies: 2
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -288,7 +288,7 @@ CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 3881 (class 0 OID 0)
+-- TOC entry 3887 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
 --
@@ -305,7 +305,7 @@ CREATE EXTENSION IF NOT EXISTS pldbgapi WITH SCHEMA public;
 
 
 --
--- TOC entry 3882 (class 0 OID 0)
+-- TOC entry 3888 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: EXTENSION pldbgapi; Type: COMMENT; Schema: -; Owner: 
 --
@@ -322,7 +322,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql_check WITH SCHEMA public;
 
 
 --
--- TOC entry 3883 (class 0 OID 0)
+-- TOC entry 3889 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: EXTENSION plpgsql_check; Type: COMMENT; Schema: -; Owner: 
 --
@@ -339,7 +339,7 @@ CREATE EXTENSION IF NOT EXISTS plprofiler WITH SCHEMA public;
 
 
 --
--- TOC entry 3884 (class 0 OID 0)
+-- TOC entry 3890 (class 0 OID 0)
 -- Dependencies: 4
 -- Name: EXTENSION plprofiler; Type: COMMENT; Schema: -; Owner: 
 --
@@ -356,7 +356,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 
 
 --
--- TOC entry 3885 (class 0 OID 0)
+-- TOC entry 3891 (class 0 OID 0)
 -- Dependencies: 3
 -- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
 --
@@ -367,7 +367,7 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 SET search_path = common, pg_catalog;
 
 --
--- TOC entry 1411 (class 1247 OID 106279)
+-- TOC entry 1417 (class 1247 OID 106279)
 -- Name: document_kind; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -392,7 +392,7 @@ CREATE TYPE document_kind AS ENUM (
 ALTER TYPE document_kind OWNER TO postgres;
 
 --
--- TOC entry 1414 (class 1247 OID 106308)
+-- TOC entry 1420 (class 1247 OID 106308)
 -- Name: result_kind; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -405,7 +405,7 @@ CREATE TYPE result_kind AS ENUM (
 ALTER TYPE result_kind OWNER TO postgres;
 
 --
--- TOC entry 1417 (class 1247 OID 106315)
+-- TOC entry 1423 (class 1247 OID 106315)
 -- Name: action_result; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -419,7 +419,7 @@ CREATE TYPE action_result AS (
 ALTER TYPE action_result OWNER TO postgres;
 
 --
--- TOC entry 1420 (class 1247 OID 106316)
+-- TOC entry 1426 (class 1247 OID 106316)
 -- Name: quantity; Type: DOMAIN; Schema: common; Owner: postgres
 --
 
@@ -430,8 +430,8 @@ CREATE DOMAIN quantity AS numeric(20,4) DEFAULT 0
 ALTER DOMAIN quantity OWNER TO postgres;
 
 --
--- TOC entry 3886 (class 0 OID 0)
--- Dependencies: 1420
+-- TOC entry 3892 (class 0 OID 0)
+-- Dependencies: 1426
 -- Name: DOMAIN quantity; Type: COMMENT; Schema: common; Owner: postgres
 --
 
@@ -439,7 +439,7 @@ COMMENT ON DOMAIN quantity IS 'quantity domain';
 
 
 --
--- TOC entry 1422 (class 1247 OID 106320)
+-- TOC entry 1428 (class 1247 OID 106320)
 -- Name: document_body; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -453,7 +453,7 @@ CREATE TYPE document_body AS (
 ALTER TYPE document_body OWNER TO postgres;
 
 --
--- TOC entry 1425 (class 1247 OID 106322)
+-- TOC entry 1431 (class 1247 OID 106322)
 -- Name: document_fsmt; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -467,7 +467,7 @@ CREATE TYPE document_fsmt AS ENUM (
 ALTER TYPE document_fsmt OWNER TO postgres;
 
 --
--- TOC entry 1428 (class 1247 OID 106331)
+-- TOC entry 1434 (class 1247 OID 106331)
 -- Name: document_head; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -485,7 +485,7 @@ CREATE TYPE document_head AS (
 ALTER TYPE document_head OWNER TO postgres;
 
 --
--- TOC entry 1431 (class 1247 OID 106334)
+-- TOC entry 1437 (class 1247 OID 106334)
 -- Name: document_type; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -498,7 +498,7 @@ CREATE TYPE document_type AS (
 ALTER TYPE document_type OWNER TO postgres;
 
 --
--- TOC entry 1434 (class 1247 OID 106336)
+-- TOC entry 1440 (class 1247 OID 106336)
 -- Name: goal_fsmt; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -518,8 +518,8 @@ CREATE TYPE goal_fsmt AS ENUM (
 ALTER TYPE goal_fsmt OWNER TO postgres;
 
 --
--- TOC entry 3887 (class 0 OID 0)
--- Dependencies: 1434
+-- TOC entry 3893 (class 0 OID 0)
+-- Dependencies: 1440
 -- Name: TYPE goal_fsmt; Type: COMMENT; Schema: common; Owner: postgres
 --
 
@@ -527,7 +527,7 @@ COMMENT ON TYPE goal_fsmt IS 'fsmt type';
 
 
 --
--- TOC entry 1437 (class 1247 OID 106357)
+-- TOC entry 1443 (class 1247 OID 106357)
 -- Name: goal_head; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -545,7 +545,7 @@ CREATE TYPE goal_head AS (
 ALTER TYPE goal_head OWNER TO postgres;
 
 --
--- TOC entry 1440 (class 1247 OID 106360)
+-- TOC entry 1446 (class 1247 OID 106360)
 -- Name: inbound_head; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -564,7 +564,7 @@ CREATE TYPE inbound_head AS (
 ALTER TYPE inbound_head OWNER TO postgres;
 
 --
--- TOC entry 1443 (class 1247 OID 106363)
+-- TOC entry 1449 (class 1247 OID 106363)
 -- Name: outbound_head; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -584,7 +584,7 @@ CREATE TYPE outbound_head AS (
 ALTER TYPE outbound_head OWNER TO postgres;
 
 --
--- TOC entry 1446 (class 1247 OID 106365)
+-- TOC entry 1452 (class 1247 OID 106365)
 -- Name: policy_mode; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -598,7 +598,7 @@ CREATE TYPE policy_mode AS ENUM (
 ALTER TYPE policy_mode OWNER TO postgres;
 
 --
--- TOC entry 1449 (class 1247 OID 106371)
+-- TOC entry 1455 (class 1247 OID 106371)
 -- Name: quantity_signed; Type: DOMAIN; Schema: common; Owner: postgres
 --
 
@@ -608,8 +608,8 @@ CREATE DOMAIN quantity_signed AS numeric(20,4) DEFAULT 0;
 ALTER DOMAIN quantity_signed OWNER TO postgres;
 
 --
--- TOC entry 3888 (class 0 OID 0)
--- Dependencies: 1449
+-- TOC entry 3894 (class 0 OID 0)
+-- Dependencies: 1455
 -- Name: DOMAIN quantity_signed; Type: COMMENT; Schema: common; Owner: postgres
 --
 
@@ -617,7 +617,7 @@ COMMENT ON DOMAIN quantity_signed IS 'quantity signed domain';
 
 
 --
--- TOC entry 1450 (class 1247 OID 106374)
+-- TOC entry 1456 (class 1247 OID 106374)
 -- Name: stoktake_body; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -5436,7 +5436,7 @@ $$;
 ALTER FUNCTION common.raise_custom_exception(__condition_name text) OWNER TO postgres;
 
 --
--- TOC entry 3889 (class 0 OID 0)
+-- TOC entry 3895 (class 0 OID 0)
 -- Dependencies: 550
 -- Name: FUNCTION raise_custom_exception(__condition_name text); Type: COMMENT; Schema: common; Owner: postgres
 --
@@ -18843,6 +18843,88 @@ $$;
 ALTER FUNCTION tests.__common__remake_document_head() OWNER TO postgres;
 
 --
+-- TOC entry 1026 (class 1255 OID 110810)
+-- Name: __common__remake_inbound_head(); Type: FUNCTION; Schema: tests; Owner: postgres
+--
+
+CREATE FUNCTION __common__remake_inbound_head() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  _test_head_in CONSTANT common.inbound_head[] := ARRAY[(1,'8c1581c0-04c0-11e7-a843-08626627b4d6','RECEIPT-01','2017-01-01','B1', 'PROPOSED','RECEIPT', 'A1')]::common.inbound_head[];
+  _head common.inbound_head;
+BEGIN
+  
+  RAISE DEBUG '#trace Check __common__remake_inbound_head()';
+  
+  _head := common.remake_inbound_head(
+      __head := _test_head_in[1],
+      __document_id := 100::bigint,
+      __gid := 'e2a05252-0503-11e7-aec1-d4bed939923a'::uuid,
+      __display_name := 'NEWNAME'::character varying,
+      __document_date := '2017-03-01'::date,
+      __facility_code := 'D1'::character varying,
+      __addresser := 'F1'::character varying,
+      __curr_fsmt := 'COMMITTED'::common.document_fsmt,
+      __doctype := 'ISSUE'::common.document_kind);
+  PERFORM pgunit.assert_equals(100::bigint, _head.document_id, 'Incorrect document_id value');
+  PERFORM pgunit.assert_equals('e2a05252-0503-11e7-aec1-d4bed939923a'::uuid, _head.gid, 'Incorrect gid value');
+  PERFORM pgunit.assert_equals('NEWNAME'::character varying, _head.display_name, 'Incorrect display_name value');
+  PERFORM pgunit.assert_equals('2017-03-01'::date, _head.document_date, 'Incorrect document_date value');
+  PERFORM pgunit.assert_equals('D1'::character varying, _head.facility_code, 'Incorrect ship_from value');
+  PERFORM pgunit.assert_equals('F1'::character varying, _head.addresser, 'Incorrect addresser value');
+  PERFORM pgunit.assert_equals('ISSUE'::common.document_kind, _head.doctype, 'Incorrect doctype value');
+  PERFORM pgunit.assert_equals('COMMITTED'::common.document_fsmt, _head.curr_fsmt, 'Incorrect curr_fsmt value');
+
+END;
+$$;
+
+
+ALTER FUNCTION tests.__common__remake_inbound_head() OWNER TO postgres;
+
+--
+-- TOC entry 1027 (class 1255 OID 110843)
+-- Name: __common__remake_outbound_head(); Type: FUNCTION; Schema: tests; Owner: postgres
+--
+
+CREATE FUNCTION __common__remake_outbound_head() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  _test_head_in CONSTANT common.outbound_head[] := ARRAY[(1,'8c1581c0-04c0-11e7-a843-08626627b4d6','RECEIPT-01','2017-01-01','B1', 'PROPOSED','RECEIPT', 'A1', '2017-01-01')]::common.outbound_head[];
+  _head common.outbound_head;
+BEGIN
+  
+  RAISE DEBUG '#trace Check __common__remake_outbound_head()';
+  
+  _head := common.remake_outbound_head(
+      __head := _test_head_in[1],
+      __document_id := 100::bigint,
+      __gid := 'e2a05252-0503-11e7-aec1-d4bed939923a'::uuid,
+      __display_name := 'NEWNAME'::character varying,
+      __document_date := '2017-03-01'::date,
+      __due_date := '2017-03-02'::date,
+      __facility_code := 'D1'::character varying,
+      __addressee := 'F1'::character varying,
+      __curr_fsmt := 'COMMITTED'::common.document_fsmt,
+      __doctype := 'ISSUE'::common.document_kind);
+  PERFORM pgunit.assert_equals(100::bigint, _head.document_id, 'Incorrect document_id value');
+  PERFORM pgunit.assert_equals('e2a05252-0503-11e7-aec1-d4bed939923a'::uuid, _head.gid, 'Incorrect gid value');
+  PERFORM pgunit.assert_equals('NEWNAME'::character varying, _head.display_name, 'Incorrect display_name value');
+  PERFORM pgunit.assert_equals('2017-03-01'::date, _head.document_date, 'Incorrect document_date value');
+  PERFORM pgunit.assert_equals('2017-03-02'::date, _head.due_date, 'Incorrect document_date value');
+  PERFORM pgunit.assert_equals('D1'::character varying, _head.facility_code, 'Incorrect ship_from value');
+  PERFORM pgunit.assert_equals('F1'::character varying, _head.addressee, 'Incorrect addressee value');
+  PERFORM pgunit.assert_equals('ISSUE'::common.document_kind, _head.doctype, 'Incorrect doctype value');
+  PERFORM pgunit.assert_equals('COMMITTED'::common.document_fsmt, _head.curr_fsmt, 'Incorrect curr_fsmt value');
+
+END;
+$$;
+
+
+ALTER FUNCTION tests.__common__remake_outbound_head() OWNER TO postgres;
+
+--
 -- TOC entry 899 (class 1255 OID 106891)
 -- Name: __cutoff__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
@@ -18955,6 +19037,50 @@ $$;
 ALTER FUNCTION tests.__cutoff__get_gid_by_id() OWNER TO postgres;
 
 --
+-- TOC entry 1025 (class 1255 OID 110777)
+-- Name: __cutoff__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
+--
+
+CREATE FUNCTION __cutoff__get_head() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  _head common.document_head;
+  _test_gid CONSTANT uuid := '9b2952fa-01d1-11e7-b440-d4bed939923a';
+  _test_display_name CONSTANT character varying := 'CUTOFF-02';
+  _test_document_date CONSTANT date := '2017-02-01'::date;
+  _test_facility_code CONSTANT character varying := 'A1';
+  _test_curr_fsmt CONSTANT common.document_fsmt := 'COMMITTED'::common.document_fsmt;
+  _test_doctype CONSTANT common.document_kind := 'CUTOFF'::common.document_kind;
+BEGIN
+  
+  RAISE DEBUG '#trace Check __cutoff__get_head()';
+
+  INSERT INTO cutoff.head VALUES (101, '8236af18-eb1a-11e6-8a73-d4bed939923a', 'CUTOFF-01', '2017-01-01', NULL, 'B1', 'COMMITTED', '2017-02-04 22:46:51.810833+02', 'DECOMMITTED', '2017-02-04 22:47:10.05991+02');
+  INSERT INTO cutoff.head VALUES (102, '9b2952fa-01d1-11e7-b440-d4bed939923a', 'CUTOFF-02', '2017-02-01', NULL, 'A1', 'PROPOSED', '2017-02-04 22:46:51.810833+02', 'COMMITTED', '2017-02-04 22:47:10.05991+02');
+  INSERT INTO cutoff.head VALUES (103, 'f20d7196-01d1-11e7-b441-d4bed939923a', 'CUTOFF-03', '2017-03-01', NULL, 'A1', NULL, NULL, 'PROPOSED', '2017-02-04 22:47:10.05991+02');
+  
+  _head := cutoff.get_head(102);
+  PERFORM pgunit.assert_equals(_test_gid, _head.gid, 'Incorrect gid value');
+  PERFORM pgunit.assert_equals(_test_display_name, _head.display_name, 'Incorrect display_name value');
+  PERFORM pgunit.assert_equals(_test_document_date, _head.document_date, 'Incorrect document_date value');
+  PERFORM pgunit.assert_equals(_test_facility_code, _head.facility_code, 'Incorrect facility_code value');
+  PERFORM pgunit.assert_equals(_test_curr_fsmt, _head.curr_fsmt, 'Incorrect curr_fsmt value');
+  PERFORM pgunit.assert_equals(_test_doctype, _head.doctype, 'Incorrect doctype value');
+
+  _head := cutoff.get_head(103);
+  PERFORM pgunit.assert_not_equals(_test_gid, _head.gid, 'Incorrect gid value');
+  
+  _head := cutoff.get_head(104);
+  PERFORM pgunit.assert_null(_head, 'Incorrect _head value');
+
+END;
+$$;
+
+
+ALTER FUNCTION tests.__cutoff__get_head() OWNER TO postgres;
+
+--
 -- TOC entry 901 (class 1255 OID 106895)
 -- Name: __cutoff__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
@@ -19015,6 +19141,34 @@ $$;
 
 
 ALTER FUNCTION tests.__cutoff__get_last_cutoff_date() OWNER TO postgres;
+
+--
+-- TOC entry 1029 (class 1255 OID 111038)
+-- Name: __cutoff__init(); Type: FUNCTION; Schema: tests; Owner: postgres
+--
+
+CREATE FUNCTION __cutoff__init() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  _test_head CONSTANT common.document_head[] := ARRAY[(1,'8c1581c0-04c0-11e7-a843-08626627b4d6','CUTOFF-01','2017-01-01','A1','PROPOSED','CUTOFF')]::common.document_head[];
+  _head common.document_head;
+  _document_id bigint;
+BEGIN
+  
+  RAISE DEBUG '#trace Check __cutoff__init()';
+  
+  _document_id := cutoff.init(_test_head[1]);
+  _head := cutoff.get_head(_document_id);
+  PERFORM pgunit.assert_equals(_test_head[1], _head, 'Incorrect _head value');
+  --PERFORM pgunit.assert_array_equals(_test_body, _body, 'Incorrect _body value');
+
+
+END;
+$$;
+
+
+ALTER FUNCTION tests.__cutoff__init() OWNER TO postgres;
 
 --
 -- TOC entry 903 (class 1255 OID 106897)
@@ -20427,6 +20581,50 @@ $$;
 ALTER FUNCTION tests.__goal__get_curr_fsmt() OWNER TO postgres;
 
 --
+-- TOC entry 1028 (class 1255 OID 110972)
+-- Name: __goal__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
+--
+
+CREATE FUNCTION __goal__get_head() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  _head common.document_head;
+  _test_gid CONSTANT uuid := '9b2952fa-01d1-11e7-b440-d4bed939923a';
+  _test_display_name CONSTANT character varying := 'GOAL-02';
+  _test_document_date CONSTANT date := '2017-02-01'::date;
+  _test_facility_code CONSTANT character varying := 'A1';
+  _test_curr_fsmt CONSTANT common.document_fsmt := 'COMMITTED'::common.document_fsmt;
+  _test_doctype CONSTANT common.document_kind := 'GOAL'::common.document_kind;
+BEGIN
+  
+  RAISE DEBUG '#trace Check __goal__get_head()';
+
+  INSERT INTO goal.head VALUES (101, '8236af18-eb1a-11e6-8a73-d4bed939923a', 'GOAL-01', '2017-01-01', NULL, 'B1', 'COMMITTED', '2017-02-04 22:46:51.810833+02', 'DECOMMITTED', '2017-02-04 22:47:10.05991+02');
+  INSERT INTO goal.head VALUES (102, '9b2952fa-01d1-11e7-b440-d4bed939923a', 'GOAL-02', '2017-02-01', NULL, 'A1', 'PROPOSED', '2017-02-04 22:46:51.810833+02', 'COMMITTED', '2017-02-04 22:47:10.05991+02');
+  INSERT INTO goal.head VALUES (103, 'f20d7196-01d1-11e7-b441-d4bed939923a', 'GOAL-03', '2017-03-01', NULL, 'A1', NULL, NULL, 'PROPOSED', '2017-02-04 22:47:10.05991+02');
+  
+  _head := goal.get_head(102);
+  PERFORM pgunit.assert_equals(_test_gid, _head.gid, 'Incorrect gid value');
+  PERFORM pgunit.assert_equals(_test_display_name, _head.display_name, 'Incorrect display_name value');
+  PERFORM pgunit.assert_equals(_test_document_date, _head.document_date, 'Incorrect document_date value');
+  PERFORM pgunit.assert_equals(_test_facility_code, _head.facility_code, 'Incorrect facility_code value');
+  PERFORM pgunit.assert_equals(_test_curr_fsmt, _head.curr_fsmt, 'Incorrect curr_fsmt value');
+  PERFORM pgunit.assert_equals(_test_doctype, _head.doctype, 'Incorrect doctype value');
+
+  _head := goal.get_head(103);
+  PERFORM pgunit.assert_not_equals(_test_gid, _head.gid, 'Incorrect gid value');
+  
+  _head := goal.get_head(104);
+  PERFORM pgunit.assert_null(_head, 'Incorrect _head value');
+
+END;
+$$;
+
+
+ALTER FUNCTION tests.__goal__get_head() OWNER TO postgres;
+
+--
 -- TOC entry 937 (class 1255 OID 106936)
 -- Name: __goal__give_advise(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
@@ -20463,6 +20661,34 @@ $$;
 
 
 ALTER FUNCTION tests.__goal__give_advise() OWNER TO postgres;
+
+--
+-- TOC entry 1030 (class 1255 OID 111005)
+-- Name: __goal__init(); Type: FUNCTION; Schema: tests; Owner: postgres
+--
+
+CREATE FUNCTION __goal__init() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  _test_head CONSTANT common.goal_head[] := ARRAY[(1,'8c1581c0-04c0-11e7-a843-08626627b4d6','GOAL-01','2017-01-01','A1','PROPOSED','GOAL')]::common.goal_head[];
+  _head common.goal_head;
+  _document_id bigint;
+BEGIN
+  
+  RAISE DEBUG '#trace Check __goal__init()';
+  
+  _document_id := goal.init(_test_head[1]);
+  _head := goal.get_head(_document_id);
+  PERFORM pgunit.assert_equals(_test_head[1], _head, 'Incorrect _head value');
+  --PERFORM pgunit.assert_array_equals(_test_body, _body, 'Incorrect _body value');
+
+
+END;
+$$;
+
+
+ALTER FUNCTION tests.__goal__init() OWNER TO postgres;
 
 --
 -- TOC entry 938 (class 1255 OID 106937)
@@ -23637,7 +23863,7 @@ ALTER FUNCTION tests._run_all() OWNER TO postgres;
 SET search_path = pg_catalog;
 
 --
--- TOC entry 3204 (class 2605 OID 107022)
+-- TOC entry 3210 (class 2605 OID 107022)
 -- Name: CAST (common.document_fsmt AS common.goal_fsmt); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -23645,7 +23871,7 @@ CREATE CAST (common.document_fsmt AS common.goal_fsmt) WITH FUNCTION common.conv
 
 
 --
--- TOC entry 3205 (class 2605 OID 107023)
+-- TOC entry 3211 (class 2605 OID 107023)
 -- Name: CAST (common.goal_fsmt AS common.document_fsmt); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -23653,7 +23879,7 @@ CREATE CAST (common.goal_fsmt AS common.document_fsmt) WITH FUNCTION common.conv
 
 
 --
--- TOC entry 3206 (class 2605 OID 107024)
+-- TOC entry 3212 (class 2605 OID 107024)
 -- Name: CAST (common.goal_head AS common.document_head); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -23661,7 +23887,7 @@ CREATE CAST (common.goal_head AS common.document_head) WITH FUNCTION common.conv
 
 
 --
--- TOC entry 3207 (class 2605 OID 107025)
+-- TOC entry 3213 (class 2605 OID 107025)
 -- Name: CAST (common.inbound_head AS common.document_head); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -23669,7 +23895,7 @@ CREATE CAST (common.inbound_head AS common.document_head) WITH FUNCTION common.c
 
 
 --
--- TOC entry 3208 (class 2605 OID 107026)
+-- TOC entry 3214 (class 2605 OID 107026)
 -- Name: CAST (common.outbound_head AS common.document_head); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -23677,7 +23903,7 @@ CREATE CAST (common.outbound_head AS common.document_head) WITH FUNCTION common.
 
 
 --
--- TOC entry 3209 (class 2605 OID 107027)
+-- TOC entry 3215 (class 2605 OID 107027)
 -- Name: CAST (common.outbound_head AS common.goal_head); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -23685,7 +23911,7 @@ CREATE CAST (common.outbound_head AS common.goal_head) WITH FUNCTION common.conv
 
 
 --
--- TOC entry 3210 (class 2605 OID 107028)
+-- TOC entry 3216 (class 2605 OID 107028)
 -- Name: CAST (common.stoktake_body AS common.document_body); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -23754,7 +23980,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3890 (class 0 OID 0)
+-- TOC entry 3896 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: adjustmentcredit; Owner: postgres
 --
@@ -23832,7 +24058,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3891 (class 0 OID 0)
+-- TOC entry 3897 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: adjustmentdebit; Owner: postgres
 --
@@ -23876,7 +24102,7 @@ CREATE TABLE balance (
 ALTER TABLE balance OWNER TO postgres;
 
 --
--- TOC entry 3892 (class 0 OID 0)
+-- TOC entry 3898 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: TABLE balance; Type: COMMENT; Schema: balance; Owner: postgres
 --
@@ -24285,7 +24511,7 @@ CREATE SEQUENCE exception_code_id_seq
 ALTER TABLE exception_code_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3893 (class 0 OID 0)
+-- TOC entry 3899 (class 0 OID 0)
 -- Dependencies: 264
 -- Name: exception_code_id_seq; Type: SEQUENCE OWNED BY; Schema: common; Owner: postgres
 --
@@ -24358,7 +24584,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3894 (class 0 OID 0)
+-- TOC entry 3900 (class 0 OID 0)
 -- Dependencies: 268
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: cutoff; Owner: postgres
 --
@@ -24436,7 +24662,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3895 (class 0 OID 0)
+-- TOC entry 3901 (class 0 OID 0)
 -- Dependencies: 272
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: delivery; Owner: postgres
 --
@@ -24516,7 +24742,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3896 (class 0 OID 0)
+-- TOC entry 3902 (class 0 OID 0)
 -- Dependencies: 276
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: demand; Owner: postgres
 --
@@ -24596,7 +24822,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3897 (class 0 OID 0)
+-- TOC entry 3903 (class 0 OID 0)
 -- Dependencies: 280
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: despatch; Owner: postgres
 --
@@ -24657,7 +24883,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3898 (class 0 OID 0)
+-- TOC entry 3904 (class 0 OID 0)
 -- Dependencies: 283
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: goal; Owner: postgres
 --
@@ -24737,7 +24963,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3899 (class 0 OID 0)
+-- TOC entry 3905 (class 0 OID 0)
 -- Dependencies: 287
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: issue; Owner: postgres
 --
@@ -24789,7 +25015,7 @@ CREATE SEQUENCE head_ib_seq
 ALTER TABLE head_ib_seq OWNER TO postgres;
 
 --
--- TOC entry 3900 (class 0 OID 0)
+-- TOC entry 3906 (class 0 OID 0)
 -- Dependencies: 290
 -- Name: head_ib_seq; Type: SEQUENCE OWNED BY; Schema: lot; Owner: postgres
 --
@@ -24855,7 +25081,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3901 (class 0 OID 0)
+-- TOC entry 3907 (class 0 OID 0)
 -- Dependencies: 293
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: picklist; Owner: postgres
 --
@@ -24950,7 +25176,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3902 (class 0 OID 0)
+-- TOC entry 3908 (class 0 OID 0)
 -- Dependencies: 298
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: rebound; Owner: postgres
 --
@@ -25028,7 +25254,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3903 (class 0 OID 0)
+-- TOC entry 3909 (class 0 OID 0)
 -- Dependencies: 302
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: receipt; Owner: postgres
 --
@@ -25108,7 +25334,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3904 (class 0 OID 0)
+-- TOC entry 3910 (class 0 OID 0)
 -- Dependencies: 306
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: reserve; Owner: postgres
 --
@@ -25237,7 +25463,7 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3905 (class 0 OID 0)
+-- TOC entry 3911 (class 0 OID 0)
 -- Dependencies: 312
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: stocktake; Owner: postgres
 --
@@ -25332,7 +25558,7 @@ ALTER TABLE plpgsql_check_nontriggered OWNER TO postgres;
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 3215 (class 2604 OID 107507)
+-- TOC entry 3221 (class 2604 OID 107507)
 -- Name: id; Type: DEFAULT; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -25342,7 +25568,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 3223 (class 2604 OID 107508)
+-- TOC entry 3229 (class 2604 OID 107508)
 -- Name: id; Type: DEFAULT; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -25352,7 +25578,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = common, pg_catalog;
 
 --
--- TOC entry 3228 (class 2604 OID 107509)
+-- TOC entry 3234 (class 2604 OID 107509)
 -- Name: id; Type: DEFAULT; Schema: common; Owner: postgres
 --
 
@@ -25362,7 +25588,7 @@ ALTER TABLE ONLY exception_code ALTER COLUMN id SET DEFAULT nextval('exception_c
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 3234 (class 2604 OID 107510)
+-- TOC entry 3240 (class 2604 OID 107510)
 -- Name: id; Type: DEFAULT; Schema: cutoff; Owner: postgres
 --
 
@@ -25372,7 +25598,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 3240 (class 2604 OID 107511)
+-- TOC entry 3246 (class 2604 OID 107511)
 -- Name: id; Type: DEFAULT; Schema: delivery; Owner: postgres
 --
 
@@ -25382,7 +25608,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 3247 (class 2604 OID 107512)
+-- TOC entry 3253 (class 2604 OID 107512)
 -- Name: id; Type: DEFAULT; Schema: demand; Owner: postgres
 --
 
@@ -25392,7 +25618,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 3255 (class 2604 OID 107513)
+-- TOC entry 3261 (class 2604 OID 107513)
 -- Name: id; Type: DEFAULT; Schema: despatch; Owner: postgres
 --
 
@@ -25402,7 +25628,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = goal, pg_catalog;
 
 --
--- TOC entry 3263 (class 2604 OID 107514)
+-- TOC entry 3269 (class 2604 OID 107514)
 -- Name: id; Type: DEFAULT; Schema: goal; Owner: postgres
 --
 
@@ -25412,7 +25638,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 3269 (class 2604 OID 107515)
+-- TOC entry 3275 (class 2604 OID 107515)
 -- Name: id; Type: DEFAULT; Schema: issue; Owner: postgres
 --
 
@@ -25422,7 +25648,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = lot, pg_catalog;
 
 --
--- TOC entry 3273 (class 2604 OID 107516)
+-- TOC entry 3279 (class 2604 OID 107516)
 -- Name: ib; Type: DEFAULT; Schema: lot; Owner: postgres
 --
 
@@ -25432,7 +25658,7 @@ ALTER TABLE ONLY head ALTER COLUMN ib SET DEFAULT nextval('head_ib_seq'::regclas
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 3278 (class 2604 OID 107517)
+-- TOC entry 3284 (class 2604 OID 107517)
 -- Name: id; Type: DEFAULT; Schema: picklist; Owner: postgres
 --
 
@@ -25442,7 +25668,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 3286 (class 2604 OID 107518)
+-- TOC entry 3292 (class 2604 OID 107518)
 -- Name: id; Type: DEFAULT; Schema: rebound; Owner: postgres
 --
 
@@ -25452,7 +25678,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 3293 (class 2604 OID 107519)
+-- TOC entry 3299 (class 2604 OID 107519)
 -- Name: id; Type: DEFAULT; Schema: receipt; Owner: postgres
 --
 
@@ -25462,7 +25688,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 3300 (class 2604 OID 107520)
+-- TOC entry 3306 (class 2604 OID 107520)
 -- Name: id; Type: DEFAULT; Schema: reserve; Owner: postgres
 --
 
@@ -25472,7 +25698,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 3309 (class 2604 OID 107521)
+-- TOC entry 3315 (class 2604 OID 107521)
 -- Name: id; Type: DEFAULT; Schema: stocktake; Owner: postgres
 --
 
@@ -25482,7 +25708,7 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 3783 (class 0 OID 107029)
+-- TOC entry 3789 (class 0 OID 107029)
 -- Dependencies: 226
 -- Data for Name: body; Type: TABLE DATA; Schema: adjustmentcredit; Owner: postgres
 --
@@ -25490,7 +25716,7 @@ SET search_path = adjustmentcredit, pg_catalog;
 
 
 --
--- TOC entry 3784 (class 0 OID 107035)
+-- TOC entry 3790 (class 0 OID 107035)
 -- Dependencies: 227
 -- Data for Name: head; Type: TABLE DATA; Schema: adjustmentcredit; Owner: postgres
 --
@@ -25498,16 +25724,16 @@ SET search_path = adjustmentcredit, pg_catalog;
 
 
 --
--- TOC entry 3906 (class 0 OID 0)
+-- TOC entry 3912 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: adjustmentcredit; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 30, true);
+SELECT pg_catalog.setval('head_id_seq', 63, true);
 
 
 --
--- TOC entry 3786 (class 0 OID 107049)
+-- TOC entry 3792 (class 0 OID 107049)
 -- Dependencies: 229
 -- Data for Name: numerator; Type: TABLE DATA; Schema: adjustmentcredit; Owner: postgres
 --
@@ -25517,7 +25743,7 @@ SELECT pg_catalog.setval('head_id_seq', 30, true);
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 3787 (class 0 OID 107056)
+-- TOC entry 3793 (class 0 OID 107056)
 -- Dependencies: 230
 -- Data for Name: body; Type: TABLE DATA; Schema: adjustmentdebit; Owner: postgres
 --
@@ -25525,7 +25751,7 @@ SET search_path = adjustmentdebit, pg_catalog;
 
 
 --
--- TOC entry 3788 (class 0 OID 107062)
+-- TOC entry 3794 (class 0 OID 107062)
 -- Dependencies: 231
 -- Data for Name: head; Type: TABLE DATA; Schema: adjustmentdebit; Owner: postgres
 --
@@ -25533,16 +25759,16 @@ SET search_path = adjustmentdebit, pg_catalog;
 
 
 --
--- TOC entry 3907 (class 0 OID 0)
+-- TOC entry 3913 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: adjustmentdebit; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 30, true);
+SELECT pg_catalog.setval('head_id_seq', 63, true);
 
 
 --
--- TOC entry 3790 (class 0 OID 107076)
+-- TOC entry 3796 (class 0 OID 107076)
 -- Dependencies: 233
 -- Data for Name: numerator; Type: TABLE DATA; Schema: adjustmentdebit; Owner: postgres
 --
@@ -25552,7 +25778,7 @@ SELECT pg_catalog.setval('head_id_seq', 30, true);
 SET search_path = balance, pg_catalog;
 
 --
--- TOC entry 3791 (class 0 OID 107083)
+-- TOC entry 3797 (class 0 OID 107083)
 -- Dependencies: 234
 -- Data for Name: balance; Type: TABLE DATA; Schema: balance; Owner: postgres
 --
@@ -25562,7 +25788,7 @@ SET search_path = balance, pg_catalog;
 SET search_path = binding, pg_catalog;
 
 --
--- TOC entry 3792 (class 0 OID 107089)
+-- TOC entry 3798 (class 0 OID 107089)
 -- Dependencies: 235
 -- Data for Name: cutoff_to_adjustmentcredit; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25570,7 +25796,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3793 (class 0 OID 107092)
+-- TOC entry 3799 (class 0 OID 107092)
 -- Dependencies: 236
 -- Data for Name: cutoff_to_adjustmentdebit; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25578,7 +25804,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3794 (class 0 OID 107095)
+-- TOC entry 3800 (class 0 OID 107095)
 -- Dependencies: 237
 -- Data for Name: cutoff_to_delivery; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25586,7 +25812,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3795 (class 0 OID 107098)
+-- TOC entry 3801 (class 0 OID 107098)
 -- Dependencies: 238
 -- Data for Name: cutoff_to_demand; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25594,7 +25820,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3796 (class 0 OID 107101)
+-- TOC entry 3802 (class 0 OID 107101)
 -- Dependencies: 239
 -- Data for Name: cutoff_to_despatch; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25602,7 +25828,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3797 (class 0 OID 107104)
+-- TOC entry 3803 (class 0 OID 107104)
 -- Dependencies: 240
 -- Data for Name: cutoff_to_goal; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25610,7 +25836,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3798 (class 0 OID 107107)
+-- TOC entry 3804 (class 0 OID 107107)
 -- Dependencies: 241
 -- Data for Name: cutoff_to_issue; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25618,7 +25844,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3799 (class 0 OID 107110)
+-- TOC entry 3805 (class 0 OID 107110)
 -- Dependencies: 242
 -- Data for Name: cutoff_to_picklist; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25626,7 +25852,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3800 (class 0 OID 107113)
+-- TOC entry 3806 (class 0 OID 107113)
 -- Dependencies: 243
 -- Data for Name: cutoff_to_rebound; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25634,7 +25860,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3801 (class 0 OID 107116)
+-- TOC entry 3807 (class 0 OID 107116)
 -- Dependencies: 244
 -- Data for Name: cutoff_to_receipt; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25642,7 +25868,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3802 (class 0 OID 107119)
+-- TOC entry 3808 (class 0 OID 107119)
 -- Dependencies: 245
 -- Data for Name: cutoff_to_reserve; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25650,7 +25876,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3803 (class 0 OID 107122)
+-- TOC entry 3809 (class 0 OID 107122)
 -- Dependencies: 246
 -- Data for Name: cutoff_to_stocktake; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25658,7 +25884,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3804 (class 0 OID 107125)
+-- TOC entry 3810 (class 0 OID 107125)
 -- Dependencies: 247
 -- Data for Name: delivery_to_receipt; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25666,7 +25892,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3805 (class 0 OID 107128)
+-- TOC entry 3811 (class 0 OID 107128)
 -- Dependencies: 248
 -- Data for Name: demand_to_picklist; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25674,7 +25900,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3806 (class 0 OID 107131)
+-- TOC entry 3812 (class 0 OID 107131)
 -- Dependencies: 249
 -- Data for Name: demand_to_reserve; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25682,7 +25908,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3807 (class 0 OID 107134)
+-- TOC entry 3813 (class 0 OID 107134)
 -- Dependencies: 250
 -- Data for Name: goal_to_demand; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25690,7 +25916,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3808 (class 0 OID 107137)
+-- TOC entry 3814 (class 0 OID 107137)
 -- Dependencies: 251
 -- Data for Name: goal_to_despatch; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25698,7 +25924,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3809 (class 0 OID 107140)
+-- TOC entry 3815 (class 0 OID 107140)
 -- Dependencies: 252
 -- Data for Name: goal_to_issue; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25706,7 +25932,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3810 (class 0 OID 107143)
+-- TOC entry 3816 (class 0 OID 107143)
 -- Dependencies: 253
 -- Data for Name: goal_to_picklist; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25714,7 +25940,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3811 (class 0 OID 107146)
+-- TOC entry 3817 (class 0 OID 107146)
 -- Dependencies: 254
 -- Data for Name: goal_to_reserve; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25722,7 +25948,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3812 (class 0 OID 107149)
+-- TOC entry 3818 (class 0 OID 107149)
 -- Dependencies: 255
 -- Data for Name: issue_to_adjustmentcredit; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25730,7 +25956,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3813 (class 0 OID 107152)
+-- TOC entry 3819 (class 0 OID 107152)
 -- Dependencies: 256
 -- Data for Name: issue_to_despatch; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25738,7 +25964,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3814 (class 0 OID 107155)
+-- TOC entry 3820 (class 0 OID 107155)
 -- Dependencies: 257
 -- Data for Name: issue_to_rebound; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25746,7 +25972,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3815 (class 0 OID 107158)
+-- TOC entry 3821 (class 0 OID 107158)
 -- Dependencies: 258
 -- Data for Name: picklist_to_issue; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25754,7 +25980,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3816 (class 0 OID 107161)
+-- TOC entry 3822 (class 0 OID 107161)
 -- Dependencies: 259
 -- Data for Name: receipt_to_adjustmentdebit; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25762,7 +25988,7 @@ SET search_path = binding, pg_catalog;
 
 
 --
--- TOC entry 3817 (class 0 OID 107164)
+-- TOC entry 3823 (class 0 OID 107164)
 -- Dependencies: 260
 -- Data for Name: receipt_to_rebound; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
@@ -25772,7 +25998,7 @@ SET search_path = binding, pg_catalog;
 SET search_path = common, pg_catalog;
 
 --
--- TOC entry 3818 (class 0 OID 107167)
+-- TOC entry 3824 (class 0 OID 107167)
 -- Dependencies: 261
 -- Data for Name: cutoff_policy; Type: TABLE DATA; Schema: common; Owner: postgres
 --
@@ -25794,7 +26020,7 @@ INSERT INTO cutoff_policy VALUES ('CUTOFF', 'DISABLED');
 
 
 --
--- TOC entry 3819 (class 0 OID 107171)
+-- TOC entry 3825 (class 0 OID 107171)
 -- Dependencies: 262
 -- Data for Name: document_abbrevation; Type: TABLE DATA; Schema: common; Owner: postgres
 --
@@ -25816,7 +26042,7 @@ INSERT INTO document_abbrevation VALUES ('CUTOFF', 'CUT');
 
 
 --
--- TOC entry 3820 (class 0 OID 107178)
+-- TOC entry 3826 (class 0 OID 107178)
 -- Dependencies: 263
 -- Data for Name: exception_code; Type: TABLE DATA; Schema: common; Owner: postgres
 --
@@ -25834,7 +26060,7 @@ INSERT INTO exception_code VALUES (10, 'WMS WARNING 1 message', 'WMS NOTICE 1 de
 
 
 --
--- TOC entry 3908 (class 0 OID 0)
+-- TOC entry 3914 (class 0 OID 0)
 -- Dependencies: 264
 -- Name: exception_code_id_seq; Type: SEQUENCE SET; Schema: common; Owner: postgres
 --
@@ -25843,7 +26069,7 @@ SELECT pg_catalog.setval('exception_code_id_seq', 1, false);
 
 
 --
--- TOC entry 3822 (class 0 OID 107186)
+-- TOC entry 3828 (class 0 OID 107186)
 -- Dependencies: 265
 -- Data for Name: stocktake_policy; Type: TABLE DATA; Schema: common; Owner: postgres
 --
@@ -25867,7 +26093,7 @@ INSERT INTO stocktake_policy VALUES ('CUTOFF', 'DISABLED');
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 3823 (class 0 OID 107190)
+-- TOC entry 3829 (class 0 OID 107190)
 -- Dependencies: 266
 -- Data for Name: blocker; Type: TABLE DATA; Schema: cutoff; Owner: postgres
 --
@@ -25875,7 +26101,7 @@ SET search_path = cutoff, pg_catalog;
 
 
 --
--- TOC entry 3824 (class 0 OID 107196)
+-- TOC entry 3830 (class 0 OID 107196)
 -- Dependencies: 267
 -- Data for Name: head; Type: TABLE DATA; Schema: cutoff; Owner: postgres
 --
@@ -25883,16 +26109,16 @@ SET search_path = cutoff, pg_catalog;
 
 
 --
--- TOC entry 3909 (class 0 OID 0)
+-- TOC entry 3915 (class 0 OID 0)
 -- Dependencies: 268
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: cutoff; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 1, false);
+SELECT pg_catalog.setval('head_id_seq', 3, true);
 
 
 --
--- TOC entry 3826 (class 0 OID 107208)
+-- TOC entry 3832 (class 0 OID 107208)
 -- Dependencies: 269
 -- Data for Name: numerator; Type: TABLE DATA; Schema: cutoff; Owner: postgres
 --
@@ -25902,7 +26128,7 @@ SELECT pg_catalog.setval('head_id_seq', 1, false);
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 3827 (class 0 OID 107215)
+-- TOC entry 3833 (class 0 OID 107215)
 -- Dependencies: 270
 -- Data for Name: body; Type: TABLE DATA; Schema: delivery; Owner: postgres
 --
@@ -25910,7 +26136,7 @@ SET search_path = delivery, pg_catalog;
 
 
 --
--- TOC entry 3828 (class 0 OID 107221)
+-- TOC entry 3834 (class 0 OID 107221)
 -- Dependencies: 271
 -- Data for Name: head; Type: TABLE DATA; Schema: delivery; Owner: postgres
 --
@@ -25918,16 +26144,16 @@ SET search_path = delivery, pg_catalog;
 
 
 --
--- TOC entry 3910 (class 0 OID 0)
+-- TOC entry 3916 (class 0 OID 0)
 -- Dependencies: 272
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: delivery; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 20, true);
+SELECT pg_catalog.setval('head_id_seq', 42, true);
 
 
 --
--- TOC entry 3830 (class 0 OID 107234)
+-- TOC entry 3836 (class 0 OID 107234)
 -- Dependencies: 273
 -- Data for Name: numerator; Type: TABLE DATA; Schema: delivery; Owner: postgres
 --
@@ -25937,7 +26163,7 @@ SELECT pg_catalog.setval('head_id_seq', 20, true);
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 3831 (class 0 OID 107241)
+-- TOC entry 3837 (class 0 OID 107241)
 -- Dependencies: 274
 -- Data for Name: body; Type: TABLE DATA; Schema: demand; Owner: postgres
 --
@@ -25945,7 +26171,7 @@ SET search_path = demand, pg_catalog;
 
 
 --
--- TOC entry 3832 (class 0 OID 107247)
+-- TOC entry 3838 (class 0 OID 107247)
 -- Dependencies: 275
 -- Data for Name: head; Type: TABLE DATA; Schema: demand; Owner: postgres
 --
@@ -25953,16 +26179,16 @@ SET search_path = demand, pg_catalog;
 
 
 --
--- TOC entry 3911 (class 0 OID 0)
+-- TOC entry 3917 (class 0 OID 0)
 -- Dependencies: 276
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: demand; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 20, true);
+SELECT pg_catalog.setval('head_id_seq', 42, true);
 
 
 --
--- TOC entry 3834 (class 0 OID 107261)
+-- TOC entry 3840 (class 0 OID 107261)
 -- Dependencies: 277
 -- Data for Name: numerator; Type: TABLE DATA; Schema: demand; Owner: postgres
 --
@@ -25972,7 +26198,7 @@ SELECT pg_catalog.setval('head_id_seq', 20, true);
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 3835 (class 0 OID 107268)
+-- TOC entry 3841 (class 0 OID 107268)
 -- Dependencies: 278
 -- Data for Name: body; Type: TABLE DATA; Schema: despatch; Owner: postgres
 --
@@ -25980,7 +26206,7 @@ SET search_path = despatch, pg_catalog;
 
 
 --
--- TOC entry 3836 (class 0 OID 107274)
+-- TOC entry 3842 (class 0 OID 107274)
 -- Dependencies: 279
 -- Data for Name: head; Type: TABLE DATA; Schema: despatch; Owner: postgres
 --
@@ -25988,16 +26214,16 @@ SET search_path = despatch, pg_catalog;
 
 
 --
--- TOC entry 3912 (class 0 OID 0)
+-- TOC entry 3918 (class 0 OID 0)
 -- Dependencies: 280
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: despatch; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 40, true);
+SELECT pg_catalog.setval('head_id_seq', 84, true);
 
 
 --
--- TOC entry 3838 (class 0 OID 107288)
+-- TOC entry 3844 (class 0 OID 107288)
 -- Dependencies: 281
 -- Data for Name: numerator; Type: TABLE DATA; Schema: despatch; Owner: postgres
 --
@@ -26007,7 +26233,7 @@ SELECT pg_catalog.setval('head_id_seq', 40, true);
 SET search_path = goal, pg_catalog;
 
 --
--- TOC entry 3839 (class 0 OID 107295)
+-- TOC entry 3845 (class 0 OID 107295)
 -- Dependencies: 282
 -- Data for Name: head; Type: TABLE DATA; Schema: goal; Owner: postgres
 --
@@ -26015,16 +26241,16 @@ SET search_path = goal, pg_catalog;
 
 
 --
--- TOC entry 3913 (class 0 OID 0)
+-- TOC entry 3919 (class 0 OID 0)
 -- Dependencies: 283
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: goal; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 50, true);
+SELECT pg_catalog.setval('head_id_seq', 106, true);
 
 
 --
--- TOC entry 3841 (class 0 OID 107307)
+-- TOC entry 3847 (class 0 OID 107307)
 -- Dependencies: 284
 -- Data for Name: numerator; Type: TABLE DATA; Schema: goal; Owner: postgres
 --
@@ -26034,7 +26260,7 @@ SELECT pg_catalog.setval('head_id_seq', 50, true);
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 3842 (class 0 OID 107314)
+-- TOC entry 3848 (class 0 OID 107314)
 -- Dependencies: 285
 -- Data for Name: body; Type: TABLE DATA; Schema: issue; Owner: postgres
 --
@@ -26042,7 +26268,7 @@ SET search_path = issue, pg_catalog;
 
 
 --
--- TOC entry 3843 (class 0 OID 107320)
+-- TOC entry 3849 (class 0 OID 107320)
 -- Dependencies: 286
 -- Data for Name: head; Type: TABLE DATA; Schema: issue; Owner: postgres
 --
@@ -26050,16 +26276,16 @@ SET search_path = issue, pg_catalog;
 
 
 --
--- TOC entry 3914 (class 0 OID 0)
+-- TOC entry 3920 (class 0 OID 0)
 -- Dependencies: 287
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: issue; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 30, true);
+SELECT pg_catalog.setval('head_id_seq', 63, true);
 
 
 --
--- TOC entry 3845 (class 0 OID 107334)
+-- TOC entry 3851 (class 0 OID 107334)
 -- Dependencies: 288
 -- Data for Name: numerator; Type: TABLE DATA; Schema: issue; Owner: postgres
 --
@@ -26069,7 +26295,7 @@ SELECT pg_catalog.setval('head_id_seq', 30, true);
 SET search_path = lot, pg_catalog;
 
 --
--- TOC entry 3846 (class 0 OID 107341)
+-- TOC entry 3852 (class 0 OID 107341)
 -- Dependencies: 289
 -- Data for Name: head; Type: TABLE DATA; Schema: lot; Owner: postgres
 --
@@ -26077,7 +26303,7 @@ SET search_path = lot, pg_catalog;
 
 
 --
--- TOC entry 3915 (class 0 OID 0)
+-- TOC entry 3921 (class 0 OID 0)
 -- Dependencies: 290
 -- Name: head_ib_seq; Type: SEQUENCE SET; Schema: lot; Owner: postgres
 --
@@ -26088,7 +26314,7 @@ SELECT pg_catalog.setval('head_ib_seq', 1, false);
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 3848 (class 0 OID 107346)
+-- TOC entry 3854 (class 0 OID 107346)
 -- Dependencies: 291
 -- Data for Name: body; Type: TABLE DATA; Schema: picklist; Owner: postgres
 --
@@ -26096,7 +26322,7 @@ SET search_path = picklist, pg_catalog;
 
 
 --
--- TOC entry 3849 (class 0 OID 107352)
+-- TOC entry 3855 (class 0 OID 107352)
 -- Dependencies: 292
 -- Data for Name: head; Type: TABLE DATA; Schema: picklist; Owner: postgres
 --
@@ -26104,16 +26330,16 @@ SET search_path = picklist, pg_catalog;
 
 
 --
--- TOC entry 3916 (class 0 OID 0)
+-- TOC entry 3922 (class 0 OID 0)
 -- Dependencies: 293
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: picklist; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 30, true);
+SELECT pg_catalog.setval('head_id_seq', 63, true);
 
 
 --
--- TOC entry 3851 (class 0 OID 107366)
+-- TOC entry 3857 (class 0 OID 107366)
 -- Dependencies: 294
 -- Data for Name: numerator; Type: TABLE DATA; Schema: picklist; Owner: postgres
 --
@@ -26123,7 +26349,7 @@ SELECT pg_catalog.setval('head_id_seq', 30, true);
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 3852 (class 0 OID 107378)
+-- TOC entry 3858 (class 0 OID 107378)
 -- Dependencies: 296
 -- Data for Name: body; Type: TABLE DATA; Schema: rebound; Owner: postgres
 --
@@ -26131,7 +26357,7 @@ SET search_path = rebound, pg_catalog;
 
 
 --
--- TOC entry 3853 (class 0 OID 107384)
+-- TOC entry 3859 (class 0 OID 107384)
 -- Dependencies: 297
 -- Data for Name: head; Type: TABLE DATA; Schema: rebound; Owner: postgres
 --
@@ -26139,16 +26365,16 @@ SET search_path = rebound, pg_catalog;
 
 
 --
--- TOC entry 3917 (class 0 OID 0)
+-- TOC entry 3923 (class 0 OID 0)
 -- Dependencies: 298
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: rebound; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 20, true);
+SELECT pg_catalog.setval('head_id_seq', 42, true);
 
 
 --
--- TOC entry 3855 (class 0 OID 107397)
+-- TOC entry 3861 (class 0 OID 107397)
 -- Dependencies: 299
 -- Data for Name: numerator; Type: TABLE DATA; Schema: rebound; Owner: postgres
 --
@@ -26158,7 +26384,7 @@ SELECT pg_catalog.setval('head_id_seq', 20, true);
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 3856 (class 0 OID 107404)
+-- TOC entry 3862 (class 0 OID 107404)
 -- Dependencies: 300
 -- Data for Name: body; Type: TABLE DATA; Schema: receipt; Owner: postgres
 --
@@ -26166,7 +26392,7 @@ SET search_path = receipt, pg_catalog;
 
 
 --
--- TOC entry 3857 (class 0 OID 107410)
+-- TOC entry 3863 (class 0 OID 107410)
 -- Dependencies: 301
 -- Data for Name: head; Type: TABLE DATA; Schema: receipt; Owner: postgres
 --
@@ -26174,16 +26400,16 @@ SET search_path = receipt, pg_catalog;
 
 
 --
--- TOC entry 3918 (class 0 OID 0)
+-- TOC entry 3924 (class 0 OID 0)
 -- Dependencies: 302
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: receipt; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 20, true);
+SELECT pg_catalog.setval('head_id_seq', 42, true);
 
 
 --
--- TOC entry 3859 (class 0 OID 107423)
+-- TOC entry 3865 (class 0 OID 107423)
 -- Dependencies: 303
 -- Data for Name: numerator; Type: TABLE DATA; Schema: receipt; Owner: postgres
 --
@@ -26193,7 +26419,7 @@ SELECT pg_catalog.setval('head_id_seq', 20, true);
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 3860 (class 0 OID 107430)
+-- TOC entry 3866 (class 0 OID 107430)
 -- Dependencies: 304
 -- Data for Name: body; Type: TABLE DATA; Schema: reserve; Owner: postgres
 --
@@ -26201,7 +26427,7 @@ SET search_path = reserve, pg_catalog;
 
 
 --
--- TOC entry 3861 (class 0 OID 107436)
+-- TOC entry 3867 (class 0 OID 107436)
 -- Dependencies: 305
 -- Data for Name: head; Type: TABLE DATA; Schema: reserve; Owner: postgres
 --
@@ -26209,16 +26435,16 @@ SET search_path = reserve, pg_catalog;
 
 
 --
--- TOC entry 3919 (class 0 OID 0)
+-- TOC entry 3925 (class 0 OID 0)
 -- Dependencies: 306
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: reserve; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 30, true);
+SELECT pg_catalog.setval('head_id_seq', 63, true);
 
 
 --
--- TOC entry 3863 (class 0 OID 107450)
+-- TOC entry 3869 (class 0 OID 107450)
 -- Dependencies: 307
 -- Data for Name: numerator; Type: TABLE DATA; Schema: reserve; Owner: postgres
 --
@@ -26228,7 +26454,7 @@ SELECT pg_catalog.setval('head_id_seq', 30, true);
 SET search_path = schedule, pg_catalog;
 
 --
--- TOC entry 3864 (class 0 OID 107457)
+-- TOC entry 3870 (class 0 OID 107457)
 -- Dependencies: 308
 -- Data for Name: calendar; Type: TABLE DATA; Schema: schedule; Owner: postgres
 --
@@ -26238,7 +26464,7 @@ SET search_path = schedule, pg_catalog;
 SET search_path = stockcard, pg_catalog;
 
 --
--- TOC entry 3865 (class 0 OID 107460)
+-- TOC entry 3871 (class 0 OID 107460)
 -- Dependencies: 309
 -- Data for Name: head; Type: TABLE DATA; Schema: stockcard; Owner: postgres
 --
@@ -26248,7 +26474,7 @@ SET search_path = stockcard, pg_catalog;
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 3866 (class 0 OID 107467)
+-- TOC entry 3872 (class 0 OID 107467)
 -- Dependencies: 310
 -- Data for Name: body; Type: TABLE DATA; Schema: stocktake; Owner: postgres
 --
@@ -26256,7 +26482,7 @@ SET search_path = stocktake, pg_catalog;
 
 
 --
--- TOC entry 3867 (class 0 OID 107473)
+-- TOC entry 3873 (class 0 OID 107473)
 -- Dependencies: 311
 -- Data for Name: head; Type: TABLE DATA; Schema: stocktake; Owner: postgres
 --
@@ -26264,16 +26490,16 @@ SET search_path = stocktake, pg_catalog;
 
 
 --
--- TOC entry 3920 (class 0 OID 0)
+-- TOC entry 3926 (class 0 OID 0)
 -- Dependencies: 312
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: stocktake; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 20, true);
+SELECT pg_catalog.setval('head_id_seq', 42, true);
 
 
 --
--- TOC entry 3869 (class 0 OID 107485)
+-- TOC entry 3875 (class 0 OID 107485)
 -- Dependencies: 313
 -- Data for Name: numerator; Type: TABLE DATA; Schema: stocktake; Owner: postgres
 --
@@ -26283,7 +26509,7 @@ SELECT pg_catalog.setval('head_id_seq', 20, true);
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 3312 (class 2606 OID 107523)
+-- TOC entry 3318 (class 2606 OID 107523)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -26292,7 +26518,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3314 (class 2606 OID 107525)
+-- TOC entry 3320 (class 2606 OID 107525)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -26301,7 +26527,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3316 (class 2606 OID 107527)
+-- TOC entry 3322 (class 2606 OID 107527)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -26310,7 +26536,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3318 (class 2606 OID 107529)
+-- TOC entry 3324 (class 2606 OID 107529)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -26321,7 +26547,7 @@ ALTER TABLE ONLY numerator
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 3320 (class 2606 OID 107531)
+-- TOC entry 3326 (class 2606 OID 107531)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -26330,7 +26556,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3322 (class 2606 OID 107533)
+-- TOC entry 3328 (class 2606 OID 107533)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -26339,7 +26565,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3324 (class 2606 OID 107535)
+-- TOC entry 3330 (class 2606 OID 107535)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -26348,7 +26574,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3326 (class 2606 OID 107537)
+-- TOC entry 3332 (class 2606 OID 107537)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -26359,7 +26585,7 @@ ALTER TABLE ONLY numerator
 SET search_path = balance, pg_catalog;
 
 --
--- TOC entry 3328 (class 2606 OID 107539)
+-- TOC entry 3334 (class 2606 OID 107539)
 -- Name: balance_pkey; Type: CONSTRAINT; Schema: balance; Owner: postgres
 --
 
@@ -26370,7 +26596,7 @@ ALTER TABLE ONLY balance
 SET search_path = binding, pg_catalog;
 
 --
--- TOC entry 3330 (class 2606 OID 107541)
+-- TOC entry 3336 (class 2606 OID 107541)
 -- Name: cutoff_to_adjustmentcredit_adjustmentcredit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26379,7 +26605,7 @@ ALTER TABLE ONLY cutoff_to_adjustmentcredit
 
 
 --
--- TOC entry 3332 (class 2606 OID 107543)
+-- TOC entry 3338 (class 2606 OID 107543)
 -- Name: cutoff_to_adjustmentcredit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26388,7 +26614,7 @@ ALTER TABLE ONLY cutoff_to_adjustmentcredit
 
 
 --
--- TOC entry 3334 (class 2606 OID 107545)
+-- TOC entry 3340 (class 2606 OID 107545)
 -- Name: cutoff_to_adjustmentdebit_adjustmentdebit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26397,7 +26623,7 @@ ALTER TABLE ONLY cutoff_to_adjustmentdebit
 
 
 --
--- TOC entry 3336 (class 2606 OID 107547)
+-- TOC entry 3342 (class 2606 OID 107547)
 -- Name: cutoff_to_adjustmentdebit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26406,7 +26632,7 @@ ALTER TABLE ONLY cutoff_to_adjustmentdebit
 
 
 --
--- TOC entry 3338 (class 2606 OID 107549)
+-- TOC entry 3344 (class 2606 OID 107549)
 -- Name: cutoff_to_delivery_delivery_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26415,7 +26641,7 @@ ALTER TABLE ONLY cutoff_to_delivery
 
 
 --
--- TOC entry 3340 (class 2606 OID 107551)
+-- TOC entry 3346 (class 2606 OID 107551)
 -- Name: cutoff_to_delivery_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26424,7 +26650,7 @@ ALTER TABLE ONLY cutoff_to_delivery
 
 
 --
--- TOC entry 3342 (class 2606 OID 107553)
+-- TOC entry 3348 (class 2606 OID 107553)
 -- Name: cutoff_to_demand_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26433,7 +26659,7 @@ ALTER TABLE ONLY cutoff_to_demand
 
 
 --
--- TOC entry 3344 (class 2606 OID 107555)
+-- TOC entry 3350 (class 2606 OID 107555)
 -- Name: cutoff_to_demand_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26442,7 +26668,7 @@ ALTER TABLE ONLY cutoff_to_demand
 
 
 --
--- TOC entry 3346 (class 2606 OID 107557)
+-- TOC entry 3352 (class 2606 OID 107557)
 -- Name: cutoff_to_despatch_despatch_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26451,7 +26677,7 @@ ALTER TABLE ONLY cutoff_to_despatch
 
 
 --
--- TOC entry 3348 (class 2606 OID 107559)
+-- TOC entry 3354 (class 2606 OID 107559)
 -- Name: cutoff_to_despatch_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26460,7 +26686,7 @@ ALTER TABLE ONLY cutoff_to_despatch
 
 
 --
--- TOC entry 3350 (class 2606 OID 107561)
+-- TOC entry 3356 (class 2606 OID 107561)
 -- Name: cutoff_to_goal_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26469,7 +26695,7 @@ ALTER TABLE ONLY cutoff_to_goal
 
 
 --
--- TOC entry 3352 (class 2606 OID 107563)
+-- TOC entry 3358 (class 2606 OID 107563)
 -- Name: cutoff_to_goal_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26478,7 +26704,7 @@ ALTER TABLE ONLY cutoff_to_goal
 
 
 --
--- TOC entry 3354 (class 2606 OID 107565)
+-- TOC entry 3360 (class 2606 OID 107565)
 -- Name: cutoff_to_issue_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26487,7 +26713,7 @@ ALTER TABLE ONLY cutoff_to_issue
 
 
 --
--- TOC entry 3356 (class 2606 OID 107567)
+-- TOC entry 3362 (class 2606 OID 107567)
 -- Name: cutoff_to_issue_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26496,7 +26722,7 @@ ALTER TABLE ONLY cutoff_to_issue
 
 
 --
--- TOC entry 3358 (class 2606 OID 107569)
+-- TOC entry 3364 (class 2606 OID 107569)
 -- Name: cutoff_to_picklist_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26505,7 +26731,7 @@ ALTER TABLE ONLY cutoff_to_picklist
 
 
 --
--- TOC entry 3360 (class 2606 OID 107571)
+-- TOC entry 3366 (class 2606 OID 107571)
 -- Name: cutoff_to_picklist_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26514,7 +26740,7 @@ ALTER TABLE ONLY cutoff_to_picklist
 
 
 --
--- TOC entry 3362 (class 2606 OID 107573)
+-- TOC entry 3368 (class 2606 OID 107573)
 -- Name: cutoff_to_rebound_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26523,7 +26749,7 @@ ALTER TABLE ONLY cutoff_to_rebound
 
 
 --
--- TOC entry 3364 (class 2606 OID 107575)
+-- TOC entry 3370 (class 2606 OID 107575)
 -- Name: cutoff_to_rebound_rebound_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26532,7 +26758,7 @@ ALTER TABLE ONLY cutoff_to_rebound
 
 
 --
--- TOC entry 3366 (class 2606 OID 107577)
+-- TOC entry 3372 (class 2606 OID 107577)
 -- Name: cutoff_to_receipt_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26541,7 +26767,7 @@ ALTER TABLE ONLY cutoff_to_receipt
 
 
 --
--- TOC entry 3368 (class 2606 OID 107579)
+-- TOC entry 3374 (class 2606 OID 107579)
 -- Name: cutoff_to_receipt_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26550,7 +26776,7 @@ ALTER TABLE ONLY cutoff_to_receipt
 
 
 --
--- TOC entry 3370 (class 2606 OID 107581)
+-- TOC entry 3376 (class 2606 OID 107581)
 -- Name: cutoff_to_reserve_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26559,7 +26785,7 @@ ALTER TABLE ONLY cutoff_to_reserve
 
 
 --
--- TOC entry 3372 (class 2606 OID 107583)
+-- TOC entry 3378 (class 2606 OID 107583)
 -- Name: cutoff_to_reserve_reserve_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26568,7 +26794,7 @@ ALTER TABLE ONLY cutoff_to_reserve
 
 
 --
--- TOC entry 3374 (class 2606 OID 107585)
+-- TOC entry 3380 (class 2606 OID 107585)
 -- Name: cutoff_to_stocktake_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26577,7 +26803,7 @@ ALTER TABLE ONLY cutoff_to_stocktake
 
 
 --
--- TOC entry 3376 (class 2606 OID 107587)
+-- TOC entry 3382 (class 2606 OID 107587)
 -- Name: cutoff_to_stocktake_stocktake_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26586,7 +26812,7 @@ ALTER TABLE ONLY cutoff_to_stocktake
 
 
 --
--- TOC entry 3378 (class 2606 OID 107589)
+-- TOC entry 3384 (class 2606 OID 107589)
 -- Name: delivery_to_receipt_delivery_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26595,7 +26821,7 @@ ALTER TABLE ONLY delivery_to_receipt
 
 
 --
--- TOC entry 3380 (class 2606 OID 107591)
+-- TOC entry 3386 (class 2606 OID 107591)
 -- Name: delivery_to_receipt_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26604,7 +26830,7 @@ ALTER TABLE ONLY delivery_to_receipt
 
 
 --
--- TOC entry 3382 (class 2606 OID 107593)
+-- TOC entry 3388 (class 2606 OID 107593)
 -- Name: delivery_to_receipt_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26613,7 +26839,7 @@ ALTER TABLE ONLY delivery_to_receipt
 
 
 --
--- TOC entry 3384 (class 2606 OID 107595)
+-- TOC entry 3390 (class 2606 OID 107595)
 -- Name: demand_to_picklist_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26622,7 +26848,7 @@ ALTER TABLE ONLY demand_to_picklist
 
 
 --
--- TOC entry 3386 (class 2606 OID 107597)
+-- TOC entry 3392 (class 2606 OID 107597)
 -- Name: demand_to_picklist_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26631,7 +26857,7 @@ ALTER TABLE ONLY demand_to_picklist
 
 
 --
--- TOC entry 3388 (class 2606 OID 107599)
+-- TOC entry 3394 (class 2606 OID 107599)
 -- Name: demand_to_picklist_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26640,7 +26866,7 @@ ALTER TABLE ONLY demand_to_picklist
 
 
 --
--- TOC entry 3390 (class 2606 OID 107601)
+-- TOC entry 3396 (class 2606 OID 107601)
 -- Name: demand_to_reserve_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26649,7 +26875,7 @@ ALTER TABLE ONLY demand_to_reserve
 
 
 --
--- TOC entry 3392 (class 2606 OID 107603)
+-- TOC entry 3398 (class 2606 OID 107603)
 -- Name: demand_to_reserve_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26658,7 +26884,7 @@ ALTER TABLE ONLY demand_to_reserve
 
 
 --
--- TOC entry 3394 (class 2606 OID 107605)
+-- TOC entry 3400 (class 2606 OID 107605)
 -- Name: demand_to_reserve_reserve_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26667,7 +26893,7 @@ ALTER TABLE ONLY demand_to_reserve
 
 
 --
--- TOC entry 3396 (class 2606 OID 107607)
+-- TOC entry 3402 (class 2606 OID 107607)
 -- Name: goal_to_demand_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26676,7 +26902,7 @@ ALTER TABLE ONLY goal_to_demand
 
 
 --
--- TOC entry 3398 (class 2606 OID 107609)
+-- TOC entry 3404 (class 2606 OID 107609)
 -- Name: goal_to_demand_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26685,7 +26911,7 @@ ALTER TABLE ONLY goal_to_demand
 
 
 --
--- TOC entry 3400 (class 2606 OID 107611)
+-- TOC entry 3406 (class 2606 OID 107611)
 -- Name: goal_to_demand_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26694,7 +26920,7 @@ ALTER TABLE ONLY goal_to_demand
 
 
 --
--- TOC entry 3402 (class 2606 OID 107613)
+-- TOC entry 3408 (class 2606 OID 107613)
 -- Name: goal_to_despatch_despatch_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26703,7 +26929,7 @@ ALTER TABLE ONLY goal_to_despatch
 
 
 --
--- TOC entry 3404 (class 2606 OID 107615)
+-- TOC entry 3410 (class 2606 OID 107615)
 -- Name: goal_to_despatch_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26712,7 +26938,7 @@ ALTER TABLE ONLY goal_to_despatch
 
 
 --
--- TOC entry 3406 (class 2606 OID 107617)
+-- TOC entry 3412 (class 2606 OID 107617)
 -- Name: goal_to_despatch_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26721,7 +26947,7 @@ ALTER TABLE ONLY goal_to_despatch
 
 
 --
--- TOC entry 3408 (class 2606 OID 107619)
+-- TOC entry 3414 (class 2606 OID 107619)
 -- Name: goal_to_issue_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26730,7 +26956,7 @@ ALTER TABLE ONLY goal_to_issue
 
 
 --
--- TOC entry 3410 (class 2606 OID 107621)
+-- TOC entry 3416 (class 2606 OID 107621)
 -- Name: goal_to_issue_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26739,7 +26965,7 @@ ALTER TABLE ONLY goal_to_issue
 
 
 --
--- TOC entry 3412 (class 2606 OID 107623)
+-- TOC entry 3418 (class 2606 OID 107623)
 -- Name: goal_to_issue_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26748,7 +26974,7 @@ ALTER TABLE ONLY goal_to_issue
 
 
 --
--- TOC entry 3414 (class 2606 OID 107625)
+-- TOC entry 3420 (class 2606 OID 107625)
 -- Name: goal_to_picklist_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26757,7 +26983,7 @@ ALTER TABLE ONLY goal_to_picklist
 
 
 --
--- TOC entry 3416 (class 2606 OID 107627)
+-- TOC entry 3422 (class 2606 OID 107627)
 -- Name: goal_to_picklist_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26766,7 +26992,7 @@ ALTER TABLE ONLY goal_to_picklist
 
 
 --
--- TOC entry 3418 (class 2606 OID 107629)
+-- TOC entry 3424 (class 2606 OID 107629)
 -- Name: goal_to_picklist_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26775,7 +27001,7 @@ ALTER TABLE ONLY goal_to_picklist
 
 
 --
--- TOC entry 3420 (class 2606 OID 107631)
+-- TOC entry 3426 (class 2606 OID 107631)
 -- Name: goal_to_reserve_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26784,7 +27010,7 @@ ALTER TABLE ONLY goal_to_reserve
 
 
 --
--- TOC entry 3422 (class 2606 OID 107633)
+-- TOC entry 3428 (class 2606 OID 107633)
 -- Name: goal_to_reserve_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26793,7 +27019,7 @@ ALTER TABLE ONLY goal_to_reserve
 
 
 --
--- TOC entry 3424 (class 2606 OID 107635)
+-- TOC entry 3430 (class 2606 OID 107635)
 -- Name: goal_to_reserve_reserve_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26802,7 +27028,7 @@ ALTER TABLE ONLY goal_to_reserve
 
 
 --
--- TOC entry 3426 (class 2606 OID 107637)
+-- TOC entry 3432 (class 2606 OID 107637)
 -- Name: issue_to_adjustmentcredit_adjustmentcredit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26811,7 +27037,7 @@ ALTER TABLE ONLY issue_to_adjustmentcredit
 
 
 --
--- TOC entry 3428 (class 2606 OID 107639)
+-- TOC entry 3434 (class 2606 OID 107639)
 -- Name: issue_to_adjustmentcredit_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26820,7 +27046,7 @@ ALTER TABLE ONLY issue_to_adjustmentcredit
 
 
 --
--- TOC entry 3430 (class 2606 OID 107641)
+-- TOC entry 3436 (class 2606 OID 107641)
 -- Name: issue_to_adjustmentcredit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26829,7 +27055,7 @@ ALTER TABLE ONLY issue_to_adjustmentcredit
 
 
 --
--- TOC entry 3432 (class 2606 OID 107643)
+-- TOC entry 3438 (class 2606 OID 107643)
 -- Name: issue_to_despatch_despatch_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26838,7 +27064,7 @@ ALTER TABLE ONLY issue_to_despatch
 
 
 --
--- TOC entry 3434 (class 2606 OID 107645)
+-- TOC entry 3440 (class 2606 OID 107645)
 -- Name: issue_to_despatch_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26847,7 +27073,7 @@ ALTER TABLE ONLY issue_to_despatch
 
 
 --
--- TOC entry 3436 (class 2606 OID 107647)
+-- TOC entry 3442 (class 2606 OID 107647)
 -- Name: issue_to_despatch_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26856,7 +27082,7 @@ ALTER TABLE ONLY issue_to_despatch
 
 
 --
--- TOC entry 3438 (class 2606 OID 107649)
+-- TOC entry 3444 (class 2606 OID 107649)
 -- Name: issue_to_rebound_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26865,7 +27091,7 @@ ALTER TABLE ONLY issue_to_rebound
 
 
 --
--- TOC entry 3440 (class 2606 OID 107651)
+-- TOC entry 3446 (class 2606 OID 107651)
 -- Name: issue_to_rebound_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26874,7 +27100,7 @@ ALTER TABLE ONLY issue_to_rebound
 
 
 --
--- TOC entry 3442 (class 2606 OID 107653)
+-- TOC entry 3448 (class 2606 OID 107653)
 -- Name: issue_to_rebound_rebound_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26883,7 +27109,7 @@ ALTER TABLE ONLY issue_to_rebound
 
 
 --
--- TOC entry 3444 (class 2606 OID 107655)
+-- TOC entry 3450 (class 2606 OID 107655)
 -- Name: picklist_to_issue_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26892,7 +27118,7 @@ ALTER TABLE ONLY picklist_to_issue
 
 
 --
--- TOC entry 3446 (class 2606 OID 107657)
+-- TOC entry 3452 (class 2606 OID 107657)
 -- Name: picklist_to_issue_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26901,7 +27127,7 @@ ALTER TABLE ONLY picklist_to_issue
 
 
 --
--- TOC entry 3448 (class 2606 OID 107659)
+-- TOC entry 3454 (class 2606 OID 107659)
 -- Name: picklist_to_issue_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26910,7 +27136,7 @@ ALTER TABLE ONLY picklist_to_issue
 
 
 --
--- TOC entry 3450 (class 2606 OID 107661)
+-- TOC entry 3456 (class 2606 OID 107661)
 -- Name: receipt_to_adjustmentdebit_adjustmentdebit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26919,7 +27145,7 @@ ALTER TABLE ONLY receipt_to_adjustmentdebit
 
 
 --
--- TOC entry 3452 (class 2606 OID 107663)
+-- TOC entry 3458 (class 2606 OID 107663)
 -- Name: receipt_to_adjustmentdebit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26928,7 +27154,7 @@ ALTER TABLE ONLY receipt_to_adjustmentdebit
 
 
 --
--- TOC entry 3454 (class 2606 OID 107665)
+-- TOC entry 3460 (class 2606 OID 107665)
 -- Name: receipt_to_adjustmentdebit_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26937,7 +27163,7 @@ ALTER TABLE ONLY receipt_to_adjustmentdebit
 
 
 --
--- TOC entry 3456 (class 2606 OID 107667)
+-- TOC entry 3462 (class 2606 OID 107667)
 -- Name: receipt_to_rebound_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26946,7 +27172,7 @@ ALTER TABLE ONLY receipt_to_rebound
 
 
 --
--- TOC entry 3458 (class 2606 OID 107669)
+-- TOC entry 3464 (class 2606 OID 107669)
 -- Name: receipt_to_rebound_rebound_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26955,7 +27181,7 @@ ALTER TABLE ONLY receipt_to_rebound
 
 
 --
--- TOC entry 3460 (class 2606 OID 107671)
+-- TOC entry 3466 (class 2606 OID 107671)
 -- Name: receipt_to_rebound_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -26966,7 +27192,7 @@ ALTER TABLE ONLY receipt_to_rebound
 SET search_path = common, pg_catalog;
 
 --
--- TOC entry 3462 (class 2606 OID 107673)
+-- TOC entry 3468 (class 2606 OID 107673)
 -- Name: cutoff_policy_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
@@ -26975,7 +27201,7 @@ ALTER TABLE ONLY cutoff_policy
 
 
 --
--- TOC entry 3464 (class 2606 OID 107675)
+-- TOC entry 3470 (class 2606 OID 107675)
 -- Name: document_abbrevation_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
@@ -26984,7 +27210,7 @@ ALTER TABLE ONLY document_abbrevation
 
 
 --
--- TOC entry 3466 (class 2606 OID 107677)
+-- TOC entry 3472 (class 2606 OID 107677)
 -- Name: exception_code_condition_name_key; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
@@ -26993,7 +27219,7 @@ ALTER TABLE ONLY exception_code
 
 
 --
--- TOC entry 3468 (class 2606 OID 107679)
+-- TOC entry 3474 (class 2606 OID 107679)
 -- Name: exception_code_errcode_key; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
@@ -27002,7 +27228,7 @@ ALTER TABLE ONLY exception_code
 
 
 --
--- TOC entry 3470 (class 2606 OID 107681)
+-- TOC entry 3476 (class 2606 OID 107681)
 -- Name: exception_code_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
@@ -27011,7 +27237,7 @@ ALTER TABLE ONLY exception_code
 
 
 --
--- TOC entry 3472 (class 2606 OID 107683)
+-- TOC entry 3478 (class 2606 OID 107683)
 -- Name: stocktake_policy_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
@@ -27022,7 +27248,7 @@ ALTER TABLE ONLY stocktake_policy
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 3474 (class 2606 OID 107685)
+-- TOC entry 3480 (class 2606 OID 107685)
 -- Name: blocker_pkey; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
 --
 
@@ -27031,7 +27257,7 @@ ALTER TABLE ONLY blocker
 
 
 --
--- TOC entry 3476 (class 2606 OID 107687)
+-- TOC entry 3482 (class 2606 OID 107687)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
 --
 
@@ -27040,7 +27266,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3478 (class 2606 OID 107689)
+-- TOC entry 3484 (class 2606 OID 107689)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
 --
 
@@ -27049,7 +27275,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3480 (class 2606 OID 107691)
+-- TOC entry 3486 (class 2606 OID 107691)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
 --
 
@@ -27060,7 +27286,7 @@ ALTER TABLE ONLY numerator
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 3482 (class 2606 OID 107693)
+-- TOC entry 3488 (class 2606 OID 107693)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: delivery; Owner: postgres
 --
 
@@ -27069,7 +27295,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3484 (class 2606 OID 107695)
+-- TOC entry 3490 (class 2606 OID 107695)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: delivery; Owner: postgres
 --
 
@@ -27078,7 +27304,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3486 (class 2606 OID 107697)
+-- TOC entry 3492 (class 2606 OID 107697)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: delivery; Owner: postgres
 --
 
@@ -27087,7 +27313,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3488 (class 2606 OID 107699)
+-- TOC entry 3494 (class 2606 OID 107699)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: delivery; Owner: postgres
 --
 
@@ -27098,7 +27324,7 @@ ALTER TABLE ONLY numerator
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 3490 (class 2606 OID 107701)
+-- TOC entry 3496 (class 2606 OID 107701)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: demand; Owner: postgres
 --
 
@@ -27107,7 +27333,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3492 (class 2606 OID 107703)
+-- TOC entry 3498 (class 2606 OID 107703)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: demand; Owner: postgres
 --
 
@@ -27116,7 +27342,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3494 (class 2606 OID 107705)
+-- TOC entry 3500 (class 2606 OID 107705)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: demand; Owner: postgres
 --
 
@@ -27125,7 +27351,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3496 (class 2606 OID 107707)
+-- TOC entry 3502 (class 2606 OID 107707)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: demand; Owner: postgres
 --
 
@@ -27136,7 +27362,7 @@ ALTER TABLE ONLY numerator
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 3498 (class 2606 OID 107709)
+-- TOC entry 3504 (class 2606 OID 107709)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: despatch; Owner: postgres
 --
 
@@ -27145,7 +27371,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3500 (class 2606 OID 107711)
+-- TOC entry 3506 (class 2606 OID 107711)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: despatch; Owner: postgres
 --
 
@@ -27154,7 +27380,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3502 (class 2606 OID 107713)
+-- TOC entry 3508 (class 2606 OID 107713)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: despatch; Owner: postgres
 --
 
@@ -27163,7 +27389,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3504 (class 2606 OID 107715)
+-- TOC entry 3510 (class 2606 OID 107715)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: despatch; Owner: postgres
 --
 
@@ -27174,7 +27400,7 @@ ALTER TABLE ONLY numerator
 SET search_path = goal, pg_catalog;
 
 --
--- TOC entry 3506 (class 2606 OID 107717)
+-- TOC entry 3512 (class 2606 OID 107717)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: goal; Owner: postgres
 --
 
@@ -27183,7 +27409,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3508 (class 2606 OID 107719)
+-- TOC entry 3514 (class 2606 OID 107719)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: goal; Owner: postgres
 --
 
@@ -27192,7 +27418,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3510 (class 2606 OID 107721)
+-- TOC entry 3516 (class 2606 OID 107721)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: goal; Owner: postgres
 --
 
@@ -27203,7 +27429,7 @@ ALTER TABLE ONLY numerator
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 3512 (class 2606 OID 107723)
+-- TOC entry 3518 (class 2606 OID 107723)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: issue; Owner: postgres
 --
 
@@ -27212,7 +27438,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3514 (class 2606 OID 107725)
+-- TOC entry 3520 (class 2606 OID 107725)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: issue; Owner: postgres
 --
 
@@ -27221,7 +27447,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3516 (class 2606 OID 107727)
+-- TOC entry 3522 (class 2606 OID 107727)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: issue; Owner: postgres
 --
 
@@ -27230,7 +27456,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3518 (class 2606 OID 107729)
+-- TOC entry 3524 (class 2606 OID 107729)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: issue; Owner: postgres
 --
 
@@ -27241,7 +27467,7 @@ ALTER TABLE ONLY numerator
 SET search_path = lot, pg_catalog;
 
 --
--- TOC entry 3520 (class 2606 OID 107731)
+-- TOC entry 3526 (class 2606 OID 107731)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: lot; Owner: postgres
 --
 
@@ -27252,7 +27478,7 @@ ALTER TABLE ONLY head
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 3522 (class 2606 OID 107733)
+-- TOC entry 3528 (class 2606 OID 107733)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: picklist; Owner: postgres
 --
 
@@ -27261,7 +27487,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3524 (class 2606 OID 107735)
+-- TOC entry 3530 (class 2606 OID 107735)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: picklist; Owner: postgres
 --
 
@@ -27270,7 +27496,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3526 (class 2606 OID 107737)
+-- TOC entry 3532 (class 2606 OID 107737)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: picklist; Owner: postgres
 --
 
@@ -27279,7 +27505,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3528 (class 2606 OID 107739)
+-- TOC entry 3534 (class 2606 OID 107739)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: picklist; Owner: postgres
 --
 
@@ -27290,7 +27516,7 @@ ALTER TABLE ONLY numerator
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 3530 (class 2606 OID 107741)
+-- TOC entry 3536 (class 2606 OID 107741)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: rebound; Owner: postgres
 --
 
@@ -27299,7 +27525,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3532 (class 2606 OID 107743)
+-- TOC entry 3538 (class 2606 OID 107743)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: rebound; Owner: postgres
 --
 
@@ -27308,7 +27534,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3534 (class 2606 OID 107745)
+-- TOC entry 3540 (class 2606 OID 107745)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: rebound; Owner: postgres
 --
 
@@ -27317,7 +27543,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3536 (class 2606 OID 107747)
+-- TOC entry 3542 (class 2606 OID 107747)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: rebound; Owner: postgres
 --
 
@@ -27328,7 +27554,7 @@ ALTER TABLE ONLY numerator
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 3538 (class 2606 OID 107749)
+-- TOC entry 3544 (class 2606 OID 107749)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: receipt; Owner: postgres
 --
 
@@ -27337,7 +27563,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3540 (class 2606 OID 107751)
+-- TOC entry 3546 (class 2606 OID 107751)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: receipt; Owner: postgres
 --
 
@@ -27346,7 +27572,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3542 (class 2606 OID 107753)
+-- TOC entry 3548 (class 2606 OID 107753)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: receipt; Owner: postgres
 --
 
@@ -27355,7 +27581,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3544 (class 2606 OID 107755)
+-- TOC entry 3550 (class 2606 OID 107755)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: receipt; Owner: postgres
 --
 
@@ -27366,7 +27592,7 @@ ALTER TABLE ONLY numerator
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 3546 (class 2606 OID 107757)
+-- TOC entry 3552 (class 2606 OID 107757)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: reserve; Owner: postgres
 --
 
@@ -27375,7 +27601,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3548 (class 2606 OID 107759)
+-- TOC entry 3554 (class 2606 OID 107759)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: reserve; Owner: postgres
 --
 
@@ -27384,7 +27610,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3550 (class 2606 OID 107761)
+-- TOC entry 3556 (class 2606 OID 107761)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: reserve; Owner: postgres
 --
 
@@ -27393,7 +27619,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3552 (class 2606 OID 107763)
+-- TOC entry 3558 (class 2606 OID 107763)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: reserve; Owner: postgres
 --
 
@@ -27404,7 +27630,7 @@ ALTER TABLE ONLY numerator
 SET search_path = schedule, pg_catalog;
 
 --
--- TOC entry 3554 (class 2606 OID 107765)
+-- TOC entry 3560 (class 2606 OID 107765)
 -- Name: calendar_pkey; Type: CONSTRAINT; Schema: schedule; Owner: postgres
 --
 
@@ -27415,7 +27641,7 @@ ALTER TABLE ONLY calendar
 SET search_path = stockcard, pg_catalog;
 
 --
--- TOC entry 3557 (class 2606 OID 107767)
+-- TOC entry 3563 (class 2606 OID 107767)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: stockcard; Owner: postgres
 --
 
@@ -27426,7 +27652,7 @@ ALTER TABLE ONLY head
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 3559 (class 2606 OID 107769)
+-- TOC entry 3565 (class 2606 OID 107769)
 -- Name: body_pkey; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
 --
 
@@ -27435,7 +27661,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3561 (class 2606 OID 107771)
+-- TOC entry 3567 (class 2606 OID 107771)
 -- Name: head_gid_key; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
 --
 
@@ -27444,7 +27670,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3563 (class 2606 OID 107773)
+-- TOC entry 3569 (class 2606 OID 107773)
 -- Name: head_pkey; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
 --
 
@@ -27453,7 +27679,7 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 3565 (class 2606 OID 107775)
+-- TOC entry 3571 (class 2606 OID 107775)
 -- Name: numerator_pkey; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
 --
 
@@ -27464,7 +27690,7 @@ ALTER TABLE ONLY numerator
 SET search_path = stockcard, pg_catalog;
 
 --
--- TOC entry 3555 (class 1259 OID 107776)
+-- TOC entry 3561 (class 1259 OID 107776)
 -- Name: head_document_kind_facility_code_good_code_idx; Type: INDEX; Schema: stockcard; Owner: postgres
 --
 
@@ -27474,7 +27700,7 @@ CREATE INDEX head_document_kind_facility_code_good_code_idx ON head USING btree 
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 3630 (class 2620 OID 107777)
+-- TOC entry 3636 (class 2620 OID 107777)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -27482,7 +27708,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3631 (class 2620 OID 107778)
+-- TOC entry 3637 (class 2620 OID 107778)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -27490,7 +27716,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3632 (class 2620 OID 107779)
+-- TOC entry 3638 (class 2620 OID 107779)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -27500,7 +27726,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 3633 (class 2620 OID 107780)
+-- TOC entry 3639 (class 2620 OID 107780)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -27508,7 +27734,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3634 (class 2620 OID 107781)
+-- TOC entry 3640 (class 2620 OID 107781)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -27516,7 +27742,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3635 (class 2620 OID 107782)
+-- TOC entry 3641 (class 2620 OID 107782)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -27526,7 +27752,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 3636 (class 2620 OID 107783)
+-- TOC entry 3642 (class 2620 OID 107783)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: cutoff; Owner: postgres
 --
 
@@ -27536,7 +27762,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 3637 (class 2620 OID 107784)
+-- TOC entry 3643 (class 2620 OID 107784)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: delivery; Owner: postgres
 --
 
@@ -27544,7 +27770,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3638 (class 2620 OID 107785)
+-- TOC entry 3644 (class 2620 OID 107785)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: delivery; Owner: postgres
 --
 
@@ -27552,7 +27778,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3639 (class 2620 OID 107786)
+-- TOC entry 3645 (class 2620 OID 107786)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: delivery; Owner: postgres
 --
 
@@ -27562,7 +27788,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 3640 (class 2620 OID 107787)
+-- TOC entry 3646 (class 2620 OID 107787)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: demand; Owner: postgres
 --
 
@@ -27570,7 +27796,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3641 (class 2620 OID 107788)
+-- TOC entry 3647 (class 2620 OID 107788)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: demand; Owner: postgres
 --
 
@@ -27578,7 +27804,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3642 (class 2620 OID 107789)
+-- TOC entry 3648 (class 2620 OID 107789)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: demand; Owner: postgres
 --
 
@@ -27588,7 +27814,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 3643 (class 2620 OID 107790)
+-- TOC entry 3649 (class 2620 OID 107790)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: despatch; Owner: postgres
 --
 
@@ -27596,7 +27822,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3644 (class 2620 OID 107791)
+-- TOC entry 3650 (class 2620 OID 107791)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: despatch; Owner: postgres
 --
 
@@ -27604,7 +27830,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3645 (class 2620 OID 107792)
+-- TOC entry 3651 (class 2620 OID 107792)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: despatch; Owner: postgres
 --
 
@@ -27614,7 +27840,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = goal, pg_catalog;
 
 --
--- TOC entry 3646 (class 2620 OID 107793)
+-- TOC entry 3652 (class 2620 OID 107793)
 -- Name: set_prev_goal_fsmt; Type: TRIGGER; Schema: goal; Owner: postgres
 --
 
@@ -27624,7 +27850,7 @@ CREATE TRIGGER set_prev_goal_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PRO
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 3647 (class 2620 OID 107794)
+-- TOC entry 3653 (class 2620 OID 107794)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: issue; Owner: postgres
 --
 
@@ -27632,7 +27858,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3648 (class 2620 OID 107795)
+-- TOC entry 3654 (class 2620 OID 107795)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: issue; Owner: postgres
 --
 
@@ -27640,7 +27866,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3649 (class 2620 OID 107796)
+-- TOC entry 3655 (class 2620 OID 107796)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: issue; Owner: postgres
 --
 
@@ -27650,7 +27876,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 3650 (class 2620 OID 107797)
+-- TOC entry 3656 (class 2620 OID 107797)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: picklist; Owner: postgres
 --
 
@@ -27658,7 +27884,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3651 (class 2620 OID 107798)
+-- TOC entry 3657 (class 2620 OID 107798)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: picklist; Owner: postgres
 --
 
@@ -27666,7 +27892,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3652 (class 2620 OID 107799)
+-- TOC entry 3658 (class 2620 OID 107799)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: picklist; Owner: postgres
 --
 
@@ -27676,7 +27902,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 3653 (class 2620 OID 107800)
+-- TOC entry 3659 (class 2620 OID 107800)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: rebound; Owner: postgres
 --
 
@@ -27684,7 +27910,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3654 (class 2620 OID 107801)
+-- TOC entry 3660 (class 2620 OID 107801)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: rebound; Owner: postgres
 --
 
@@ -27692,7 +27918,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3655 (class 2620 OID 107802)
+-- TOC entry 3661 (class 2620 OID 107802)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: rebound; Owner: postgres
 --
 
@@ -27702,7 +27928,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 3656 (class 2620 OID 107803)
+-- TOC entry 3662 (class 2620 OID 107803)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: receipt; Owner: postgres
 --
 
@@ -27710,7 +27936,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3657 (class 2620 OID 107804)
+-- TOC entry 3663 (class 2620 OID 107804)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: receipt; Owner: postgres
 --
 
@@ -27718,7 +27944,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3658 (class 2620 OID 107805)
+-- TOC entry 3664 (class 2620 OID 107805)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: receipt; Owner: postgres
 --
 
@@ -27728,7 +27954,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 3659 (class 2620 OID 107806)
+-- TOC entry 3665 (class 2620 OID 107806)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: reserve; Owner: postgres
 --
 
@@ -27736,7 +27962,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3660 (class 2620 OID 107807)
+-- TOC entry 3666 (class 2620 OID 107807)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: reserve; Owner: postgres
 --
 
@@ -27744,7 +27970,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3661 (class 2620 OID 107808)
+-- TOC entry 3667 (class 2620 OID 107808)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: reserve; Owner: postgres
 --
 
@@ -27754,7 +27980,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 3662 (class 2620 OID 107809)
+-- TOC entry 3668 (class 2620 OID 107809)
 -- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: stocktake; Owner: postgres
 --
 
@@ -27762,7 +27988,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELE
 
 
 --
--- TOC entry 3663 (class 2620 OID 107810)
+-- TOC entry 3669 (class 2620 OID 107810)
 -- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: stocktake; Owner: postgres
 --
 
@@ -27770,7 +27996,7 @@ CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDA
 
 
 --
--- TOC entry 3664 (class 2620 OID 107811)
+-- TOC entry 3670 (class 2620 OID 107811)
 -- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: stocktake; Owner: postgres
 --
 
@@ -27780,7 +28006,7 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 3566 (class 2606 OID 107812)
+-- TOC entry 3572 (class 2606 OID 107812)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -27791,7 +28017,7 @@ ALTER TABLE ONLY body
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 3567 (class 2606 OID 107817)
+-- TOC entry 3573 (class 2606 OID 107817)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -27802,7 +28028,7 @@ ALTER TABLE ONLY body
 SET search_path = binding, pg_catalog;
 
 --
--- TOC entry 3568 (class 2606 OID 107822)
+-- TOC entry 3574 (class 2606 OID 107822)
 -- Name: cutoff_to_adjustmentcredit_adjustmentcredit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27811,7 +28037,7 @@ ALTER TABLE ONLY cutoff_to_adjustmentcredit
 
 
 --
--- TOC entry 3569 (class 2606 OID 107827)
+-- TOC entry 3575 (class 2606 OID 107827)
 -- Name: cutoff_to_adjustmentcredit_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27820,7 +28046,7 @@ ALTER TABLE ONLY cutoff_to_adjustmentcredit
 
 
 --
--- TOC entry 3570 (class 2606 OID 107832)
+-- TOC entry 3576 (class 2606 OID 107832)
 -- Name: cutoff_to_adjustmentdebit_adjustmentdebit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27829,7 +28055,7 @@ ALTER TABLE ONLY cutoff_to_adjustmentdebit
 
 
 --
--- TOC entry 3571 (class 2606 OID 107837)
+-- TOC entry 3577 (class 2606 OID 107837)
 -- Name: cutoff_to_adjustmentdebit_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27838,7 +28064,7 @@ ALTER TABLE ONLY cutoff_to_adjustmentdebit
 
 
 --
--- TOC entry 3572 (class 2606 OID 107842)
+-- TOC entry 3578 (class 2606 OID 107842)
 -- Name: cutoff_to_delivery_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27847,7 +28073,7 @@ ALTER TABLE ONLY cutoff_to_delivery
 
 
 --
--- TOC entry 3573 (class 2606 OID 107847)
+-- TOC entry 3579 (class 2606 OID 107847)
 -- Name: cutoff_to_delivery_delivery_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27856,7 +28082,7 @@ ALTER TABLE ONLY cutoff_to_delivery
 
 
 --
--- TOC entry 3574 (class 2606 OID 107852)
+-- TOC entry 3580 (class 2606 OID 107852)
 -- Name: cutoff_to_demand_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27865,7 +28091,7 @@ ALTER TABLE ONLY cutoff_to_demand
 
 
 --
--- TOC entry 3575 (class 2606 OID 107857)
+-- TOC entry 3581 (class 2606 OID 107857)
 -- Name: cutoff_to_demand_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27874,7 +28100,7 @@ ALTER TABLE ONLY cutoff_to_demand
 
 
 --
--- TOC entry 3576 (class 2606 OID 107862)
+-- TOC entry 3582 (class 2606 OID 107862)
 -- Name: cutoff_to_despatch_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27883,7 +28109,7 @@ ALTER TABLE ONLY cutoff_to_despatch
 
 
 --
--- TOC entry 3577 (class 2606 OID 107867)
+-- TOC entry 3583 (class 2606 OID 107867)
 -- Name: cutoff_to_despatch_despatch_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27892,7 +28118,7 @@ ALTER TABLE ONLY cutoff_to_despatch
 
 
 --
--- TOC entry 3578 (class 2606 OID 107872)
+-- TOC entry 3584 (class 2606 OID 107872)
 -- Name: cutoff_to_goal_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27901,7 +28127,7 @@ ALTER TABLE ONLY cutoff_to_goal
 
 
 --
--- TOC entry 3579 (class 2606 OID 107877)
+-- TOC entry 3585 (class 2606 OID 107877)
 -- Name: cutoff_to_goal_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27910,7 +28136,7 @@ ALTER TABLE ONLY cutoff_to_goal
 
 
 --
--- TOC entry 3580 (class 2606 OID 107882)
+-- TOC entry 3586 (class 2606 OID 107882)
 -- Name: cutoff_to_issue_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27919,7 +28145,7 @@ ALTER TABLE ONLY cutoff_to_issue
 
 
 --
--- TOC entry 3581 (class 2606 OID 107887)
+-- TOC entry 3587 (class 2606 OID 107887)
 -- Name: cutoff_to_issue_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27928,7 +28154,7 @@ ALTER TABLE ONLY cutoff_to_issue
 
 
 --
--- TOC entry 3582 (class 2606 OID 107892)
+-- TOC entry 3588 (class 2606 OID 107892)
 -- Name: cutoff_to_picklist_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27937,7 +28163,7 @@ ALTER TABLE ONLY cutoff_to_picklist
 
 
 --
--- TOC entry 3583 (class 2606 OID 107897)
+-- TOC entry 3589 (class 2606 OID 107897)
 -- Name: cutoff_to_picklist_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27946,7 +28172,7 @@ ALTER TABLE ONLY cutoff_to_picklist
 
 
 --
--- TOC entry 3584 (class 2606 OID 107902)
+-- TOC entry 3590 (class 2606 OID 107902)
 -- Name: cutoff_to_rebound_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27955,7 +28181,7 @@ ALTER TABLE ONLY cutoff_to_rebound
 
 
 --
--- TOC entry 3585 (class 2606 OID 107907)
+-- TOC entry 3591 (class 2606 OID 107907)
 -- Name: cutoff_to_rebound_rebound_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27964,7 +28190,7 @@ ALTER TABLE ONLY cutoff_to_rebound
 
 
 --
--- TOC entry 3586 (class 2606 OID 107912)
+-- TOC entry 3592 (class 2606 OID 107912)
 -- Name: cutoff_to_receipt_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27973,7 +28199,7 @@ ALTER TABLE ONLY cutoff_to_receipt
 
 
 --
--- TOC entry 3587 (class 2606 OID 107917)
+-- TOC entry 3593 (class 2606 OID 107917)
 -- Name: cutoff_to_receipt_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27982,7 +28208,7 @@ ALTER TABLE ONLY cutoff_to_receipt
 
 
 --
--- TOC entry 3588 (class 2606 OID 107922)
+-- TOC entry 3594 (class 2606 OID 107922)
 -- Name: cutoff_to_reserve_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -27991,7 +28217,7 @@ ALTER TABLE ONLY cutoff_to_reserve
 
 
 --
--- TOC entry 3589 (class 2606 OID 107927)
+-- TOC entry 3595 (class 2606 OID 107927)
 -- Name: cutoff_to_reserve_reserve_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28000,7 +28226,7 @@ ALTER TABLE ONLY cutoff_to_reserve
 
 
 --
--- TOC entry 3590 (class 2606 OID 107932)
+-- TOC entry 3596 (class 2606 OID 107932)
 -- Name: cutoff_to_stocktake_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28009,7 +28235,7 @@ ALTER TABLE ONLY cutoff_to_stocktake
 
 
 --
--- TOC entry 3591 (class 2606 OID 107937)
+-- TOC entry 3597 (class 2606 OID 107937)
 -- Name: cutoff_to_stocktake_stocktake_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28018,7 +28244,7 @@ ALTER TABLE ONLY cutoff_to_stocktake
 
 
 --
--- TOC entry 3592 (class 2606 OID 107942)
+-- TOC entry 3598 (class 2606 OID 107942)
 -- Name: delivery_to_receipt_delivery_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28027,7 +28253,7 @@ ALTER TABLE ONLY delivery_to_receipt
 
 
 --
--- TOC entry 3593 (class 2606 OID 107947)
+-- TOC entry 3599 (class 2606 OID 107947)
 -- Name: delivery_to_receipt_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28036,7 +28262,7 @@ ALTER TABLE ONLY delivery_to_receipt
 
 
 --
--- TOC entry 3594 (class 2606 OID 107952)
+-- TOC entry 3600 (class 2606 OID 107952)
 -- Name: demand_to_picklist_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28045,7 +28271,7 @@ ALTER TABLE ONLY demand_to_picklist
 
 
 --
--- TOC entry 3595 (class 2606 OID 107957)
+-- TOC entry 3601 (class 2606 OID 107957)
 -- Name: demand_to_picklist_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28054,7 +28280,7 @@ ALTER TABLE ONLY demand_to_picklist
 
 
 --
--- TOC entry 3596 (class 2606 OID 107962)
+-- TOC entry 3602 (class 2606 OID 107962)
 -- Name: demand_to_reserve_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28063,7 +28289,7 @@ ALTER TABLE ONLY demand_to_reserve
 
 
 --
--- TOC entry 3597 (class 2606 OID 107967)
+-- TOC entry 3603 (class 2606 OID 107967)
 -- Name: demand_to_reserve_reserve_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28072,7 +28298,7 @@ ALTER TABLE ONLY demand_to_reserve
 
 
 --
--- TOC entry 3598 (class 2606 OID 107972)
+-- TOC entry 3604 (class 2606 OID 107972)
 -- Name: goal_to_demand_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28081,7 +28307,7 @@ ALTER TABLE ONLY goal_to_demand
 
 
 --
--- TOC entry 3599 (class 2606 OID 107977)
+-- TOC entry 3605 (class 2606 OID 107977)
 -- Name: goal_to_demand_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28090,7 +28316,7 @@ ALTER TABLE ONLY goal_to_demand
 
 
 --
--- TOC entry 3600 (class 2606 OID 107982)
+-- TOC entry 3606 (class 2606 OID 107982)
 -- Name: goal_to_despatch_despatch_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28099,7 +28325,7 @@ ALTER TABLE ONLY goal_to_despatch
 
 
 --
--- TOC entry 3601 (class 2606 OID 107987)
+-- TOC entry 3607 (class 2606 OID 107987)
 -- Name: goal_to_despatch_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28108,7 +28334,7 @@ ALTER TABLE ONLY goal_to_despatch
 
 
 --
--- TOC entry 3602 (class 2606 OID 107992)
+-- TOC entry 3608 (class 2606 OID 107992)
 -- Name: goal_to_issue_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28117,7 +28343,7 @@ ALTER TABLE ONLY goal_to_issue
 
 
 --
--- TOC entry 3603 (class 2606 OID 107997)
+-- TOC entry 3609 (class 2606 OID 107997)
 -- Name: goal_to_issue_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28126,7 +28352,7 @@ ALTER TABLE ONLY goal_to_issue
 
 
 --
--- TOC entry 3604 (class 2606 OID 108002)
+-- TOC entry 3610 (class 2606 OID 108002)
 -- Name: goal_to_picklist_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28135,7 +28361,7 @@ ALTER TABLE ONLY goal_to_picklist
 
 
 --
--- TOC entry 3605 (class 2606 OID 108007)
+-- TOC entry 3611 (class 2606 OID 108007)
 -- Name: goal_to_picklist_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28144,7 +28370,7 @@ ALTER TABLE ONLY goal_to_picklist
 
 
 --
--- TOC entry 3606 (class 2606 OID 108012)
+-- TOC entry 3612 (class 2606 OID 108012)
 -- Name: goal_to_reserve_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28153,7 +28379,7 @@ ALTER TABLE ONLY goal_to_reserve
 
 
 --
--- TOC entry 3607 (class 2606 OID 108017)
+-- TOC entry 3613 (class 2606 OID 108017)
 -- Name: goal_to_reserve_reserve_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28162,7 +28388,7 @@ ALTER TABLE ONLY goal_to_reserve
 
 
 --
--- TOC entry 3608 (class 2606 OID 108022)
+-- TOC entry 3614 (class 2606 OID 108022)
 -- Name: issue_to_adjustmentcredit_adjustmentcredit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28171,7 +28397,7 @@ ALTER TABLE ONLY issue_to_adjustmentcredit
 
 
 --
--- TOC entry 3609 (class 2606 OID 108027)
+-- TOC entry 3615 (class 2606 OID 108027)
 -- Name: issue_to_adjustmentcredit_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28180,7 +28406,7 @@ ALTER TABLE ONLY issue_to_adjustmentcredit
 
 
 --
--- TOC entry 3610 (class 2606 OID 108032)
+-- TOC entry 3616 (class 2606 OID 108032)
 -- Name: issue_to_despatch_despatch_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28189,7 +28415,7 @@ ALTER TABLE ONLY issue_to_despatch
 
 
 --
--- TOC entry 3611 (class 2606 OID 108037)
+-- TOC entry 3617 (class 2606 OID 108037)
 -- Name: issue_to_despatch_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28198,7 +28424,7 @@ ALTER TABLE ONLY issue_to_despatch
 
 
 --
--- TOC entry 3612 (class 2606 OID 108042)
+-- TOC entry 3618 (class 2606 OID 108042)
 -- Name: issue_to_rebound_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28207,7 +28433,7 @@ ALTER TABLE ONLY issue_to_rebound
 
 
 --
--- TOC entry 3613 (class 2606 OID 108047)
+-- TOC entry 3619 (class 2606 OID 108047)
 -- Name: issue_to_rebound_rebound_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28216,7 +28442,7 @@ ALTER TABLE ONLY issue_to_rebound
 
 
 --
--- TOC entry 3614 (class 2606 OID 108052)
+-- TOC entry 3620 (class 2606 OID 108052)
 -- Name: picklist_to_issue_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28225,7 +28451,7 @@ ALTER TABLE ONLY picklist_to_issue
 
 
 --
--- TOC entry 3615 (class 2606 OID 108057)
+-- TOC entry 3621 (class 2606 OID 108057)
 -- Name: picklist_to_issue_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28234,7 +28460,7 @@ ALTER TABLE ONLY picklist_to_issue
 
 
 --
--- TOC entry 3616 (class 2606 OID 108062)
+-- TOC entry 3622 (class 2606 OID 108062)
 -- Name: receipt_to_adjustmentdebit_adjustmentdebit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28243,7 +28469,7 @@ ALTER TABLE ONLY receipt_to_adjustmentdebit
 
 
 --
--- TOC entry 3617 (class 2606 OID 108067)
+-- TOC entry 3623 (class 2606 OID 108067)
 -- Name: receipt_to_adjustmentdebit_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28252,7 +28478,7 @@ ALTER TABLE ONLY receipt_to_adjustmentdebit
 
 
 --
--- TOC entry 3618 (class 2606 OID 108072)
+-- TOC entry 3624 (class 2606 OID 108072)
 -- Name: receipt_to_rebound_rebound_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28261,7 +28487,7 @@ ALTER TABLE ONLY receipt_to_rebound
 
 
 --
--- TOC entry 3619 (class 2606 OID 108077)
+-- TOC entry 3625 (class 2606 OID 108077)
 -- Name: receipt_to_rebound_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
@@ -28272,7 +28498,7 @@ ALTER TABLE ONLY receipt_to_rebound
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 3620 (class 2606 OID 108082)
+-- TOC entry 3626 (class 2606 OID 108082)
 -- Name: blocker_head_id_fkey; Type: FK CONSTRAINT; Schema: cutoff; Owner: postgres
 --
 
@@ -28283,7 +28509,7 @@ ALTER TABLE ONLY blocker
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 3621 (class 2606 OID 108087)
+-- TOC entry 3627 (class 2606 OID 108087)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: delivery; Owner: postgres
 --
 
@@ -28294,7 +28520,7 @@ ALTER TABLE ONLY body
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 3622 (class 2606 OID 108092)
+-- TOC entry 3628 (class 2606 OID 108092)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: demand; Owner: postgres
 --
 
@@ -28305,7 +28531,7 @@ ALTER TABLE ONLY body
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 3623 (class 2606 OID 108097)
+-- TOC entry 3629 (class 2606 OID 108097)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: despatch; Owner: postgres
 --
 
@@ -28316,7 +28542,7 @@ ALTER TABLE ONLY body
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 3624 (class 2606 OID 108102)
+-- TOC entry 3630 (class 2606 OID 108102)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: issue; Owner: postgres
 --
 
@@ -28327,7 +28553,7 @@ ALTER TABLE ONLY body
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 3625 (class 2606 OID 108107)
+-- TOC entry 3631 (class 2606 OID 108107)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: picklist; Owner: postgres
 --
 
@@ -28338,7 +28564,7 @@ ALTER TABLE ONLY body
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 3626 (class 2606 OID 108112)
+-- TOC entry 3632 (class 2606 OID 108112)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: rebound; Owner: postgres
 --
 
@@ -28349,7 +28575,7 @@ ALTER TABLE ONLY body
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 3627 (class 2606 OID 108117)
+-- TOC entry 3633 (class 2606 OID 108117)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: receipt; Owner: postgres
 --
 
@@ -28360,7 +28586,7 @@ ALTER TABLE ONLY body
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 3628 (class 2606 OID 108122)
+-- TOC entry 3634 (class 2606 OID 108122)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: reserve; Owner: postgres
 --
 
@@ -28371,7 +28597,7 @@ ALTER TABLE ONLY body
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 3629 (class 2606 OID 108127)
+-- TOC entry 3635 (class 2606 OID 108127)
 -- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: stocktake; Owner: postgres
 --
 
@@ -28380,7 +28606,7 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 3879 (class 0 OID 0)
+-- TOC entry 3885 (class 0 OID 0)
 -- Dependencies: 34
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -28391,7 +28617,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2017-03-21 11:49:20 EET
+-- Completed on 2017-03-21 13:49:53 EET
 
 --
 -- PostgreSQL database dump complete
