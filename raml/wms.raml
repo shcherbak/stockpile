@@ -1,0 +1,999 @@
+#%RAML 0.8
+title: Holonic WMS API
+version: v1
+baseUri: http://mes.io/wms/api/{version}
+mediaType: application/json
+documentation:
+  - title: Holonic WMS API
+    content: ""
+  - title: Use cases
+    content: |
+      Show the full list of Goods.
+      Show the full list of Issues.
+  - title: Order/Demand processing
+    content: |
+      stock CNT crates new Demand by POST wms.io/api/v1/demands/
+      stock MGR declines or accepts Demand by PUT wms.io/api/v1/demands/1001/actions
+      stock AGT notifies statatus of Demand [ACCEPTED, DENIED]
+      stock AGT creates new Reserve by POST wms.io/api/v1/reserves/
+      stock AGT creates new Picking by POST wms.io/api/v1/pickings/
+      stock MGR confirms demand is picked by PUT wms.io/api/v1/demands/1001/actions
+      stock AGT notifies statatus of Demand [PICKED, DELAYED]
+      stock AGT creates new Despatch by POST wms.io/api/v1/despatches/
+      stock MGR confirms despatching PUT wms.io/api/v1/demands/1001/actions
+      stock AGT notifies statatus of Demand [DESPATCHED]
+      stock AGT creates new Issue by POST wms.io/api/v1/issues/
+      stock CNT creates Local Receipt by POST wms.io/api/v1/receipts/
+      stock CNT creates new Delivery by POST wms.io/api/v1/deliveries/
+      stock AGT notifies statatus of Delivery [ACCEPTED, ADJUSTED, DECLINED]
+      stock AGT notifies statatus of Demand [DELIVERED]
+      stock MGR accepts or declines Adjustment [ACCEPTED, DENIED]
+      stock AGT creates new Issue by POST wms.io/api/v1/adjustments/
+      stock AGT notifies statatus of Demand [FULFILLED, UNFULFILLED, OVERFULFILLED]
+
+schemas:
+  - Good:           !include schemas/json/warehouse-good.schema
+  - Goods:          !include schemas/json/warehouse-goods.schema
+  - Demand:         !include schemas/json/warehouse-demand.schema
+  - Demands:        !include schemas/json/warehouse-demands.schema
+  - Receipt:        !include schemas/json/warehouse-receipt.schema
+  - Receipts:       !include schemas/json/warehouse-receipts.schema
+  - Issue:          !include schemas/json/warehouse-issue.schema
+  - Issues:         !include schemas/json/warehouse-issues.schema
+  - Despatch:       !include schemas/json/warehouse-despatch.schema
+  - Despatches:     !include schemas/json/warehouse-despatch.schema
+  - Delivery:       !include schemas/json/warehouse-delivery.schema
+  - Deliveries:     !include schemas/json/warehouse-deliveries.schema
+  - Reserve:        !include schemas/json/warehouse-reserve.schema
+  - Reserves:       !include schemas/json/warehouse-reserves.schema
+  - Stockcard:      !include schemas/json/warehouse-stockcard.schema
+  - Stockcards:     !include schemas/json/warehouse-stockcards.schema
+  - Stocktake:      !include schemas/json/warehouse-stocktake.schema
+  - Stocktakes:     !include schemas/json/warehouse-stocktakes.schema
+  - Picklist:       !include schemas/json/warehouse-picklist.schema
+  - Picklists:      !include schemas/json/warehouse-picklists.schema
+  - Adjustment:     !include schemas/json/warehouse-adjustment.schema
+  - Adjustments:    !include schemas/json/warehouse-adjustments.schema
+  - Customer:       !include schemas/json/commons-customer.schema
+  - Customers:      !include schemas/json/commons-customers.schema
+  - Supplier:       !include schemas/json/commons-supplier.schema
+  - Suppliers:      !include schemas/json/commons-suppliers.schema
+  - Action:         !include schemas/json/commons-action.schema
+  #- Rebound
+  #- Rebounds
+  #- DemandAction:    !include schemas/json/warehouse-demand-action.schema
+  #- ReceiptAction:  !include schemas/json/warehouse-receipt-action.schema
+  #- IssueAction:    !include schemas/json/warehouse-issue-action.schema
+  #- DespatchAction: !include schemas/json/warehouse-despatch-action.schema
+  #- DeliveryAction: !include schemas/json/warehouse-delivery-action.schema
+  #- ReserveAction:  !include schemas/json/warehouse-reserve-action.schema
+  #- PicklistAction: !include schemas/json/warehouse-picklist-action.schema
+  - Error:          !include schemas/json/commons-error.schema
+
+/customers:
+  get:
+    description: Get a list of Customers
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Customers
+  post:
+    description: Add new Customer
+    body:
+      application/json:
+        schema: Customer
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Customer
+  /{resourceId}:
+    get:
+      description: Get a Customer by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Customer
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Customer by ID
+      body:
+        application/json:
+          schema: Customer
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Customer
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Customer by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+
+/suppliers:
+  get:
+    description: Get a list of Suppliers
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Suppliers
+  post:
+    description: Add new Supplier
+    body:
+      application/json:
+        schema: Supplier
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Supplier
+  /{resourceId}:
+    get:
+      description: Get a Supplier by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Supplier
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Supplier by ID
+      body:
+        application/json:
+          schema: Supplier
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Supplier
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Supplier by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+
+/goods:
+  get:
+    description: Get a list of Goods
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Goods
+            example: !include ./examples/json/warehouse-goods-example.json
+      404:
+        body:
+          application/json:
+            schema: Error
+            example: !include ./examples/json/commons-error-example.json
+  post:
+    description: Add new Good
+    body:
+      application/json:
+        schema: Good
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Good
+  /{resourceId}:
+    get:
+      description: Get a Good by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Good
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Good by ID
+      body:
+        application/json:
+          schema: Good
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Good
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Good by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+
+/demands:
+  description: |
+    A Warehouse Demand is defined as acknowledged shipment. Warehouse Demand can
+    result a picking demand.
+  get:
+    description: Get a list of Demands
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Demands
+  post:
+    description: Add new Demand
+    body:
+      application/json:
+        schema: Demand
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Demand
+  /{resourceId}:
+    get:
+      description: Get a Demand by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Demand
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Demand by ID
+      body:
+        application/json:
+          schema: Demand
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Demand
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Demand by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+    /actions:
+      description: Make an actions defined for each type of document (for example, create/cancel entry)
+      post:
+        description: Fire Action
+        body:
+          application/json:
+            schema: Action
+            example: !include examples/json/commons-action-example.json
+        responses:
+          204:
+            description: normaly no content provided
+          400:
+            description: bad request data
+            body:
+              application/json:
+                schema: Error
+          409:
+            description: conflict
+            body:
+              application/json:
+                schema: Error
+    /status:
+      description: status of demand
+      get:
+        description: Get status of demand by ID
+        body:
+          application/json:
+        responses:
+          200:
+            description: status
+            body:
+              application/json:
+          404:
+            body:
+              application/json:
+                schema: Error
+
+/receipts:
+  description: |
+    A Goods Receipt (GR) is defined as a physical inbound movement of goods or
+    materials into the warehouse or it is the receipt of material in the store
+    or the receipt of stock from the vendor or manufacturer.
+  get:
+    description: Get a list of Receipts
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Receipts
+  post:
+    description: Add new Receipt
+    body:
+      application/json:
+        schema: Receipt
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Receipt
+  /{resourceId}:
+    get:
+      description: Get a Receipt by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Receipt
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Receipt by ID
+      body:
+        application/json:
+          schema: Receipt
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Receipt
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Receipt by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+    /actions:
+      description: Make an actions defined for each type of document (for example, create/cancel entry)
+      post:
+        description: Fire Action
+        body:
+          application/json:
+            schema: Action
+            example: !include examples/json/commons-action-example.json
+        responses:
+          204:
+            description: normaly no content provided
+          400:
+            description: bad request data
+            body:
+              application/json:
+                schema: Error
+          409:
+            description: conflict
+            body:
+              application/json:
+                schema: Error
+
+/issues:
+  description: |
+    A Goods Issue (GI) is defined as a physical outbound movement of goods or
+    materials from the warehouse or it is the issue of physical goods or
+    materials from the warehouse.
+  get:
+    description: |
+      Get a list of List all Issues matching query criteria, if provided;
+      otherwise list all Issues
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Issues
+  post:
+    description: Add new Issue
+    body:
+      application/json:
+        schema: Issue
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Issue
+  /{recourceId}:
+    get:
+      description: Get a Issue by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Issue
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Issue by ID
+      body:
+        application/json:
+          schema: Issue
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Issue
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Issue by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+    /actions:
+      description: Make an actions defined for each type of document (for example, create/cancel entry)
+      post:
+        description: Fire Action
+        body:
+          application/json:
+            schema: Action
+            example: !include examples/json/commons-action-example.json
+        responses:
+          204:
+            description: normaly no content provided
+          400:
+            description: bad request data
+            body:
+              application/json:
+                schema: Error
+          409:
+            description: conflict
+            body:
+              application/json:
+                schema: Error
+
+/despatches:
+  description: |
+    Goods Despatch Note (GDN) is a document that is raised by the supplier’s
+    despatch department responsible of sending goods out to customers
+  get:
+    description: Get a list of Despatches
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Despatches
+  post:
+    description: Add new Despatch
+    body:
+      application/json:
+        schema: Despatch
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Despatch
+  /{resourceId}:
+    get:
+      description: Get a Despatch by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Despatch
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Despatch by ID
+      body:
+        application/json:
+          schema: Despatch
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Despatch
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Despatch by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+    /actions:
+      description: Make an actions defined for each type of document (for example, create/cancel entry)
+      post:
+        description: Fire Action
+        body:
+          application/json:
+            schema: Action
+            example: !include examples/json/commons-action-example.json
+        responses:
+          204:
+            description: normaly no content provided
+          400:
+            description: bad request data
+            body:
+              application/json:
+                schema: Error
+          409:
+            description: conflict
+            body:
+              application/json:
+                schema: Error
+
+/deliveries:
+  description: |
+    Goods Delivery Note - If the same note i.e. goods despatch note is sent with
+    the goods to the customers and customer sign the documents as an evidence of
+    the receipt by the customer then the same note will be named as
+    Goods Delivery Note
+  get:
+    description: Get a list of Deliveries
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Deliveries
+  post:
+    description: Add new Delivery
+    body:
+      application/json:
+        schema: Delivery
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Delivery
+  /{resourceId}:
+    get:
+      description: Get a Delivery by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Delivery
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Delivery by ID
+      body:
+        application/json:
+          schema: Delivery
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Delivery
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Delivery by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+    /actions:
+      description: Make an actions defined for each type of document (for example, create/cancel entry)
+      post:
+        description: Fire Action
+        body:
+          application/json:
+            schema: Action
+            example: !include examples/json/commons-action-example.json
+        responses:
+          204:
+            description: normaly no content provided
+          400:
+            description: bad request data
+            body:
+              application/json:
+                schema: Error
+          409:
+            description: conflict
+            body:
+              application/json:
+                schema: Error
+
+/reserves:
+  description: |
+    Goods Reserve is a mechanism of locking some Goods resources for future purposes
+    (manufacturing plan, sales)
+  get:
+    description: Get a list of Reserves
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Reserves
+  post:
+    description: Add new Reserve
+    body:
+      application/json:
+        schema: Reserve
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Reserve
+  /{resourceId}:
+    get:
+      description: Get a Reserve by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Reserve
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Reserve by ID
+      body:
+        application/json:
+          schema: Reserve
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Reserve
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Reserve by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+    /actions:
+      description: Make an actions defined for each type of document (for example, create/cancel entry)
+      post:
+        description: Fire Action
+        body:
+          application/json:
+            schema: Action
+            example: !include examples/json/commons-action-example.json
+        responses:
+          204:
+            description: normaly no content provided
+          400:
+            description: bad request data
+            body:
+              application/json:
+                schema: Error
+          409:
+            description: conflict
+            body:
+              application/json:
+                schema: Error
+
+/stocktakes:
+  description: |
+    Stock-taking (STN) or inventory checking is the physical verification of the
+    quantities and condition of items held in an inventory or warehouse. This
+    may be done to provide an audit of existing stock. It is also the source of
+    stock discrepancy information. STN is determination of a cutoff point
+  get:
+    description: Get a list of Stocktakes
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Stocktakes
+  post:
+    description: Add new Stocktake
+    body:
+      application/json:
+        schema: Stocktake
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Stocktake
+  /{resourceId}:
+    get:
+      description: Get a Stocktake by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Stocktake
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Stocktake by ID
+      body:
+        application/json:
+          schema: Stocktake
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Stocktake
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Stocktake by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+    /actions:
+      description: Make an actions defined for each type of document (for example, create/cancel entry)
+      post:
+        description: Fire Action
+        body:
+          application/json:
+            schema: Action
+            example: !include examples/json/commons-action-example.json
+        responses:
+          204:
+            description: normaly no content provided
+          400:
+            description: bad request data
+            body:
+              application/json:
+                schema: Error
+          409:
+            description: conflict
+            body:
+              application/json:
+                schema: Error
+
+/picklists:
+  description: |
+    Wave picking is a term for a process used in a warehouse management system (WMS)
+    to support organizing of the daily flow of work of a warehouse or distribution
+    center. Wave picking is an application of short-interval-scheduling.
+    Managers, using the WMS, assign groups of orders/demand into short intervals called "waves",
+    to initially simulate the flow for the day, consistent with the order/demand departure plan
+    and available labor. When the plan is satisfactory, it is accepted. The WMS then
+    releases the waves to the warehouse sequentially throughout the day, to allow
+    managers to coordinate the several parallel and sequential activities required to
+    complete the daily work.
+  get:
+    description: Get a list of Picklists
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Picklists
+  post:
+    description: Add new Picklist
+    body:
+      application/json:
+        schema: Picklist
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Picklist
+  /{resourceId}:
+    get:
+      description: Get a Picklist by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Picklist
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Picklist by ID
+      body:
+        application/json:
+          schema: Picklist
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Picklist
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Picklist by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+    /actions:
+      description: Make an actions defined for each type of document (for example, create/cancel entry)
+      post:
+        description: Fire Action
+        body:
+          application/json:
+            schema: Action
+            example: !include examples/json/commons-action-example.json
+        responses:
+          204:
+            description: normaly no content provided
+          400:
+            description: bad request data
+            body:
+              application/json:
+                schema: Error
+          409:
+            description: conflict
+            body:
+              application/json:
+                schema: Error
+
+/stockcards:
+  description: |
+    Stock Card shows all issues and receipts of giving Warehouse Item matching date
+    range criteria, if provided; otherwise list all inbounds and outbounds
+    Add new Stockcard (Треба подумати, чи може оператор завести пусту картку, чи це треба)
+  get:
+    description: Get a list of Stockcards
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Stockcards
+  /{resourceId}:
+    get:
+      description: Get a Stockcard by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Stockcard
+        404:
+          body:
+            application/json:
+              schema: Error
+
+/balance:
+  description: |
+    Balance resource shows available resources matching query criteria; depending on
+    query parameters reservations can be considered or not
+  get:
+    description: Get a list of all goods and balance
+    responses:
+      200:
+  /{resourceId}:
+    get:
+      description: Get balance of specified item
+      responses:
+        200:
+        404:
+          body:
+            application/json:
+              schema: Error
+
+#/cutoff:
+#  description: |
+#    Cutoff is a time-stamp for administrative purposes (document edition locking,
+#    totals and sub-totals calculations)
+#
+#/received:
+#  description: |
+#    Goods Received Note (GRN) is raised by a store manager of the customer
+#    on receiving goods from supplier. This document is for internal usage
+#
+# some template example
+#title: title
+#
+#resourceTypes:
+#  - collection:
+#      get:
+#      post:
+#  - collection-item:
+#      get:
+#
+#/resources:
+#  get:
+#  post:
+#  /{resourceId}:
+#    get:
+#    put:
+#    delete:
+#
+#resourceTypes:
+#  - collection:
+#      description: Collection of available <<resourcePathName>> in WMS
+#      get:
+#        description: Get a list of <<resourcePathName>>
+#        responses:
+#          200:
+#            body:
+#              application/json:
+#      post:
+#        description: |
+#          Add new <<resourcePathName|!singularize>> to WMS
+#        queryParameters:
+#          access_token:
+#            description: The access token provided by the authentication application
+#            type: string
+#            required: true
+#            example: SECRET_TOKEN
+#        body:
+#          application/json:
+#            schema: <<resourcePathName|!singularize>>
+#        responses:
+#          200:
+#            body:
+#              application/json:
+#                example: |
+#                  {"message": "The <<resourcePathName|!singularize>> has been properly entered"}
+#  - collection-item:
+#      description: Entity representing a <<resourcePathName|!singularize>>
+#      get:
+#        description: |
+#          Get the <<resourcePathName|!singularize>>
+#          with <<resourcePathName|!singularize>>Id =
+#          {<<resourcePathName|!singularize>>Id}
+#        responses:
+#          200:
+#            body:
+#              application/json:
+#                example: |
+#                  <<exampleItem>>
+#          404:
+#            body:
+#              application/json:
+#                example: |
+#                  {"message": "<<resourcePathName|!singularize>> not found" }
