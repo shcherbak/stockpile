@@ -4,7 +4,7 @@
   "description": "Warehouse Internal Documents Collection Type definition",
   "type": "array",
   "items": {
-    "$ref": "warehouse-internal-document.schema"
+    "$ref": "commons-document.schema"
   },
   "uniqueItems": true
 }

@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Document kind",
+    "description": "Document kind",
+    "type": "object",
+    "properties": {
+        "transition": {
+            "type": "string",
+            "enum": [
+              "ADJUSTMENTCREDIT",
+              "ADJUSTMENTDEBIT",
+              "DELIVERY",
+              "DEMAND",
+              "DESPATCH",
+              "GOAL",
+              "ISSUE",
+              "LOT",
+              "PICKLIST",
+              "REBOUND",
+              "RECEIPT",
+              "RESERVE",
+              "STOCKTAKE",
+              "CUTOFF"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "transition"
+    ]
+}

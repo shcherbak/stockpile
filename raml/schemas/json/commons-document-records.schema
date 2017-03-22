@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Document Records Collection",
+  "description": "Document Records Collection Type definition",
+  "type": "array",
+  "items": {
+    "$ref": "commons-document-record.schema"
+  },
+  "uniqueItems": true
+}
