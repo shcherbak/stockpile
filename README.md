@@ -11,3 +11,6 @@ https://github.com/danblack/pgunit-sql
 
 debug
 https://github.com/soycacan/pldebugger
+
+autodoc
+https://github.com/cbbrowne/autodoc
