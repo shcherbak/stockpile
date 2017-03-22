@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Warehouse Good",
+  "description": "Warehouse Good Type definition",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The unique identifier of the good"
+    },
+    "sku": {
+      "type": "string",
+      "description": "Stock Keeping Unit",
+      "pattern": "^[0-9]{2}.[0-9]{2}.[0-9]{3}-[0-9]{3}($|.[0-9]{3}$)"
+    },
+    "name": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Warehouse storage unit"
+    }
+  },
+  "additionalPoperties": false,
+  "required": [
+    "id",
+    "sku",
+    "name",
+    "unit"
+  ]
+}

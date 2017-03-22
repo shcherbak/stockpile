@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Warehouse Internal Documents Collection",
+  "description": "Warehouse Internal Documents Collection Type definition",
+  "type": "array",
+  "items": {
+    "$ref": "warehouse-internal-document.schema"
+  },
+  "uniqueItems": true
+}

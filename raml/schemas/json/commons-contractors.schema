@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Commons Contractors Collection",
+  "description": "Commons Contractors Collection Type definition",
+  "type": "array",
+  "items": {
+    "$ref": "commons-contractor.schema"
+  },
+  "uniqueItems": true
+}

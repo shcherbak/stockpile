@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Contractor",
+    "description": "Contractor Type definition",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "code": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "comment": {
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "id",
+        "code",
+        "name"
+    ]
+}

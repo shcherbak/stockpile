@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Action",
+  "description": "WMS Actions",
+  "type": "object",
+  "properties": {
+    "action": {
+      "description": "Action name",
+      "type": "string",
+      "enum": [
+        "createEntry",
+        "cancelEntry"
+      ]
+    },
+    "parameters": {
+      "description": "Additional parameters",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "action"
+  ]
+}

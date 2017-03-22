@@ -31,36 +31,42 @@ documentation:
       stock AGT creates new Issue by POST wms.io/api/v1/adjustments/
       stock AGT notifies statatus of Demand [FULFILLED, UNFULFILLED, OVERFULFILLED]
 
+# outbound docs
+# inbound docs
+# internal docs
+
+
 schemas:
   - Good:           !include schemas/json/warehouse-good.schema
   - Goods:          !include schemas/json/warehouse-goods.schema
-  - Demand:         !include schemas/json/warehouse-demand.schema
-  - Demands:        !include schemas/json/warehouse-demands.schema
-  - Receipt:        !include schemas/json/warehouse-receipt.schema
-  - Receipts:       !include schemas/json/warehouse-receipts.schema
-  - Issue:          !include schemas/json/warehouse-issue.schema
-  - Issues:         !include schemas/json/warehouse-issues.schema
-  - Despatch:       !include schemas/json/warehouse-despatch.schema
-  - Despatches:     !include schemas/json/warehouse-despatch.schema
-  - Delivery:       !include schemas/json/warehouse-delivery.schema
-  - Deliveries:     !include schemas/json/warehouse-deliveries.schema
-  - Reserve:        !include schemas/json/warehouse-reserve.schema
-  - Reserves:       !include schemas/json/warehouse-reserves.schema
-  - Stockcard:      !include schemas/json/warehouse-stockcard.schema
-  - Stockcards:     !include schemas/json/warehouse-stockcards.schema
-  - Stocktake:      !include schemas/json/warehouse-stocktake.schema
-  - Stocktakes:     !include schemas/json/warehouse-stocktakes.schema
-  - Picklist:       !include schemas/json/warehouse-picklist.schema
-  - Picklists:      !include schemas/json/warehouse-picklists.schema
-  - Adjustment:     !include schemas/json/warehouse-adjustment.schema
-  - Adjustments:    !include schemas/json/warehouse-adjustments.schema
-  - Customer:       !include schemas/json/commons-customer.schema
-  - Customers:      !include schemas/json/commons-customers.schema
-  - Supplier:       !include schemas/json/commons-supplier.schema
-  - Suppliers:      !include schemas/json/commons-suppliers.schema
+  - Demand:         !include schemas/json/warehouse-internal-document.schema
+  - Demands:        !include schemas/json/warehouse-internal-documents.schema
+  - Reserve:        !include schemas/json/warehouse-internal-document.schema
+  - Reserves:       !include schemas/json/warehouse-internal-documents.schema
+  - Picklist:       !include schemas/json/warehouse-internal-document.schema
+  - Picklists:      !include schemas/json/warehouse-internal-documents.schema
+  - Issue:          !include schemas/json/warehouse-internal-document.schema
+  - Issues:         !include schemas/json/warehouse-internal-documents.schema
+  - Despatch:       !include schemas/json/warehouse-internal-document.schema
+  - Despatches:     !include schemas/json/warehouse-internal-documents.schema
+  - Delivery:       !include schemas/json/warehouse-internal-document.schema
+  - Deliveries:     !include schemas/json/warehouse-internal-documents.schema
+  - Receipt:        !include schemas/json/warehouse-internal-document.schema
+  - Receipts:       !include schemas/json/warehouse-internal-documents.schema
+  - Rebound:        !include schemas/json/warehouse-internal-document.schema
+  - Rebounds:       !include schemas/json/warehouse-internal-documents.schema
+  - Stockcard:      !include schemas/json/warehouse-internal-document.schema
+  - Stockcards:     !include schemas/json/warehouse-internal-documents.schema
+  - Stocktake:      !include schemas/json/warehouse-internal-document.schema
+  - Stocktakes:     !include schemas/json/warehouse-internal-documents.schema
+  - Adjustment:     !include schemas/json/warehouse-internal-document.schema
+  - Adjustments:    !include schemas/json/warehouse-internal-documents.schema
+  - Customer:       !include schemas/json/commons-contractor.schema
+  - Customers:      !include schemas/json/commons-contractors.schema
+  - Supplier:       !include schemas/json/commons-contractor.schema
+  - Suppliers:      !include schemas/json/commons-contractors.schema
   - Action:         !include schemas/json/commons-action.schema
-  #- Rebound
-  #- Rebounds
+  #- Goal
   #- DemandAction:    !include schemas/json/warehouse-demand-action.schema
   #- ReceiptAction:  !include schemas/json/warehouse-receipt-action.schema
   #- IssueAction:    !include schemas/json/warehouse-issue-action.schema
