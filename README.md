@@ -16,3 +16,5 @@ autodoc
 https://github.com/cbbrowne/autodoc
 
 migration scripts management
+
+.
