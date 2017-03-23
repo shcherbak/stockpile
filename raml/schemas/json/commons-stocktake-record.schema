@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Warehouse Documet Record",
+  "description": "Warehouse Documet Record Type definition",
+  "type": "object",
+  "properties": {
+    "sku": {
+      "type": "string",
+      "description": "Stock Keeping Unit",
+      "pattern": "^[0-9]{2}.[0-9]{2}.[0-9]{3}-[0-9]{3}($|.[0-9]{3}$)"
+    },
+    "name": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Warehouse storage unit"
+    },
+    "qty": {
+      "type": "number",
+      "description": "Quantity",
+      "minimum": 0,
+      "exclusiveMinimum": true
+    },
+    "qty_diff": {
+      "type": "number",
+      "description": "Quantity diff",
+      "exclusiveMinimum": true
+    },
+    "comment": {
+      "type": "string",
+      "description": "Operator's comment"
+    }
+  },
+  "additionalPoperties": false,
+  "required": [
+    "sku",
+    "name",
+    "unit",
+    "qty"
+  ]
+}

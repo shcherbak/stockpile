@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Warehouse Internal Document",
+  "description": "Warehouse Internal Document",
+  "type": "object",
+  "properties": {
+    "head": {
+      "description": "Document metadata",
+      "type": "array",
+      "items": {
+        "$ref": "commons-inbound-head.schema"
+      },
+      "minItems": 1,
+      "maxItems": 1
+    },
+    "body": {
+      "description": "List of the items",
+      "type": "array",
+      "items": {
+        "$ref": "commons-document-record.schema"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "head"
+  ]
+}

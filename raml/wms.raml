@@ -39,22 +39,22 @@ documentation:
 schemas:
   - Good:           !include schemas/json/warehouse-good.schema
   - Goods:          !include schemas/json/warehouse-goods.schema
-  - Demand:         !include schemas/json/commons-document.schema
-  - Demands:        !include schemas/json/commons-documents.schema
-  - Reserve:        !include schemas/json/commons-document.schema
-  - Reserves:       !include schemas/json/commons-documents.schema
-  - Picklist:       !include schemas/json/commons-document.schema
-  - Picklists:      !include schemas/json/commons-documents.schema
-  - Issue:          !include schemas/json/commons-document.schema
-  - Issues:         !include schemas/json/commons-documents.schema
-  - Despatch:       !include schemas/json/commons-document.schema
-  - Despatches:     !include schemas/json/commons-documents.schema
-  - Delivery:       !include schemas/json/commons-document.schema
-  - Deliveries:     !include schemas/json/commons-documents.schema
-  - Receipt:        !include schemas/json/commons-document.schema
-  - Receipts:       !include schemas/json/commons-documents.schema
-  - Rebound:        !include schemas/json/commons-document.schema
-  - Rebounds:       !include schemas/json/commons-documents.schema
+  - Demand:         !include schemas/json/commons-outbound-document.schema
+  - Demands:        !include schemas/json/commons-outbound-documents.schema
+  - Reserve:        !include schemas/json/commons-outbound-document.schema
+  - Reserves:       !include schemas/json/commons-outbound-documents.schema
+  - Picklist:       !include schemas/json/commons-outbound-document.schema
+  - Picklists:      !include schemas/json/commons-outbound-documents.schema
+  - Issue:          !include schemas/json/commons-outbound-document.schema
+  - Issues:         !include schemas/json/commons-outbound-documents.schema
+  - Despatch:       !include schemas/json/commons-outbound-document.schema
+  - Despatches:     !include schemas/json/commons-outbound-documents.schema
+  - Delivery:       !include schemas/json/commons-inbound-document.schema
+  - Deliveries:     !include schemas/json/commons-inbound-documents.schema
+  - Receipt:        !include schemas/json/commons-inbound-document.schema
+  - Receipts:       !include schemas/json/commons-inbound-documents.schema
+  - Rebound:        !include schemas/json/commons-inbound-document.schema
+  - Rebounds:       !include schemas/json/commons-inbound-documents.schema
   - Stockcard:      !include schemas/json/commons-document.schema
   - Stockcards:     !include schemas/json/commons-documents.schema
   - Stocktake:      !include schemas/json/commons-document.schema
@@ -66,7 +66,10 @@ schemas:
   - Supplier:       !include schemas/json/commons-contractor.schema
   - Suppliers:      !include schemas/json/commons-contractors.schema
   - Action:         !include schemas/json/commons-action.schema
-  #- Goal
+  - Goal:           !include schemas/json/commons-document.schema
+  - Goals:          !include schemas/json/commons-documents.schema
+  - Cutoff:           !include schemas/json/commons-document.schema
+  - Cutoffs:          !include schemas/json/commons-documents.schema
   #- DemandAction:    !include schemas/json/warehouse-demand-action.schema
   #- ReceiptAction:  !include schemas/json/warehouse-receipt-action.schema
   #- IssueAction:    !include schemas/json/warehouse-issue-action.schema
