@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Warehouse Internal Documents Collection",
-  "description": "Warehouse Internal Documents Collection Type definition",
+  "title": "Warehouse Outbound Documents Collection",
+  "description": "Warehouse Outbound Documents Collection Type definition",
   "type": "array",
   "items": {
     "$ref": "warehouse-outbound-document.schema"

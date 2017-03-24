@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Warehouse Documet Record",
-  "description": "Warehouse Documet Record Type definition",
+  "title": "Warehouse Generic Record",
+  "description": "Warehouse Generic Record Type definition",
   "type": "object",
   "properties": {
     "sku": {
@@ -21,10 +21,6 @@
       "description": "Quantity",
       "minimum": 0,
       "exclusiveMinimum": true
-    },
-    "comment": {
-      "type": "string",
-      "description": "Operator's comment"
     }
   },
   "additionalPoperties": false,

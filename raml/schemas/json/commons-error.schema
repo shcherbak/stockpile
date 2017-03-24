@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Error",
-  "description": "Warehouse Good Type definition",
+  "description": "Error Type definition",
   "type": "object",
   "properties": {
     "code": {

@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Document kind",
-    "description": "Document kind",
+    "title": "Warehouse Document Kind",
+    "description": "Document Kind",
     "type": "object",
     "properties": {
         "transition": {

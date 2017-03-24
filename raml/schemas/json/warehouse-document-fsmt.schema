@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Document FSM transition",
+  "title": "Warehouse Document FSM transition",
   "description": "Finite state machine transition for generic document",
   "type": "object",
   "properties": {

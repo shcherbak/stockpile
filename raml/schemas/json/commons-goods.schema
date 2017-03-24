@@ -4,7 +4,7 @@
   "description": "Warehouse Goods Collection Type definition",
   "type": "array",
   "items": {
-    "$ref": "warehouse-good.schema"
+    "$ref": "commons-good.schema"
   },
   "uniqueItems": true
 }
