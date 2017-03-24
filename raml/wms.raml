@@ -37,47 +37,43 @@ documentation:
 
 
 schemas:
-  - Good:           !include schemas/json/warehouse-good.schema
-  - Goods:          !include schemas/json/warehouse-goods.schema
-  - Demand:         !include schemas/json/commons-outbound-document.schema
-  - Demands:        !include schemas/json/commons-outbound-documents.schema
-  - Reserve:        !include schemas/json/commons-outbound-document.schema
-  - Reserves:       !include schemas/json/commons-outbound-documents.schema
-  - Picklist:       !include schemas/json/commons-outbound-document.schema
-  - Picklists:      !include schemas/json/commons-outbound-documents.schema
-  - Issue:          !include schemas/json/commons-outbound-document.schema
-  - Issues:         !include schemas/json/commons-outbound-documents.schema
-  - Despatch:       !include schemas/json/commons-outbound-document.schema
-  - Despatches:     !include schemas/json/commons-outbound-documents.schema
-  - Delivery:       !include schemas/json/commons-inbound-document.schema
-  - Deliveries:     !include schemas/json/commons-inbound-documents.schema
-  - Receipt:        !include schemas/json/commons-inbound-document.schema
-  - Receipts:       !include schemas/json/commons-inbound-documents.schema
-  - Rebound:        !include schemas/json/commons-inbound-document.schema
-  - Rebounds:       !include schemas/json/commons-inbound-documents.schema
-  - Stockcard:      !include schemas/json/commons-document.schema
-  - Stockcards:     !include schemas/json/commons-documents.schema
-  - Stocktake:      !include schemas/json/commons-document.schema
-  - Stocktakes:     !include schemas/json/commons-documents.schema
-  - Adjustment:     !include schemas/json/commons-document.schema
-  - Adjustments:    !include schemas/json/commons-documents.schema
+  - Good:           !include schemas/json/commons-good.schema
+  - Goods:          !include schemas/json/commons-goods.schema
   - Customer:       !include schemas/json/commons-contractor.schema
   - Customers:      !include schemas/json/commons-contractors.schema
   - Supplier:       !include schemas/json/commons-contractor.schema
   - Suppliers:      !include schemas/json/commons-contractors.schema
-  - Action:         !include schemas/json/commons-action.schema
-  - Goal:           !include schemas/json/commons-document.schema
-  - Goals:          !include schemas/json/commons-documents.schema
-  - Cutoff:           !include schemas/json/commons-document.schema
-  - Cutoffs:          !include schemas/json/commons-documents.schema
-  #- DemandAction:    !include schemas/json/warehouse-demand-action.schema
-  #- ReceiptAction:  !include schemas/json/warehouse-receipt-action.schema
-  #- IssueAction:    !include schemas/json/warehouse-issue-action.schema
-  #- DespatchAction: !include schemas/json/warehouse-despatch-action.schema
-  #- DeliveryAction: !include schemas/json/warehouse-delivery-action.schema
-  #- ReserveAction:  !include schemas/json/warehouse-reserve-action.schema
-  #- PicklistAction: !include schemas/json/warehouse-picklist-action.schema
   - Error:          !include schemas/json/commons-error.schema
+  - Demand:         !include schemas/json/warehouse-outbound-document.schema
+  - Demands:        !include schemas/json/warehouse-outbound-documents.schema
+  - Reserve:        !include schemas/json/warehouse-outbound-document.schema
+  - Reserves:       !include schemas/json/warehouse-outbound-documents.schema
+  - Picklist:       !include schemas/json/warehouse-outbound-document.schema
+  - Picklists:      !include schemas/json/warehouse-outbound-documents.schema
+  - Issue:          !include schemas/json/warehouse-outbound-document.schema
+  - Issues:         !include schemas/json/warehouse-outbound-documents.schema
+  - Despatch:       !include schemas/json/warehouse-outbound-document.schema
+  - Despatches:     !include schemas/json/warehouse-outbound-documents.schema
+  - Delivery:       !include schemas/json/warehouse-inbound-document.schema
+  - Deliveries:     !include schemas/json/warehouse-inbound-documents.schema
+  - Receipt:        !include schemas/json/warehouse-inbound-document.schema
+  - Receipts:       !include schemas/json/warehouse-inbound-documents.schema
+  - Rebound:        !include schemas/json/warehouse-inbound-document.schema
+  - Rebounds:       !include schemas/json/warehouse-inbound-documents.schema
+  - Stockcard:      !include schemas/json/warehouse-generic-document.schema
+  - Stockcards:     !include schemas/json/warehouse-generic-documents.schema
+  - Adjustment:     !include schemas/json/warehouse-generic-document.schema
+  - Adjustments:    !include schemas/json/warehouse-generic-documents.schema
+  - Adjustment1:     !include schemas/json/warehouse-outbound-document.schema
+  - Adjustments1:    !include schemas/json/warehouse-outbound-documents.schema
+  - Adjustment2:     !include schemas/json/warehouse-outbound-document.schema
+  - Adjustments2:    !include schemas/json/warehouse-outbound-documents.schema
+  - Goal:           !include schemas/json/warehouse-generic-document.schema
+  - Goals:          !include schemas/json/warehouse-generic-documents.schema
+  - Cutoff:         !include schemas/json/warehouse-generic-document.schema
+  - Cutoffs:        !include schemas/json/warehouse-generic-documents.schema
+  - Stocktake:      !include schemas/json/warehouse-stocktake-document.schema
+  - Stocktakes:     !include schemas/json/warehouse-stocktake-documents.schema
 
 /customers:
   get:
@@ -299,27 +295,6 @@ schemas:
           body:
             application/json:
               schema: Error
-    /actions:
-      description: Make an actions defined for each type of document (for example, create/cancel entry)
-      post:
-        description: Fire Action
-        body:
-          application/json:
-            schema: Action
-            example: !include examples/json/commons-action-example.json
-        responses:
-          204:
-            description: normaly no content provided
-          400:
-            description: bad request data
-            body:
-              application/json:
-                schema: Error
-          409:
-            description: conflict
-            body:
-              application/json:
-                schema: Error
     /status:
       description: status of demand
       get:
@@ -392,27 +367,7 @@ schemas:
           body:
             application/json:
               schema: Error
-    /actions:
-      description: Make an actions defined for each type of document (for example, create/cancel entry)
-      post:
-        description: Fire Action
-        body:
-          application/json:
-            schema: Action
-            example: !include examples/json/commons-action-example.json
-        responses:
-          204:
-            description: normaly no content provided
-          400:
-            description: bad request data
-            body:
-              application/json:
-                schema: Error
-          409:
-            description: conflict
-            body:
-              application/json:
-                schema: Error
+
 
 /issues:
   description: |
@@ -472,27 +427,7 @@ schemas:
           body:
             application/json:
               schema: Error
-    /actions:
-      description: Make an actions defined for each type of document (for example, create/cancel entry)
-      post:
-        description: Fire Action
-        body:
-          application/json:
-            schema: Action
-            example: !include examples/json/commons-action-example.json
-        responses:
-          204:
-            description: normaly no content provided
-          400:
-            description: bad request data
-            body:
-              application/json:
-                schema: Error
-          409:
-            description: conflict
-            body:
-              application/json:
-                schema: Error
+
 
 /despatches:
   description: |
@@ -549,27 +484,7 @@ schemas:
           body:
             application/json:
               schema: Error
-    /actions:
-      description: Make an actions defined for each type of document (for example, create/cancel entry)
-      post:
-        description: Fire Action
-        body:
-          application/json:
-            schema: Action
-            example: !include examples/json/commons-action-example.json
-        responses:
-          204:
-            description: normaly no content provided
-          400:
-            description: bad request data
-            body:
-              application/json:
-                schema: Error
-          409:
-            description: conflict
-            body:
-              application/json:
-                schema: Error
+
 
 /deliveries:
   description: |
@@ -628,27 +543,7 @@ schemas:
           body:
             application/json:
               schema: Error
-    /actions:
-      description: Make an actions defined for each type of document (for example, create/cancel entry)
-      post:
-        description: Fire Action
-        body:
-          application/json:
-            schema: Action
-            example: !include examples/json/commons-action-example.json
-        responses:
-          204:
-            description: normaly no content provided
-          400:
-            description: bad request data
-            body:
-              application/json:
-                schema: Error
-          409:
-            description: conflict
-            body:
-              application/json:
-                schema: Error
+
 
 /reserves:
   description: |
@@ -705,27 +600,7 @@ schemas:
           body:
             application/json:
               schema: Error
-    /actions:
-      description: Make an actions defined for each type of document (for example, create/cancel entry)
-      post:
-        description: Fire Action
-        body:
-          application/json:
-            schema: Action
-            example: !include examples/json/commons-action-example.json
-        responses:
-          204:
-            description: normaly no content provided
-          400:
-            description: bad request data
-            body:
-              application/json:
-                schema: Error
-          409:
-            description: conflict
-            body:
-              application/json:
-                schema: Error
+
 
 /stocktakes:
   description: |
@@ -784,27 +659,7 @@ schemas:
           body:
             application/json:
               schema: Error
-    /actions:
-      description: Make an actions defined for each type of document (for example, create/cancel entry)
-      post:
-        description: Fire Action
-        body:
-          application/json:
-            schema: Action
-            example: !include examples/json/commons-action-example.json
-        responses:
-          204:
-            description: normaly no content provided
-          400:
-            description: bad request data
-            body:
-              application/json:
-                schema: Error
-          409:
-            description: conflict
-            body:
-              application/json:
-                schema: Error
+
 
 /picklists:
   description: |
@@ -868,27 +723,7 @@ schemas:
           body:
             application/json:
               schema: Error
-    /actions:
-      description: Make an actions defined for each type of document (for example, create/cancel entry)
-      post:
-        description: Fire Action
-        body:
-          application/json:
-            schema: Action
-            example: !include examples/json/commons-action-example.json
-        responses:
-          204:
-            description: normaly no content provided
-          400:
-            description: bad request data
-            body:
-              application/json:
-                schema: Error
-          409:
-            description: conflict
-            body:
-              application/json:
-                schema: Error
+ 
 
 /stockcards:
   description: |
