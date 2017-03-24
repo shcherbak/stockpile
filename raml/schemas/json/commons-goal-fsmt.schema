@@ -1,26 +1,26 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Goal FSM transition",
-    "description": "Goal FSM transition",
-    "type": "object",
-    "properties": {
-        "transition": {
-            "type": "string",
-            "enum": [
-              "PROPOSED",
-              "ADVISED",
-              "REJECTED",
-              "ACCEPTED",
-              "CANCELED",
-              "COMMITTED",
-              "DECOMMITTED",
-              "FAILED",
-              "SATISFIED"
-            ]
-        }
-    },
-    "additionalProperties": false,
-    "required": [
-        "transition"
-    ]
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Goal FSM transition",
+  "description": "Finite state machine transition for agent communication",
+  "type": "object",
+  "properties": {
+    "transition": {
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "ADVISED",
+        "REJECTED",
+        "ACCEPTED",
+        "CANCELED",
+        "COMMITTED",
+        "DECOMMITTED",
+        "FAILED",
+        "SATISFIED"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "transition"
+  ]
 }

@@ -1,20 +1,20 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Document FSM transition",
-    "description": "Document FSM transition",
-    "type": "object",
-    "properties": {
-        "transition": {
-            "type": "string",
-            "enum": [
-              "PROPOSED",
-              "COMMITTED",
-              "DECOMMITTED"
-            ]
-        }
-    },
-    "additionalProperties": false,
-    "required": [
-        "transition"
-    ]
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Document FSM transition",
+  "description": "Finite state machine transition for generic document",
+  "type": "object",
+  "properties": {
+    "transition": {
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "COMMITTED",
+        "DECOMMITTED"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "transition"
+  ]
 }
