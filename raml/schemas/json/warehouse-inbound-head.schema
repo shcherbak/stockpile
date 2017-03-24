@@ -1,13 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Document Heading",
-  "description": "Document Heading",
+  "title": "Inbound Document Heading",
+  "description": "Inbound Document Heading",
   "type": "object",
   "properties": {
-    "id": {
-      "description": "The unique identifier for a document",
-      "type": "integer"
-    },
     "gid": {
       "description": "Global ID",
       "type": "string",
@@ -23,8 +19,8 @@
       "type": "string",
       "pattern": "20[0-9]{2}-[0-1][0-9]-[0-3][0-9]"
     },
-    "issued_by": {
-      "description": "Issued by, ship_from, facility_code",
+    "facility_code": {
+      "description": "Issued by, ship_to, facility_code",
       "type": "array",
       "items": {
         "$ref": "commons-contractor.schema"
@@ -50,8 +46,8 @@
       "minItems": 1,
       "maxItems": 1
     },
-    "issued_for": {
-      "description": "Issued for, ship_to, addresser",
+    "addresses": {
+      "description": "Issued by, ship_from, addresser",
       "type": "array",
       "items": {
         "$ref": "commons-contractor.schema"
@@ -62,13 +58,12 @@
   },
   "additionalProperties": false,
   "required": [
-    "id",
     "gid",
     "display_name",
     "document_date",
-    "issued_by",
+    "facility_code",
     "curr_fsmt",
     "doctype",
-    "issued_for"
+    "addresser"
   ]
 }
