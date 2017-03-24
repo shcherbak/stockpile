@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Warehouse Stocktake Documents Collection",
+  "description": "Warehouse Stocktake Documents Collection Type definition",
+  "type": "array",
+  "items": {
+    "$ref": "warehouse-stocktake-document.schema"
+  },
+  "uniqueItems": true
+}

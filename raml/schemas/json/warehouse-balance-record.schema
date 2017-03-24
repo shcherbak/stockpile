@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Warehouse Generic Record",
+  "description": "Warehouse Generic Record Type definition",
+  "type": "object",
+  "properties": {
+    "facility_code": {
+      "description": "Issued by, ship_from, facility_code",
+      "type": "array",
+      "items": {
+        "$ref": "commons-contractor.schema"
+      },
+      "minItems": 1,
+      "maxItems": 1
+    },
+    "sku": {
+      "type": "string",
+      "description": "Stock Keeping Unit",
+      "pattern": "^[0-9]{2}.[0-9]{2}.[0-9]{3}-[0-9]{3}($|.[0-9]{3}$)"
+    },
+    "name": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Warehouse storage unit"
+    },
+    "on_hand_qty": {
+      "type": "number",
+      "description": "Quantity on hand",
+      "minimum": 0,
+      "exclusiveMinimum": true
+    },
+    "reserved_qty": {
+      "type": "number",
+      "description": "Quantity reserved",
+      "minimum": 0,
+      "exclusiveMinimum": true
+    },
+    "available_qty": {
+      "type": "number",
+      "description": "Quantity available",
+      "minimum": 0,
+      "exclusiveMinimum": true
+    },
+    "en_route_qty": {
+      "type": "number",
+      "description": "Quantity en-route",
+      "minimum": 0,
+      "exclusiveMinimum": true
+    },
+    "on_order_qty": {
+      "type": "number",
+      "description": "Quantity on-order",
+      "minimum": 0,
+      "exclusiveMinimum": true
+    }
+  },
+  "additionalPoperties": false,
+  "required": [
+    "sku",
+    "name",
+    "unit",
+    "on_hand_qty",
+    "reserved_qty",
+    "available_qty",
+    "en_route_qty",
+    "on_order_qty"
+  ]
+}

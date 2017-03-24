@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Warehouse Balance Records Collection",
+  "description": "Warehouse Balance Records Collection Type definition",
+  "type": "array",
+  "items": {
+    "$ref": "warehouse-balance-record.schema"
+  },
+  "uniqueItems": true
+}
