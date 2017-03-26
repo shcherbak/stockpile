@@ -1,8 +1,0 @@
-{
-  "id": 123,
-  "sku": "12.34.567-890.123",
-  "name": "Warehouse Item 1",
-  "unit": "PCS",
-  "qty": 50,
-  "comment": "txt"
-}

@@ -44,6 +44,8 @@ schemas:
   - Supplier:       !include schemas/json/commons-contractor.schema
   - Suppliers:      !include schemas/json/commons-contractors.schema
   - Error:          !include schemas/json/commons-error.schema
+  - Balance:        !include schemas/json/warehouse-balance-record.schema
+  - Balances:       !include schemas/json/warehouse-balance-records.schema
   - Demand:         !include schemas/json/warehouse-outbound-document.schema
   - Demands:        !include schemas/json/warehouse-outbound-documents.schema
   - Reserve:        !include schemas/json/warehouse-outbound-document.schema
@@ -64,10 +66,10 @@ schemas:
   - Stockcards:     !include schemas/json/warehouse-generic-documents.schema
   - Adjustment:     !include schemas/json/warehouse-generic-document.schema
   - Adjustments:    !include schemas/json/warehouse-generic-documents.schema
-  - Adjustment1:     !include schemas/json/warehouse-outbound-document.schema
-  - Adjustments1:    !include schemas/json/warehouse-outbound-documents.schema
-  - Adjustment2:     !include schemas/json/warehouse-outbound-document.schema
-  - Adjustments2:    !include schemas/json/warehouse-outbound-documents.schema
+  - Adjustment1:    !include schemas/json/warehouse-outbound-document.schema
+  - Adjustments1:   !include schemas/json/warehouse-outbound-documents.schema
+  - Adjustment2:    !include schemas/json/warehouse-outbound-document.schema
+  - Adjustments2:   !include schemas/json/warehouse-outbound-documents.schema
   - Goal:           !include schemas/json/warehouse-generic-document.schema
   - Goals:          !include schemas/json/warehouse-generic-documents.schema
   - Cutoff:         !include schemas/json/warehouse-generic-document.schema
@@ -250,7 +252,7 @@ schemas:
       200:
         body:
           application/json:
-            schema: Demands
+            schema: Demand
   post:
     description: Add new Demand
     body:
@@ -723,7 +725,7 @@ schemas:
           body:
             application/json:
               schema: Error
- 
+
 
 /stockcards:
   description: |

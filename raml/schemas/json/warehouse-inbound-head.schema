@@ -32,7 +32,7 @@
       "description": "Current transition",
       "type": "array",
       "items": {
-        "$ref": "commons-document-fsmt.schema"
+        "$ref": "warehouse-document-fsmt.schema"
       },
       "minItems": 1,
       "maxItems": 1
@@ -41,7 +41,7 @@
       "description": "Document kind",
       "type": "array",
       "items": {
-        "$ref": "commons-document-kind.schema"
+        "$ref": "warehouse-document-kind.schema"
       },
       "minItems": 1,
       "maxItems": 1
