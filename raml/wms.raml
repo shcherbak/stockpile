@@ -31,52 +31,49 @@ documentation:
       stock AGT creates new Issue by POST wms.io/api/v1/adjustments/
       stock AGT notifies statatus of Demand [FULFILLED, UNFULFILLED, OVERFULFILLED]
 
-# outbound docs
-# inbound docs
-# internal docs
-
 
 schemas:
-  - Good:           !include schemas/json/commons-good.schema
-  - Goods:          !include schemas/json/commons-goods.schema
-  - Customer:       !include schemas/json/commons-contractor.schema
-  - Customers:      !include schemas/json/commons-contractors.schema
-  - Supplier:       !include schemas/json/commons-contractor.schema
-  - Suppliers:      !include schemas/json/commons-contractors.schema
-  - Error:          !include schemas/json/commons-error.schema
-  - Balance:        !include schemas/json/warehouse-balance-record.schema
-  - Balances:       !include schemas/json/warehouse-balance-records.schema
-  - Demand:         !include schemas/json/warehouse-outbound-document.schema
-  - Demands:        !include schemas/json/warehouse-outbound-documents.schema
-  - Reserve:        !include schemas/json/warehouse-outbound-document.schema
-  - Reserves:       !include schemas/json/warehouse-outbound-documents.schema
-  - Picklist:       !include schemas/json/warehouse-outbound-document.schema
-  - Picklists:      !include schemas/json/warehouse-outbound-documents.schema
-  - Issue:          !include schemas/json/warehouse-outbound-document.schema
-  - Issues:         !include schemas/json/warehouse-outbound-documents.schema
-  - Despatch:       !include schemas/json/warehouse-outbound-document.schema
-  - Despatches:     !include schemas/json/warehouse-outbound-documents.schema
-  - Delivery:       !include schemas/json/warehouse-inbound-document.schema
-  - Deliveries:     !include schemas/json/warehouse-inbound-documents.schema
-  - Receipt:        !include schemas/json/warehouse-inbound-document.schema
-  - Receipts:       !include schemas/json/warehouse-inbound-documents.schema
-  - Rebound:        !include schemas/json/warehouse-inbound-document.schema
-  - Rebounds:       !include schemas/json/warehouse-inbound-documents.schema
-  - Stockcard:      !include schemas/json/warehouse-generic-document.schema
-  - Stockcards:     !include schemas/json/warehouse-generic-documents.schema
-  - Adjustment:     !include schemas/json/warehouse-generic-document.schema
-  - Adjustments:    !include schemas/json/warehouse-generic-documents.schema
-  - Adjustment1:    !include schemas/json/warehouse-outbound-document.schema
-  - Adjustments1:   !include schemas/json/warehouse-outbound-documents.schema
-  - Adjustment2:    !include schemas/json/warehouse-outbound-document.schema
-  - Adjustments2:   !include schemas/json/warehouse-outbound-documents.schema
-  - Goal:           !include schemas/json/warehouse-generic-document.schema
-  - Goals:          !include schemas/json/warehouse-generic-documents.schema
-  - Cutoff:         !include schemas/json/warehouse-generic-document.schema
-  - Cutoffs:        !include schemas/json/warehouse-generic-documents.schema
-  - Stocktake:      !include schemas/json/warehouse-stocktake-document.schema
-  - Stocktakes:     !include schemas/json/warehouse-stocktake-documents.schema
+  - Good:               !include schemas/json/commons-good.schema
+  - Goods:              !include schemas/json/commons-goods.schema
+  - Customer:           !include schemas/json/commons-contractor.schema
+  - Customers:          !include schemas/json/commons-contractors.schema
+  - Supplier:           !include schemas/json/commons-contractor.schema
+  - Suppliers:          !include schemas/json/commons-contractors.schema
+  - Error:              !include schemas/json/commons-error.schema
+  - Demand:             !include schemas/json/warehouse-outbound-document.schema
+  - Demands:            !include schemas/json/warehouse-outbound-documents.schema
+  - Reserve:            !include schemas/json/warehouse-outbound-document.schema
+  - Reserves:           !include schemas/json/warehouse-outbound-documents.schema
+  - Picklist:           !include schemas/json/warehouse-outbound-document.schema
+  - Picklists:          !include schemas/json/warehouse-outbound-documents.schema
+  - Issue:              !include schemas/json/warehouse-outbound-document.schema
+  - Issues:             !include schemas/json/warehouse-outbound-documents.schema
+  - AdjustmentCredit:   !include schemas/json/warehouse-outbound-document.schema
+  - AdjustmentCredits:  !include schemas/json/warehouse-outbound-documents.schema
+  - Despatch:           !include schemas/json/warehouse-outbound-document.schema
+  - Despatches:         !include schemas/json/warehouse-outbound-documents.schema
+  - Delivery:           !include schemas/json/warehouse-inbound-document.schema
+  - Deliveries:         !include schemas/json/warehouse-inbound-documents.schema
+  - Receipt:            !include schemas/json/warehouse-inbound-document.schema
+  - Receipts:           !include schemas/json/warehouse-inbound-documents.schema
+  - AdjustmentDebit:    !include schemas/json/warehouse-inbound-document.schema
+  - AdjustmentDebits:   !include schemas/json/warehouse-inbound-documents.schema
+  - Rebound:            !include schemas/json/warehouse-inbound-document.schema
+  - Rebounds:           !include schemas/json/warehouse-inbound-documents.schema
+  - Cutoff:             !include schemas/json/warehouse-generic-document.schema
+  - Cutoffs:            !include schemas/json/warehouse-generic-documents.schema
+  - Goal:               !include schemas/json/warehouse-generic-document.schema
+  - Goals:              !include schemas/json/warehouse-generic-documents.schema
+  - Stockcard:          !include schemas/json/warehouse-generic-document.schema
+  - Stockcards:         !include schemas/json/warehouse-generic-documents.schema
+  - Balance:            !include schemas/json/warehouse-balance-record.schema
+  - Balances:           !include schemas/json/warehouse-balance-records.schema
+  - Stocktake:          !include schemas/json/warehouse-stocktake-document.schema
+  - Stocktakes:         !include schemas/json/warehouse-stocktake-documents.schema
 
+#
+# Common
+#
 /customers:
   get:
     description: Get a list of Customers
@@ -242,6 +239,9 @@ schemas:
             application/json:
               schema: Error
 
+#
+# Outgoing documents
+#
 /demands:
   description: |
     A Warehouse Demand is defined as acknowledged shipment. Warehouse Demand can
@@ -252,7 +252,7 @@ schemas:
       200:
         body:
           application/json:
-            schema: Demand
+            schema: Demands
   post:
     description: Add new Demand
     body:
@@ -297,255 +297,6 @@ schemas:
           body:
             application/json:
               schema: Error
-    /status:
-      description: status of demand
-      get:
-        description: Get status of demand by ID
-        body:
-          application/json:
-        responses:
-          200:
-            description: status
-            body:
-              application/json:
-          404:
-            body:
-              application/json:
-                schema: Error
-
-/receipts:
-  description: |
-    A Goods Receipt (GR) is defined as a physical inbound movement of goods or
-    materials into the warehouse or it is the receipt of material in the store
-    or the receipt of stock from the vendor or manufacturer.
-  get:
-    description: Get a list of Receipts
-    responses:
-      200:
-        body:
-          application/json:
-            schema: Receipts
-  post:
-    description: Add new Receipt
-    body:
-      application/json:
-        schema: Receipt
-    responses:
-      201:
-        body:
-          application/json:
-            schema: Receipt
-  /{resourceId}:
-    get:
-      description: Get a Receipt by ID
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Receipt
-        404:
-          body:
-            application/json:
-              schema: Error
-    put:
-      description: Update Receipt by ID
-      body:
-        application/json:
-          schema: Receipt
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Receipt
-        404:
-          body:
-            application/json:
-              schema: Error
-    delete:
-      description: Delete a Receipt by ID
-      responses:
-        204:
-        404:
-          body:
-            application/json:
-              schema: Error
-
-
-/issues:
-  description: |
-    A Goods Issue (GI) is defined as a physical outbound movement of goods or
-    materials from the warehouse or it is the issue of physical goods or
-    materials from the warehouse.
-  get:
-    description: |
-      Get a list of List all Issues matching query criteria, if provided;
-      otherwise list all Issues
-    responses:
-      200:
-        body:
-          application/json:
-            schema: Issues
-  post:
-    description: Add new Issue
-    body:
-      application/json:
-        schema: Issue
-    responses:
-      201:
-        body:
-          application/json:
-            schema: Issue
-  /{recourceId}:
-    get:
-      description: Get a Issue by ID
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Issue
-        404:
-          body:
-            application/json:
-              schema: Error
-    put:
-      description: Update Issue by ID
-      body:
-        application/json:
-          schema: Issue
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Issue
-        404:
-          body:
-            application/json:
-              schema: Error
-    delete:
-      description: Delete a Issue by ID
-      responses:
-        204:
-        404:
-          body:
-            application/json:
-              schema: Error
-
-
-/despatches:
-  description: |
-    Goods Despatch Note (GDN) is a document that is raised by the supplier’s
-    despatch department responsible of sending goods out to customers
-  get:
-    description: Get a list of Despatches
-    responses:
-      200:
-        body:
-          application/json:
-            schema: Despatches
-  post:
-    description: Add new Despatch
-    body:
-      application/json:
-        schema: Despatch
-    responses:
-      201:
-        body:
-          application/json:
-            schema: Despatch
-  /{resourceId}:
-    get:
-      description: Get a Despatch by ID
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Despatch
-        404:
-          body:
-            application/json:
-              schema: Error
-    put:
-      description: Update Despatch by ID
-      body:
-        application/json:
-          schema: Despatch
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Despatch
-        404:
-          body:
-            application/json:
-              schema: Error
-    delete:
-      description: Delete a Despatch by ID
-      responses:
-        204:
-        404:
-          body:
-            application/json:
-              schema: Error
-
-
-/deliveries:
-  description: |
-    Goods Delivery Note - If the same note i.e. goods despatch note is sent with
-    the goods to the customers and customer sign the documents as an evidence of
-    the receipt by the customer then the same note will be named as
-    Goods Delivery Note
-  get:
-    description: Get a list of Deliveries
-    responses:
-      200:
-        body:
-          application/json:
-            schema: Deliveries
-  post:
-    description: Add new Delivery
-    body:
-      application/json:
-        schema: Delivery
-    responses:
-      201:
-        body:
-          application/json:
-            schema: Delivery
-  /{resourceId}:
-    get:
-      description: Get a Delivery by ID
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Delivery
-        404:
-          body:
-            application/json:
-              schema: Error
-    put:
-      description: Update Delivery by ID
-      body:
-        application/json:
-          schema: Delivery
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Delivery
-        404:
-          body:
-            application/json:
-              schema: Error
-    delete:
-      description: Delete a Delivery by ID
-      responses:
-        204:
-        404:
-          body:
-            application/json:
-              schema: Error
-
 
 /reserves:
   description: |
@@ -602,66 +353,6 @@ schemas:
           body:
             application/json:
               schema: Error
-
-
-/stocktakes:
-  description: |
-    Stock-taking (STN) or inventory checking is the physical verification of the
-    quantities and condition of items held in an inventory or warehouse. This
-    may be done to provide an audit of existing stock. It is also the source of
-    stock discrepancy information. STN is determination of a cutoff point
-  get:
-    description: Get a list of Stocktakes
-    responses:
-      200:
-        body:
-          application/json:
-            schema: Stocktakes
-  post:
-    description: Add new Stocktake
-    body:
-      application/json:
-        schema: Stocktake
-    responses:
-      201:
-        body:
-          application/json:
-            schema: Stocktake
-  /{resourceId}:
-    get:
-      description: Get a Stocktake by ID
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Stocktake
-        404:
-          body:
-            application/json:
-              schema: Error
-    put:
-      description: Update Stocktake by ID
-      body:
-        application/json:
-          schema: Stocktake
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Stocktake
-        404:
-          body:
-            application/json:
-              schema: Error
-    delete:
-      description: Delete a Stocktake by ID
-      responses:
-        204:
-        404:
-          body:
-            application/json:
-              schema: Error
-
 
 /picklists:
   description: |
@@ -726,7 +417,413 @@ schemas:
             application/json:
               schema: Error
 
+/issues:
+  description: |
+    A Goods Issue (GI) is defined as a physical outbound movement of goods or
+    materials from the warehouse or it is the issue of physical goods or
+    materials from the warehouse.
+  get:
+    description: |
+      Get a list of List all Issues matching query criteria, if provided;
+      otherwise list all Issues
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Issues
+  post:
+    description: Add new Issue
+    body:
+      application/json:
+        schema: Issue
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Issue
+  /{recourceId}:
+    get:
+      description: Get a Issue by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Issue
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Issue by ID
+      body:
+        application/json:
+          schema: Issue
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Issue
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Issue by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
 
+/despatches:
+  description: |
+    Goods Despatch Note (GDN) is a document that is raised by the supplier’s
+    despatch department responsible of sending goods out to customers
+  get:
+    description: Get a list of Despatches
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Despatches
+  post:
+    description: Add new Despatch
+    body:
+      application/json:
+        schema: Despatch
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Despatch
+  /{resourceId}:
+    get:
+      description: Get a Despatch by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Despatch
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Despatch by ID
+      body:
+        application/json:
+          schema: Despatch
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Despatch
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Despatch by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+
+/rebounds:
+  description: |
+    Returns of issued goods
+  get:
+    description: Get a list of Rebounds
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Rebounds
+  post:
+    description: Add new Rebound
+    body:
+      application/json:
+        schema: Rebound
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Rebound
+  /{resourceId}:
+    get:
+      description: Get a Rebound by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Rebound
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Cutoffs by ID
+      body:
+        application/json:
+          schema: Rebound
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Rebound
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Rebound by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+
+#
+# Incoming documents
+#
+/deliveries:
+  description: |
+    Goods Delivery Note - If the same note i.e. goods despatch note is sent with
+    the goods to the customers and customer sign the documents as an evidence of
+    the receipt by the customer then the same note will be named as
+    Goods Delivery Note
+  get:
+    description: Get a list of Deliveries
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Deliveries
+  post:
+    description: Add new Delivery
+    body:
+      application/json:
+        schema: Delivery
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Delivery
+  /{resourceId}:
+    get:
+      description: Get a Delivery by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Delivery
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Delivery by ID
+      body:
+        application/json:
+          schema: Delivery
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Delivery
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Delivery by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+
+/receipts:
+  description: |
+    A Goods Receipt (GR) is defined as a physical inbound movement of goods or
+    materials into the warehouse or it is the receipt of material in the store
+    or the receipt of stock from the vendor or manufacturer.
+  get:
+    description: Get a list of Receipts
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Receipts
+  post:
+    description: Add new Receipt
+    body:
+      application/json:
+        schema: Receipt
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Receipt
+  /{resourceId}:
+    get:
+      description: Get a Receipt by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Receipt
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Receipt by ID
+      body:
+        application/json:
+          schema: Receipt
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Receipt
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Receipt by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+
+#
+# internal documents
+#
+/cutoffs:
+  description: |
+    Cutoff determins a point in accounting
+  get:
+    description: Get a list of Cutoffs
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Cutoffs
+  post:
+    description: Add new Cutoff
+    body:
+      application/json:
+        schema: Cutoff
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Cutoff
+  /{resourceId}:
+    get:
+      description: Get a Cutoff by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Cutoff
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Cutoffs by ID
+      body:
+        application/json:
+          schema: Cutoff
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Cutoff
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Cutoff by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+
+/stocktakes:
+  description: |
+    Stock-taking (STN) or inventory checking is the physical verification of the
+    quantities and condition of items held in an inventory or warehouse. This
+    may be done to provide an audit of existing stock. It is also the source of
+    stock discrepancy information. STN is determination of a cutoff point
+  get:
+    description: Get a list of Stocktakes
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Stocktakes
+  post:
+    description: Add new Stocktake
+    body:
+      application/json:
+        schema: Stocktake
+    responses:
+      201:
+        body:
+          application/json:
+            schema: Stocktake
+  /{resourceId}:
+    get:
+      description: Get a Stocktake by ID
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Stocktake
+        404:
+          body:
+            application/json:
+              schema: Error
+    put:
+      description: Update Stocktake by ID
+      body:
+        application/json:
+          schema: Stocktake
+      responses:
+        200:
+          body:
+            application/json:
+              schema: Stocktake
+        404:
+          body:
+            application/json:
+              schema: Error
+    delete:
+      description: Delete a Stocktake by ID
+      responses:
+        204:
+        404:
+          body:
+            application/json:
+              schema: Error
+
+#
+# refferential documents
+#
 /stockcards:
   description: |
     Stock Card shows all issues and receipts of giving Warehouse Item matching date
@@ -769,77 +866,3 @@ schemas:
           body:
             application/json:
               schema: Error
-
-#/cutoff:
-#  description: |
-#    Cutoff is a time-stamp for administrative purposes (document edition locking,
-#    totals and sub-totals calculations)
-#
-#/received:
-#  description: |
-#    Goods Received Note (GRN) is raised by a store manager of the customer
-#    on receiving goods from supplier. This document is for internal usage
-#
-# some template example
-#title: title
-#
-#resourceTypes:
-#  - collection:
-#      get:
-#      post:
-#  - collection-item:
-#      get:
-#
-#/resources:
-#  get:
-#  post:
-#  /{resourceId}:
-#    get:
-#    put:
-#    delete:
-#
-#resourceTypes:
-#  - collection:
-#      description: Collection of available <<resourcePathName>> in WMS
-#      get:
-#        description: Get a list of <<resourcePathName>>
-#        responses:
-#          200:
-#            body:
-#              application/json:
-#      post:
-#        description: |
-#          Add new <<resourcePathName|!singularize>> to WMS
-#        queryParameters:
-#          access_token:
-#            description: The access token provided by the authentication application
-#            type: string
-#            required: true
-#            example: SECRET_TOKEN
-#        body:
-#          application/json:
-#            schema: <<resourcePathName|!singularize>>
-#        responses:
-#          200:
-#            body:
-#              application/json:
-#                example: |
-#                  {"message": "The <<resourcePathName|!singularize>> has been properly entered"}
-#  - collection-item:
-#      description: Entity representing a <<resourcePathName|!singularize>>
-#      get:
-#        description: |
-#          Get the <<resourcePathName|!singularize>>
-#          with <<resourcePathName|!singularize>>Id =
-#          {<<resourcePathName|!singularize>>Id}
-#        responses:
-#          200:
-#            body:
-#              application/json:
-#                example: |
-#                  <<exampleItem>>
-#          404:
-#            body:
-#              application/json:
-#                example: |
-#                  {"message": "<<resourcePathName|!singularize>> not found" }
