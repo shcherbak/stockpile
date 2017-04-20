@@ -1,8 +1,10 @@
 from sqlalchemy import *
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import mapper
 
 db = create_engine('sqlite:///joindemo.db')
 db.echo = True
-metadata = BoundMetaData(db)
+metadata = MetaData(db)
 users = Table('users', metadata, autoload=True)
 emails = Table('emails', metadata, autoload=True)
 session = create_session()
