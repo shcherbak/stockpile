@@ -13,7 +13,7 @@ def stored_procedure(connection, procedure, parameters):
 class Adjustmentcredit():
     __schema_name = 'adjustmentcredit'
 
-    def generate_display_name(parameters):
+    def generate_display_name(parameters) -> str:
         print(stored_procedure(db_connection, "adjustmentcredit.generate_display_name", parameters))
 
 
