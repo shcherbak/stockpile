@@ -1,8 +1,9 @@
-from flask import Flask, abort
-
+from flask import Flask, abort, jsonify
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-
+app.config.from_object('config')
+db = SQLAlchemy(app)
 
 @app.route('/')
 def hello_world():
@@ -11,7 +12,7 @@ def hello_world():
 
 @app.route('/demands', methods=['GET'])
 def get_demands():
-    return 'demands'
+    return jsonify({'demands': 'demands'})
 
 
 @app.route('/demands/<int:document_id>', methods=['GET'])
