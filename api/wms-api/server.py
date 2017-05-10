@@ -21,7 +21,7 @@ def get_demands():
 @app.route('/demands/<int:document_id>', methods=['GET'])
 def get_demand(document_id):
     #return 'demand id: {0}'.format(document_id)
-    response = dal.get_demand1(document_id)
+    response = dal.get_demand(document_id)
     return jsonify(response)
 
 
