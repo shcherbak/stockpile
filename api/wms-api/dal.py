@@ -29,13 +29,27 @@ class DataAccessLayer():
 
         curs.close()
 
-        print
-
         document = {"head": head[0], "body": self.__make_body_dictlist(body)}
 
         return document
 
 
+    def crt_document(self, schema, id):
+        pass
+
+
+    def upt_document(self, schema, id):
+        pass
+
+
+    def del_document(self, schema, id):
+        curs = self._conn.cursor()
+        curs.callproc((schema + '.destroy'), (id,))
+        self._conn.commit()
+        curs.close()
+
+
 if __name__ == '__main__':
     dal = DataAccessLayer()
     print(dal.get_document('demand', 81))
+    print(dal.del_document('demand', 81))
