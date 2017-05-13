@@ -8,7 +8,8 @@ from config import config
 
 params = config()
 conn = psycopg2.connect(**params)
-curs = conn.cursor()
+#curs = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+curs = conn.cursor(cursor_factory=psycopg2.extras.NamedTupleCursor)
 psycopg2.extras.register_composite('common.document_body', curs, True)
 psycopg2.extras.register_composite('common.document_head', curs, True)
 psycopg2.extras.register_composite('common.document_type', curs, True)
