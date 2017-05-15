@@ -133,6 +133,22 @@ boxes = curs.fetchall()
 print ("Found %d boxes with at least a point inside:" % len(boxes))
 for box in boxes:
     print (" ", box[0].show())
+    print (type (box[0]))
+
+
+rr1 = Rect()
+rr1.from_points(1,2,3,4)
+print(rr1.getquoted())
+print(rr1)
+
+rr2 = Rect()
+rr2.from_string('((3,4),(5,6))')
+print(rr2.getquoted())
+print(type(rr2))
+
 
 curs.execute("DROP TABLE test_cast")
+
+
+
 conn.commit()
