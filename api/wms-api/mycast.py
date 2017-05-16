@@ -220,7 +220,7 @@ class DocumentHead(object):
         f = psycopg2.extensions.adapt(self.facility_code)
         c = psycopg2.extensions.adapt(self.curr_fsmt)
         t = psycopg2.extensions.adapt(self.doctype)
-        s = "GOOD: %s\tQTY: %s\tUOM: %s" % (i, g, n, d, f, c, t)
+        s = "ID: %s\tGID: %s\tNAME: %s\tDATE: %s\tFCL: %s\tFSMT: %s\tDT: %s" % (i, g, n, d, f, c, t)
         return s
 
     def show(self):
@@ -231,7 +231,7 @@ class DocumentHead(object):
         f = psycopg2.extensions.adapt(self.facility_code)
         c = psycopg2.extensions.adapt(self.curr_fsmt)
         t = psycopg2.extensions.adapt(self.doctype)
-        s = "GOOD: %s\tQTY: %s\tUOM: %s" % (i, g, n, d, f, c, t)
+        s = "ID: %s\tGID: %s\tNAME: %s\tDATE: %s\tFCL: %s\tFSMT: %s\tDT: %s" % (i, g, n, d, f, c, t)
         return s
 
 
@@ -252,6 +252,63 @@ def register_common_document_head(oid=None, conn_or_curs=None):
     psycopg2.extensions.register_type(DOCUMENT_HEAD_ARRAY, conn_or_curs)
 
     return DOCUMENT_HEAD
+
+
+class GoalHead(object):
+
+    def __init__(self, s=None, curs=None):
+        self.document_id = 0
+        self.gid = ''
+        self.display_name = ''
+        self.document_date = ''
+        self.facility_code = ''
+        self.curr_fsmt = ''
+        self.doctype = ''
+        if s: self.from_string(s)
+
+    def __conform__(self, proto):
+        if proto == psycopg2.extensions.ISQLQuote:
+            return self
+
+    def from_tuple(self, t):
+        self.document_id = t[0]
+        self.gid = str(t[1])
+        self.display_name = str(t[2])
+        self.document_date = str(t[3])
+        self.facility_code = str(t[4])
+        self.curr_fsmt = str(t[5])
+        self.doctype = str(t[6])
+
+    def from_string(self, s):
+        if s is None:
+            return None
+        m = re.match(r"\((.+),(.+),(.+),(.+),(.+),(.+),(.+)\)", s)
+        if m:
+            self.from_tuple((m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7)))
+        else:
+            raise psycopg2.InterfaceError("bad goal_head representation: %r" % s)
+
+    def getquoted(self):
+        i = psycopg2.extensions.adapt(self.document_id)
+        g = psycopg2.extensions.adapt(self.gid)
+        n = psycopg2.extensions.adapt(self.display_name)
+        d = psycopg2.extensions.adapt(self.document_date)
+        f = psycopg2.extensions.adapt(self.facility_code)
+        c = psycopg2.extensions.adapt(self.curr_fsmt)
+        t = psycopg2.extensions.adapt(self.doctype)
+        s = "ID: %s\tGID: %s\tNAME: %s\tDATE: %s\tFCL: %s\tFSMT: %s\tDT: %s" % (i, g, n, d, f, c, t)
+        return s
+
+    def show(self):
+        i = psycopg2.extensions.adapt(self.document_id)
+        g = psycopg2.extensions.adapt(self.gid)
+        n = psycopg2.extensions.adapt(self.display_name)
+        d = psycopg2.extensions.adapt(self.document_date)
+        f = psycopg2.extensions.adapt(self.facility_code)
+        c = psycopg2.extensions.adapt(self.curr_fsmt)
+        t = psycopg2.extensions.adapt(self.doctype)
+        s = "ID: %s\tGID: %s\tNAME: %s\tDATE: %s\tFCL: %s\tFSMT: %s\tDT: %s" % (i, g, n, d, f, c, t)
+        return s
 
 
 register_common_document_body(conn_or_curs=conn)
