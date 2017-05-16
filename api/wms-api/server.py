@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from flask import Flask, abort, jsonify
-from dal import DataAccessLayer
+from dal2 import DataAccessLayer
 
 
 app = Flask(__name__)

@@ -1,21 +1,12 @@
+import re
 import psycopg2
 import psycopg2.extensions
-import re
-import uuid
-import datetime
-from decimal import Decimal
-from config import config
-
-# importing psycopg.extras will give us a nice tuple adapter: this is wrong
-# because the adapter is meant to be used in SQL IN clauses while we use
-# tuples to represent points but it works and the example is about Rect, not
-# "Point"
 import psycopg2.extras
+from decimal import Decimal
+from connection import connection
 
-params = config()
-conn = psycopg2.connect(**params)
-curs = conn.cursor()
 
+#from config import config
 
 def _get_pg_nspname_oid(conn, nspname):
     _sql = 'select oid from pg_namespace where nspname = %s'
@@ -502,35 +493,99 @@ def register_common_inbound_head(oid=None, conn_or_curs=None):
     return INBOUND_HEAD
 
 
-register_common_document_body(conn_or_curs=conn)
-register_common_stoktake_body(conn_or_curs=conn)
-register_common_document_head(conn_or_curs=conn)
-register_common_goal_head(conn_or_curs=conn)
-register_common_outbound_head(conn_or_curs=conn)
-register_common_inbound_head(conn_or_curs=conn)
-
-curs.callproc('demand.get_body', (84,))
-
-#boxes = curs.fetchall()
-#print ("Found %d boxes with at least a point inside:" % len(boxes))
-#for box in boxes:
-#    print (" ", box[0][0].show())
-#    print (" ", box[0][0].getquoted())
-#    print ("TYPE ", type(box))
-#    print ("TYPE[0] ", type(box[0]))
-#    print ("TYPE[0][0] ", type(box[0][0]))
+class DataAccessLayer():
+    def __init__(self):
+        self._conn = connection()
+        #udt(self._conn)
+        register_common_document_body(conn_or_curs=self._conn)
+        register_common_stoktake_body(conn_or_curs=self._conn)
+        register_common_document_head(conn_or_curs=self._conn)
+        register_common_goal_head(conn_or_curs=self._conn)
+        register_common_outbound_head(conn_or_curs=self._conn)
+        register_common_inbound_head(conn_or_curs=self._conn)
 
 
-#curs.callproc('demand.get_head', (84,))
-curs.execute('select NULL::common.outbound_head')
-p = curs.fetchone()
-print ("TYPE ", type(p))
-print (p)
+    def __make_body_dictlist(self, body):
+        # line <class 'psycopg2.extras.document_body'>
+        dictlist_of_records = []
+        for line in body[0]['get_body']:
+            add_line = {"good_code": line[0], "quanity": line[1], "uom_code": line[2]}
+            dictlist_of_records.append(add_line)
 
-curs.execute("select demand.get_head(84)")
-#curs.callproc('demand.get_head', (84,))
-p = curs.fetchone()
-print ("TYPE ", type(p))
-print (p[0])
-print (p[0].getquoted())
-#print (p.show())
+        return dictlist_of_records
+
+
+    def get_document(self, schema, id):
+        curs = self._conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+        curs.callproc((schema + '.get_body'), (id,))
+        body = curs.fetchone()
+        #print ('BODY TYPE IS', type(body))
+        #print (body)
+
+        dictlist_of_records = []
+        for line in body['get_body']:
+            #print('LINE TYPE IS ', type(line))
+            #print(line.getquoted())
+            dictlist_of_records.append(line.getquoted())
+
+        dictlist_of_records = []
+        #for line in body[0]['get_body']:
+            #add_line = {"good_code": line[0], "quanity": line[1], "uom_code": line[2]}
+            #dictlist_of_records.append(add_line)
+            #print (line.getquoted())
+            #print (type(line.getquoted()))
+
+        #curs.callproc((schema + '.get_head'), (id,))
+        curs.execute(('select ' + schema + '.get_head(%s)'), (id,))
+        head = curs.fetchone()
+        #print ('type of head is ', type(head['get_head']))
+        curs.close()
+
+        document = {"head": head['get_head'].getquoted(), "body": body['get_body'][0].getquoted()}
+        #document = head
+        #document = body[0]
+
+        return document
+
+
+    def crt_document(self, schema, head, body):
+        #_test_head CONSTANT common.outbound_head[] := ARRAY[(1,'8c1581c0-04c0-11e7-a843-08626627b4d6','DEMAND-01','2017-01-01','A1','PROPOSED','DEMAND','B1','2017-02-01')]::common.outbound_head[];
+        #_test_body CONSTANT common.document_body[] := ARRAY[('good1',10,'m'), ('good2',20,'m')]::common.document_body[];
+
+        body = [('good1', 10, 'm'), ('good2', 100, 'kg')]
+        head = (1, '8c1581c0-04c0-11e7-a843-08626627b4d6', 'DEMAND-01', '2017-01-01', 'A1', 'PROPOSED',
+                            'DEMAND', 'B1',
+                            '2017-02-01')
+        curs = self._conn.cursor()
+        curs.execute("SELECT demand.init(%s::common.outbound_head, %s::common.document_body[])", (head, body,))
+        id = curs.fetchone()
+        self._conn.commit()
+        curs.close()
+
+        return id
+
+
+    def upt_document(self, schema, id):
+        pass
+
+
+    def del_document(self, schema, id):
+        curs = self._conn.cursor()
+        curs.callproc((schema + '.destroy'), (id,))
+        self._conn.commit()
+        curs.close()
+
+
+
+if __name__ == '__main__':
+    dal = DataAccessLayer()
+    print(dal.get_document('demand', 85))
+    #print(dal.del_document('demand', 81))
+
+    #body = DoumentBody[('good1', 10, 'm'), ('good2', 10, 'm')]
+    #head = OutboundHead(1, '8c1581c0-04c0-11e7-a843-08626627b4d6', 'DEMAND-01', '2017-01-01', 'A1', 'PROPOSED', 'DEMAND', 'B1',
+    #        '2017-02-01')
+
+    #id = dal.crt_document('demand', None, None)
+    #print(id)
