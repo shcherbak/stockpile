@@ -511,21 +511,23 @@ register_common_inbound_head(conn_or_curs=conn)
 
 curs.callproc('demand.get_body', (84,))
 
-#boxes = curs.fetchall()
+boxes = curs.fetchone()
 #print ("Found %d boxes with at least a point inside:" % len(boxes))
-#for box in boxes:
-#    print (" ", box[0][0].show())
-#    print (" ", box[0][0].getquoted())
-#    print ("TYPE ", type(box))
-#    print ("TYPE[0] ", type(box[0]))
-#    print ("TYPE[0][0] ", type(box[0][0]))
+for box in boxes:
+    print (" ", box[0].show())
+    print (" ", box[0].getquoted())
+    print ("TYPE ", type(box))
+    print ("TYPE[0] ", type(box[0]))
+    #print ("TYPE[0][0] ", type(box[0][0]))
 
+
+print ("////////////////")
 
 #curs.callproc('demand.get_head', (84,))
-curs.execute('select NULL::common.outbound_head')
-p = curs.fetchone()
-print ("TYPE ", type(p))
-print (p)
+#curs.execute('select NULL::common.outbound_head')
+#p = curs.fetchone()
+#print ("TYPE ", type(p))
+#print (p)
 
 curs.execute("select demand.get_head(84)")
 #curs.callproc('demand.get_head', (84,))
@@ -533,4 +535,5 @@ p = curs.fetchone()
 print ("TYPE ", type(p))
 print (p[0])
 print (p[0].getquoted())
+print (p[0].due_date)
 #print (p.show())
