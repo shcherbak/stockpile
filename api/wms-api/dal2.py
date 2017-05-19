@@ -503,6 +503,8 @@ class DataAccessLayer():
         register_common_goal_head(conn_or_curs=self._conn)
         register_common_outbound_head(conn_or_curs=self._conn)
         register_common_inbound_head(conn_or_curs=self._conn)
+        psycopg2.extensions.register_type(psycopg2.extensions.UNICODE, self._conn)
+        psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY, self._conn)
 
 
     def __make_body_dictlist(self, body):
@@ -515,13 +517,16 @@ class DataAccessLayer():
         return dictlist_of_records
 
 
-    def get_document(self, schema, id):
-        curs = self._conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-
-        curs.callproc((schema + '.get_body'), (id,))
+    def get_demand(self, id):
+        curs = self._conn.cursor()
+        curs.execute("SELECT demand.get_body(__document_id := %s)", (id,))
         body = curs.fetchone()
-        #print ('BODY TYPE IS', type(body))
-        #print (body)
+        curs.execute("SELECT demand.get_head(__document_id := %s)", (id,))
+        head = curs.fetchone()
+        curs.close()
+
+        print (body, "\n" ,head)
+        exit(0)
 
         dictlist_of_records = []
         for line in body['get_body']:
@@ -536,11 +541,6 @@ class DataAccessLayer():
             #print (line.getquoted())
             #print (type(line.getquoted()))
 
-        #curs.callproc((schema + '.get_head'), (id,))
-        curs.execute(('select ' + schema + '.get_head(%s)'), (id,))
-        head = curs.fetchone()
-        #print ('type of head is ', type(head['get_head']))
-        curs.close()
 
         document = {"head": head['get_head'].getquoted(), "body": body['get_body'][0].getquoted()}
         #document = head
@@ -572,15 +572,79 @@ class DataAccessLayer():
 
     def del_document(self, schema, id):
         curs = self._conn.cursor()
-        curs.callproc((schema + '.destroy'), (id,))
+        curs.execute("SELECT demand.destroy(__document_id := %s)", (id,))
         self._conn.commit()
         curs.close()
 
+class GenericDocument:
+    #GET_HEAD_SQL = "SELECT demand.get_head(__document_id := %s)"
+    #GET_BODY_SQL = "SELECT demand.get_body(__document_id := %s)"
+    #UPDATE_BODY_SQL = "SELECT demand.reinit(__document_id := %s, __body := %s)"
+    #DELETE_DOCUMENT_SQL = "SELECT demand.destroy(__document_id := %s)"
+    #CREATE_DOCUMENT_SQL = "SELECT demand.init()"
+
+    def __init__(self):
+        self._conn = connection()
+
+    def get_head(self, id):
+        curs = self._conn.cursor()
+        curs.execute(self.GET_HEAD_SQL, (id,))
+        self._conn.commit()
+        curs.close()
+
+    def get_body(self, id):
+        curs = self._conn.cursor()
+        curs.execute(self.GET_BODY_SQL, (id,))
+        body = curs.fetchone()
+        self._conn.commit()
+        curs.close()
+        return body
+
+    def upt_body(self, id, body):
+        curs = self._conn.cursor()
+        curs.execute(self.UPDATE_BODY_SQL, (id, body, ))
+        self._conn.commit()
+        curs.close()
+
+    def del_document(self, id):
+        curs = self._conn.cursor()
+        curs.execute(self.DELETE_DOCUMENT_SQL, (id,))
+        self._conn.commit()
+        curs.close()
+
+    def get_document(self, id):
+        curs = self._conn.cursor()
+        curs.execute(self.GET_HEAD_SQL, (id,))
+        self._conn.commit()
+        curs.close()
+
+    def create_document(self, id):
+        pass
+
+class Demand(GenericDocument):
+    GET_HEAD_SQL = "SELECT demand.get_head(__document_id := %s)"
+    GET_BODY_SQL = "SELECT demand.get_body(__document_id := %s)"
+    UPDATE_BODY_SQL = "SELECT demand.reinit(__document_id := %s, __body := %s)"
+    DELETE_DOCUMENT_SQL = "SELECT demand.destroy(__document_id := %s)"
+    # CREATE_DOCUMENT_SQL = "SELECT demand.init()"
+
+
+class Reserve(GenericDocument):
+    GET_HEAD_SQL = "SELECT reserve.get_head(__document_id := %s)"
+    GET_BODY_SQL = "SELECT reserve.get_body(__document_id := %s)"
+    UPDATE_BODY_SQL = "SELECT reserve.reinit(__document_id := %s, __body := %s)"
+    DELETE_DOCUMENT_SQL = "SELECT reserve.destroy(__document_id := %s)"
+    # CREATE_DOCUMENT_SQL = "SELECT demand.init()"
 
 
 if __name__ == '__main__':
-    dal = DataAccessLayer()
-    print(dal.get_document('demand', 85))
+    #dal = DataAccessLayer()
+    #print(dal.get_demand(85))
+
+    d = Demand()
+    r = Reserve()
+    print (d.get_body(85))
+    print (r.get_body(85))
     #print(dal.del_document('demand', 81))
 
     #body = DoumentBody[('good1', 10, 'm'), ('good2', 10, 'm')]
