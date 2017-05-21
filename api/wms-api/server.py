@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 
-from flask import Flask, abort, jsonify
-from dal2 import DataAccessLayer
+from flask import Flask, jsonify
 
+import dal
 
 app = Flask(__name__)
-dal = DataAccessLayer()
-#app.config.from_object('config')
+app.config['JSON_AS_ASCII'] = False
+
+
+# dal = DataAccessLayer()
+# app.config.from_object('config')
 
 
 @app.route('/')
@@ -26,7 +29,7 @@ def put_demand():
 
 @app.route('/demands/<int:document_id>', methods=['GET'])
 def get_demand(document_id):
-    return jsonify(dal.get_document('demand', document_id))
+    return jsonify(dal.Demand(document_id).to_dict())
 
 
 @app.route('/demands/<int:document_id>', methods=['PATCH'])
@@ -36,8 +39,8 @@ def patch_demand(document_id):
 
 @app.route('/demands/<int:document_id>', methods=['DELETE'])
 def del_demand(document_id):
-    dal.del_document('demand', document_id)
-    return ('', 204)
+    dal.Demand().delete_document(document_id)
+    return '', 204
 
 
 @app.route('/reserves', methods=['GET'])
@@ -47,13 +50,13 @@ def get_reserves():
 
 @app.route('/reserves/<int:document_id>', methods=['GET'])
 def get_reserve(document_id):
-    return jsonify(dal.get_document('reserve', document_id))
+    return jsonify(dal.Reserve(document_id).to_dict())
 
 
 @app.route('/reserve/<int:document_id>', methods=['DELETE'])
 def del_reserve(document_id):
-    dal.del_document('reserve', document_id)
-    return ('', 204)
+    dal.Reserve().delete_document(document_id)
+    return '', 204
 
 
 @app.route('/picklists', methods=['GET'])
@@ -63,13 +66,13 @@ def get_picklists():
 
 @app.route('/picklists/<int:document_id>', methods=['GET'])
 def get_picklist(document_id):
-    return jsonify(dal.get_document('picklist', document_id))
+    return jsonify(dal.Picklist(document_id).to_dict())
 
 
 @app.route('/picklists/<int:document_id>', methods=['DELETE'])
 def del_picklist(document_id):
-    dal.del_document('picklist', document_id)
-    return ('', 204)
+    dal.Picklist().delete_document(document_id)
+    return '', 204
 
 
 @app.route('/issues', methods=['GET'])
@@ -79,13 +82,13 @@ def get_issues():
 
 @app.route('/issues/<int:document_id>', methods=['GET'])
 def get_issue(document_id):
-    return jsonify(dal.get_document('issue', document_id))
+    return jsonify(dal.Issue(document_id).to_dict())
 
 
 @app.route('/issues/<int:document_id>', methods=['DELETE'])
 def del_issue(document_id):
-    dal.del_document('issue', document_id)
-    return ('', 204)
+    dal.Issue().delete_document(document_id)
+    return '', 204
 
 
 @app.route('/despatches', methods=['GET'])
@@ -95,13 +98,13 @@ def get_despatches():
 
 @app.route('/despatches/<int:document_id>', methods=['GET'])
 def get_despatch(document_id):
-    return jsonify(dal.get_document('despatch', document_id))
+    return jsonify(dal.Despatch(document_id).to_dict())
 
 
 @app.route('/despatches/<int:document_id>', methods=['DELETE'])
 def del_despatch(document_id):
-    dal.del_document('despatch', document_id)
-    return ('', 204)
+    dal.Despatch().delete_document(document_id)
+    return '', 204
 
 
 @app.route('/rebounds', methods=['GET'])
@@ -111,13 +114,13 @@ def get_rebounds():
 
 @app.route('/rebounds/<int:document_id>', methods=['GET'])
 def get_rebound(document_id):
-    return jsonify(dal.get_document('rebound', document_id))
+    return jsonify(dal.Rebound(document_id).to_dict())
 
 
 @app.route('/rebounds/<int:document_id>', methods=['DELETE'])
 def del_rebound(document_id):
-    dal.del_document('rebound', document_id)
-    return ('', 204)
+    dal.Rebound().delete_document(document_id)
+    return '', 204
 
 
 @app.route('/deliveries', methods=['GET'])
@@ -127,13 +130,13 @@ def get_deliveries():
 
 @app.route('/deliveries/<int:document_id>', methods=['GET'])
 def get_delivery(document_id):
-    return jsonify(dal.get_document('delivery', document_id))
+    return jsonify(dal.Delivery(document_id).to_dict())
 
 
 @app.route('/deliveries/<int:document_id>', methods=['DELETE'])
 def del_delivery(document_id):
-    dal.del_document('delivery', document_id)
-    return ('', 204)
+    dal.Delivery().delete_document(document_id)
+    return '', 204
 
 
 @app.route('/receipts', methods=['GET'])
@@ -143,13 +146,13 @@ def get_receipts():
 
 @app.route('/receipts/<int:document_id>', methods=['GET'])
 def get_receipt(document_id):
-    return jsonify(dal.get_document('receipt', document_id))
+    return jsonify(dal.Receipt(document_id).to_dict())
 
 
 @app.route('/receipts/<int:document_id>', methods=['DELETE'])
 def del_receipt(document_id):
-    dal.del_document('receipt', document_id)
-    return ('', 204)
+    dal.Receipt().delete_document(document_id)
+    return '', 204
 
 
 @app.route('/cutoffs', methods=['GET'])
@@ -159,13 +162,13 @@ def get_cutoffs():
 
 @app.route('/cutoffs/<int:document_id>', methods=['GET'])
 def get_cutoff(document_id):
-    return jsonify(dal.get_document('cutoff', document_id))
+    return 'cutoff {0}'.format(document_id)
 
 
 @app.route('/cutoffs/<int:document_id>', methods=['DELETE'])
 def del_cutoff(document_id):
-    dal.del_document('cutoff', document_id)
-    return ('', 204)
+    # dal.del_document('cutoff', document_id)
+    return '', 405
 
 
 @app.route('/stocktakes', methods=['GET'])
@@ -175,13 +178,13 @@ def get_stocktakes():
 
 @app.route('/stocktakes/<int:document_id>', methods=['GET'])
 def get_stocktake(document_id):
-    return jsonify(dal.get_document('stocktake', document_id))
+    return jsonify(dal.Stocktake(document_id).to_dict())
 
 
 @app.route('/stocktakes/<int:document_id>', methods=['DELETE'])
 def del_stocktake(document_id):
-    dal.del_document('stocktake', document_id)
-    return ('', 204)
+    dal.Stocktake().delete_document(document_id)
+    return '', 204
 
 
 @app.route('/stockcards', methods=['GET'])
