@@ -9,7 +9,7 @@ import dal
 
 app = Flask(__name__)
 app.config.from_object('serverconfig')
-#app.config['JSON_AS_ASCII'] = False
+# app.config['JSON_AS_ASCII'] = False
 # app.config.from_object('config')
 
 
@@ -28,9 +28,11 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.DEBUG)
 log.addHandler(handler)
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return "404 not found", 404
+
 
 @app.route('/')
 def hello_world():
