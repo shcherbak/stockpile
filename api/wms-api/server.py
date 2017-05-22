@@ -6,9 +6,6 @@ import dal
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
-
-
-# dal = DataAccessLayer()
 # app.config.from_object('config')
 
 
@@ -19,7 +16,7 @@ def hello_world():
 
 @app.route('/demands', methods=['GET'])
 def get_demands():
-    return jsonify({'demands': 'demands'})
+    return jsonify(dal.DemandList().to_dict())
 
 
 @app.route('/demands', methods=['PUT'])
@@ -35,6 +32,12 @@ def get_demand(document_id):
 @app.route('/demands/<int:document_id>', methods=['PATCH'])
 def patch_demand(document_id):
     return jsonify(str(document_id))
+
+
+@app.route('/demands/<int:document_id>/commit', methods=['PATCH'])
+def patch_demand_commit(document_id):
+    dal.Demand().do_commit(document_id=document_id, apprise=True)
+    return jsonify("status", "commited")
 
 
 @app.route('/demands/<int:document_id>', methods=['DELETE'])

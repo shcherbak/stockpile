@@ -86,7 +86,7 @@ class DocumentBody(object):
             raise psycopg2.InterfaceError("bad document_body representation: %r" % s)
 
     def getquoted(self):
-        return "({0}, {1}, {2})".format(self.good_code, self.quantity, self.uom_code)
+        return "('{0}', {1}, '{2}')".format(self.good_code, Decimal(self.quantity), self.uom_code)
 
 
 def register_common_document_body(oid=None, conn_or_curs=None):
@@ -173,13 +173,13 @@ def register_common_stoktake_body(oid=None, conn_or_curs=None):
 
 class DocumentHead(object):
     def __init__(self, s=None, curs=None):
-        self.document_id = 0
-        self.gid = ''
-        self.display_name = ''
+        self.document_id = None
+        self.gid = None
+        self.display_name = None
         self.document_date = ''
         self.facility_code = ''
-        self.curr_fsmt = ''
-        self.doctype = ''
+        self.curr_fsmt = None
+        self.doctype = None
         if s:
             self.from_string(s)
 
@@ -342,15 +342,15 @@ class OutboundHead(object):
     # _ext.DATE
 
     def __init__(self, s=None, curs=None):
-        self.document_id = 0
-        self.gid = ''
-        self.display_name = ''
-        self.document_date = ''
-        self.facility_code = ''
-        self.curr_fsmt = ''
-        self.doctype = ''
-        self.addressee = ''
-        self.due_date = ''
+        self.document_id = None
+        self.gid = None
+        self.display_name = None
+        self.document_date = None
+        self.facility_code = None
+        self.curr_fsmt = None
+        self.doctype = None
+        self.addressee = None
+        self.due_date = None
         if s:
             self.from_string(s)
 
@@ -403,8 +403,8 @@ class OutboundHead(object):
             raise psycopg2.InterfaceError("bad outbound_head representation: %r" % s)
 
     def getquoted(self):
-        return "({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})" \
-            .format(self.document_id,
+        return "({0}, '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}')::common.outbound_head" \
+            .format(int(self.document_id),
                     self.gid,
                     self.display_name,
                     self.document_date,
@@ -536,6 +536,8 @@ class GenericDocument:
     UPDATE_BODY_SQL = ""
     DELETE_DOCUMENT_SQL = ""
     CREATE_DOCUMENT_SQL = ""
+    COMMIT_DOCUMENT_SQL = ""
+    DECOMMIT_DOCUMENT_SQL = ""
 
     def __init__(self, document_id=None):
         self._conn = connection()
@@ -554,42 +556,42 @@ class GenericDocument:
             self.head = DocumentHead()
             self.body = [DocumentBody]
 
-    def get_head(self, __document_id):
+    def get_head(self, document_id):
         curs = self._conn.cursor()
-        curs.execute(self.GET_HEAD_SQL, (__document_id,))
+        curs.execute(self.GET_HEAD_SQL, (document_id,))
         head = curs.fetchone()[0]
         self._conn.commit()
         curs.close()
         return head
 
-    def get_body(self, __document_id):
+    def get_body(self, document_id):
         curs = self._conn.cursor()
-        curs.execute(self.GET_BODY_SQL, (__document_id,))
+        curs.execute(self.GET_BODY_SQL, (document_id,))
         body = curs.fetchone()[0]
         self._conn.commit()
         curs.close()
         return body
 
-    def update_body(self, __document_id, __body):
+    def update_body(self, document_id, body):
         curs = self._conn.cursor()
-        curs.execute(self.UPDATE_BODY_SQL, (__document_id, __body,))
+        curs.execute(self.UPDATE_BODY_SQL, (document_id, body,))
         self._conn.commit()
         curs.close()
 
-    def delete_document(self, __document_id):
+    def delete_document(self, document_id):
         curs = self._conn.cursor()
-        curs.execute(self.DELETE_DOCUMENT_SQL, (__document_id,))
+        curs.execute(self.DELETE_DOCUMENT_SQL, (document_id,))
         self._conn.commit()
         curs.close()
 
-    def get_document(self, __document_id):
-        head = self.get_head(__document_id)
-        body = self.get_body(__document_id)
+    def get_document(self, document_id):
+        head = self.get_head(document_id)
+        body = self.get_body(document_id)
         return head, body
 
-    def create_document(self, __head, __body):
+    def create_document(self, head, body):
         curs = self._conn.cursor()
-        curs.execute(self.CREATE_DOCUMENT_SQL, (__head, __body,))
+        curs.execute(self.CREATE_DOCUMENT_SQL, (head, body,))
         document_id = curs.fetchone()[0]
         self._conn.commit()
         curs.close()
@@ -601,6 +603,20 @@ class GenericDocument:
             res.append(row.to_dict())
         return {"head": self.head.to_dict(), "body": res}
 
+    def do_commit(self, document_id, apprise=True):
+        curs = self._conn.cursor()
+        curs.execute(self.COMMIT_DOCUMENT_SQL, (document_id, apprise,))
+        print(curs.query)
+        self._conn.commit()
+        curs.close()
+
+    def do_decommit(self, document_id, apprise=True):
+        curs = self._conn.cursor()
+        curs.execute(self.DECOMMIT_DOCUMENT_SQL, (document_id, apprise,))
+        print(curs.query)
+        self._conn.commit()
+        curs.close()
+
 
 class Delivery(GenericDocument):
     GET_HEAD_SQL = "SELECT delivery.get_head(__document_id := %s)"
@@ -608,6 +624,8 @@ class Delivery(GenericDocument):
     UPDATE_BODY_SQL = "SELECT delivery.reinit(__document_id := %s, __body := %s)"
     DELETE_DOCUMENT_SQL = "SELECT delivery.destroy(__document_id := %s)"
     CREATE_DOCUMENT_SQL = "SELECT delivery.init(__head := %s, __body := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT delivery.do_commit(__document_id := %s, __apprise := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT delivery.do_decommit(__document_id := %s, __apprise := %s)"
 
 
 class Demand(GenericDocument):
@@ -616,6 +634,8 @@ class Demand(GenericDocument):
     UPDATE_BODY_SQL = "SELECT demand.reinit(__document_id := %s, __body := %s)"
     DELETE_DOCUMENT_SQL = "SELECT demand.destroy(__document_id := %s)"
     CREATE_DOCUMENT_SQL = "SELECT demand.init(__head := %s, __body := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT demand.do_commit(__document_id := %s, __apprise := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT demand.do_decommit(__document_id := %s, __apprise := %s)"
 
 
 class Despatch(GenericDocument):
@@ -624,6 +644,8 @@ class Despatch(GenericDocument):
     UPDATE_BODY_SQL = "SELECT despatch.reinit(__document_id := %s, __body := %s)"
     DELETE_DOCUMENT_SQL = "SELECT despatch.destroy(__document_id := %s)"
     CREATE_DOCUMENT_SQL = "SELECT despatch.init(__head := %s, __body := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT despatch.do_commit(__document_id := %s, __apprise := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT despatch.do_decommit(__document_id := %s, __apprise := %s)"
 
 
 class Issue(GenericDocument):
@@ -632,6 +654,8 @@ class Issue(GenericDocument):
     UPDATE_BODY_SQL = "SELECT issue.reinit(__document_id := %s, __body := %s)"
     DELETE_DOCUMENT_SQL = "SELECT issue.destroy(__document_id := %s)"
     CREATE_DOCUMENT_SQL = "SELECT issue.init(__head := %s, __body := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT issue.do_commit(__document_id := %s, __apprise := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT issue.do_decommit(__document_id := %s, __apprise := %s)"
 
 
 class Picklist(GenericDocument):
@@ -640,6 +664,8 @@ class Picklist(GenericDocument):
     UPDATE_BODY_SQL = "SELECT picklist.reinit(__document_id := %s, __body := %s)"
     DELETE_DOCUMENT_SQL = "SELECT picklist.destroy(__document_id := %s)"
     CREATE_DOCUMENT_SQL = "SELECT picklist.init(__head := %s, __body := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT picklist.do_commit(__document_id := %s, __apprise := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT picklist.do_decommit(__document_id := %s, __apprise := %s)"
 
 
 class Rebound(GenericDocument):
@@ -648,6 +674,8 @@ class Rebound(GenericDocument):
     UPDATE_BODY_SQL = "SELECT rebound.reinit(__document_id := %s, __body := %s)"
     DELETE_DOCUMENT_SQL = "SELECT rebound.destroy(__document_id := %s)"
     CREATE_DOCUMENT_SQL = "SELECT rebound.init(__head := %s, __body := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT rebound.do_commit(__document_id := %s, __apprise := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT rebound.do_decommit(__document_id := %s, __apprise := %s)"
 
 
 class Receipt(GenericDocument):
@@ -656,6 +684,8 @@ class Receipt(GenericDocument):
     UPDATE_BODY_SQL = "SELECT receipt.reinit(__document_id := %s, __body := %s)"
     DELETE_DOCUMENT_SQL = "SELECT receipt.destroy(__document_id := %s)"
     CREATE_DOCUMENT_SQL = "SELECT receipt.init(__head := %s, __body := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT receipt.do_commit(__document_id := %s, __apprise := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT receipt.do_decommit(__document_id := %s, __apprise := %s)"
 
 
 class Reserve(GenericDocument):
@@ -664,6 +694,8 @@ class Reserve(GenericDocument):
     UPDATE_BODY_SQL = "SELECT reserve.reinit(__document_id := %s, __body := %s)"
     DELETE_DOCUMENT_SQL = "SELECT reserve.destroy(__document_id := %s)"
     CREATE_DOCUMENT_SQL = "SELECT reserve.init(__head := %s, __body := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT reserve.do_commit(__document_id := %s, __apprise := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT reserve.do_decommit(__document_id := %s, __apprise := %s)"
 
 
 class Stocktake(GenericDocument):
@@ -672,28 +704,117 @@ class Stocktake(GenericDocument):
     UPDATE_BODY_SQL = "SELECT stocktake.reinit(__document_id := %s, __body := %s)"
     DELETE_DOCUMENT_SQL = "SELECT stocktake.destroy(__document_id := %s)"
     CREATE_DOCUMENT_SQL = "SELECT stocktake.init(__head := %s, __body := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT stocktake.do_commit(__document_id := %s, __apprise := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT stocktake.do_decommit(__document_id := %s, __apprise := %s)"
+
+
+class GenericDocumentList:
+    GET_LSIT_SQL = ""
+
+    def __init__(self):
+        self._conn = connection()
+        _ext.register_type(_ext.UNICODE, self._conn)
+        _ext.register_type(_ext.UNICODEARRAY, self._conn)
+        register_common_document_body(conn_or_curs=self._conn)
+        register_common_stoktake_body(conn_or_curs=self._conn)
+        register_common_document_head(conn_or_curs=self._conn)
+        register_common_goal_head(conn_or_curs=self._conn)
+        register_common_outbound_head(conn_or_curs=self._conn)
+        register_common_inbound_head(conn_or_curs=self._conn)
+
+    def get_document_list(self):
+        curs = self._conn.cursor()
+        curs.execute(self.GET_LSIT_SQL)
+        document_list = curs.fetchall()
+        self._conn.commit()
+        curs.close()
+        return document_list
+
+    @staticmethod
+    def to_dict():
+        return 'static context'
+
+
+class DeliveryList(GenericDocumentList):
+    GET_LSIT_SQL = "SELECT * from delivery.head"
+
+
+class DemandList(GenericDocumentList):
+    GET_LSIT_SQL = "SELECT * from demand.get_head_batch_proposed('A1', '1970-01-01', '2018-01-01')"
+
+
+class DespatchList(GenericDocumentList):
+    GET_LSIT_SQL = "SELECT * from despatch.head"
+
+
+class IssueList(GenericDocumentList):
+    GET_LSIT_SQL = "SELECT * from issue.head"
+
+
+class PicklistList(GenericDocumentList):
+    GET_LSIT_SQL = "SELECT * from picklist.head"
+
+
+class ReboundList(GenericDocumentList):
+    GET_LSIT_SQL = "SELECT * from rebound.head"
+
+
+class ReceiptList(GenericDocumentList):
+    GET_LSIT_SQL = "SELECT * from receipt.head"
+
+
+class ReserveList(GenericDocumentList):
+    GET_LSIT_SQL = "SELECT * from reserve.head"
+
+
+class StocktakeList(GenericDocumentList):
+    GET_LSIT_SQL = "SELECT * from stocktake.head"
 
 
 if __name__ == '__main__':
     # dal = DataAccessLayer()
     # print(dal.get_demand(85))
-    d1 = Delivery(85)
-    d2 = Despatch(85)
-    d3 = Demand(85)
-    d4 = Issue(85)
-    d5 = Picklist(85)
-    d6 = Rebound(85)
-    d7 = Receipt(85)
-    d8 = Reserve(85)
-    d9 = Stocktake(85)
+    #d1 = Delivery(85)
+    #d2 = Despatch(85)
+    #d3 = Demand(85)
+    #dl3 = DemandList()
+    h = OutboundHead()
+    h.due_date = '2017-02-02'
+    h.document_date = '2017-02-01'
+    h.facility_code = 'A1'
+    h.addressee = 'B1'
+    h.display_name = 'DM-01'
+
+    b = DocumentBody()
+    b.quantity = '10.0'
+    b.uom_code = 'kg'
+    b.good_code = 'good1'
+
+    b1 = DocumentBody()
+    b1.quantity = '10.0'
+    b1.uom_code = 'kg'
+    b1.good_code = 'good2'
+
+    d = Demand()
+    #d.head = h
+    #d.body = [b]
+
+    d.create_document(h, [b, b1])
+    #print(DemandList.to_dict())
+    #d4 = Issue(85)
+    #d5 = Picklist(85)
+    #d6 = Rebound(85)
+    #d7 = Receipt(85)
+    #d8 = Reserve(85)
+    #d9 = Stocktake(85)
     # print (d.head)
     # print (d.body)
-    print(d1.to_dict())
-    print(d2.to_dict())
-    print(d3.to_dict())
-    print(d4.to_dict())
-    print(d5.to_dict())
-    print(d6.to_dict())
-    print(d7.to_dict())
-    print(d8.to_dict())
-    print(d9.to_dict())
+    #print(d1.to_dict())
+    #print(d2.to_dict())
+    #print(d3.to_dict())
+    #print(d4.to_dict())
+    #print(d5.to_dict())
+    #print(d6.to_dict())
+    #print(d7.to_dict())
+    #print(d8.to_dict())
+    #print(d9.to_dict())
