@@ -8,6 +8,10 @@ def connection():
     try:
         params = config()
         conn = psycopg2.connect(**params)
+        #conn.set_client_encoding('UTF8')
+        #print(conn.encoding)
+        #print(conn.protocol_version)
+        #print(conn.server_version)
     except(Exception, psycopg2.DatabaseError) as error:
         print(error)
     return conn

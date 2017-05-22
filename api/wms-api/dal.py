@@ -6,6 +6,12 @@ import psycopg2
 import psycopg2.extensions as _ext
 import psycopg2.extras
 import re
+import datetime
+import uuid
+import unicodedata
+
+#psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
+#psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
 
 from connection import connection
 
@@ -69,7 +75,7 @@ class DocumentBody(object):
             return self
 
     def to_dict(self):
-        return {"good_code": self.good_code, "quantity": str(self.quantity), "uom_code": self.uom_code}
+        return {"good_code": self.good_code, "quantity": float(self.quantity), "uom_code": self.uom_code}
 
     def from_tuple(self, t):
         self.good_code = t[0]
@@ -79,6 +85,7 @@ class DocumentBody(object):
     def from_string(self, s):
         if s is None:
             return None
+        #s = s.decode('utf8')
         m = re.match(r"\((.+),(.+),(.+)\)", s)
         if m:
             self.from_tuple((m.group(1), m.group(2), m.group(3)))
@@ -86,7 +93,10 @@ class DocumentBody(object):
             raise psycopg2.InterfaceError("bad document_body representation: %r" % s)
 
     def getquoted(self):
-        return "('{0}', {1}, '{2}')".format(self.good_code, Decimal(self.quantity), self.uom_code)
+        return "({0}, {1}, {2})::common.document_body"\
+            .format(_adapt(self.good_code),
+                    _adapt(self.quantity),
+                    _adapt(self.uom_code))
 
 
 def register_common_document_body(oid=None, conn_or_curs=None):
@@ -150,7 +160,11 @@ class StocktakeBody(object):
             raise psycopg2.InterfaceError("bad stocktake_body representation: %r" % s)
 
     def getquoted(self):
-        return "({0}, {1}, {2}, {3})".format(self.good_code, self.quantity, self.uom_code, self.quantity_diff)
+        return "({0}, {1}, {2}, {3})::common.stocktake_body"\
+            .format(_ext.adapt(self.good_code),
+                    Decimal(self.quantity),
+                    _ext.adapt(self.uom_code),
+                    Decimal(self.quantity_diff))
 
 
 def register_common_stoktake_body(oid=None, conn_or_curs=None):
@@ -334,12 +348,26 @@ def register_common_goal_head(oid=None, conn_or_curs=None):
 
     return GOAL_HEAD
 
+def _adapt(o):
+    if o is None:
+        return 'NULL'
+    else:
+        # return _ext.adapt(str(o).encode('utf-8'))
+        if isinstance(o, str):
+            return "'{0}'".format(o)
+        else:
+            return _ext.adapt(o)
+            #return _ext.adapt(str(o))
 
 class OutboundHead(object):
     # _ext.DECIMAL
     # _ext.INTEGER
     # _ext.LONGINTEGER
     # _ext.DATE
+
+
+
+
 
     def __init__(self, s=None, curs=None):
         self.document_id = None
@@ -353,6 +381,8 @@ class OutboundHead(object):
         self.due_date = None
         if s:
             self.from_string(s)
+        #_ext.register_adapter(type(None), _ext.NoneAdapter)
+        psycopg2.extras.register_uuid()
 
     def __repr__(self):
         return "outbound_head(document_id={0}, gid={1}, display_name={2}, document_date={3}, facility_code={4}, curr_fsmt={5}, doctype={6}, addressee={7}, due_date={8})" \
@@ -367,35 +397,49 @@ class OutboundHead(object):
                     self.due_date)
 
     def to_dict(self):
+        if self.due_date:
+            d = self.due_date.strftime('%Y-%m-%d')
+        else:
+            d = None
+        if self.document_date:
+            d1 = self.document_date.strftime('%Y-%m-%d')
+        else:
+            d1 = None
         return {"document_id": self.document_id,
                 "gid": self.gid,
                 "display_name": self.display_name,
-                "document_date": self.document_date,
+                "document_date": d1,
                 "facility_code": self.facility_code,
                 "curr_fsmt": self.curr_fsmt,
                 "doctype": self.doctype,
                 "addressee": self.addressee,
-                "due_date": self.due_date}
+                "due_date": d}
 
     def __conform__(self, proto):
         if proto == _ext.ISQLQuote:
             return self
 
     def from_tuple(self, t):
-        self.document_id = str(t[0])
-        self.gid = str(t[1])
-        self.display_name = str(t[2])
-        self.document_date = str(t[3])
-        self.facility_code = str(t[4])
-        self.curr_fsmt = str(t[5])
-        self.doctype = str(t[6])
-        self.addressee = str(t[7])
-        self.due_date = str(t[8])
+        self.document_id = int(t[0])
+        self.gid = uuid.UUID(t[1])
+        self.display_name = t[2]
+        if len(t[3]) > 0:
+            self.document_date = datetime.datetime.strptime(t[3], "%Y-%m-%d")
+        else:
+            self.document_date = None
+        self.facility_code = t[4]
+        self.curr_fsmt = t[5]
+        self.doctype = t[6]
+        self.addressee = t[7]
+        if len(t[8]) > 0:
+            self.due_date = datetime.datetime.strptime(t[8], "%Y-%m-%d")
+        else:
+            self.due_date = None
 
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\((.+),(.+),(.+),(.+),(.+),(.+),(.+),(.+),(.+)\)", s)
+        m = re.match(r"\((.+),(.+),(.+),(.+),((.+)|),(.+),(.+),((.+)|),(.+)\)", s)
         if m:
             self.from_tuple((m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7),
                              m.group(8), m.group(9)))
@@ -403,16 +447,16 @@ class OutboundHead(object):
             raise psycopg2.InterfaceError("bad outbound_head representation: %r" % s)
 
     def getquoted(self):
-        return "({0}, '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}')::common.outbound_head" \
-            .format(int(self.document_id),
-                    self.gid,
-                    self.display_name,
-                    self.document_date,
-                    self.facility_code,
-                    self.curr_fsmt,
-                    self.doctype,
-                    self.addressee,
-                    self.due_date)
+        return "({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})::common.outbound_head" \
+            .format(_adapt(self.document_id),
+                    _adapt(self.gid),
+                    _adapt(self.display_name),
+                    _adapt(self.document_date),
+                    _adapt(self.facility_code),
+                    _adapt(self.curr_fsmt),
+                    _adapt(self.doctype),
+                    _adapt(self.addressee),
+                    _adapt(self.due_date))
 
 
 def register_common_outbound_head(oid=None, conn_or_curs=None):
@@ -541,8 +585,14 @@ class GenericDocument:
 
     def __init__(self, document_id=None):
         self._conn = connection()
-        _ext.register_type(_ext.UNICODE, self._conn)
-        _ext.register_type(_ext.UNICODEARRAY, self._conn)
+        #self._conn.set_client_encoding('UTF8')
+        #_ext.register_type(_ext.UNICODE, self._conn)
+        #_ext.register_type(_ext.UNICODEARRAY, self._conn)
+        #psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
+        #psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
+        #_ext.register_type(_ext.DATE, self._conn)
+        #_ext.register_type(_ext.DECIMAL, self._conn)
+        #_ext.register_type(_ext.LONGINTEGER, self._conn)
         register_common_document_body(conn_or_curs=self._conn)
         register_common_stoktake_body(conn_or_curs=self._conn)
         register_common_document_head(conn_or_curs=self._conn)
@@ -560,6 +610,7 @@ class GenericDocument:
         curs = self._conn.cursor()
         curs.execute(self.GET_HEAD_SQL, (document_id,))
         head = curs.fetchone()[0]
+        print(curs.query)
         self._conn.commit()
         curs.close()
         return head
@@ -568,6 +619,7 @@ class GenericDocument:
         curs = self._conn.cursor()
         curs.execute(self.GET_BODY_SQL, (document_id,))
         body = curs.fetchone()[0]
+        print(curs.query)
         self._conn.commit()
         curs.close()
         return body
@@ -575,12 +627,14 @@ class GenericDocument:
     def update_body(self, document_id, body):
         curs = self._conn.cursor()
         curs.execute(self.UPDATE_BODY_SQL, (document_id, body,))
+        print(curs.query)
         self._conn.commit()
         curs.close()
 
     def delete_document(self, document_id):
         curs = self._conn.cursor()
         curs.execute(self.DELETE_DOCUMENT_SQL, (document_id,))
+        print(curs.query)
         self._conn.commit()
         curs.close()
 
@@ -592,6 +646,7 @@ class GenericDocument:
     def create_document(self, head, body):
         curs = self._conn.cursor()
         curs.execute(self.CREATE_DOCUMENT_SQL, (head, body,))
+        print(curs.query)
         document_id = curs.fetchone()[0]
         self._conn.commit()
         curs.close()
@@ -713,8 +768,8 @@ class GenericDocumentList:
 
     def __init__(self):
         self._conn = connection()
-        _ext.register_type(_ext.UNICODE, self._conn)
-        _ext.register_type(_ext.UNICODEARRAY, self._conn)
+        #_ext.register_type(_ext.UNICODE, self._conn)
+        #_ext.register_type(_ext.UNICODEARRAY, self._conn)
         register_common_document_body(conn_or_curs=self._conn)
         register_common_stoktake_body(conn_or_curs=self._conn)
         register_common_document_head(conn_or_curs=self._conn)
@@ -779,27 +834,31 @@ if __name__ == '__main__':
     #d3 = Demand(85)
     #dl3 = DemandList()
     h = OutboundHead()
-    h.due_date = '2017-02-02'
-    h.document_date = '2017-02-01'
+    h.due_date = datetime.datetime.now().date() + datetime.timedelta(days=1)
+    h.document_date = datetime.datetime.now().date()
     h.facility_code = 'A1'
     h.addressee = 'B1'
     h.display_name = 'DM-01'
 
     b = DocumentBody()
-    b.quantity = '10.0'
+    b.quantity = '10.0093'
     b.uom_code = 'kg'
-    b.good_code = 'good1'
+    b.good_code = 'goo d1'
 
     b1 = DocumentBody()
     b1.quantity = '10.0'
     b1.uom_code = 'kg'
-    b1.good_code = 'good2'
+    b1.good_code = 'товар №1'
 
     d = Demand()
     #d.head = h
     #d.body = [b]
 
-    d.create_document(h, [b, b1])
+    d_id = d.create_document(h, [b, b1])
+    print ("doc id is ", d_id)
+
+    print(psycopg2.extensions.DateFromPy(h.due_date))
+
     #print(DemandList.to_dict())
     #d4 = Issue(85)
     #d5 = Picklist(85)
