@@ -8,10 +8,10 @@ import psycopg2.extras
 import re
 import datetime
 import uuid
-import unicodedata
 
-#psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
-#psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
+# psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
+# psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
+# psycopg2.extras.register_uuid()
 
 from connection import connection
 
@@ -22,7 +22,11 @@ from connection import connection
 #    lambda value, curs: float(value) if value is not None else None)
 # _ext.register_type(DEC2FLOAT)
 # from config import config
-
+#
+# _ext.DECIMAL
+# _ext.INTEGER
+# _ext.LONGINTEGER
+# _ext.DATE
 
 def _get_pg_nspname_oid(conn, nspname):
     _sql = 'SELECT oid FROM pg_namespace WHERE nspname = %s'
@@ -56,6 +60,16 @@ def _get_pg_typarray_oid(conn, nspname, typname):
     return _oid
 
 
+def _adapt(o):
+    if o is None:
+        return 'NULL'
+    else:
+        if isinstance(o, str):
+            return "'{0}'".format(o)
+        else:
+            return _ext.adapt(o)
+
+
 class DocumentBody(object):
     def __init__(self, s=None, curs=None):
         self.good_code = ''
@@ -65,8 +79,9 @@ class DocumentBody(object):
             self.from_string(s)
 
     def __repr__(self):
-        return "document_body(good_code={0}, quantity={1}, uom_code={2})" \
-            .format(self.good_code,
+        return "{0}(good_code={1}, quantity={2}, uom_code={3})" \
+            .format(type(self).__name__,
+                    self.good_code,
                     str(self.quantity),
                     self.uom_code)
 
@@ -75,7 +90,9 @@ class DocumentBody(object):
             return self
 
     def to_dict(self):
-        return {"good_code": self.good_code, "quantity": float(self.quantity), "uom_code": self.uom_code}
+        return {"good_code": self.good_code,
+                "quantity": float(self.quantity),
+                "uom_code": self.uom_code}
 
     def from_tuple(self, t):
         self.good_code = t[0]
@@ -85,10 +102,11 @@ class DocumentBody(object):
     def from_string(self, s):
         if s is None:
             return None
-        #s = s.decode('utf8')
-        m = re.match(r"\((.+),(.+),(.+)\)", s)
+        m = re.match(r"\(((.+)|),((.+)|),((.+)|)\)", s)
         if m:
-            self.from_tuple((m.group(1), m.group(2), m.group(3)))
+            self.from_tuple((m.group(1),
+                             m.group(2),
+                             m.group(3)))
         else:
             raise psycopg2.InterfaceError("bad document_body representation: %r" % s)
 
@@ -128,7 +146,7 @@ class StocktakeBody(object):
             self.from_string(s)
 
     def __repr__(self):
-        return "document_body(good_code={0}, quantity={1}, uom_code={2}, quantity_diff={3})" \
+        return "stocktake_body(good_code={0}, quantity={1}, uom_code={2}, quantity_diff={3})" \
             .format(self.good_code,
                     self.quantity,
                     self.uom_code,
@@ -140,9 +158,9 @@ class StocktakeBody(object):
 
     def to_dict(self):
         return {"good_code": self.good_code,
-                "quantity": str(self.quantity),
+                "quantity": float(self.quantity),
                 "uom_code": self.uom_code,
-                "quantity_diff": str(self.quantity_diff)}
+                "quantity_diff": float(self.quantity_diff)}
 
     def from_tuple(self, t):
         self.good_code = t[0]
@@ -153,18 +171,21 @@ class StocktakeBody(object):
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\((.+),(.+),(.+),(.+)\)", s)
+        m = re.match(r"\(((.+)|),((.+)|),((.+)|),((.+)|)\)", s)
         if m:
-            self.from_tuple((m.group(1), m.group(2), m.group(3), m.group(4)))
+            self.from_tuple((m.group(1),
+                             m.group(2),
+                             m.group(3),
+                             m.group(4)))
         else:
             raise psycopg2.InterfaceError("bad stocktake_body representation: %r" % s)
 
     def getquoted(self):
         return "({0}, {1}, {2}, {3})::common.stocktake_body"\
-            .format(_ext.adapt(self.good_code),
-                    Decimal(self.quantity),
-                    _ext.adapt(self.uom_code),
-                    Decimal(self.quantity_diff))
+            .format(_adapt(self.good_code),
+                    _adapt(self.quantity),
+                    _adapt(self.uom_code),
+                    _adapt(self.quantity_diff))
 
 
 def register_common_stoktake_body(oid=None, conn_or_curs=None):
@@ -190,8 +211,8 @@ class DocumentHead(object):
         self.document_id = None
         self.gid = None
         self.display_name = None
-        self.document_date = ''
-        self.facility_code = ''
+        self.document_date = None
+        self.facility_code = None
         self.curr_fsmt = None
         self.doctype = None
         if s:
@@ -212,41 +233,54 @@ class DocumentHead(object):
             return self
 
     def to_dict(self):
+        if self.document_date:
+            _document_date = self.document_date.strftime('%Y-%m-%d')
+        else:
+            _document_date = None
         return {"document_id": self.document_id,
                 "gid": self.gid,
                 "display_name": self.display_name,
-                "document_date": self.document_date,
+                "document_date": _document_date,
                 "facility_code": self.facility_code,
                 "curr_fsmt": self.curr_fsmt,
                 "doctype": self.doctype}
 
     def from_tuple(self, t):
-        self.document_id = t[0]
-        self.gid = str(t[1])
-        self.display_name = str(t[2])
-        self.document_date = str(t[3])
-        self.facility_code = str(t[4])
-        self.curr_fsmt = str(t[5])
-        self.doctype = str(t[6])
+        self.document_id = int(t[0])
+        self.gid = uuid.UUID(t[1])
+        self.display_name = t[2]
+        if len(t[3]) > 0:
+            self.document_date = datetime.datetime.strptime(t[3], "%Y-%m-%d")
+        else:
+            self.document_date = None
+        self.facility_code = t[4]
+        self.curr_fsmt = t[5]
+        self.doctype = t[6]
 
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\((.+),(.+),(.+),(.+),(.+),(.+),(.+)\)", s)
+        m = re.match(r"\(((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|)\)", s)
         if m:
-            self.from_tuple((m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7)))
+            self.from_tuple((m.group(1),
+                             m.group(2),
+                             m.group(3),
+                             m.group(4),
+                             m.group(5),
+                             m.group(6),
+                             m.group(7)))
         else:
             raise psycopg2.InterfaceError("bad document_head representation: %r" % s)
 
     def getquoted(self):
         return "({0}, {1}, {2}, {3}, {4}, {5}, {6})" \
-            .format(self.document_id,
-                    self.gid,
-                    self.display_name,
-                    self.document_date,
-                    self.facility_code,
-                    self.curr_fsmt,
-                    self.doctype)
+            .format(_adapt(self.document_id),
+                    _adapt(self.gid),
+                    _adapt(self.display_name),
+                    _adapt(self.document_date),
+                    _adapt(self.facility_code),
+                    _adapt(self.curr_fsmt),
+                    _adapt(self.doctype))
 
 
 def register_common_document_head(oid=None, conn_or_curs=None):
@@ -269,13 +303,13 @@ def register_common_document_head(oid=None, conn_or_curs=None):
 
 class GoalHead(object):
     def __init__(self, s=None, curs=None):
-        self.document_id = 0
-        self.gid = ''
-        self.display_name = ''
-        self.document_date = ''
-        self.facility_code = ''
-        self.curr_fsmt = ''
-        self.doctype = ''
+        self.document_id = None
+        self.gid = None
+        self.display_name = None
+        self.document_date = None
+        self.facility_code = None
+        self.curr_fsmt = None
+        self.doctype = None
         if s:
             self.from_string(s)
 
@@ -294,41 +328,54 @@ class GoalHead(object):
             return self
 
     def to_dict(self):
+        if self.document_date:
+            _document_date = self.document_date.strftime('%Y-%m-%d')
+        else:
+            _document_date = None
         return {"document_id": self.document_id,
                 "gid": self.gid,
                 "display_name": self.display_name,
-                "document_date": self.document_date,
+                "document_date": _document_date,
                 "facility_code": self.facility_code,
                 "curr_fsmt": self.curr_fsmt,
                 "doctype": self.doctype}
 
     def from_tuple(self, t):
-        self.document_id = t[0]
-        self.gid = str(t[1])
-        self.display_name = str(t[2])
-        self.document_date = str(t[3])
-        self.facility_code = str(t[4])
-        self.curr_fsmt = str(t[5])
-        self.doctype = str(t[6])
+        self.document_id = int(t[0])
+        self.gid = uuid.UUID(t[1])
+        self.display_name = t[2]
+        if len(t[3]) > 0:
+            self.document_date = datetime.datetime.strptime(t[3], "%Y-%m-%d")
+        else:
+            self.document_date = None
+        self.facility_code = t[4]
+        self.curr_fsmt = t[5]
+        self.doctype = t[6]
 
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\((.+),(.+),(.+),(.+),(.+),(.+),(.+)\)", s)
+        m = re.match(r"\(((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|)\)", s)
         if m:
-            self.from_tuple((m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7)))
+            self.from_tuple((m.group(1),
+                             m.group(2),
+                             m.group(3),
+                             m.group(4),
+                             m.group(5),
+                             m.group(6),
+                             m.group(7)))
         else:
             raise psycopg2.InterfaceError("bad goal_head representation: %r" % s)
 
     def getquoted(self):
         return "({0}, {1}, {2}, {3}, {4}, {5}, {6})" \
-            .format(self.document_id,
-                    self.gid,
-                    self.display_name,
-                    self.document_date,
-                    self.facility_code,
-                    self.curr_fsmt,
-                    self.doctype)
+            .format(_adapt(self.document_id),
+                    _adapt(self.gid),
+                    _adapt(self.display_name),
+                    _adapt(self.document_date),
+                    _adapt(self.facility_code),
+                    _adapt(self.curr_fsmt),
+                    _adapt(self.doctype))
 
 
 def register_common_goal_head(oid=None, conn_or_curs=None):
@@ -348,27 +395,8 @@ def register_common_goal_head(oid=None, conn_or_curs=None):
 
     return GOAL_HEAD
 
-def _adapt(o):
-    if o is None:
-        return 'NULL'
-    else:
-        # return _ext.adapt(str(o).encode('utf-8'))
-        if isinstance(o, str):
-            return "'{0}'".format(o)
-        else:
-            return _ext.adapt(o)
-            #return _ext.adapt(str(o))
 
 class OutboundHead(object):
-    # _ext.DECIMAL
-    # _ext.INTEGER
-    # _ext.LONGINTEGER
-    # _ext.DATE
-
-
-
-
-
     def __init__(self, s=None, curs=None):
         self.document_id = None
         self.gid = None
@@ -381,8 +409,7 @@ class OutboundHead(object):
         self.due_date = None
         if s:
             self.from_string(s)
-        #_ext.register_adapter(type(None), _ext.NoneAdapter)
-        psycopg2.extras.register_uuid()
+        #psycopg2.extras.register_uuid()
 
     def __repr__(self):
         return "outbound_head(document_id={0}, gid={1}, display_name={2}, document_date={3}, facility_code={4}, curr_fsmt={5}, doctype={6}, addressee={7}, due_date={8})" \
@@ -398,22 +425,22 @@ class OutboundHead(object):
 
     def to_dict(self):
         if self.due_date:
-            d = self.due_date.strftime('%Y-%m-%d')
+            _due_date = self.due_date.strftime('%Y-%m-%d')
         else:
-            d = None
+            _due_date = None
         if self.document_date:
-            d1 = self.document_date.strftime('%Y-%m-%d')
+            _document_date = self.document_date.strftime('%Y-%m-%d')
         else:
-            d1 = None
+            _document_date = None
         return {"document_id": self.document_id,
                 "gid": self.gid,
                 "display_name": self.display_name,
-                "document_date": d1,
+                "document_date": _document_date,
                 "facility_code": self.facility_code,
                 "curr_fsmt": self.curr_fsmt,
                 "doctype": self.doctype,
                 "addressee": self.addressee,
-                "due_date": d}
+                "due_date": _due_date}
 
     def __conform__(self, proto):
         if proto == _ext.ISQLQuote:
@@ -421,7 +448,8 @@ class OutboundHead(object):
 
     def from_tuple(self, t):
         self.document_id = int(t[0])
-        self.gid = uuid.UUID(t[1])
+        #self.gid = uuid.UUID(t[1])
+        self.gid = str(t[1])
         self.display_name = t[2]
         if len(t[3]) > 0:
             self.document_date = datetime.datetime.strptime(t[3], "%Y-%m-%d")
@@ -439,10 +467,19 @@ class OutboundHead(object):
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\((.+),(.+),(.+),(.+),((.+)|),(.+),(.+),((.+)|),(.+)\)", s)
+        m = re.match(r"\(((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|)\)", s)
         if m:
-            self.from_tuple((m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7),
-                             m.group(8), m.group(9)))
+            print (s)
+            print (m)
+            self.from_tuple((m.group(1),
+                             m.group(2),
+                             m.group(3),
+                             m.group(4),
+                             m.group(5),
+                             m.group(6),
+                             m.group(7),
+                             m.group(8),
+                             m.group(9)))
         else:
             raise psycopg2.InterfaceError("bad outbound_head representation: %r" % s)
 
@@ -479,22 +516,26 @@ def register_common_outbound_head(oid=None, conn_or_curs=None):
 
 class InboundHead(object):
     def __init__(self, s=None, curs=None):
-        self.document_id = 0
-        self.gid = ''
-        self.display_name = ''
-        self.document_date = ''
-        self.facility_code = ''
-        self.curr_fsmt = ''
-        self.doctype = ''
-        self.addresser = ''
+        self.document_id = None
+        self.gid = None
+        self.display_name = None
+        self.document_date = None
+        self.facility_code = None
+        self.curr_fsmt = None
+        self.doctype = None
+        self.addresser = None
         if s:
             self.from_string(s)
 
     def to_dict(self):
+        if self.document_date:
+            _document_date = self.document_date.strftime('%Y-%m-%d')
+        else:
+            _document_date = None
         return {"document_id": self.document_id,
                 "gid": self.gid,
                 "display_name": self.display_name,
-                "document_date": self.document_date,
+                "document_date": _document_date,
                 "facility_code": self.facility_code,
                 "curr_fsmt": self.curr_fsmt,
                 "doctype": self.doctype,
@@ -516,35 +557,44 @@ class InboundHead(object):
             return self
 
     def from_tuple(self, t):
-        self.document_id = t[0]
-        self.gid = str(t[1])
-        self.display_name = str(t[2])
-        self.document_date = str(t[3])
-        self.facility_code = str(t[4])
-        self.curr_fsmt = str(t[5])
-        self.doctype = str(t[6])
-        self.addresser = str(t[7])
+        self.document_id = int(t[0])
+        self.gid = uuid.UUID(t[1])
+        self.display_name = t[2]
+        if len(t[3]) > 0:
+            self.document_date = datetime.datetime.strptime(t[3], "%Y-%m-%d")
+        else:
+            self.document_date = None
+        self.facility_code = t[4]
+        self.curr_fsmt = t[5]
+        self.doctype = t[6]
+        self.addresser = t[7]
 
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\((.+),(.+),(.+),(.+),(.+),(.+),(.+),(.+)\)", s)
+        m = re.match(r"\(((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|)\)", s)
         if m:
-            self.from_tuple(
-                (m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8)))
+            self.from_tuple((m.group(1),
+                             m.group(2),
+                             m.group(3),
+                             m.group(4),
+                             m.group(5),
+                             m.group(6),
+                             m.group(7),
+                             m.group(8)))
         else:
-            raise psycopg2.InterfaceError("bad outbound_head representation: %r" % s)
+            raise psycopg2.InterfaceError("bad inbound_head representation: %r" % s)
 
     def getquoted(self):
         return "({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})" \
-            .format(self.document_id,
-                    self.gid,
-                    self.display_name,
-                    self.document_date,
-                    self.facility_code,
-                    self.curr_fsmt,
-                    self.doctype,
-                    self.addresser)
+            .format(_adapt(self.document_id),
+                    _adapt(self.gid),
+                    _adapt(self.display_name),
+                    _adapt(self.document_date),
+                    _adapt(self.facility_code),
+                    _adapt(self.curr_fsmt),
+                    _adapt(self.doctype),
+                    _adapt(self.addresser))
 
 
 def register_common_inbound_head(oid=None, conn_or_curs=None):
@@ -565,13 +615,13 @@ def register_common_inbound_head(oid=None, conn_or_curs=None):
     return INBOUND_HEAD
 
 
-def __make_body_dictlist(body):
-    dictlist_of_records = []
-    for line in body[0]['get_body']:
-        add_line = {"good_code": line[0], "quanity": line[1], "uom_code": line[2]}
-        dictlist_of_records.append(add_line)
-
-    return dictlist_of_records
+#def __make_body_dictlist(body):
+#    dictlist_of_records = []
+#    for line in body[0]['get_body']:
+#        add_line = {"good_code": line[0], "quanity": line[1], "uom_code": line[2]}
+#        dictlist_of_records.append(add_line)
+#
+#    return dictlist_of_records
 
 
 class GenericDocument:
@@ -593,6 +643,7 @@ class GenericDocument:
         #_ext.register_type(_ext.DATE, self._conn)
         #_ext.register_type(_ext.DECIMAL, self._conn)
         #_ext.register_type(_ext.LONGINTEGER, self._conn)
+        psycopg2.extras.register_uuid()
         register_common_document_body(conn_or_curs=self._conn)
         register_common_stoktake_body(conn_or_curs=self._conn)
         register_common_document_head(conn_or_curs=self._conn)
@@ -653,10 +704,10 @@ class GenericDocument:
         return document_id
 
     def to_dict(self):
-        res = []
+        _body = []
         for row in self.body:
-            res.append(row.to_dict())
-        return {"head": self.head.to_dict(), "body": res}
+            _body.append(row.to_dict())
+        return {"head": self.head.to_dict(), "body": _body}
 
     def do_commit(self, document_id, apprise=True):
         curs = self._conn.cursor()
@@ -838,15 +889,16 @@ if __name__ == '__main__':
     h.document_date = datetime.datetime.now().date()
     h.facility_code = 'A1'
     h.addressee = 'B1'
-    h.display_name = 'DM-01'
+    h.gid = uuid.uuid4()
+
 
     b = DocumentBody()
-    b.quantity = '10.0093'
+    b.quantity = 10.0093
     b.uom_code = 'kg'
     b.good_code = 'goo d1'
 
     b1 = DocumentBody()
-    b1.quantity = '10.0'
+    b1.quantity = 10.0
     b1.uom_code = 'kg'
     b1.good_code = 'товар №1'
 
