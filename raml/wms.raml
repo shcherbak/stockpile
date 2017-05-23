@@ -1,7 +1,8 @@
 #%RAML 0.8
 title: Holonic WMS API
 version: v1
-baseUri: http://mes.io/wms/api/{version}
+#baseUri: http://mes.io/wms/api/{version}
+baseUri: http://127.0.0.1:5000
 mediaType: application/json
 documentation:
   - title: Holonic WMS API
@@ -249,6 +250,28 @@ schemas:
     result a picking demand.
   get:
     description: Get a list of Demands
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
     responses:
       200:
         body:

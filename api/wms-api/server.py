@@ -2,7 +2,7 @@
 
 import logging
 from logging.handlers import RotatingFileHandler
-
+import datetime
 from flask import Flask, jsonify, request
 
 import dal
@@ -41,12 +41,24 @@ def hello_world():
 
 @app.route('/demands', methods=['GET'])
 def get_demands():
-    sdate = request.args.get('sdate')
-    edate = request.args.get('edate')
-    if (sdate and edate):
-        return jsonify(sdate, edate)
+    req_sdate = request.args.get('sdate')
+    req_edate = request.args.get('edate')
+    facility = request.args.get('facility')
+
+    if req_sdate:
+        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
     else:
-        return jsonify(dal.DemandList().to_dict())
+        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
+
+    if req_edate:
+        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
+    else:
+        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
+
+    if not facility:
+        facility = 'A1'
+
+    return jsonify(dal.DemandList(facility, sdate, edate).to_dict())
 
 
 @app.route('/demands', methods=['PUT'])
@@ -58,10 +70,10 @@ def put_demand():
 def get_demand(document_id):
     return jsonify(dal.Demand(document_id).to_dict())
 
-
-@app.route('/demands/<string:document_name>', methods=['GET'])
-def get_demand1(document_name):
-    return jsonify(document_name)
+#Flask-UUID <uuid:doc_id>
+#@app.route('/demands/<string:document_name>', methods=['GET'])
+#def get_demand1(document_name):
+#    return jsonify(document_name)
 
 
 @app.route('/demands/<int:document_id>', methods=['PATCH'])
@@ -72,7 +84,7 @@ def patch_demand(document_id):
 @app.route('/demands/<int:document_id>/commit', methods=['PATCH'])
 def patch_demand_commit(document_id):
     dal.Demand().do_commit(document_id=document_id, apprise=True)
-    return jsonify("status", "commited")
+    return jsonify({"status": "commited"})
 
 
 @app.route('/demands/<int:document_id>', methods=['DELETE'])
@@ -83,7 +95,24 @@ def del_demand(document_id):
 
 @app.route('/reserves', methods=['GET'])
 def get_reserves():
-    return 'reserves'
+    req_sdate = request.args.get('sdate')
+    req_edate = request.args.get('edate')
+    facility = request.args.get('facility')
+
+    if req_sdate:
+        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
+    else:
+        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
+
+    if req_edate:
+        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
+    else:
+        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
+
+    if not facility:
+        facility = 'A1'
+
+    return jsonify(dal.ReserveList(facility, sdate, edate).to_dict())
 
 
 @app.route('/reserves/<int:document_id>', methods=['GET'])
@@ -99,7 +128,24 @@ def del_reserve(document_id):
 
 @app.route('/picklists', methods=['GET'])
 def get_picklists():
-    return 'picklists'
+    req_sdate = request.args.get('sdate')
+    req_edate = request.args.get('edate')
+    facility = request.args.get('facility')
+
+    if req_sdate:
+        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
+    else:
+        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
+
+    if req_edate:
+        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
+    else:
+        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
+
+    if not facility:
+        facility = 'A1'
+
+    return jsonify(dal.PicklistList(facility, sdate, edate).to_dict())
 
 
 @app.route('/picklists/<int:document_id>', methods=['GET'])
@@ -115,7 +161,24 @@ def del_picklist(document_id):
 
 @app.route('/issues', methods=['GET'])
 def get_issues():
-    return 'issues'
+    req_sdate = request.args.get('sdate')
+    req_edate = request.args.get('edate')
+    facility = request.args.get('facility')
+
+    if req_sdate:
+        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
+    else:
+        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
+
+    if req_edate:
+        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
+    else:
+        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
+
+    if not facility:
+        facility = 'A1'
+
+    return jsonify(dal.IssueList(facility, sdate, edate).to_dict())
 
 
 @app.route('/issues/<int:document_id>', methods=['GET'])
@@ -131,7 +194,24 @@ def del_issue(document_id):
 
 @app.route('/despatches', methods=['GET'])
 def get_despatches():
-    return 'despatches'
+    req_sdate = request.args.get('sdate')
+    req_edate = request.args.get('edate')
+    facility = request.args.get('facility')
+
+    if req_sdate:
+        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
+    else:
+        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
+
+    if req_edate:
+        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
+    else:
+        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
+
+    if not facility:
+        facility = 'A1'
+
+    return jsonify(dal.DespatchList(facility, sdate, edate).to_dict())
 
 
 @app.route('/despatches/<int:document_id>', methods=['GET'])
@@ -147,7 +227,24 @@ def del_despatch(document_id):
 
 @app.route('/rebounds', methods=['GET'])
 def get_rebounds():
-    return 'rebounds'
+    req_sdate = request.args.get('sdate')
+    req_edate = request.args.get('edate')
+    facility = request.args.get('facility')
+
+    if req_sdate:
+        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
+    else:
+        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
+
+    if req_edate:
+        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
+    else:
+        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
+
+    if not facility:
+        facility = 'A1'
+
+    return jsonify(dal.ReboundList(facility, sdate, edate).to_dict())
 
 
 @app.route('/rebounds/<int:document_id>', methods=['GET'])
@@ -163,7 +260,24 @@ def del_rebound(document_id):
 
 @app.route('/deliveries', methods=['GET'])
 def get_deliveries():
-    return 'deliveries'
+    req_sdate = request.args.get('sdate')
+    req_edate = request.args.get('edate')
+    facility = request.args.get('facility')
+
+    if req_sdate:
+        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
+    else:
+        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
+
+    if req_edate:
+        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
+    else:
+        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
+
+    if not facility:
+        facility = 'A1'
+
+    return jsonify(dal.DeliveryList(facility, sdate, edate).to_dict())
 
 
 @app.route('/deliveries/<int:document_id>', methods=['GET'])
@@ -179,7 +293,24 @@ def del_delivery(document_id):
 
 @app.route('/receipts', methods=['GET'])
 def get_receipts():
-    return 'receipts'
+    req_sdate = request.args.get('sdate')
+    req_edate = request.args.get('edate')
+    facility = request.args.get('facility')
+
+    if req_sdate:
+        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
+    else:
+        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
+
+    if req_edate:
+        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
+    else:
+        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
+
+    if not facility:
+        facility = 'A1'
+
+    return jsonify(dal.ReceiptList(facility, sdate, edate).to_dict())
 
 
 @app.route('/receipts/<int:document_id>', methods=['GET'])
@@ -195,7 +326,7 @@ def del_receipt(document_id):
 
 @app.route('/cutoffs', methods=['GET'])
 def get_cutoffs():
-    return 'cutoffs'
+    return '', 405
 
 
 @app.route('/cutoffs/<int:document_id>', methods=['GET'])
@@ -211,7 +342,24 @@ def del_cutoff(document_id):
 
 @app.route('/stocktakes', methods=['GET'])
 def get_stocktakes():
-    return 'stocktakes'
+    req_sdate = request.args.get('sdate')
+    req_edate = request.args.get('edate')
+    facility = request.args.get('facility')
+
+    if req_sdate:
+        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
+    else:
+        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
+
+    if req_edate:
+        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
+    else:
+        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
+
+    if not facility:
+        facility = 'A1'
+
+    return jsonify(dal.StocktakeList(facility, sdate, edate).to_dict())
 
 
 @app.route('/stocktakes/<int:document_id>', methods=['GET'])
@@ -227,7 +375,7 @@ def del_stocktake(document_id):
 
 @app.route('/stockcards', methods=['GET'])
 def get_stockcards():
-    return 'stockcards'
+    return '', 405
 
 
 @app.route('/stockcards/<int:document_id>', methods=['GET'])
@@ -237,7 +385,7 @@ def get_stockcard(document_id):
 
 @app.route('/balance', methods=['GET'])
 def get_balance():
-    return 'balance'
+    return '', 405
 
 
 if __name__ == '__main__':

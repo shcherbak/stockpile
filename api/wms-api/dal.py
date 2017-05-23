@@ -800,7 +800,16 @@ class Stocktake(GenericDocument):
 class GenericDocumentList:
     GET_LSIT_SQL = ""
 
-    def __init__(self):
+    def __init__(self, facility=None, sdate=None, edate=None):
+        self.facility_code = None
+        if facility:
+            self.facility_code = facility
+        self.date_start = None
+        if sdate:
+            self.date_start = sdate
+        self.date_end = None
+        if edate:
+            self.date_end = edate
         self._conn = connection()
         psycopg2.extras.register_uuid()
         register_common_document_body(conn_or_curs=self._conn)
@@ -812,11 +821,10 @@ class GenericDocumentList:
 
     def get_document_list(self):
         curs = self._conn.cursor()
-        curs.execute(self.GET_LSIT_SQL)
+        curs.execute(self.GET_LSIT_SQL, (self.facility_code, self.date_start, self.date_end,))
         document_list = curs.fetchone()[0]
         self._conn.commit()
         curs.close()
-        #print (document_list)
         return document_list
 
     def to_dict(self):
@@ -828,39 +836,39 @@ class GenericDocumentList:
 
 
 class DeliveryList(GenericDocumentList):
-    GET_LSIT_SQL = "SELECT * from delivery.head"
+    GET_LSIT_SQL = "SELECT delivery.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
 
 
 class DemandList(GenericDocumentList):
-    GET_LSIT_SQL = "SELECT demand.get_head_batch_proposed('A1', '1970-01-01', '2018-01-01')"
+    GET_LSIT_SQL = "SELECT demand.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
 
 
 class DespatchList(GenericDocumentList):
-    GET_LSIT_SQL = "SELECT * from despatch.head"
+    GET_LSIT_SQL = "SELECT despatch.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
 
 
 class IssueList(GenericDocumentList):
-    GET_LSIT_SQL = "SELECT * from issue.head"
+    GET_LSIT_SQL = "SELECT issue.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
 
 
 class PicklistList(GenericDocumentList):
-    GET_LSIT_SQL = "SELECT * from picklist.head"
+    GET_LSIT_SQL = "SELECT picklist.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
 
 
 class ReboundList(GenericDocumentList):
-    GET_LSIT_SQL = "SELECT * from rebound.head"
+    GET_LSIT_SQL = "SELECT rebound.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
 
 
 class ReceiptList(GenericDocumentList):
-    GET_LSIT_SQL = "SELECT * from receipt.head"
+    GET_LSIT_SQL = "SELECT receipt.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
 
 
 class ReserveList(GenericDocumentList):
-    GET_LSIT_SQL = "SELECT * from reserve.head"
+    GET_LSIT_SQL = "SELECT reserve.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
 
 
 class StocktakeList(GenericDocumentList):
-    GET_LSIT_SQL = "SELECT * from stocktake.head"
+    GET_LSIT_SQL = "SELECT stocktake.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
 
 
 if __name__ == '__main__':
