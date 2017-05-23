@@ -16,24 +16,16 @@ from connection import connection
 # psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
 # psycopg2.extras.register_uuid()
 
-
 # DEC2FLOAT = _ext.new_type(
 #    _ext.DECIMAL.values,
 #    'DEC2FLOAT',
 #    lambda value, curs: float(value) if value is not None else None)
 # _ext.register_type(DEC2FLOAT)
 # from config import config
-#
-# _ext.DECIMAL
-# _ext.INTEGER
-# _ext.LONGINTEGER
-# _ext.DATE
 
 # self._conn.set_client_encoding('UTF8')
 # _ext.register_type(_ext.UNICODE, self._conn)
 # _ext.register_type(_ext.UNICODEARRAY, self._conn)
-# psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
-# psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
 # _ext.register_type(_ext.DATE, self._conn)
 # _ext.register_type(_ext.DECIMAL, self._conn)
 # _ext.register_type(_ext.LONGINTEGER, self._conn)
@@ -810,6 +802,7 @@ class GenericDocumentList:
 
     def __init__(self):
         self._conn = connection()
+        psycopg2.extras.register_uuid()
         register_common_document_body(conn_or_curs=self._conn)
         register_common_stoktake_body(conn_or_curs=self._conn)
         register_common_document_head(conn_or_curs=self._conn)
@@ -820,14 +813,18 @@ class GenericDocumentList:
     def get_document_list(self):
         curs = self._conn.cursor()
         curs.execute(self.GET_LSIT_SQL)
-        document_list = curs.fetchall()
+        document_list = curs.fetchone()[0]
         self._conn.commit()
         curs.close()
+        #print (document_list)
         return document_list
 
-    @staticmethod
-    def to_dict():
-        return 'static context'
+    def to_dict(self):
+        result_list = []
+        list_in = self.get_document_list()
+        for row in list_in:
+            result_list.append(row.to_dict())
+        return result_list
 
 
 class DeliveryList(GenericDocumentList):
@@ -835,7 +832,7 @@ class DeliveryList(GenericDocumentList):
 
 
 class DemandList(GenericDocumentList):
-    GET_LSIT_SQL = "SELECT * from demand.get_head_batch_proposed('A1', '1970-01-01', '2018-01-01')"
+    GET_LSIT_SQL = "SELECT demand.get_head_batch_proposed('A1', '1970-01-01', '2018-01-01')"
 
 
 class DespatchList(GenericDocumentList):
@@ -873,33 +870,39 @@ if __name__ == '__main__':
     # d2 = Despatch(85)
     # d3 = Demand(85)
     # dl3 = DemandList()
-    h = OutboundHead()
-    h.due_date = datetime.datetime.now().date() + datetime.timedelta(days=1)
-    h.document_date = datetime.datetime.now().date()
-    h.facility_code = 'A1'
-    h.addressee = 'B1'
-    h.gid = uuid.uuid4()
 
-    b = DocumentBody()
-    b.quantity = 10.0093
-    b.uom_code = 'kg'
-    b.good_code = 'goo d1'
+    #h = OutboundHead()
+    #h.due_date = datetime.datetime.now().date() + datetime.timedelta(days=1)
+    #h.document_date = datetime.datetime.now().date()
+    #h.facility_code = 'A1'
+    #h.addressee = 'B1'
+    #h.gid = uuid.uuid4()
 
-    b1 = DocumentBody()
-    b1.quantity = 10.0
-    b1.uom_code = 'kg'
-    b1.good_code = 'товар №1'
+    #b = DocumentBody()
+    #b.quantity = 10.0093
+    #b.uom_code = 'kg'
+    #b.good_code = 'goo d1'
 
-    d = Demand()
+    #b1 = DocumentBody()
+    #b1.quantity = 10.0
+    #b1.uom_code = 'kg'
+    #b1.good_code = 'товар №1'
+
+    #d = Demand()
     # d.head = h
     # d.body = [b]
 
-    d_id = d.create_document(h, [b, b1])
-    print("doc id is ", d_id)
+    #d_id = d.create_document(h, [b, b1])
+    #print("doc id is ", d_id)
 
-    print(psycopg2.extensions.DateFromPy(h.due_date))
+    #print(psycopg2.extensions.DateFromPy(h.due_date))
 
-    # print(DemandList.to_dict())
+    dl = DemandList().to_dict()
+    print (dl)
+    print (type(dl))
+    for l in dl:
+        print (l)
+    #print(dl)
     # d4 = Issue(85)
     # d5 = Picklist(85)
     # d6 = Rebound(85)

@@ -3,7 +3,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 import dal
 
@@ -36,12 +36,17 @@ def page_not_found(e):
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return 'WMS-API'
 
 
 @app.route('/demands', methods=['GET'])
 def get_demands():
-    return jsonify(dal.DemandList().to_dict())
+    sdate = request.args.get('sdate')
+    edate = request.args.get('edate')
+    if (sdate and edate):
+        return jsonify(sdate, edate)
+    else:
+        return jsonify(dal.DemandList().to_dict())
 
 
 @app.route('/demands', methods=['PUT'])
@@ -52,6 +57,11 @@ def put_demand():
 @app.route('/demands/<int:document_id>', methods=['GET'])
 def get_demand(document_id):
     return jsonify(dal.Demand(document_id).to_dict())
+
+
+@app.route('/demands/<string:document_name>', methods=['GET'])
+def get_demand1(document_name):
+    return jsonify(document_name)
 
 
 @app.route('/demands/<int:document_id>', methods=['PATCH'])
