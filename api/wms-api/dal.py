@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 
+import datetime
+import re
+import uuid
 from decimal import Decimal
 
 import psycopg2
 import psycopg2.extensions as _ext
 import psycopg2.extras
-import re
-import datetime
-import uuid
+
+from connection import connection
+
 
 # psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
 # psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
 # psycopg2.extras.register_uuid()
-
-from connection import connection
 
 
 # DEC2FLOAT = _ext.new_type(
@@ -27,6 +28,16 @@ from connection import connection
 # _ext.INTEGER
 # _ext.LONGINTEGER
 # _ext.DATE
+
+# self._conn.set_client_encoding('UTF8')
+# _ext.register_type(_ext.UNICODE, self._conn)
+# _ext.register_type(_ext.UNICODEARRAY, self._conn)
+# psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
+# psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
+# _ext.register_type(_ext.DATE, self._conn)
+# _ext.register_type(_ext.DECIMAL, self._conn)
+# _ext.register_type(_ext.LONGINTEGER, self._conn)
+
 
 def _get_pg_nspname_oid(conn, nspname):
     _sql = 'SELECT oid FROM pg_namespace WHERE nspname = %s'
@@ -67,6 +78,7 @@ def _adapt(o):
         if isinstance(o, str):
             return "'{0}'".format(o)
         else:
+            # return _ext.adapt(obj=o, alternate=None, protocol=None)
             return _ext.adapt(o)
 
 
@@ -409,7 +421,6 @@ class OutboundHead(object):
         self.due_date = None
         if s:
             self.from_string(s)
-        #psycopg2.extras.register_uuid()
 
     def __repr__(self):
         return "outbound_head(document_id={0}, gid={1}, display_name={2}, document_date={3}, facility_code={4}, curr_fsmt={5}, doctype={6}, addressee={7}, due_date={8})" \
@@ -448,8 +459,7 @@ class OutboundHead(object):
 
     def from_tuple(self, t):
         self.document_id = int(t[0])
-        #self.gid = uuid.UUID(t[1])
-        self.gid = str(t[1])
+        self.gid = uuid.UUID(t[1])
         self.display_name = t[2]
         if len(t[3]) > 0:
             self.document_date = datetime.datetime.strptime(t[3], "%Y-%m-%d")
@@ -469,15 +479,6 @@ class OutboundHead(object):
             return None
         m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
         if m:
-            print (s)
-            print (m.group(1))
-            print (m.group(2))
-            print (m.group(3))
-            print (m.group(4))
-            print (m.group(5))
-            print (m.group(6))
-            print (m.group(7))
-            print (m.group(8))
             self.from_tuple((m.group(1),
                              m.group(2),
                              m.group(3),
@@ -622,15 +623,6 @@ def register_common_inbound_head(oid=None, conn_or_curs=None):
     return INBOUND_HEAD
 
 
-#def __make_body_dictlist(body):
-#    dictlist_of_records = []
-#    for line in body[0]['get_body']:
-#        add_line = {"good_code": line[0], "quanity": line[1], "uom_code": line[2]}
-#        dictlist_of_records.append(add_line)
-#
-#    return dictlist_of_records
-
-
 class GenericDocument:
     GET_HEAD_SQL = ""
     GET_BODY_SQL = ""
@@ -642,14 +634,6 @@ class GenericDocument:
 
     def __init__(self, document_id=None):
         self._conn = connection()
-        #self._conn.set_client_encoding('UTF8')
-        #_ext.register_type(_ext.UNICODE, self._conn)
-        #_ext.register_type(_ext.UNICODEARRAY, self._conn)
-        #psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
-        #psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
-        #_ext.register_type(_ext.DATE, self._conn)
-        #_ext.register_type(_ext.DECIMAL, self._conn)
-        #_ext.register_type(_ext.LONGINTEGER, self._conn)
         psycopg2.extras.register_uuid()
         register_common_document_body(conn_or_curs=self._conn)
         register_common_stoktake_body(conn_or_curs=self._conn)
@@ -826,8 +810,6 @@ class GenericDocumentList:
 
     def __init__(self):
         self._conn = connection()
-        #_ext.register_type(_ext.UNICODE, self._conn)
-        #_ext.register_type(_ext.UNICODEARRAY, self._conn)
         register_common_document_body(conn_or_curs=self._conn)
         register_common_stoktake_body(conn_or_curs=self._conn)
         register_common_document_head(conn_or_curs=self._conn)
@@ -887,17 +869,16 @@ class StocktakeList(GenericDocumentList):
 if __name__ == '__main__':
     # dal = DataAccessLayer()
     # print(dal.get_demand(85))
-    #d1 = Delivery(85)
-    #d2 = Despatch(85)
-    #d3 = Demand(85)
-    #dl3 = DemandList()
+    # d1 = Delivery(85)
+    # d2 = Despatch(85)
+    # d3 = Demand(85)
+    # dl3 = DemandList()
     h = OutboundHead()
     h.due_date = datetime.datetime.now().date() + datetime.timedelta(days=1)
     h.document_date = datetime.datetime.now().date()
     h.facility_code = 'A1'
     h.addressee = 'B1'
     h.gid = uuid.uuid4()
-
 
     b = DocumentBody()
     b.quantity = 10.0093
@@ -910,29 +891,29 @@ if __name__ == '__main__':
     b1.good_code = 'товар №1'
 
     d = Demand()
-    #d.head = h
-    #d.body = [b]
+    # d.head = h
+    # d.body = [b]
 
     d_id = d.create_document(h, [b, b1])
-    print ("doc id is ", d_id)
+    print("doc id is ", d_id)
 
     print(psycopg2.extensions.DateFromPy(h.due_date))
 
-    #print(DemandList.to_dict())
-    #d4 = Issue(85)
-    #d5 = Picklist(85)
-    #d6 = Rebound(85)
-    #d7 = Receipt(85)
-    #d8 = Reserve(85)
-    #d9 = Stocktake(85)
+    # print(DemandList.to_dict())
+    # d4 = Issue(85)
+    # d5 = Picklist(85)
+    # d6 = Rebound(85)
+    # d7 = Receipt(85)
+    # d8 = Reserve(85)
+    # d9 = Stocktake(85)
     # print (d.head)
     # print (d.body)
-    #print(d1.to_dict())
-    #print(d2.to_dict())
-    #print(d3.to_dict())
-    #print(d4.to_dict())
-    #print(d5.to_dict())
-    #print(d6.to_dict())
-    #print(d7.to_dict())
-    #print(d8.to_dict())
-    #print(d9.to_dict())
+    # print(d1.to_dict())
+    # print(d2.to_dict())
+    # print(d3.to_dict())
+    # print(d4.to_dict())
+    # print(d5.to_dict())
+    # print(d6.to_dict())
+    # print(d7.to_dict())
+    # print(d8.to_dict())
+    # print(d9.to_dict())
