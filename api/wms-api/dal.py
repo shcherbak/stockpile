@@ -102,7 +102,7 @@ class DocumentBody(object):
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\(((.+)|),((.+)|),((.+)|)\)", s)
+        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
         if m:
             self.from_tuple((m.group(1),
                              m.group(2),
@@ -171,7 +171,7 @@ class StocktakeBody(object):
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\(((.+)|),((.+)|),((.+)|),((.+)|)\)", s)
+        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
         if m:
             self.from_tuple((m.group(1),
                              m.group(2),
@@ -260,7 +260,7 @@ class DocumentHead(object):
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\(((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|)\)", s)
+        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
         if m:
             self.from_tuple((m.group(1),
                              m.group(2),
@@ -355,7 +355,7 @@ class GoalHead(object):
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\(((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|)\)", s)
+        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
         if m:
             self.from_tuple((m.group(1),
                              m.group(2),
@@ -467,10 +467,17 @@ class OutboundHead(object):
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\(((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|)\)", s)
+        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
         if m:
             print (s)
-            print (m)
+            print (m.group(1))
+            print (m.group(2))
+            print (m.group(3))
+            print (m.group(4))
+            print (m.group(5))
+            print (m.group(6))
+            print (m.group(7))
+            print (m.group(8))
             self.from_tuple((m.group(1),
                              m.group(2),
                              m.group(3),
@@ -572,7 +579,7 @@ class InboundHead(object):
     def from_string(self, s):
         if s is None:
             return None
-        m = re.match(r"\(((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|),((.+)|)\)", s)
+        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
         if m:
             self.from_tuple((m.group(1),
                              m.group(2),
