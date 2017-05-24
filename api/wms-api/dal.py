@@ -642,7 +642,7 @@ class InboundHead(object):
         self.facility_code = d['facility_code']
         self.curr_fsmt = d['curr_fsmt']
         self.doctype = d['doctype']
-        self.addressee = d['addresser']
+        self.addresser = d['addresser']
 
     def __repr__(self):
         return "inbound_head(document_id={0}, gid={1}, display_name={2}, document_date={3}, facility_code={4}, curr_fsmt={5}, doctype={6}, addresser={7})" \
