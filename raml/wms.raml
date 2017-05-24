@@ -35,44 +35,44 @@ documentation:
 
 
 schemas:
-  - Good:               !include schemas/json/commons-good.schema
-  - Goods:              !include schemas/json/commons-goods.schema
-  - Customer:           !include schemas/json/commons-contractor.schema
-  - Customers:          !include schemas/json/commons-contractors.schema
-  - Supplier:           !include schemas/json/commons-contractor.schema
-  - Suppliers:          !include schemas/json/commons-contractors.schema
-  - Error:              !include schemas/json/commons-error.schema
-  - FSMT:               !include schemas/json/commons-error.schema
-  - Demand:             !include schemas/json/warehouse-outbound-document.schema
-  - Demands:            !include schemas/json/warehouse-outbound-documents.schema
-  - Reserve:            !include schemas/json/warehouse-outbound-document.schema
-  - Reserves:           !include schemas/json/warehouse-outbound-documents.schema
-  - Picklist:           !include schemas/json/warehouse-outbound-document.schema
-  - Picklists:          !include schemas/json/warehouse-outbound-documents.schema
-  - Issue:              !include schemas/json/warehouse-outbound-document.schema
-  - Issues:             !include schemas/json/warehouse-outbound-documents.schema
-  - AdjustmentCredit:   !include schemas/json/warehouse-outbound-document.schema
-  - AdjustmentCredits:  !include schemas/json/warehouse-outbound-documents.schema
-  - Despatch:           !include schemas/json/warehouse-outbound-document.schema
-  - Despatches:         !include schemas/json/warehouse-outbound-documents.schema
-  - Delivery:           !include schemas/json/warehouse-inbound-document.schema
-  - Deliveries:         !include schemas/json/warehouse-inbound-documents.schema
-  - Receipt:            !include schemas/json/warehouse-inbound-document.schema
-  - Receipts:           !include schemas/json/warehouse-inbound-documents.schema
-  - AdjustmentDebit:    !include schemas/json/warehouse-inbound-document.schema
-  - AdjustmentDebits:   !include schemas/json/warehouse-inbound-documents.schema
-  - Rebound:            !include schemas/json/warehouse-inbound-document.schema
-  - Rebounds:           !include schemas/json/warehouse-inbound-documents.schema
-  - Cutoff:             !include schemas/json/warehouse-generic-document.schema
-  - Cutoffs:            !include schemas/json/warehouse-generic-documents.schema
-  - Goal:               !include schemas/json/warehouse-generic-document.schema
-  - Goals:              !include schemas/json/warehouse-generic-documents.schema
-  - Stockcard:          !include schemas/json/warehouse-generic-document.schema
-  - Stockcards:         !include schemas/json/warehouse-generic-documents.schema
-  - Balance:            !include schemas/json/warehouse-balance-record.schema
-  - Balances:           !include schemas/json/warehouse-balance-records.schema
-  - Stocktake:          !include schemas/json/warehouse-stocktake-document.schema
-  - Stocktakes:         !include schemas/json/warehouse-stocktake-documents.schema
+  - Good:               !include json/commons-good-schema.json
+  - Goods:              !include json/commons-goods-schema.json
+  - Customer:           !include json/commons-contractor-schema.json
+  - Customers:          !include json/commons-contractors-schema.json
+  - Supplier:           !include json/commons-contractor-schema.json
+  - Suppliers:          !include json/commons-contractors-schema.json
+  - Error:              !include json/commons-error-schema.json
+  - FSMT:               !include json/commons-error-schema.json
+  - Demand:             !include json/warehouse-outbound-document-schema.json
+  - Demands:            !include json/warehouse-outbound-documents-schema.json
+  - Reserve:            !include json/warehouse-outbound-document-schema.json
+  - Reserves:           !include json/warehouse-outbound-documents-schema.json
+  - Picklist:           !include json/warehouse-outbound-document-schema.json
+  - Picklists:          !include json/warehouse-outbound-documents-schema.json
+  - Issue:              !include json/warehouse-outbound-document-schema.json
+  - Issues:             !include json/warehouse-outbound-documents-schema.json
+  - AdjustmentCredit:   !include json/warehouse-outbound-document-schema.json
+  - AdjustmentCredits:  !include json/warehouse-outbound-documents-schema.json
+  - Despatch:           !include json/warehouse-outbound-document-schema.json
+  - Despatches:         !include json/warehouse-outbound-documents-schema.json
+  - Delivery:           !include json/warehouse-inbound-document-schema.json
+  - Deliveries:         !include json/warehouse-inbound-documents-schema.json
+  - Receipt:            !include json/warehouse-inbound-document-schema.json
+  - Receipts:           !include json/warehouse-inbound-documents-schema.json
+  - AdjustmentDebit:    !include json/warehouse-inbound-document-schema.json
+  - AdjustmentDebits:   !include json/warehouse-inbound-documents-schema.json
+  - Rebound:            !include json/warehouse-inbound-document-schema.json
+  - Rebounds:           !include json/warehouse-inbound-documents-schema.json
+  - Cutoff:             !include json/warehouse-generic-document-schema.json
+  - Cutoffs:            !include json/warehouse-generic-documents-schema.json
+  - Goal:               !include json/warehouse-generic-document-schema.json
+  - Goals:              !include json/warehouse-generic-documents-schema.json
+  - Stockcard:          !include json/warehouse-generic-document-schema.json
+  - Stockcards:         !include json/warehouse-generic-documents-schema.json
+  - Balance:            !include json/warehouse-balance-record-schema.json
+  - Balances:           !include json/warehouse-balance-records-schema.json
+  - Stocktake:          !include json/warehouse-stocktake-document-schema.json
+  - Stocktakes:         !include json/warehouse-stocktake-documents-schema.json
 
 #
 # Common
@@ -191,12 +191,12 @@ schemas:
         body:
           application/json:
             schema: Goods
-            example: !include ./examples/json/warehouse-goods-example.json
+            example: !include ./json/warehouse-goods-example.json
       404:
         body:
           application/json:
             schema: Error
-            example: !include ./examples/json/commons-error-example.json
+            example: !include ./json/commons-error-example.json
   post:
     description: Add new Good
     body:
@@ -288,7 +288,7 @@ schemas:
         body:
           application/json:
             schema: Demand
-            example: !include ./examples/json/warehouse-outbound-document-example.json
+            example: !include ./json/warehouse-outbound-document-example.json
   /{resourceId}:
     get:
       description: Get a Demand by ID
@@ -342,6 +342,28 @@ schemas:
     (manufacturing plan, sales)
   get:
     description: Get a list of Reserves
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
     responses:
       200:
         body:
@@ -417,6 +439,28 @@ schemas:
     complete the daily work.
   get:
     description: Get a list of Picklists
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
     responses:
       200:
         body:
@@ -488,6 +532,28 @@ schemas:
     description: |
       Get a list of List all Issues matching query criteria, if provided;
       otherwise list all Issues
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
     responses:
       200:
         body:
@@ -556,6 +622,28 @@ schemas:
     despatch department responsible of sending goods out to customers
   get:
     description: Get a list of Despatches
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
     responses:
       200:
         body:
@@ -623,6 +711,28 @@ schemas:
     Returns of issued goods
   get:
     description: Get a list of Rebounds
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
     responses:
       200:
         body:
@@ -696,6 +806,28 @@ schemas:
     Goods Delivery Note
   get:
     description: Get a list of Deliveries
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
     responses:
       200:
         body:
@@ -765,6 +897,28 @@ schemas:
     or the receipt of stock from the vendor or manufacturer.
   get:
     description: Get a list of Receipts
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
     responses:
       200:
         body:
@@ -835,6 +989,28 @@ schemas:
     Cutoff determins a point in accounting
   get:
     description: Get a list of Cutoffs
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
     responses:
       200:
         body:
@@ -905,6 +1081,28 @@ schemas:
     stock discrepancy information. STN is determination of a cutoff point
   get:
     description: Get a list of Stocktakes
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
     responses:
       200:
         body:
