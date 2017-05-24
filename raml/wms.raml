@@ -42,6 +42,7 @@ schemas:
   - Supplier:           !include schemas/json/commons-contractor.schema
   - Suppliers:          !include schemas/json/commons-contractors.schema
   - Error:              !include schemas/json/commons-error.schema
+  - FSMT:               !include schemas/json/commons-error.schema
   - Demand:             !include schemas/json/warehouse-outbound-document.schema
   - Demands:            !include schemas/json/warehouse-outbound-documents.schema
   - Reserve:            !include schemas/json/warehouse-outbound-document.schema
@@ -322,6 +323,18 @@ schemas:
           body:
             application/json:
               schema: Error
+    /fsmt:
+      put:
+        body:
+          application/json:
+            schema: FSMT
+        responses:
+          200:
+          404:
+            body:
+              application/json:
+                schema: Error
+
 
 /reserves:
   description: |
@@ -378,6 +391,18 @@ schemas:
           body:
             application/json:
               schema: Error
+    /fsmt:
+      put:
+        body:
+          application/json:
+            schema: FSMT
+        responses:
+          200:
+          404:
+            body:
+              application/json:
+                schema: Error
+
 
 /picklists:
   description: |
@@ -441,6 +466,18 @@ schemas:
           body:
             application/json:
               schema: Error
+    /fsmt:
+      put:
+        body:
+          application/json:
+            schema: FSMT
+        responses:
+          200:
+          404:
+            body:
+              application/json:
+                schema: Error
+
 
 /issues:
   description: |
@@ -500,6 +537,18 @@ schemas:
           body:
             application/json:
               schema: Error
+    /fsmt:
+      put:
+        body:
+          application/json:
+            schema: FSMT
+        responses:
+          200:
+          404:
+            body:
+              application/json:
+                schema: Error
+
 
 /despatches:
   description: |
@@ -556,6 +605,18 @@ schemas:
           body:
             application/json:
               schema: Error
+    /fsmt:
+      put:
+        body:
+          application/json:
+            schema: FSMT
+        responses:
+          200:
+          404:
+            body:
+              application/json:
+                schema: Error
+
 
 /rebounds:
   description: |
@@ -611,6 +672,18 @@ schemas:
           body:
             application/json:
               schema: Error
+    /fsmt:
+      put:
+        body:
+          application/json:
+            schema: FSMT
+        responses:
+          200:
+          404:
+            body:
+              application/json:
+                schema: Error
+
 
 #
 # Incoming documents
@@ -672,6 +745,18 @@ schemas:
           body:
             application/json:
               schema: Error
+    /fsmt:
+      put:
+        body:
+          application/json:
+            schema: FSMT
+        responses:
+          200:
+          404:
+            body:
+              application/json:
+                schema: Error
+
 
 /receipts:
   description: |
@@ -729,6 +814,18 @@ schemas:
           body:
             application/json:
               schema: Error
+    /fsmt:
+      put:
+        body:
+          application/json:
+            schema: FSMT
+        responses:
+          200:
+          404:
+            body:
+              application/json:
+                schema: Error
+
 
 #
 # internal documents
@@ -787,6 +884,18 @@ schemas:
           body:
             application/json:
               schema: Error
+    /fsmt:
+      put:
+        body:
+          application/json:
+            schema: FSMT
+        responses:
+          200:
+          404:
+            body:
+              application/json:
+                schema: Error
+
 
 /stocktakes:
   description: |
@@ -845,6 +954,18 @@ schemas:
           body:
             application/json:
               schema: Error
+    /fsmt:
+      put:
+        body:
+          application/json:
+            schema: FSMT
+        responses:
+          200:
+          404:
+            body:
+              application/json:
+                schema: Error
+
 
 #
 # referential documents

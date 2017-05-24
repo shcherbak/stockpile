@@ -64,30 +64,9 @@ def get_demands():
 @app.route('/demands', methods=['POST'])
 def post_demand():
     data = request.get_json()
-    #h = dal.OutboundHead()
-    #h.from_tuple((
-    #    data['head']['document_id'],
-    #    data['head']['gid'],
-    #    data['head']['display_name'],
-    #    data['head']['document_date'],
-    #    data['head']['facility_code'],
-    #    data['head']['curr_fsmt'],
-    #    data['head']['doctype'],
-    #    data['head']['addressee'],
-    #    data['head']['due_date']
-    #))
-    #b = dal.DocumentBody()
-    #b.from_tuple((
-    #    data['body'][0]['good_code'],
-    #    data['body'][0]['quantity'],
-    #    data['body'][0]['uom_code']
-    #))
-    #print(data['head']['gid'])
-    #print(data)
     if data:
         d = dal.Demand()
         i = d.from_dict(data)
-        #i = d.create_document(h, [b])
         return jsonify({'demands': i})
     else:
         return '', 400
@@ -103,15 +82,23 @@ def get_demand(document_id):
 #    return jsonify(document_name)
 
 
-@app.route('/demands/<int:document_id>', methods=['PATCH'])
-def patch_demand(document_id):
-    return jsonify(str(document_id))
+#@app.route('/demands/<int:document_id>', methods=['PATCH'])
+#def patch_demand(document_id):
+#    return jsonify(str(document_id))
 
 
-@app.route('/demands/<int:document_id>/commit', methods=['PATCH'])
-def patch_demand_commit(document_id):
-    dal.Demand().do_commit(document_id=document_id, apprise=True)
-    return jsonify({"status": "commited"})
+@app.route('/demands/<int:document_id>/fsmt', methods=['PUT'])
+def patch_demand_fsmt(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Demand()
+        if data['curr_fsmt'] == 'COMMITTED':
+            d.do_commit(document_id)
+        elif data['curr_fsmt'] == 'DECOMMITTED':
+            d.do_decommit(document_id)
+        else:
+            return 'incorrect fsmt', 400
+    return jsonify({"status": data['curr_fsmt']})
 
 
 @app.route('/demands/<int:document_id>', methods=['DELETE'])
@@ -158,6 +145,20 @@ def get_reserve(document_id):
     return jsonify(dal.Reserve(document_id).to_dict())
 
 
+@app.route('/reserves/<int:document_id>/fsmt', methods=['PUT'])
+def patch_reserve_fsmt(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Reserve()
+        if data['curr_fsmt'] == 'COMMITTED':
+            d.do_commit(document_id)
+        elif data['curr_fsmt'] == 'DECOMMITTED':
+            d.do_decommit(document_id)
+        else:
+            return 'incorrect fsmt', 400
+    return jsonify({"status": data['curr_fsmt']})
+
+
 @app.route('/reserve/<int:document_id>', methods=['DELETE'])
 def del_reserve(document_id):
     dal.Reserve().delete_document(document_id)
@@ -200,6 +201,20 @@ def post_picklist():
 @app.route('/picklists/<int:document_id>', methods=['GET'])
 def get_picklist(document_id):
     return jsonify(dal.Picklist(document_id).to_dict())
+
+
+@app.route('/picklists/<int:document_id>/fsmt', methods=['PUT'])
+def patch_picklist_fsmt(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Picklist()
+        if data['curr_fsmt'] == 'COMMITTED':
+            d.do_commit(document_id)
+        elif data['curr_fsmt'] == 'DECOMMITTED':
+            d.do_decommit(document_id)
+        else:
+            return 'incorrect fsmt', 400
+    return jsonify({"status": data['curr_fsmt']})
 
 
 @app.route('/picklists/<int:document_id>', methods=['DELETE'])
@@ -246,6 +261,20 @@ def get_issue(document_id):
     return jsonify(dal.Issue(document_id).to_dict())
 
 
+@app.route('/issues/<int:document_id>/fsmt', methods=['PUT'])
+def patch_issue_fsmt(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Issue()
+        if data['curr_fsmt'] == 'COMMITTED':
+            d.do_commit(document_id)
+        elif data['curr_fsmt'] == 'DECOMMITTED':
+            d.do_decommit(document_id)
+        else:
+            return 'incorrect fsmt', 400
+    return jsonify({"status": data['curr_fsmt']})
+
+
 @app.route('/issues/<int:document_id>', methods=['DELETE'])
 def del_issue(document_id):
     dal.Issue().delete_document(document_id)
@@ -288,6 +317,20 @@ def post_despatch():
 @app.route('/despatches/<int:document_id>', methods=['GET'])
 def get_despatch(document_id):
     return jsonify(dal.Despatch(document_id).to_dict())
+
+
+@app.route('/despatches/<int:document_id>/fsmt', methods=['PUT'])
+def patch_despatch_fsmt(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Despatch()
+        if data['curr_fsmt'] == 'COMMITTED':
+            d.do_commit(document_id)
+        elif data['curr_fsmt'] == 'DECOMMITTED':
+            d.do_decommit(document_id)
+        else:
+            return 'incorrect fsmt', 400
+    return jsonify({"status": data['curr_fsmt']})
 
 
 @app.route('/despatches/<int:document_id>', methods=['DELETE'])
@@ -334,6 +377,20 @@ def get_rebound(document_id):
     return jsonify(dal.Rebound(document_id).to_dict())
 
 
+@app.route('/rebounds/<int:document_id>/fsmt', methods=['PUT'])
+def patch_rebound_fsmt(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Rebound()
+        if data['curr_fsmt'] == 'COMMITTED':
+            d.do_commit(document_id)
+        elif data['curr_fsmt'] == 'DECOMMITTED':
+            d.do_decommit(document_id)
+        else:
+            return 'incorrect fsmt', 400
+    return jsonify({"status": data['curr_fsmt']})
+
+
 @app.route('/rebounds/<int:document_id>', methods=['DELETE'])
 def del_rebound(document_id):
     dal.Rebound().delete_document(document_id)
@@ -376,6 +433,20 @@ def post_delivery():
 @app.route('/deliveries/<int:document_id>', methods=['GET'])
 def get_delivery(document_id):
     return jsonify(dal.Delivery(document_id).to_dict())
+
+
+@app.route('/deliveries/<int:document_id>/fsmt', methods=['PUT'])
+def patch_delivery_fsmt(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Delivery()
+        if data['curr_fsmt'] == 'COMMITTED':
+            d.do_commit(document_id)
+        elif data['curr_fsmt'] == 'DECOMMITTED':
+            d.do_decommit(document_id)
+        else:
+            return 'incorrect fsmt', 400
+    return jsonify({"status": data['curr_fsmt']})
 
 
 @app.route('/deliveries/<int:document_id>', methods=['DELETE'])
@@ -422,6 +493,20 @@ def get_receipt(document_id):
     return jsonify(dal.Receipt(document_id).to_dict())
 
 
+@app.route('/receipts/<int:document_id>/fsmt', methods=['PUT'])
+def patch_receipt_fsmt(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Receipt()
+        if data['curr_fsmt'] == 'COMMITTED':
+            d.do_commit(document_id)
+        elif data['curr_fsmt'] == 'DECOMMITTED':
+            d.do_decommit(document_id)
+        else:
+            return 'incorrect fsmt', 400
+    return jsonify({"status": data['curr_fsmt']})
+
+
 @app.route('/receipts/<int:document_id>', methods=['DELETE'])
 def del_receipt(document_id):
     dal.Receipt().delete_document(document_id)
@@ -436,6 +521,11 @@ def get_cutoffs():
 @app.route('/cutoffs/<int:document_id>', methods=['GET'])
 def get_cutoff(document_id):
     #return 'cutoff {0}'.format(document_id)
+    return '', 405
+
+
+@app.route('/cutoffs/<int:document_id>/fsmt', methods=['PUT'])
+def patch_cutoff_fsmt(document_id):
     return '', 405
 
 
@@ -483,6 +573,20 @@ def get_stocktake(document_id):
     return jsonify(dal.Stocktake(document_id).to_dict())
 
 
+@app.route('/stocktakes/<int:document_id>/fsmt', methods=['PUT'])
+def patch_stocktake_fsmt(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Stocktake()
+        if data['curr_fsmt'] == 'COMMITTED':
+            d.do_commit(document_id)
+        elif data['curr_fsmt'] == 'DECOMMITTED':
+            d.do_decommit(document_id)
+        else:
+            return 'incorrect fsmt', 400
+    return jsonify({"status": data['curr_fsmt']})
+
+
 @app.route('/stocktakes/<int:document_id>', methods=['DELETE'])
 def del_stocktake(document_id):
     dal.Stocktake().delete_document(document_id)
@@ -496,7 +600,8 @@ def get_stockcards():
 
 @app.route('/stockcards/<int:document_id>', methods=['GET'])
 def get_stockcard(document_id):
-    return 'stockcard id: {0}'.format(document_id)
+    #return 'stockcard id: {0}'.format(document_id)
+    return '', 405
 
 
 @app.route('/balance', methods=['GET'])
