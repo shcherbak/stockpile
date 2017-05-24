@@ -1,30 +1,97 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Warehouse Outbound Document",
-  "description": "Warehouse Outbound Document",
-  "type": "object",
+  "additionalProperties": true,
+  "definitions": {},
   "properties": {
-    "head": {
-      "description": "Document metadata",
-      "type": "array",
-      "items": {
-        "$ref": "warehouse-outbound-head.schema"
-      },
-      "minItems": 1,
-      "maxItems": 1
-    },
     "body": {
-      "description": "List of the items",
-      "type": "array",
+      "additionalItems": true,
       "items": {
-        "$ref": "warehouse-generic-record.schema"
+        "additionalProperties": true,
+        "properties": {
+          "good_code": {
+            "default": "good1",
+            "description": "An explanation about the purpose of this instance.",
+            "title": "The Good_code Schema",
+            "type": "string"
+          },
+          "quantity": {
+            "default": 10,
+            "description": "An explanation about the purpose of this instance.",
+            "title": "The Quantity Schema",
+            "type": "integer"
+          },
+          "uom_code": {
+            "default": "kg",
+            "description": "An explanation about the purpose of this instance.",
+            "title": "The Uom_code Schema",
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
-      "minItems": 1,
-      "uniqueItems": true
+      "type": "array",
+      "uniqueItems": false
+    },
+    "head": {
+      "additionalProperties": true,
+      "properties": {
+        "addressee": {
+          "default": "B1",
+          "description": "An explanation about the purpose of this instance.",
+          "title": "The Addressee Schema",
+          "type": "string"
+        },
+        "curr_fsmt": {
+          "default": "PROPOSED",
+          "description": "An explanation about the purpose of this instance.",
+          "title": "The Curr_fsmt Schema",
+          "type": "string"
+        },
+        "display_name": {
+          "default": "DM-01",
+          "description": "An explanation about the purpose of this instance.",
+          "title": "The Display_name Schema",
+          "type": "string"
+        },
+        "doctype": {
+          "default": "DEMAND",
+          "description": "An explanation about the purpose of this instance.",
+          "title": "The Doctype Schema",
+          "type": "string"
+        },
+        "document_date": {
+          "default": "2017-02-01",
+          "description": "An explanation about the purpose of this instance.",
+          "title": "The Document_date Schema",
+          "type": "string"
+        },
+        "document_id": {
+          "description": "An explanation about the purpose of this instance.",
+          "title": "The Document_id Schema",
+          "type": "null"
+        },
+        "due_date": {
+          "default": "2017-02-02",
+          "description": "An explanation about the purpose of this instance.",
+          "title": "The Due_date Schema",
+          "type": "string"
+        },
+        "facility_code": {
+          "default": "A1",
+          "description": "An explanation about the purpose of this instance.",
+          "title": "The Facility_code Schema",
+          "type": "string"
+        },
+        "gid": {
+          "default": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a",
+          "description": "An explanation about the purpose of this instance.",
+          "title": "The Gid Schema",
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
-  "additionalProperties": false,
-  "required": [
-    "head"
-  ]
+  "type": "object"
 }
+

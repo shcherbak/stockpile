@@ -21,39 +21,40 @@
     },
     "facility_code": {
       "description": "Issued by, ship_from, facility_code",
-      "type": "array",
-      "items": {
-        "$ref": "commons-contractor.schema"
-      },
-      "minItems": 1,
-      "maxItems": 1
+      "type": "string"
     },
     "curr_fsmt": {
       "description": "Current transition",
-      "type": "array",
-      "items": {
-        "$ref": "warehouse-document-fsmt.schema"
-      },
-      "minItems": 1,
-      "maxItems": 1
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "COMMITTED",
+        "DECOMMITTED"
+      ]
     },
     "doctype": {
       "description": "Document kind",
-      "type": "array",
-      "items": {
-        "$ref": "warehouse-document-kind.schema"
-      },
-      "minItems": 1,
-      "maxItems": 1
+      "type": "string",
+      "enum": [
+        "ADJUSTMENTCREDIT",
+        "ADJUSTMENTDEBIT",
+        "DELIVERY",
+        "DEMAND",
+        "DESPATCH",
+        "GOAL",
+        "ISSUE",
+        "LOT",
+        "PICKLIST",
+        "REBOUND",
+        "RECEIPT",
+        "RESERVE",
+        "STOCKTAKE",
+        "CUTOFF"
+      ]
     },
     "addressee": {
-      "description": "Issued for, ship_to, addresser",
-      "type": "array",
-      "items": {
-        "$ref": "commons-contractor.schema"
-      },
-      "minItems": 1,
-      "maxItems": 1
+      "description": "Issued for, ship_to, addressee",
+      "type": "string"
     },
     "due_date": {
       "description": "The date when the document is due",

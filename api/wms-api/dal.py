@@ -820,7 +820,32 @@ class GenericDocument:
         curs.close()
 
 
-class Delivery(GenericDocument):
+class OutboundDocument(GenericDocument):
+    def from_dict(self, d):
+        self.head = OutboundHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        for row in d['body']:
+            b = DocumentBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
+
+
+class InboundDocument(GenericDocument):
+    def from_dict(self, d):
+        self.head = InboundHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        for row in d['body']:
+            b = DocumentBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
+
+
+
+class Delivery(InboundDocument):
     GET_HEAD_SQL = "SELECT delivery.get_head(__document_id := %s)"
     GET_BODY_SQL = "SELECT delivery.get_body(__document_id := %s)"
     UPDATE_BODY_SQL = "SELECT delivery.reinit(__document_id := %s, __body := %s)"
@@ -830,7 +855,7 @@ class Delivery(GenericDocument):
     DECOMMIT_DOCUMENT_SQL = "SELECT delivery.do_decommit(__document_id := %s, __apprise := %s)"
 
 
-class Demand(GenericDocument):
+class Demand(OutboundDocument):
     GET_HEAD_SQL = "SELECT demand.get_head(__document_id := %s)"
     GET_BODY_SQL = "SELECT demand.get_body(__document_id := %s)"
     UPDATE_BODY_SQL = "SELECT demand.reinit(__document_id := %s, __body := %s)"
@@ -839,18 +864,8 @@ class Demand(GenericDocument):
     COMMIT_DOCUMENT_SQL = "SELECT demand.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT demand.do_decommit(__document_id := %s, __apprise := %s)"
 
-    def from_dict(self, d):
-        self.head = OutboundHead()
-        self.head.from_dict(d['head'])
-        self.body = []
-        for row in d['body']:
-            b = DocumentBody()
-            b.from_dict(row)
-            self.body.append(b)
-        return self.create_document(self.head, self.body)
 
-
-class Despatch(GenericDocument):
+class Despatch(OutboundDocument):
     GET_HEAD_SQL = "SELECT despatch.get_head(__document_id := %s)"
     GET_BODY_SQL = "SELECT despatch.get_body(__document_id := %s)"
     UPDATE_BODY_SQL = "SELECT despatch.reinit(__document_id := %s, __body := %s)"
@@ -859,18 +874,8 @@ class Despatch(GenericDocument):
     COMMIT_DOCUMENT_SQL = "SELECT despatch.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT despatch.do_decommit(__document_id := %s, __apprise := %s)"
 
-    def from_dict(self, d):
-        self.head = OutboundHead()
-        self.head.from_dict(d['head'])
-        self.body = []
-        for row in d['body']:
-            b = DocumentBody()
-            b.from_dict(row)
-            self.body.append(b)
-        return self.create_document(self.head, self.body)
 
-
-class Issue(GenericDocument):
+class Issue(OutboundDocument):
     GET_HEAD_SQL = "SELECT issue.get_head(__document_id := %s)"
     GET_BODY_SQL = "SELECT issue.get_body(__document_id := %s)"
     UPDATE_BODY_SQL = "SELECT issue.reinit(__document_id := %s, __body := %s)"
@@ -879,18 +884,8 @@ class Issue(GenericDocument):
     COMMIT_DOCUMENT_SQL = "SELECT issue.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT issue.do_decommit(__document_id := %s, __apprise := %s)"
 
-    def from_dict(self, d):
-        self.head = OutboundHead()
-        self.head.from_dict(d['head'])
-        self.body = []
-        for row in d['body']:
-            b = DocumentBody()
-            b.from_dict(row)
-            self.body.append(b)
-        return self.create_document(self.head, self.body)
 
-
-class Picklist(GenericDocument):
+class Picklist(OutboundDocument):
     GET_HEAD_SQL = "SELECT picklist.get_head(__document_id := %s)"
     GET_BODY_SQL = "SELECT picklist.get_body(__document_id := %s)"
     UPDATE_BODY_SQL = "SELECT picklist.reinit(__document_id := %s, __body := %s)"
@@ -899,18 +894,8 @@ class Picklist(GenericDocument):
     COMMIT_DOCUMENT_SQL = "SELECT picklist.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT picklist.do_decommit(__document_id := %s, __apprise := %s)"
 
-    def from_dict(self, d):
-        self.head = OutboundHead()
-        self.head.from_dict(d['head'])
-        self.body = []
-        for row in d['body']:
-            b = DocumentBody()
-            b.from_dict(row)
-            self.body.append(b)
-        return self.create_document(self.head, self.body)
 
-
-class Rebound(GenericDocument):
+class Rebound(InboundDocument):
     GET_HEAD_SQL = "SELECT rebound.get_head(__document_id := %s)"
     GET_BODY_SQL = "SELECT rebound.get_body(__document_id := %s)"
     UPDATE_BODY_SQL = "SELECT rebound.reinit(__document_id := %s, __body := %s)"
@@ -919,18 +904,8 @@ class Rebound(GenericDocument):
     COMMIT_DOCUMENT_SQL = "SELECT rebound.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT rebound.do_decommit(__document_id := %s, __apprise := %s)"
 
-    def from_dict(self, d):
-        self.head = InboundHead()
-        self.head.from_dict(d['head'])
-        self.body = []
-        for row in d['body']:
-            b = DocumentBody()
-            b.from_dict(row)
-            self.body.append(b)
-        return self.create_document(self.head, self.body)
 
-
-class Receipt(GenericDocument):
+class Receipt(InboundDocument):
     GET_HEAD_SQL = "SELECT receipt.get_head(__document_id := %s)"
     GET_BODY_SQL = "SELECT receipt.get_body(__document_id := %s)"
     UPDATE_BODY_SQL = "SELECT receipt.reinit(__document_id := %s, __body := %s)"
@@ -939,18 +914,8 @@ class Receipt(GenericDocument):
     COMMIT_DOCUMENT_SQL = "SELECT receipt.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT receipt.do_decommit(__document_id := %s, __apprise := %s)"
 
-    def from_dict(self, d):
-        self.head = InboundHead()
-        self.head.from_dict(d['head'])
-        self.body = []
-        for row in d['body']:
-            b = DocumentBody()
-            b.from_dict(row)
-            self.body.append(b)
-        return self.create_document(self.head, self.body)
 
-
-class Reserve(GenericDocument):
+class Reserve(OutboundDocument):
     GET_HEAD_SQL = "SELECT reserve.get_head(__document_id := %s)"
     GET_BODY_SQL = "SELECT reserve.get_body(__document_id := %s)"
     UPDATE_BODY_SQL = "SELECT reserve.reinit(__document_id := %s, __body := %s)"
@@ -958,16 +923,6 @@ class Reserve(GenericDocument):
     CREATE_DOCUMENT_SQL = "SELECT reserve.init(__head := %s, __body := %s)"
     COMMIT_DOCUMENT_SQL = "SELECT reserve.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT reserve.do_decommit(__document_id := %s, __apprise := %s)"
-
-    def from_dict(self, d):
-        self.head = OutboundHead()
-        self.head.from_dict(d['head'])
-        self.body = []
-        for row in d['body']:
-            b = DocumentBody()
-            b.from_dict(row)
-            self.body.append(b)
-        return self.create_document(self.head, self.body)
 
 
 class Stocktake(GenericDocument):
