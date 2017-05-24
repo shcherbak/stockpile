@@ -63,6 +63,7 @@ tst_json = """
 #print (loaded_o['head'])
 #print (loaded_o['body'])
 
+
 def _get_pg_nspname_oid(conn, nspname):
     _sql = 'SELECT oid FROM pg_namespace WHERE nspname = %s'
     _connection = conn
@@ -412,7 +413,6 @@ class GoalHead(object):
         self.facility_code = d['facility_code']
         self.curr_fsmt = d['curr_fsmt']
         self.doctype = d['doctype']
-
 
     def from_tuple(self, t):
         self.document_id = int(t[0])
@@ -844,7 +844,6 @@ class InboundDocument(GenericDocument):
         return self.create_document(self.head, self.body)
 
 
-
 class Delivery(InboundDocument):
     GET_HEAD_SQL = "SELECT delivery.get_head(__document_id := %s)"
     GET_BODY_SQL = "SELECT delivery.get_body(__document_id := %s)"
@@ -1070,4 +1069,4 @@ if __name__ == '__main__':
     #print (json.loads(tst_json))
     demand = Demand()
     demand.from_dict(json.loads(tst_json))
-    print (demand.head, demand.body)
+    print(demand.head, demand.body)
