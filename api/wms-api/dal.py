@@ -3,6 +3,7 @@
 import datetime
 import re
 import uuid
+import json
 from decimal import Decimal
 
 import psycopg2
@@ -30,6 +31,37 @@ from connection import connection
 # _ext.register_type(_ext.DECIMAL, self._conn)
 # _ext.register_type(_ext.LONGINTEGER, self._conn)
 
+tst_json = """
+{
+  "body": [
+    {
+      "good_code": "good1", 
+      "quantity": 10.0, 
+      "uom_code": "kg"
+    }, 
+    {
+      "good_code": "good2", 
+      "quantity": 10.0, 
+      "uom_code": "kg"
+    }
+  ], 
+  "head": {
+    "addressee": null, 
+    "curr_fsmt": "PROPOSED", 
+    "display_name": "DM-01", 
+    "doctype": "DEMAND", 
+    "document_date": "2017-02-01", 
+    "document_id": 90, 
+    "due_date": "2017-02-02", 
+    "facility_code": null, 
+    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
+  }
+}
+"""
+
+#loaded_o = json.loads(tst_json)
+#print (loaded_o['head'])
+#print (loaded_o['body'])
 
 def _get_pg_nspname_oid(conn, nspname):
     _sql = 'SELECT oid FROM pg_namespace WHERE nspname = %s'
@@ -97,6 +129,11 @@ class DocumentBody(object):
         return {"good_code": self.good_code,
                 "quantity": float(self.quantity),
                 "uom_code": self.uom_code}
+
+    def from_dict(self, d):
+        self.good_code = d['good_code']
+        self.quantity = Decimal(d['quantity'])
+        self.uom_code = d['uom_code']
 
     def from_tuple(self, t):
         self.good_code = t[0]
@@ -445,6 +482,25 @@ class OutboundHead(object):
                 "addressee": self.addressee,
                 "due_date": _due_date}
 
+    def from_dict(self, d):
+        if len(d['due_date']) > 0:
+            _due_date = datetime.datetime.strptime(d['due_date'], "%Y-%m-%d").date()
+        else:
+            _due_date = None
+        if len(d['document_date']) > 0:
+            _document_date = datetime.datetime.strptime(d['document_date'], "%Y-%m-%d").date()
+        else:
+            _document_date = None
+        self.document_id = d['document_id']
+        self.gid = d['gid']
+        self.display_name = d['display_name']
+        self.document_date = _document_date
+        self.facility_code = d['facility_code']
+        self.curr_fsmt = d['curr_fsmt']
+        self.doctype = d['doctype']
+        self.addressee = d['addressee']
+        self.due_date = _due_date
+
     def __conform__(self, proto):
         if proto == _ext.ISQLQuote:
             return self
@@ -692,6 +748,23 @@ class GenericDocument:
             _body.append(row.to_dict())
         return {"head": self.head.to_dict(), "body": _body}
 
+    def from_json(self, j):
+        loaded_o = json.loads(j)
+        print ("loaded ", loaded_o)
+        h = OutboundHead()
+        h.from_dict(loaded_o['head'])
+        self.head = h
+        #print (self.head)
+        self.body = []
+        #for row in loaded_o['body']:
+        #    print (row)
+        #    b = DocumentBody()
+        #    b.from_dict(row)
+        #    self.body.append(b)
+
+        #print(loaded_o['head'])
+        #print(loaded_o['body'])
+
     def do_commit(self, document_id, apprise=True):
         curs = self._conn.cursor()
         curs.execute(self.COMMIT_DOCUMENT_SQL, (document_id, apprise,))
@@ -905,11 +978,12 @@ if __name__ == '__main__':
 
     #print(psycopg2.extensions.DateFromPy(h.due_date))
 
-    dl = DemandList().to_dict()
-    print (dl)
-    print (type(dl))
-    for l in dl:
-        print (l)
+    #dl = DemandList().to_dict()
+    #print (dl)
+    #print (type(dl))
+    #for l in dl:
+    #    print (l)
+
     #print(dl)
     # d4 = Issue(85)
     # d5 = Picklist(85)
@@ -928,3 +1002,6 @@ if __name__ == '__main__':
     # print(d7.to_dict())
     # print(d8.to_dict())
     # print(d9.to_dict())
+    demand = Demand()
+    demand.from_json(tst_json)
+    print (demand.head, demand.body)

@@ -36,7 +36,7 @@ def page_not_found(e):
 
 @app.route('/')
 def hello_world():
-    return 'WMS-API'
+    return 'Stockpile WMS-API v1'
 
 
 @app.route('/demands', methods=['GET'])
@@ -61,9 +61,35 @@ def get_demands():
     return jsonify(dal.DemandList(facility, sdate, edate).to_dict())
 
 
-@app.route('/demands', methods=['PUT'])
+@app.route('/demands', methods=['POST'])
 def put_demand():
-    return jsonify({'demands': 'new demand put'})
+    data = request.get_json()
+    h = dal.OutboundHead()
+    h.from_tuple((
+        data['head']['document_id'],
+        data['head']['gid'],
+        data['head']['display_name'],
+        data['head']['document_date'],
+        data['head']['facility_code'],
+        data['head']['curr_fsmt'],
+        data['head']['doctype'],
+        data['head']['addressee'],
+        data['head']['due_date']
+    ))
+    b = dal.DocumentBody()
+    b.from_tuple((
+        data['body'][0]['good_code'],
+        data['body'][0]['quantity'],
+        data['body'][0]['uom_code']
+    ))
+    print(data['head']['gid'])
+    print(data)
+    if data:
+        d = dal.Demand()
+        i = d.create_document(h, [b])
+        return jsonify({'demands': i})
+    else:
+        return '', 400
 
 
 @app.route('/demands/<int:document_id>', methods=['GET'])
