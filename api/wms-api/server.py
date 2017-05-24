@@ -62,31 +62,32 @@ def get_demands():
 
 
 @app.route('/demands', methods=['POST'])
-def put_demand():
+def post_demand():
     data = request.get_json()
-    h = dal.OutboundHead()
-    h.from_tuple((
-        data['head']['document_id'],
-        data['head']['gid'],
-        data['head']['display_name'],
-        data['head']['document_date'],
-        data['head']['facility_code'],
-        data['head']['curr_fsmt'],
-        data['head']['doctype'],
-        data['head']['addressee'],
-        data['head']['due_date']
-    ))
-    b = dal.DocumentBody()
-    b.from_tuple((
-        data['body'][0]['good_code'],
-        data['body'][0]['quantity'],
-        data['body'][0]['uom_code']
-    ))
-    print(data['head']['gid'])
-    print(data)
+    #h = dal.OutboundHead()
+    #h.from_tuple((
+    #    data['head']['document_id'],
+    #    data['head']['gid'],
+    #    data['head']['display_name'],
+    #    data['head']['document_date'],
+    #    data['head']['facility_code'],
+    #    data['head']['curr_fsmt'],
+    #    data['head']['doctype'],
+    #    data['head']['addressee'],
+    #    data['head']['due_date']
+    #))
+    #b = dal.DocumentBody()
+    #b.from_tuple((
+    #    data['body'][0]['good_code'],
+    #    data['body'][0]['quantity'],
+    #    data['body'][0]['uom_code']
+    #))
+    #print(data['head']['gid'])
+    #print(data)
     if data:
         d = dal.Demand()
-        i = d.create_document(h, [b])
+        i = d.from_dict(data)
+        #i = d.create_document(h, [b])
         return jsonify({'demands': i})
     else:
         return '', 400
@@ -141,6 +142,17 @@ def get_reserves():
     return jsonify(dal.ReserveList(facility, sdate, edate).to_dict())
 
 
+@app.route('/reserves', methods=['POST'])
+def post_reserve():
+    data = request.get_json()
+    if data:
+        d = dal.Reserve()
+        i = d.from_dict(data)
+        return jsonify({'reserves': i})
+    else:
+        return '', 400
+
+
 @app.route('/reserves/<int:document_id>', methods=['GET'])
 def get_reserve(document_id):
     return jsonify(dal.Reserve(document_id).to_dict())
@@ -172,6 +184,17 @@ def get_picklists():
         facility = 'A1'
 
     return jsonify(dal.PicklistList(facility, sdate, edate).to_dict())
+
+
+@app.route('/picklists', methods=['POST'])
+def post_picklist():
+    data = request.get_json()
+    if data:
+        d = dal.Picklist()
+        i = d.from_dict(data)
+        return jsonify({'picklists': i})
+    else:
+        return '', 400
 
 
 @app.route('/picklists/<int:document_id>', methods=['GET'])
@@ -207,6 +230,17 @@ def get_issues():
     return jsonify(dal.IssueList(facility, sdate, edate).to_dict())
 
 
+@app.route('/issues', methods=['POST'])
+def post_issue():
+    data = request.get_json()
+    if data:
+        d = dal.Issue()
+        i = d.from_dict(data)
+        return jsonify({'issues': i})
+    else:
+        return '', 400
+
+
 @app.route('/issues/<int:document_id>', methods=['GET'])
 def get_issue(document_id):
     return jsonify(dal.Issue(document_id).to_dict())
@@ -238,6 +272,17 @@ def get_despatches():
         facility = 'A1'
 
     return jsonify(dal.DespatchList(facility, sdate, edate).to_dict())
+
+
+@app.route('/despatches', methods=['POST'])
+def post_despatch():
+    data = request.get_json()
+    if data:
+        d = dal.Despatch()
+        i = d.from_dict(data)
+        return jsonify({'despatches': i})
+    else:
+        return '', 400
 
 
 @app.route('/despatches/<int:document_id>', methods=['GET'])
@@ -273,6 +318,17 @@ def get_rebounds():
     return jsonify(dal.ReboundList(facility, sdate, edate).to_dict())
 
 
+@app.route('/rebounds', methods=['POST'])
+def post_rebound():
+    data = request.get_json()
+    if data:
+        d = dal.Rebound()
+        i = d.from_dict(data)
+        return jsonify({'rebounds': i})
+    else:
+        return '', 400
+
+
 @app.route('/rebounds/<int:document_id>', methods=['GET'])
 def get_rebound(document_id):
     return jsonify(dal.Rebound(document_id).to_dict())
@@ -304,6 +360,17 @@ def get_deliveries():
         facility = 'A1'
 
     return jsonify(dal.DeliveryList(facility, sdate, edate).to_dict())
+
+
+@app.route('/deliveries', methods=['POST'])
+def post_delivery():
+    data = request.get_json()
+    if data:
+        d = dal.Delivery()
+        i = d.from_dict(data)
+        return jsonify({'deliveries': i})
+    else:
+        return '', 400
 
 
 @app.route('/deliveries/<int:document_id>', methods=['GET'])
@@ -339,6 +406,17 @@ def get_receipts():
     return jsonify(dal.ReceiptList(facility, sdate, edate).to_dict())
 
 
+@app.route('/receipts', methods=['POST'])
+def post_receipt():
+    data = request.get_json()
+    if data:
+        d = dal.Receipt()
+        i = d.from_dict(data)
+        return jsonify({'receipts': i})
+    else:
+        return '', 400
+
+
 @app.route('/receipts/<int:document_id>', methods=['GET'])
 def get_receipt(document_id):
     return jsonify(dal.Receipt(document_id).to_dict())
@@ -357,7 +435,8 @@ def get_cutoffs():
 
 @app.route('/cutoffs/<int:document_id>', methods=['GET'])
 def get_cutoff(document_id):
-    return 'cutoff {0}'.format(document_id)
+    #return 'cutoff {0}'.format(document_id)
+    return '', 405
 
 
 @app.route('/cutoffs/<int:document_id>', methods=['DELETE'])
@@ -386,6 +465,17 @@ def get_stocktakes():
         facility = 'A1'
 
     return jsonify(dal.StocktakeList(facility, sdate, edate).to_dict())
+
+
+@app.route('/stocktakes', methods=['POST'])
+def post_stocktake():
+    data = request.get_json()
+    if data:
+        d = dal.Stocktake()
+        i = d.from_dict(data)
+        return jsonify({'stocktakes': i})
+    else:
+        return '', 400
 
 
 @app.route('/stocktakes/<int:document_id>', methods=['GET'])

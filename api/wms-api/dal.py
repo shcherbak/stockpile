@@ -46,14 +46,14 @@ tst_json = """
     }
   ], 
   "head": {
-    "addressee": null, 
+    "addressee": "B1", 
     "curr_fsmt": "PROPOSED", 
     "display_name": "DM-01", 
     "doctype": "DEMAND", 
     "document_date": "2017-02-01", 
-    "document_id": 90, 
+    "document_id": null, 
     "due_date": "2017-02-02", 
-    "facility_code": null, 
+    "facility_code": "A1", 
     "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
   }
 }
@@ -203,6 +203,12 @@ class StocktakeBody(object):
                 "uom_code": self.uom_code,
                 "quantity_diff": float(self.quantity_diff)}
 
+    def from_dict(self, d):
+        self.good_code = d['good_code']
+        self.quantity = Decimal(d['quantity'])
+        self.uom_code = d['uom_code']
+        self.quantity_diff = Decimal(d['quantity_diff'])
+
     def from_tuple(self, t):
         self.good_code = t[0]
         self.quantity = Decimal(t[1])
@@ -285,6 +291,19 @@ class DocumentHead(object):
                 "facility_code": self.facility_code,
                 "curr_fsmt": self.curr_fsmt,
                 "doctype": self.doctype}
+
+    def from_dict(self, d):
+        if len(d['document_date']) > 0:
+            _document_date = datetime.datetime.strptime(d['document_date'], "%Y-%m-%d").date()
+        else:
+            _document_date = None
+        self.document_id = d['document_id']
+        self.gid = d['gid']
+        self.display_name = d['display_name']
+        self.document_date = _document_date
+        self.facility_code = d['facility_code']
+        self.curr_fsmt = d['curr_fsmt']
+        self.doctype = d['doctype']
 
     def from_tuple(self, t):
         self.document_id = int(t[0])
@@ -380,6 +399,20 @@ class GoalHead(object):
                 "facility_code": self.facility_code,
                 "curr_fsmt": self.curr_fsmt,
                 "doctype": self.doctype}
+
+    def from_dict(self, d):
+        if self.document_date:
+            _document_date = self.document_date.strftime('%Y-%m-%d')
+        else:
+            _document_date = None
+        self.document_id = d['document_id']
+        self.gid = Decimal(d['gid'])
+        self.display_name = d['display_name']
+        self.document_date = _document_date
+        self.facility_code = d['facility_code']
+        self.curr_fsmt = d['curr_fsmt']
+        self.doctype = d['doctype']
+
 
     def from_tuple(self, t):
         self.document_id = int(t[0])
@@ -595,7 +628,21 @@ class InboundHead(object):
                 "facility_code": self.facility_code,
                 "curr_fsmt": self.curr_fsmt,
                 "doctype": self.doctype,
-                "addressee": self.addresser}
+                "addresser": self.addresser}
+
+    def from_dict(self, d):
+        if len(d['document_date']) > 0:
+            _document_date = datetime.datetime.strptime(d['document_date'], "%Y-%m-%d").date()
+        else:
+            _document_date = None
+        self.document_id = d['document_id']
+        self.gid = d['gid']
+        self.display_name = d['display_name']
+        self.document_date = _document_date
+        self.facility_code = d['facility_code']
+        self.curr_fsmt = d['curr_fsmt']
+        self.doctype = d['doctype']
+        self.addressee = d['addresser']
 
     def __repr__(self):
         return "inbound_head(document_id={0}, gid={1}, display_name={2}, document_date={3}, facility_code={4}, curr_fsmt={5}, doctype={6}, addresser={7})" \
@@ -748,22 +795,15 @@ class GenericDocument:
             _body.append(row.to_dict())
         return {"head": self.head.to_dict(), "body": _body}
 
-    def from_json(self, j):
-        loaded_o = json.loads(j)
-        print ("loaded ", loaded_o)
-        h = OutboundHead()
-        h.from_dict(loaded_o['head'])
-        self.head = h
-        #print (self.head)
+    def from_dict(self, d):
+        self.head = DocumentHead()
+        self.head.from_dict(d['head'])
         self.body = []
-        #for row in loaded_o['body']:
-        #    print (row)
-        #    b = DocumentBody()
-        #    b.from_dict(row)
-        #    self.body.append(b)
-
-        #print(loaded_o['head'])
-        #print(loaded_o['body'])
+        for row in d['body']:
+            b = DocumentBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
 
     def do_commit(self, document_id, apprise=True):
         curs = self._conn.cursor()
@@ -799,6 +839,16 @@ class Demand(GenericDocument):
     COMMIT_DOCUMENT_SQL = "SELECT demand.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT demand.do_decommit(__document_id := %s, __apprise := %s)"
 
+    def from_dict(self, d):
+        self.head = OutboundHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        for row in d['body']:
+            b = DocumentBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
+
 
 class Despatch(GenericDocument):
     GET_HEAD_SQL = "SELECT despatch.get_head(__document_id := %s)"
@@ -808,6 +858,16 @@ class Despatch(GenericDocument):
     CREATE_DOCUMENT_SQL = "SELECT despatch.init(__head := %s, __body := %s)"
     COMMIT_DOCUMENT_SQL = "SELECT despatch.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT despatch.do_decommit(__document_id := %s, __apprise := %s)"
+
+    def from_dict(self, d):
+        self.head = OutboundHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        for row in d['body']:
+            b = DocumentBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
 
 
 class Issue(GenericDocument):
@@ -819,6 +879,16 @@ class Issue(GenericDocument):
     COMMIT_DOCUMENT_SQL = "SELECT issue.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT issue.do_decommit(__document_id := %s, __apprise := %s)"
 
+    def from_dict(self, d):
+        self.head = OutboundHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        for row in d['body']:
+            b = DocumentBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
+
 
 class Picklist(GenericDocument):
     GET_HEAD_SQL = "SELECT picklist.get_head(__document_id := %s)"
@@ -828,6 +898,16 @@ class Picklist(GenericDocument):
     CREATE_DOCUMENT_SQL = "SELECT picklist.init(__head := %s, __body := %s)"
     COMMIT_DOCUMENT_SQL = "SELECT picklist.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT picklist.do_decommit(__document_id := %s, __apprise := %s)"
+
+    def from_dict(self, d):
+        self.head = OutboundHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        for row in d['body']:
+            b = DocumentBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
 
 
 class Rebound(GenericDocument):
@@ -839,6 +919,16 @@ class Rebound(GenericDocument):
     COMMIT_DOCUMENT_SQL = "SELECT rebound.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT rebound.do_decommit(__document_id := %s, __apprise := %s)"
 
+    def from_dict(self, d):
+        self.head = InboundHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        for row in d['body']:
+            b = DocumentBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
+
 
 class Receipt(GenericDocument):
     GET_HEAD_SQL = "SELECT receipt.get_head(__document_id := %s)"
@@ -849,6 +939,16 @@ class Receipt(GenericDocument):
     COMMIT_DOCUMENT_SQL = "SELECT receipt.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT receipt.do_decommit(__document_id := %s, __apprise := %s)"
 
+    def from_dict(self, d):
+        self.head = InboundHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        for row in d['body']:
+            b = DocumentBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
+
 
 class Reserve(GenericDocument):
     GET_HEAD_SQL = "SELECT reserve.get_head(__document_id := %s)"
@@ -858,6 +958,16 @@ class Reserve(GenericDocument):
     CREATE_DOCUMENT_SQL = "SELECT reserve.init(__head := %s, __body := %s)"
     COMMIT_DOCUMENT_SQL = "SELECT reserve.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT reserve.do_decommit(__document_id := %s, __apprise := %s)"
+
+    def from_dict(self, d):
+        self.head = OutboundHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        for row in d['body']:
+            b = DocumentBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
 
 
 class Stocktake(GenericDocument):
@@ -1002,6 +1112,7 @@ if __name__ == '__main__':
     # print(d7.to_dict())
     # print(d8.to_dict())
     # print(d9.to_dict())
+    #print (json.loads(tst_json))
     demand = Demand()
-    demand.from_json(tst_json)
+    demand.from_dict(json.loads(tst_json))
     print (demand.head, demand.body)
