@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Generic Document Heading",
-  "description": "Generic Document Heading",
+  "title": "Outbound Document Heading",
+  "description": "Outbound Document Heading",
   "type": "object",
   "properties": {
     "gid": {
@@ -21,30 +21,40 @@
     },
     "facility_code": {
       "description": "Issued by, ship_from, facility_code",
-      "type": "array",
-      "items": {
-        "$ref": "commons-contractor.schema"
-      },
-      "minItems": 1,
-      "maxItems": 1
+      "type": "string"
     },
     "curr_fsmt": {
       "description": "Current transition",
-      "type": "array",
-      "items": {
-        "$ref": "warehouse-document-fsmt.schema"
-      },
-      "minItems": 1,
-      "maxItems": 1
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "COMMITTED",
+        "DECOMMITTED"
+      ]
     },
     "doctype": {
       "description": "Document kind",
-      "type": "array",
-      "items": {
-        "$ref": "warehouse-document-kind.schema"
-      },
-      "minItems": 1,
-      "maxItems": 1
+      "type": "string",
+      "enum": [
+        "ADJUSTMENTCREDIT",
+        "ADJUSTMENTDEBIT",
+        "DELIVERY",
+        "DEMAND",
+        "DESPATCH",
+        "GOAL",
+        "ISSUE",
+        "LOT",
+        "PICKLIST",
+        "REBOUND",
+        "RECEIPT",
+        "RESERVE",
+        "STOCKTAKE",
+        "CUTOFF"
+      ]
+    },
+    "addresser": {
+      "description": "Issued for, ship_to, addressee",
+      "type": "string"
     }
   },
   "additionalProperties": false,
@@ -54,6 +64,8 @@
     "document_date",
     "facility_code",
     "curr_fsmt",
-    "doctype"
+    "doctype",
+    "addressee",
+    "due_date"
   ]
 }

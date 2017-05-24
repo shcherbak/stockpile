@@ -4,7 +4,7 @@
   "description": "Warehouse Stocktake Documents Collection Type definition",
   "type": "array",
   "items": {
-    "$ref": "warehouse-stocktake-document.schema"
+    "$ref": "warehouse-stocktake-document-schema.json"
   },
   "uniqueItems": true
 }

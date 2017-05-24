@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Warehouse Stocktake Document",
-  "description": "Warehouse Stocktake Document",
+  "title": "Warehouse Generic Document",
+  "description": "Warehouse Generic Document",
   "type": "object",
   "properties": {
     "head": {
       "description": "Document metadata",
       "type": "array",
       "items": {
-        "$ref": "warehouse-generic-head.schema"
+        "$ref": "warehouse-generic-head-schema.json"
       },
       "minItems": 1,
       "maxItems": 1
@@ -17,7 +17,7 @@
       "description": "List of the items",
       "type": "array",
       "items": {
-        "$ref": "warehouse-stocktake-record.schema"
+        "$ref": "warehouse-generic-record-schema.json"
       },
       "minItems": 1,
       "uniqueItems": true

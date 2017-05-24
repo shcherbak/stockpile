@@ -23,7 +23,7 @@
       "description": "Issued by, ship_from, facility_code",
       "type": "array",
       "items": {
-        "$ref": "commons-contractor.schema"
+        "$ref": "commons-contractor-schema.json"
       },
       "minItems": 1,
       "maxItems": 1
@@ -32,7 +32,7 @@
       "description": "Current transition",
       "type": "array",
       "items": {
-        "$ref": "warehouse-goal-fsmt.schema"
+        "$ref": "warehouse-goal-fsmt-schema.json"
       },
       "minItems": 1,
       "maxItems": 1
@@ -41,7 +41,7 @@
       "description": "Document kind",
       "type": "array",
       "items": {
-        "$ref": "warehouse-document-kind.schema"
+        "$ref": "warehouse-document-kind.schema.json"
       },
       "minItems": 1,
       "maxItems": 1

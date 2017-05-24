@@ -4,7 +4,7 @@
   "description": "Warehouse Balance Records Collection Type definition",
   "type": "array",
   "items": {
-    "$ref": "warehouse-balance-record.schema"
+    "$ref": "warehouse-balance-record-schema.json"
   },
   "uniqueItems": true
 }

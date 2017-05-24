@@ -4,7 +4,7 @@
   "description": "Warehouse Inbound Documents Collection Type definition",
   "type": "array",
   "items": {
-    "$ref": "warehouse-inbound-document.schema"
+    "$ref": "warehouse-inbound-head-schema.json"
   },
   "uniqueItems": true
 }

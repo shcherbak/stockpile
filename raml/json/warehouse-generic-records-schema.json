@@ -4,7 +4,7 @@
   "description": "Warehouse Generic Records Collection Type definition",
   "type": "array",
   "items": {
-    "$ref": "warehouse-generic-record.schema"
+    "$ref": "warehouse-generic-record-schema.json"
   },
   "uniqueItems": true
 }

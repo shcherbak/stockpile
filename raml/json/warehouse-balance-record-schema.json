@@ -8,7 +8,7 @@
       "description": "Issued by, ship_from, facility_code",
       "type": "array",
       "items": {
-        "$ref": "commons-contractor.schema"
+        "$ref": "commons-contractor-schema.json"
       },
       "minItems": 1,
       "maxItems": 1

@@ -4,7 +4,7 @@
   "description": "Warehouse Outbound Documents Collection Type definition",
   "type": "array",
   "items": {
-    "$ref": "warehouse-outbound-document.schema"
+    "$ref": "warehouse-outbound-head-schema.json"
   },
   "uniqueItems": true
 }
