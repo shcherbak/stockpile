@@ -298,6 +298,7 @@ class DocumentHead(object):
             _document_date = datetime.datetime.strptime(d['document_date'], "%Y-%m-%d").date()
         else:
             _document_date = None
+
         self.document_id = d['document_id']
         self.gid = d['gid']
         self.display_name = d['display_name']
@@ -934,6 +935,88 @@ class Stocktake(GenericDocument):
     DECOMMIT_DOCUMENT_SQL = "SELECT stocktake.do_decommit(__document_id := %s, __apprise := %s)"
 
 
+class Cutoff():
+    GET_HEAD_SQL = "SELECT cutoff.get_head(__document_id := %s)"
+    #GET_BODY_SQL = None
+    #UPDATE_BODY_SQL = None
+    DELETE_DOCUMENT_SQL = "SELECT cutoff.destroy(__document_id := %s)"
+    CREATE_DOCUMENT_SQL = "SELECT cutoff.init(__head := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT cutoff.do_commit(__document_id := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT cutoff.do_decommit(__document_id := %s)"
+
+    def __init__(self, document_id=None):
+        self._conn = connection()
+        psycopg2.extras.register_uuid()
+        register_common_document_body(conn_or_curs=self._conn)
+        register_common_stoktake_body(conn_or_curs=self._conn)
+        register_common_document_head(conn_or_curs=self._conn)
+        register_common_goal_head(conn_or_curs=self._conn)
+        register_common_outbound_head(conn_or_curs=self._conn)
+        register_common_inbound_head(conn_or_curs=self._conn)
+        if document_id:
+            self.head = self.get_head(document_id)
+        else:
+            self.head = DocumentHead()
+
+    def get_head(self, document_id):
+        curs = self._conn.cursor()
+        curs.execute(self.GET_HEAD_SQL, (document_id,))
+        head = curs.fetchone()[0]
+        print(curs.query)
+        self._conn.commit()
+        curs.close()
+        return head
+
+    def delete_document(self, document_id):
+        curs = self._conn.cursor()
+        curs.execute(self.DELETE_DOCUMENT_SQL, (document_id,))
+        print(curs.query)
+        self._conn.commit()
+        curs.close()
+
+    def get_document(self, document_id):
+        head = self.get_head(document_id)
+        #body = self.get_body(document_id)
+        #return head, body
+        return head
+
+    def create_document(self, head):
+        curs = self._conn.cursor()
+        curs.execute(self.CREATE_DOCUMENT_SQL, (head,))
+        print(curs.query)
+        document_id = curs.fetchone()[0]
+        #print (document_id)
+        #print(curs.fetchone())
+        #print(curs.fetchone()[0])
+        self._conn.commit()
+        curs.close()
+        return document_id
+
+    def to_dict(self):
+        return {"head": self.head.to_dict()}
+
+    def from_dict(self, d):
+        self.head = DocumentHead()
+        print(d['head'])
+        self.head.from_dict(d['head'])
+        print(self.head)
+        return self.create_document(self.head)
+
+    def do_commit(self, document_id, apprise=True):
+        curs = self._conn.cursor()
+        curs.execute(self.COMMIT_DOCUMENT_SQL, (document_id,))
+        print(curs.query)
+        self._conn.commit()
+        curs.close()
+
+    def do_decommit(self, document_id, apprise=True):
+        curs = self._conn.cursor()
+        curs.execute(self.DECOMMIT_DOCUMENT_SQL, (document_id,))
+        print(curs.query)
+        self._conn.commit()
+        curs.close()
+
+
 class GenericDocumentList:
     GET_LSIT_SQL = ""
 
@@ -1008,6 +1091,10 @@ class StocktakeList(GenericDocumentList):
     GET_LSIT_SQL = "SELECT stocktake.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
 
 
+class CutoffList(GenericDocumentList):
+    GET_LSIT_SQL = "SELECT cutoff.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
+
+
 if __name__ == '__main__':
     # dal = DataAccessLayer()
     # print(dal.get_demand(85))
@@ -1067,6 +1154,4 @@ if __name__ == '__main__':
     # print(d8.to_dict())
     # print(d9.to_dict())
     #print (json.loads(tst_json))
-    demand = Demand()
-    demand.from_dict(json.loads(tst_json))
-    print(demand.head, demand.body)
+    pass

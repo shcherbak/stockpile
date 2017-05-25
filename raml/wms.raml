@@ -1217,20 +1217,6 @@ schemas:
           body:
             application/json:
               schema: Error
-    put:
-      description: Update Cutoffs by ID
-      body:
-        application/json:
-          schema: Cutoff
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Cutoff
-        404:
-          body:
-            application/json:
-              schema: Error
     delete:
       description: Delete a Cutoff by ID
       responses:

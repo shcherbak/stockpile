@@ -520,24 +520,60 @@ def del_receipt(document_id):
 
 @app.route('/cutoffs', methods=['GET'])
 def get_cutoffs():
-    return '', 405
+    req_sdate = request.args.get('sdate')
+    req_edate = request.args.get('edate')
+    facility = request.args.get('facility')
+
+    if req_sdate:
+        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
+    else:
+        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
+
+    if req_edate:
+        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
+    else:
+        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
+
+    if not facility:
+        facility = 'A1'
+
+        return jsonify(dal.CutoffList(facility, sdate, edate).to_dict())
+
+
+@app.route('/cutoffs', methods=['POST'])
+def post_cutoff():
+    data = request.get_json()
+    if data:
+        d = dal.Cutoff()
+        i = d.from_dict(data)
+        return jsonify({'cutoffs': i})
+    else:
+        return '', 400
 
 
 @app.route('/cutoffs/<int:document_id>', methods=['GET'])
 def get_cutoff(document_id):
-    #return 'cutoff {0}'.format(document_id)
-    return '', 405
+    return jsonify(dal.Cutoff(document_id).to_dict())
 
 
 @app.route('/cutoffs/<int:document_id>/fsmt', methods=['PUT'])
-def patch_cutoff_fsmt(document_id):
-    return '', 405
+def patch_cutoffs_fsmt(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Cutoff()
+        if data['curr_fsmt'] == 'COMMITTED':
+            d.do_commit(document_id)
+        elif data['curr_fsmt'] == 'DECOMMITTED':
+            d.do_decommit(document_id)
+        else:
+            return 'incorrect fsmt', 400
+    return jsonify({"status": data['curr_fsmt']})
 
 
 @app.route('/cutoffs/<int:document_id>', methods=['DELETE'])
 def del_cutoff(document_id):
-    # dal.del_document('cutoff', document_id)
-    return '', 405
+    dal.Cutoff().delete_document(document_id)
+    return '', 204
 
 
 @app.route('/stocktakes', methods=['GET'])
