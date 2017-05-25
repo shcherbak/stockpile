@@ -1,0 +1,41 @@
+{
+  "head": {
+    "addressee": "B1", 
+    "curr_fsmt": "PROPOSED", 
+    "display_name": "DMD-000-000000", 
+    "doctype": "GOAL", 
+    "document_date": "2017-02-01", 
+    "document_id": 1, 
+    "due_date": "2017-02-02", 
+    "facility_code": "A1", 
+    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
+  },
+  "demand": {
+    "uri": "http://127.0.0.1:5000/demands/1",
+    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a",
+    "reserve": {
+      "uri": "http://127.0.0.1:5000/demands/1",
+      "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
+    },
+    "picklist": {
+      "uri": "http://127.0.0.1:5000/demands/1",
+      "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a",
+      "issue": {
+        "uri": "http://127.0.0.1:5000/demands/1",
+        "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a",
+        "adjustment": {
+          "uri": "http://127.0.0.1:5000/demands/1",
+          "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
+        },
+        "rebound": {
+          "uri": "http://127.0.0.1:5000/demands/1",
+          "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
+        },
+        "despatch": {
+          "uri": "http://127.0.0.1:5000/demands/1",
+          "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
+        }
+      }
+    }
+  }
+}

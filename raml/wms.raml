@@ -1374,6 +1374,7 @@ schemas:
             application/json:
               schema: Error
 
+
 /balance:
   description: |
     Balance resource shows available resources matching query criteria; depending on
@@ -1391,3 +1392,51 @@ schemas:
           body:
             application/json:
               schema: Error
+
+
+/goal:
+  description: |
+    Goal description
+  get:
+    description: Get a list of all Goals
+    queryParameters:
+      sdate:
+        displayName: Start Date
+        type: date
+        description: Start date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-01
+      edate:
+        displayName: End Date
+        type: date
+        description: End date
+        example: 2017-01-01
+        required: false
+        default: 2017-01-10
+      facility:
+        displayName: Facility
+        type: string
+        description: Facility code
+        example: A1
+        required: false
+        default: A1
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Goals
+  /{resourceId}:
+    get:
+      description: Get a Goal by ID
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include ./json/warehouse-goal-example.json
+        404:
+          body:
+            application/json:
+              schema: Error
+              example: !include ./json/commons-error-example.json
+
