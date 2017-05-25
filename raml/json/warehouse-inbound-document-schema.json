@@ -20,6 +20,8 @@
             "title": "The Quantity Schema",
             "type": "number",
             "minimum": 0,
+            "maximum": 10000000000000000,
+            "exclusiveMaximum": true,
             "multipleOf": 0.0001
           },
           "uom_code": {

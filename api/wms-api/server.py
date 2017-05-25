@@ -82,9 +82,14 @@ def get_demand(document_id):
 #    return jsonify(document_name)
 
 
-#@app.route('/demands/<int:document_id>', methods=['PATCH'])
-#def patch_demand(document_id):
-#    return jsonify(str(document_id))
+@app.route('/demands/<int:document_id>/body', methods=['PATCH'])
+def patch_demand_body(document_id):
+    data = request.get_json()
+    if data:
+        d = dal.Demand().update_body(document_id, data)
+        return jsonify(str(document_id))
+    else:
+        return '', 400
 
 
 @app.route('/demands/<int:document_id>/fsmt', methods=['PUT'])
