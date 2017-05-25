@@ -42,7 +42,8 @@ schemas:
   - Supplier:           !include json/commons-contractor-schema.json
   - Suppliers:          !include json/commons-contractors-schema.json
   - Error:              !include json/commons-error-schema.json
-  - FSMT:               !include json/commons-error-schema.json
+  - Message:            !include json/commons-message-schema.json
+  - FSMT:               !include json/warehouse-fsmt-schema.json
   - Demand:             !include json/warehouse-outbound-document-schema.json
   - Demands:            !include json/warehouse-outbound-documents-schema.json
   - Reserve:            !include json/warehouse-outbound-document-schema.json
@@ -74,9 +75,12 @@ schemas:
   - Stocktake:          !include json/warehouse-stocktake-document-schema.json
   - Stocktakes:         !include json/warehouse-stocktake-documents-schema.json
 
+
 #
 # Common
 #
+
+
 /customers:
   get:
     description: Get a list of Customers
@@ -242,9 +246,12 @@ schemas:
             application/json:
               schema: Error
 
+
 #
 # Outgoing documents
 #
+
+
 /demands:
   description: |
     A Warehouse Demand is defined as acknowledged shipment. Warehouse Demand can
@@ -278,19 +285,24 @@ schemas:
         body:
           application/json:
             schema: Demands
-            example: include ./json/warehouse-outbound-documents-example.json
+            example: !include ./json/warehouse-outbound-documents-example.json
   post:
     description: Add new Demand
     body:
       application/json:
         schema: Demand
+        example: !include ./json/warehouse-outbound-document-example.json
     responses:
       201:
         body:
           application/json:
-            schema: Demand
-            example: !include ./json/warehouse-outbound-document-example.json
+            schema: Message
+            example: !include ./json/commons-message-example.json
       400:
+        body:
+            application/json:
+              schema: Error
+              example: !include ./json/commons-error-example.json
   /{resourceId}:
     get:
       description: Get a Demand by ID
@@ -299,24 +311,12 @@ schemas:
           body:
             application/json:
               schema: Demand
+              example: !include ./json/warehouse-outbound-document-example.json
         404:
           body:
             application/json:
               schema: Error
-    put:
-      description: Update Demand by ID
-      body:
-        application/json:
-          schema: Demand
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Demand
-        404:
-          body:
-            application/json:
-              schema: Error
+              example: !include ./json/commons-error-example.json
     delete:
       description: Delete a Demand by ID
       responses:
@@ -325,17 +325,42 @@ schemas:
           body:
             application/json:
               schema: Error
+              example: !include ./json/commons-error-example.json
+    /body:
+      patch:
+        description: Reinit body
+        body:
+          application/json:
+            schema: Demand
+            example: !include ./json/warehouse-outbound-document-example.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
+          400:
+            body:
+              application/json:
+                schema: Error
+                example: !include ./json/commons-error-example.json
     /fsmt:
       put:
         body:
           application/json:
             schema: FSMT
+            example: !include ./json/warehouse-fsmt-example.json
         responses:
           200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
           404:
             body:
               application/json:
                 schema: Error
+                example: !include ./json/commons-error-example.json
 
 
 /reserves:
@@ -371,16 +396,24 @@ schemas:
         body:
           application/json:
             schema: Reserves
+            example: !include ./json/warehouse-outbound-documents-example.json
   post:
     description: Add new Reserve
     body:
       application/json:
         schema: Reserve
+        example: !include ./json/warehouse-outbound-document-example.json
     responses:
       201:
         body:
           application/json:
-            schema: Reserve
+            schema: Message
+            example: !include ./json/commons-message-example.json
+      400:
+        body:
+            application/json:
+              schema: Error
+              example: !include ./json/commons-error-example.json
   /{resourceId}:
     get:
       description: Get a Reserve by ID
@@ -389,24 +422,12 @@ schemas:
           body:
             application/json:
               schema: Reserve
+              example: !include ./json/warehouse-outbound-document-example.json
         404:
           body:
             application/json:
               schema: Error
-    put:
-      description: Update Reserve by ID
-      body:
-        application/json:
-          schema: Reserve
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Reserve
-        404:
-          body:
-            application/json:
-              schema: Error
+              example: !include ./json/commons-error-example.json
     delete:
       description: Delete a Reserve by ID
       responses:
@@ -415,17 +436,42 @@ schemas:
           body:
             application/json:
               schema: Error
+              example: !include ./json/commons-error-example.json
+    /body:
+      patch:
+        description: Reinit body
+        body:
+          application/json:
+            schema: Reserve
+            example: !include ./json/warehouse-outbound-document-example.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
+          400:
+            body:
+              application/json:
+                schema: Error
+                example: !include ./json/commons-error-example.json
     /fsmt:
       put:
         body:
           application/json:
             schema: FSMT
+            example: !include ./json/warehouse-fsmt-example.json
         responses:
           200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
           404:
             body:
               application/json:
                 schema: Error
+                example: !include ./json/commons-error-example.json
 
 
 /picklists:
@@ -468,16 +514,24 @@ schemas:
         body:
           application/json:
             schema: Picklists
+            example: !include ./json/warehouse-outbound-documents-example.json
   post:
     description: Add new Picklist
     body:
       application/json:
         schema: Picklist
+        example: !include ./json/warehouse-outbound-document-example.json
     responses:
       201:
         body:
           application/json:
-            schema: Picklist
+            schema: Message
+            example: !include ./json/commons-message-example.json
+      400:
+        body:
+            application/json:
+              schema: Error
+              example: !include ./json/commons-error-example.json
   /{resourceId}:
     get:
       description: Get a Picklist by ID
@@ -486,24 +540,12 @@ schemas:
           body:
             application/json:
               schema: Picklist
+              example: !include ./json/warehouse-outbound-document-example.json
         404:
           body:
             application/json:
               schema: Error
-    put:
-      description: Update Picklist by ID
-      body:
-        application/json:
-          schema: Picklist
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Picklist
-        404:
-          body:
-            application/json:
-              schema: Error
+              example: !include ./json/commons-error-example.json
     delete:
       description: Delete a Picklist by ID
       responses:
@@ -512,17 +554,42 @@ schemas:
           body:
             application/json:
               schema: Error
+              example: !include ./json/commons-error-example.json
+    /body:
+      patch:
+        description: Reinit body
+        body:
+          application/json:
+            schema: Picklist
+            example: !include ./json/warehouse-outbound-document-example.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
+          400:
+            body:
+              application/json:
+                schema: Error
+                example: !include ./json/commons-error-example.json
     /fsmt:
       put:
         body:
           application/json:
             schema: FSMT
+            example: !include ./json/warehouse-fsmt-example.json
         responses:
           200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
           404:
             body:
               application/json:
                 schema: Error
+                example: !include ./json/commons-error-example.json
 
 
 /issues:
@@ -531,9 +598,7 @@ schemas:
     materials from the warehouse or it is the issue of physical goods or
     materials from the warehouse.
   get:
-    description: |
-      Get a list of List all Issues matching query criteria, if provided;
-      otherwise list all Issues
+    description: Get a list of Issues
     queryParameters:
       sdate:
         displayName: Start Date
@@ -561,17 +626,25 @@ schemas:
         body:
           application/json:
             schema: Issues
+            example: !include ./json/warehouse-outbound-documents-example.json
   post:
     description: Add new Issue
     body:
       application/json:
         schema: Issue
+        example: !include ./json/warehouse-outbound-document-example.json
     responses:
       201:
         body:
           application/json:
-            schema: Issue
-  /{recourceId}:
+            schema: Message
+            example: !include ./json/commons-message-example.json
+      400:
+        body:
+            application/json:
+              schema: Error
+              example: !include ./json/commons-error-example.json
+  /{resourceId}:
     get:
       description: Get a Issue by ID
       responses:
@@ -579,24 +652,12 @@ schemas:
           body:
             application/json:
               schema: Issue
+              example: !include ./json/warehouse-outbound-document-example.json
         404:
           body:
             application/json:
               schema: Error
-    put:
-      description: Update Issue by ID
-      body:
-        application/json:
-          schema: Issue
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Issue
-        404:
-          body:
-            application/json:
-              schema: Error
+              example: !include ./json/commons-error-example.json
     delete:
       description: Delete a Issue by ID
       responses:
@@ -605,17 +666,42 @@ schemas:
           body:
             application/json:
               schema: Error
+              example: !include ./json/commons-error-example.json
+    /body:
+      patch:
+        description: Reinit body
+        body:
+          application/json:
+            schema: Issue
+            example: !include ./json/warehouse-outbound-document-example.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
+          400:
+            body:
+              application/json:
+                schema: Error
+                example: !include ./json/commons-error-example.json
     /fsmt:
       put:
         body:
           application/json:
             schema: FSMT
+            example: !include ./json/warehouse-fsmt-example.json
         responses:
           200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
           404:
             body:
               application/json:
                 schema: Error
+                example: !include ./json/commons-error-example.json
 
 
 /despatches:
@@ -651,16 +737,24 @@ schemas:
         body:
           application/json:
             schema: Despatches
+            example: !include ./json/warehouse-outbound-documents-example.json
   post:
     description: Add new Despatch
     body:
       application/json:
         schema: Despatch
+        example: !include ./json/warehouse-outbound-document-example.json
     responses:
       201:
         body:
           application/json:
-            schema: Despatch
+            schema: Message
+            example: !include ./json/commons-message-example.json
+      400:
+        body:
+            application/json:
+              schema: Error
+              example: !include ./json/commons-error-example.json
   /{resourceId}:
     get:
       description: Get a Despatch by ID
@@ -669,24 +763,12 @@ schemas:
           body:
             application/json:
               schema: Despatch
+              example: !include ./json/warehouse-outbound-document-example.json
         404:
           body:
             application/json:
               schema: Error
-    put:
-      description: Update Despatch by ID
-      body:
-        application/json:
-          schema: Despatch
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Despatch
-        404:
-          body:
-            application/json:
-              schema: Error
+              example: !include ./json/commons-error-example.json
     delete:
       description: Delete a Despatch by ID
       responses:
@@ -695,17 +777,47 @@ schemas:
           body:
             application/json:
               schema: Error
+              example: !include ./json/commons-error-example.json
+    /body:
+      patch:
+        description: Reinit body
+        body:
+          application/json:
+            schema: Despatch
+            example: !include ./json/warehouse-outbound-document-example.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
+          400:
+            body:
+              application/json:
+                schema: Error
+                example: !include ./json/commons-error-example.json
     /fsmt:
       put:
         body:
           application/json:
             schema: FSMT
+            example: !include ./json/warehouse-fsmt-example.json
         responses:
           200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
           404:
             body:
               application/json:
                 schema: Error
+                example: !include ./json/commons-error-example.json
+
+
+#
+# Incoming documents
+#
 
 
 /rebounds:
@@ -739,17 +851,26 @@ schemas:
       200:
         body:
           application/json:
+            description: Contains Rebound document array
             schema: Rebounds
+            example: !include ./json/warehouse-inbound-documents-example.json
   post:
     description: Add new Rebound
     body:
       application/json:
         schema: Rebound
+        example: !include ./json/warehouse-inbound-document-example.json
     responses:
       201:
         body:
           application/json:
-            schema: Rebound
+            schema: Message
+            example: !include ./json/commons-message-example.json
+      400:
+        body:
+            application/json:
+              schema: Error
+              example: !include ./json/commons-error-example.json
   /{resourceId}:
     get:
       description: Get a Rebound by ID
@@ -758,24 +879,12 @@ schemas:
           body:
             application/json:
               schema: Rebound
+              example: !include ./json/warehouse-inbound-document-example.json
         404:
           body:
             application/json:
               schema: Error
-    put:
-      description: Update Cutoffs by ID
-      body:
-        application/json:
-          schema: Rebound
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Rebound
-        404:
-          body:
-            application/json:
-              schema: Error
+              example: !include ./json/commons-error-example.json
     delete:
       description: Delete a Rebound by ID
       responses:
@@ -784,22 +893,44 @@ schemas:
           body:
             application/json:
               schema: Error
+              example: !include ./json/commons-error-example.json
+    /body:
+      patch:
+        description: Reinit body
+        body:
+          application/json:
+            schema: Rebound
+            example: !include ./json/warehouse-inbound-document-example.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
+          400:
+            body:
+              application/json:
+                schema: Error
+                example: !include ./json/commons-error-example.json
     /fsmt:
       put:
         body:
           application/json:
             schema: FSMT
+            example: !include ./json/warehouse-fsmt-example.json
         responses:
           200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
           404:
             body:
               application/json:
                 schema: Error
+                example: !include ./json/commons-error-example.json
 
 
-#
-# Incoming documents
-#
 /deliveries:
   description: |
     Goods Delivery Note - If the same note i.e. goods despatch note is sent with
@@ -834,17 +965,26 @@ schemas:
       200:
         body:
           application/json:
+            description: Contains Delivery document array
             schema: Deliveries
+            example: !include ./json/warehouse-inbound-documents-example.json
   post:
     description: Add new Delivery
     body:
       application/json:
         schema: Delivery
+        example: !include ./json/warehouse-inbound-document-example.json
     responses:
       201:
         body:
           application/json:
-            schema: Delivery
+            schema: Message
+            example: !include ./json/commons-message-example.json
+      400:
+        body:
+            application/json:
+              schema: Error
+              example: !include ./json/commons-error-example.json
   /{resourceId}:
     get:
       description: Get a Delivery by ID
@@ -853,24 +993,12 @@ schemas:
           body:
             application/json:
               schema: Delivery
+              example: !include ./json/warehouse-inbound-document-example.json
         404:
           body:
             application/json:
               schema: Error
-    put:
-      description: Update Delivery by ID
-      body:
-        application/json:
-          schema: Delivery
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Delivery
-        404:
-          body:
-            application/json:
-              schema: Error
+              example: !include ./json/commons-error-example.json
     delete:
       description: Delete a Delivery by ID
       responses:
@@ -879,17 +1007,42 @@ schemas:
           body:
             application/json:
               schema: Error
+              example: !include ./json/commons-error-example.json
+    /body:
+      patch:
+        description: Reinit body
+        body:
+          application/json:
+            schema: Delivery
+            example: !include ./json/warehouse-inbound-document-example.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
+          400:
+            body:
+              application/json:
+                schema: Error
+                example: !include ./json/commons-error-example.json
     /fsmt:
       put:
         body:
           application/json:
             schema: FSMT
+            example: !include ./json/warehouse-fsmt-example.json
         responses:
           200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
           404:
             body:
               application/json:
                 schema: Error
+                example: !include ./json/commons-error-example.json
 
 
 /receipts:
@@ -925,17 +1078,26 @@ schemas:
       200:
         body:
           application/json:
+            description: Contains Receipt document array
             schema: Receipts
+            example: !include ./json/warehouse-inbound-documents-example.json
   post:
     description: Add new Receipt
     body:
       application/json:
         schema: Receipt
+        example: !include ./json/warehouse-inbound-document-example.json
     responses:
       201:
         body:
           application/json:
-            schema: Receipt
+            schema: Message
+            example: !include ./json/commons-message-example.json
+      400:
+        body:
+            application/json:
+              schema: Error
+              example: !include ./json/commons-error-example.json
   /{resourceId}:
     get:
       description: Get a Receipt by ID
@@ -944,24 +1106,12 @@ schemas:
           body:
             application/json:
               schema: Receipt
+              example: !include ./json/warehouse-inbound-document-example.json
         404:
           body:
             application/json:
               schema: Error
-    put:
-      description: Update Receipt by ID
-      body:
-        application/json:
-          schema: Receipt
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Receipt
-        404:
-          body:
-            application/json:
-              schema: Error
+              example: !include ./json/commons-error-example.json
     delete:
       description: Delete a Receipt by ID
       responses:
@@ -970,22 +1120,49 @@ schemas:
           body:
             application/json:
               schema: Error
+              example: !include ./json/commons-error-example.json
+    /body:
+      patch:
+        description: Reinit body
+        body:
+          application/json:
+            schema: Receipt
+            example: !include ./json/warehouse-inbound-document-example.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
+          400:
+            body:
+              application/json:
+                schema: Error
+                example: !include ./json/commons-error-example.json
     /fsmt:
       put:
         body:
           application/json:
             schema: FSMT
+            example: !include ./json/warehouse-fsmt-example.json
         responses:
           200:
+            body:
+              application/json:
+                schema: Message
+                example: !include ./json/commons-message-example.json
           404:
             body:
               application/json:
                 schema: Error
+                example: !include ./json/commons-error-example.json
 
 
 #
 # internal documents
 #
+
+
 /cutoffs:
   description: |
     Cutoff determins a point in accounting
@@ -1170,6 +1347,8 @@ schemas:
 #
 # referential documents
 #
+
+
 /stockcards:
   description: |
     Stock Card shows all issues and receipts of giving Warehouse Item matching date

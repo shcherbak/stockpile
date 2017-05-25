@@ -18,7 +18,7 @@
             "default": 10,
             "description": "An explanation about the purpose of this instance.",
             "title": "The Quantity Schema",
-            "type": "integer"
+            "type": "number"
           },
           "uom_code": {
             "default": "kg",
@@ -68,7 +68,7 @@
         "document_id": {
           "description": "An explanation about the purpose of this instance.",
           "title": "The Document_id Schema",
-          "type": "null"
+          "type": "integer"
         },
         "due_date": {
           "default": "2017-02-02",
