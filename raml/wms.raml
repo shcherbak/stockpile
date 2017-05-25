@@ -1207,7 +1207,7 @@ schemas:
             schema: Cutoff
   /{resourceId}:
     get:
-      description: Get a Cutoff by ID
+      description: Get a Cutoff by ID (show blockers)
       responses:
         200:
           body:
@@ -1339,7 +1339,6 @@ schemas:
   description: |
     Stock Card shows all issues and receipts of giving Warehouse Item matching date
     range criteria, if provided; otherwise list all inbounds and outbounds
-    Add new Stockcard (Треба подумати, чи може оператор завести пусту картку, чи це треба)
   get:
     description: Get a list of Stockcards
     responses:

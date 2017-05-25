@@ -188,7 +188,7 @@ class StocktakeBody(object):
             self.from_string(s)
 
     def __repr__(self):
-        return "stocktake_body(good_code={0}, quantity={1}, uom_code={2}, quantity_diff={3})" \
+        return "stoktake_body(good_code={0}, quantity={1}, uom_code={2}, quantity_diff={3})" \
             .format(self.good_code,
                     self.quantity,
                     self.uom_code,
@@ -226,10 +226,10 @@ class StocktakeBody(object):
                              m.group(3),
                              m.group(4)))
         else:
-            raise psycopg2.InterfaceError("bad stocktake_body representation: %r" % s)
+            raise psycopg2.InterfaceError("bad stoktake_body representation: %r" % s)
 
     def getquoted(self):
-        return "({0}, {1}, {2}, {3})::common.stocktake_body"\
+        return "({0}, {1}, {2}, {3})::common.stoktake_body"\
             .format(_adapt(self.good_code),
                     _adapt(self.quantity),
                     _adapt(self.uom_code),
@@ -933,6 +933,16 @@ class Stocktake(GenericDocument):
     CREATE_DOCUMENT_SQL = "SELECT stocktake.init(__head := %s, __body := %s)"
     COMMIT_DOCUMENT_SQL = "SELECT stocktake.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT stocktake.do_decommit(__document_id := %s, __apprise := %s)"
+
+    def from_dict(self, d):
+        self.head = DocumentHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        for row in d['body']:
+            b = StocktakeBody()
+            b.from_dict(row)
+            self.body.append(b)
+        return self.create_document(self.head, self.body)
 
 
 class Cutoff():
