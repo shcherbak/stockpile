@@ -12,6 +12,6 @@ def connection():
         #print(conn.encoding)
         #print(conn.protocol_version)
         #print(conn.server_version)
+        return conn
     except(Exception, psycopg2.DatabaseError) as error:
         print(error)
-    return conn

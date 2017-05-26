@@ -1295,20 +1295,6 @@ schemas:
           body:
             application/json:
               schema: Error
-    put:
-      description: Update Stocktake by ID
-      body:
-        application/json:
-          schema: Stocktake
-      responses:
-        200:
-          body:
-            application/json:
-              schema: Stocktake
-        404:
-          body:
-            application/json:
-              schema: Error
     delete:
       description: Delete a Stocktake by ID
       responses:
@@ -1317,6 +1303,21 @@ schemas:
           body:
             application/json:
               schema: Error
+    /body:
+      patch:
+        description: Reinit body
+        body:
+          application/json:
+            schema: Stocktake
+        responses:
+          200:
+            body:
+              application/json:
+                schema: Message
+          400:
+            body:
+              application/json:
+                schema: Error
     /fsmt:
       put:
         body:
