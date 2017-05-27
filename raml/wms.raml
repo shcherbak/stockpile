@@ -1369,15 +1369,29 @@ schemas:
     description: Get a list of all goods and balance
     responses:
       200:
+        body:
+          application/json:
+            schema: Balances
+            example: !include ./json/warehouse-balance-records-example.json
+      400:
+        body:
+          application/json:
+            schema: Error
+            example: !include ./json/commons-error-example.json
   /{resourceId}:
     get:
       description: Get balance of specified item
       responses:
         200:
-        404:
+          body:
+            application/json:
+              schema: Balances
+              example: !include ./json/warehouse-balance-records-example.json
+        400:
           body:
             application/json:
               schema: Error
+              example: !include ./json/commons-error-example.json
 
 
 /goal:

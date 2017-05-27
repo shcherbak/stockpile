@@ -1,0 +1,11 @@
+{
+    "facility_code": "A1",
+    "good_code": "10.01.001-001",
+    "name": "Good 1",
+    "uom_code": "psc",
+    "on_hand_qty": 100,
+    "reserved_qty": 10,
+    "available_qty": 90,
+    "en_route_qty": 10,
+    "on_order_qty": 0
+}
