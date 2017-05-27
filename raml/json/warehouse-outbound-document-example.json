@@ -1,25 +1,30 @@
 {
   "head": {
-    "addressee": "B1", 
-    "curr_fsmt": "PROPOSED", 
-    "display_name": "DMD-000-000000", 
-    "doctype": "DEMAND", 
-    "document_date": "2017-02-01", 
-    "document_id": 1, 
-    "due_date": "2017-02-02", 
-    "facility_code": "A1", 
-    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
+    "document_id": 1,
+    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a",
+    "display_name": "GDD-A10-AB1AA0",
+    "document_date": "2017-02-01",
+    "facility_code": "A10",
+    "curr_fsmt": "PROPOSED",
+    "doctype": "DEMAND",
+    "addressee": "B1",
+    "due_date": "2017-02-02"
   },
   "body": [
     {
-      "good_code": "good1", 
-      "quantity": 10.0, 
+      "good_code": "10.01.001-001", 
+      "quantity": 10.0001, 
       "uom_code": "kg"
     }, 
     {
-      "good_code": "good2", 
-      "quantity": 10.0, 
-      "uom_code": "kg"
+      "good_code": "20.02.002-002", 
+      "quantity": 20.0, 
+      "uom_code": "pcs"
+    },
+    {
+      "good_code": "30.03.003-003", 
+      "quantity": 300.0, 
+      "uom_code": "mm"
     }
   ]
 }

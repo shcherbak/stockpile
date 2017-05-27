@@ -1,24 +1,24 @@
 [
   {
-    "addressee": "B1",
-    "curr_fsmt": "PROPOSED",
-    "display_name": "DMD-000-000001",
-    "doctype": "DEMAND",
-    "document_date": "2017-02-01",
     "document_id": 1,
-    "due_date": "2017-02-02",
-    "facility_code": "A1",
-    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
+    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a",
+    "display_name": "GDD-A1-AB1AA0",
+    "document_date": "2017-02-01",
+    "facility_code": "A10",
+    "curr_fsmt": "PROPOSED",
+    "doctype": "DEMAND",
+    "addressee": "B1",
+    "due_date": "2017-02-02"
   },
   {
-    "addressee": "B1",
-    "curr_fsmt": "PROPOSED",
-    "display_name": "DMD-000-000002",
-    "doctype": "DEMAND",
-    "document_date": "2017-02-01",
     "document_id": 2,
-    "due_date": "2017-02-02",
+    "gid": "160fd11a-4011-11e7-9b12-d4bed939923a",
+    "display_name": "GDD-A1-AB1AA1",
+    "document_date": "2017-02-02",
     "facility_code": "A1",
-    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
-  }
+    "curr_fsmt": "PROPOSED",
+    "doctype": "DEMAND",
+    "addressee": "B1",
+    "due_date": "2017-02-03"
+}
 ]

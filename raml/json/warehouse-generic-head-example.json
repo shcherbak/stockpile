@@ -1,11 +1,9 @@
 {
-  "head": {
-    "curr_fsmt": "PROPOSED",
-    "display_name": "DM-01",
-    "doctype": "DEMAND",
-    "document_date": "2017-02-01",
     "document_id": 1,
-    "facility_code": "A1",
-    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a"
-  }
+    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a",
+    "display_name": "STK-A10-AB1AA0",
+    "document_date": "2017-02-01",
+    "facility_code": "A10",
+    "curr_fsmt": "PROPOSED",
+    "doctype": "STOCKTAKE"
 }

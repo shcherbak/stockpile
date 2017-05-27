@@ -1,97 +1,29 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "additionalProperties": true,
-  "definitions": {},
-  "properties": {
-    "body": {
-      "additionalItems": true,
-      "items": {
-        "additionalProperties": true,
-        "properties": {
-          "good_code": {
-            "default": "good1",
-            "description": "An explanation about the purpose of this instance.",
-            "title": "The Good_code Schema",
-            "type": "string"
-          },
-          "quantity": {
-            "default": 10,
-            "description": "An explanation about the purpose of this instance.",
-            "title": "The Quantity Schema",
-            "type": "number"
-          },
-          "uom_code": {
-            "default": "kg",
-            "description": "An explanation about the purpose of this instance.",
-            "title": "The Uom_code Schema",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "type": "array",
-      "uniqueItems": false
-    },
-    "head": {
-      "additionalProperties": true,
-      "properties": {
-        "addressee": {
-          "default": "B1",
-          "description": "An explanation about the purpose of this instance.",
-          "title": "The Addressee Schema",
-          "type": "string"
-        },
-        "curr_fsmt": {
-          "default": "PROPOSED",
-          "description": "An explanation about the purpose of this instance.",
-          "title": "The Curr_fsmt Schema",
-          "type": "string"
-        },
-        "display_name": {
-          "default": "DM-01",
-          "description": "An explanation about the purpose of this instance.",
-          "title": "The Display_name Schema",
-          "type": "string"
-        },
-        "doctype": {
-          "default": "DEMAND",
-          "description": "An explanation about the purpose of this instance.",
-          "title": "The Doctype Schema",
-          "type": "string"
-        },
-        "document_date": {
-          "default": "2017-02-01",
-          "description": "An explanation about the purpose of this instance.",
-          "title": "The Document_date Schema",
-          "type": "string"
-        },
-        "document_id": {
-          "description": "An explanation about the purpose of this instance.",
-          "title": "The Document_id Schema",
-          "type": "integer"
-        },
-        "due_date": {
-          "default": "2017-02-02",
-          "description": "An explanation about the purpose of this instance.",
-          "title": "The Due_date Schema",
-          "type": "string"
-        },
-        "facility_code": {
-          "default": "A1",
-          "description": "An explanation about the purpose of this instance.",
-          "title": "The Facility_code Schema",
-          "type": "string"
-        },
-        "gid": {
-          "default": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a",
-          "description": "An explanation about the purpose of this instance.",
-          "title": "The Gid Schema",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    }
+  "head": {
+    "document_id": 1,
+    "gid": "b3dbaf2c-3f1c-11e7-b691-d4bed939923a",
+    "display_name": "GDD-A10-AB1AA0",
+    "document_date": "2017-02-01",
+    "facility_code": "A10",
+    "curr_fsmt": "PROPOSED",
+    "doctype": "DEMAND",
+    "addresser": "B1"
   },
-  "type": "object"
+  "body": [
+    {
+      "good_code": "10.01.001-001", 
+      "quantity": 10.0001, 
+      "uom_code": "kg"
+    }, 
+    {
+      "good_code": "20.02.002-002", 
+      "quantity": 20.0, 
+      "uom_code": "pcs"
+    },
+    {
+      "good_code": "30.03.003-003", 
+      "quantity": 300.0, 
+      "uom_code": "mm"
+    }
+  ]
 }
-
