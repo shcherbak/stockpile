@@ -13,33 +13,42 @@ import re
 def _get_pg_nspname_oid(conn, nspname):
     _sql = 'SELECT oid FROM pg_namespace WHERE nspname = %s'
     _connection = conn
-    _curs = _connection.cursor()
-    _curs.execute(_sql, (nspname,))
-    _oid = _curs.fetchone()[0]
-    _curs.close()
-    return _oid
+    try:
+        _curs = _connection.cursor()
+        _curs.execute(_sql, (nspname,))
+        _oid = _curs.fetchone()[0]
+        _curs.close()
+        return _oid
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
 
 
 def _get_pg_typname_oid(conn, nspname, typname):
     _sql = 'SELECT oid FROM pg_type WHERE typname = %s AND typnamespace = %s;'
     _connection = conn
-    _nspoid = _get_pg_nspname_oid(_connection, nspname)
-    _curs = _connection.cursor()
-    _curs.execute(_sql, (typname, _nspoid,))
-    _oid = _curs.fetchone()[0]
-    _curs.close()
-    return _oid
+    try:
+        _nspoid = _get_pg_nspname_oid(_connection, nspname)
+        _curs = _connection.cursor()
+        _curs.execute(_sql, (typname, _nspoid,))
+        _oid = _curs.fetchone()[0]
+        _curs.close()
+        return _oid
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
 
 
 def _get_pg_typarray_oid(conn, nspname, typname):
     _sql = 'SELECT typarray FROM pg_type WHERE typname = %s AND typnamespace = %s'
     _connection = conn
-    _nspoid = _get_pg_nspname_oid(_connection, nspname)
-    _curs = _connection.cursor()
-    _curs.execute(_sql, (typname, _nspoid,))
-    _oid = _curs.fetchone()[0]
-    _curs.close()
-    return _oid
+    try:
+        _nspoid = _get_pg_nspname_oid(_connection, nspname)
+        _curs = _connection.cursor()
+        _curs.execute(_sql, (typname, _nspoid,))
+        _oid = _curs.fetchone()[0]
+        _curs.close()
+        return _oid
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
 
 
 def _adapt(o):

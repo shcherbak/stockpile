@@ -34,38 +34,53 @@ class BaseDocument:
             self.body = None
 
     def init(self):
-        curs = self._conn.cursor()
-        curs.execute(self.CREATE_DOCUMENT_SQL, (self.head, self.body,))
-        print(curs.query)
-        document_id = curs.fetchone()[0]
-        self._conn.commit()
-        curs.close()
-        return document_id
+        try:
+            curs = self._conn.cursor()
+            curs.execute(self.CREATE_DOCUMENT_SQL, (self.head, self.body,))
+            print(curs.query)
+            document_id = curs.fetchone()[0]
+            self._conn.commit()
+            curs.close()
+            return document_id
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        #finally:
+        #    if conn is not None:
+        #        conn.close()
 
     def reinit(self, document_id):
-        curs = self._conn.cursor()
-        curs.execute(self.UPDATE_BODY_SQL, (document_id, self.body,))
-        print(curs.query)
-        self._conn.commit()
-        curs.close()
+        try:
+            curs = self._conn.cursor()
+            curs.execute(self.UPDATE_BODY_SQL, (document_id, self.body,))
+            print(curs.query)
+            self._conn.commit()
+            curs.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
 
     def load(self, document_id):
         self._load_head(document_id)
         self._load_body(document_id)
 
     def delete(self, document_id):
-        curs = self._conn.cursor()
-        curs.execute(self.DELETE_DOCUMENT_SQL, (document_id,))
-        print(curs.query)
-        self._conn.commit()
-        curs.close()
+        try:
+            curs = self._conn.cursor()
+            curs.execute(self.DELETE_DOCUMENT_SQL, (document_id,))
+            print(curs.query)
+            self._conn.commit()
+            curs.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
 
     def commit(self, document_id, apprise=True):
-        curs = self._conn.cursor()
-        curs.execute(self.COMMIT_DOCUMENT_SQL, (document_id, apprise,))
-        print(curs.query)
-        self._conn.commit()
-        curs.close()
+        try:
+            curs = self._conn.cursor()
+            curs.execute(self.COMMIT_DOCUMENT_SQL, (document_id, apprise,))
+            print(curs.query)
+            self._conn.commit()
+            curs.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
 
     def decommit(self, document_id, apprise=True):
         curs = self._conn.cursor()
@@ -75,22 +90,28 @@ class BaseDocument:
         curs.close()
 
     def _load_head(self, document_id):
-        curs = self._conn.cursor()
-        curs.execute(self.GET_HEAD_SQL, (document_id,))
-        #print(curs.query)
-        self.head = curs.fetchone()[0]
-        self._conn.commit()
-        curs.close()
-        #return head
+        try:
+            curs = self._conn.cursor()
+            curs.execute(self.GET_HEAD_SQL, (document_id,))
+            # print(curs.query)
+            self.head = curs.fetchone()[0]
+            self._conn.commit()
+            curs.close()
+            # return head
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
 
     def _load_body(self, document_id):
-        curs = self._conn.cursor()
-        curs.execute(self.GET_BODY_SQL, (document_id,))
-        #print(curs.query)
-        self.body = curs.fetchone()[0]
-        self._conn.commit()
-        curs.close()
-        #return body
+        try:
+            curs = self._conn.cursor()
+            curs.execute(self.GET_BODY_SQL, (document_id,))
+            # print(curs.query)
+            self.body = curs.fetchone()[0]
+            self._conn.commit()
+            curs.close()
+            # return body
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
 
     def to_dict(self):
         _body = []
@@ -106,16 +127,15 @@ class BaseDocument:
             b = pgcast.DocumentBody()
             b.from_dict(row)
             self.body.append(b)
-        #return self.create_document(self.head, self.body)
+            # return self.create_document(self.head, self.body)
 
     def to_json(self):
-        return "json string {0}".format(self.gid)
+        return "json string {0}".format(self)
 
     def from_json(self, json):
         self.head = json
-        self.gid = json
-        #return self
-
+        self.body = json
+        # return self
 
 
 class OutboundDocument(BaseDocument):
@@ -127,7 +147,7 @@ class OutboundDocument(BaseDocument):
             b = pgcast.DocumentBody()
             b.from_dict(row)
             self.body.append(b)
-        #return self.create_document(self.head, self.body)
+            # return self.create_document(self.head, self.body)
 
 
 class InboundDocument(BaseDocument):
@@ -139,7 +159,7 @@ class InboundDocument(BaseDocument):
             b = pgcast.DocumentBody()
             b.from_dict(row)
             self.body.append(b)
-        #return self.create_document(self.head, self.body)
+            # return self.create_document(self.head, self.body)
 
 
 class Delivery(InboundDocument):
@@ -221,6 +241,8 @@ class Reserve(OutboundDocument):
     COMMIT_DOCUMENT_SQL = "SELECT reserve.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT reserve.do_decommit(__document_id := %s, __apprise := %s)"
 
+class Cutoff(BaseDocument):
+    pass
 
 class Stocktake(BaseDocument):
     GET_HEAD_SQL = "SELECT stocktake.get_head(__document_id := %s)"
@@ -239,8 +261,7 @@ class Stocktake(BaseDocument):
             b = pgcast.StocktakeBody()
             b.from_dict(row)
             self.body.append(b)
-        #return self.create_document(self.head, self.body)
-
+            # return self.create_document(self.head, self.body)
 
 
 class BaseDocumentList:
