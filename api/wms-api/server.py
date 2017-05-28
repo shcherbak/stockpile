@@ -3,16 +3,41 @@
 import datetime
 import logging
 from logging.handlers import RotatingFileHandler
+import json
 
 from flask import Flask, jsonify, request
 
 import dao
+from inputs import Inputs
+from validators import JsonSchema
 
 app = Flask(__name__)
 app.config.from_object('serverconfig')
 # app.config['JSON_AS_ASCII'] = False
 # app.config.from_object('config')
 
+schema = json.loads(open("schema/warehouse-fsmt-schema.json").read())
+schema1 = {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "properties": {
+        "curr_fsmt": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "curr_fsmt"
+    ],
+    "type": "object"
+    }
+
+
+
+class JsonInputs(Inputs):
+    json = [JsonSchema(schema=schema)]
+
+
+class JsonInputsMsg(Inputs):
+    json = [JsonSchema(schema=schema, message='JSON data did not validate.')]
 
 #Flask-UUID <uuid:doc_id>
 #@app.route('/demands/<string:document_name>', methods=['GET'])
@@ -105,16 +130,25 @@ def patch_demand_body(document_id):
 
 @app.route('/demands/<int:document_id>/fsmt', methods=['PUT'])
 def patch_demand_fsmt(document_id):
-    data = request.get_json()
-    if data:
+    inputs = JsonInputs(request)
+    #print(request)
+    #print(inputs)
+    #print (inputs.validate())
+    #return '', 200
+    if not inputs.validate():
+        return jsonify(success=False, errors=inputs.errors), 400
+    else:
+        data = request.get_json()
         d = dao.Demand()
+
         if data['curr_fsmt'] == 'COMMITTED':
             d.commit(document_id)
         elif data['curr_fsmt'] == 'DECOMMITTED':
             d.decommit(document_id)
         else:
             return 'incorrect fsmt', 400
-    return jsonify({"status": data['curr_fsmt']})
+
+        return jsonify({"status": data['curr_fsmt']})
 
 
 @app.route('/reserves', methods=['GET'])
