@@ -51,6 +51,19 @@ def _get_pg_typarray_oid(conn, nspname, typname):
         print(error)
 
 
+
+def date_from_py(pydate):
+    pass
+
+def date_from_pg(sqldate):
+    pass
+
+def decimal_from_py(pydecimal):
+    pass
+
+def decimal_from_pg(sqlnumeric):
+    pass
+
 def _adapt(o):
     if o is None:
         return 'NULL'
