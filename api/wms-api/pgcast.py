@@ -687,7 +687,7 @@ def register_common_inbound_head(oid=None, conn_or_curs=None):
     return INBOUND_HEAD
 
 
-def pgcast(conn):
+def register(conn):
     psycopg2.extras.register_uuid()
     register_common_document_body(conn_or_curs=conn)
     register_common_stoktake_body(conn_or_curs=conn)

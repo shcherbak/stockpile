@@ -1,10 +1,11 @@
+import json as j
 from itertools import chain
 
 import collections
 from werkzeug.datastructures import MultiDict
 from wtforms.fields import Field
 from wtforms.form import BaseForm
-import json as j
+
 from validators import JsonSchema
 
 

@@ -8,8 +8,10 @@ from flask import Flask, jsonify, request
 
 import dao
 from connection import pool
-from inputs import FsmtJsonInputs, OutboundDocumentJsonInputs, InboundDocumentJsonInputs
-
+from inputs import (FsmtJsonInputs,
+                    OutboundDocumentJsonInputs,
+                    InboundDocumentJsonInputs,
+                    GenericDocumentJsonInputs)
 
 app = Flask(__name__)
 app.config.from_object('serverconfig')
@@ -74,14 +76,23 @@ def get_demands():
 
 @app.route('/demands', methods=['POST'])
 def post_demand():
-    data = request.get_json()
-    if data:
-        d = dao.Demand(pool)
-        d.from_dict(data)
-        i = d.init()
-        return jsonify({'demands': i})
+    success = False
+    document_id = None
+    inputs = OutboundDocumentJsonInputs(request)
+    if not inputs.validate():
+        response = jsonify(success=success, errors=inputs.errors), 400
+        return response
     else:
-        return '', 400
+        data = request.get_json()
+        document = dao.Demand(pool)
+        document.from_dict(data)
+        document_id = document.init()
+    if document_id:
+        success = True
+        response = jsonify(success=success, message="document id=[{0}] created".format(document_id)), 200
+    else:
+        response = jsonify(success=success, errors=document.errors), 400
+    return response
 
 
 @app.route('/demands/<int:document_id>', methods=['GET'])
@@ -92,8 +103,14 @@ def get_demand(document_id):
 
 @app.route('/demands/<int:document_id>', methods=['DELETE'])
 def del_demand(document_id):
-    dao.Demand(pool).delete(document_id)
-    return '', 204
+    document = dao.Demand(pool)
+    success = document.delete(document_id)
+    if success:
+        response = ('', 204)
+    else:
+        response = jsonify(success=False, errors=document.errors), 400
+
+    return response
 
 
 @app.route('/demands/<int:document_id>/body', methods=['PATCH'])
@@ -110,21 +127,33 @@ def patch_demand_body(document_id):
 
 @app.route('/demands/<int:document_id>/fsmt', methods=['PUT'])
 def patch_demand_fsmt(document_id):
+    success = False
     inputs = FsmtJsonInputs(request)
+
     if not inputs.validate():
-        return jsonify(success=False, errors=inputs.errors), 400
+        response = jsonify(success=False, errors=inputs.errors), 400
     else:
         data = request.get_json()
-        d = dao.Demand(pool)
+        document = dao.Demand(pool)
 
         if data['curr_fsmt'] == 'COMMITTED':
-            d.commit(document_id)
+            success = document.commit(document_id)
+            response = jsonify(success=success, message="document commited"), 200
         elif data['curr_fsmt'] == 'DECOMMITTED':
-            d.decommit(document_id)
+            success = document.decommit(document_id)
+            response = jsonify(success=success, message="document decommited"), 200
         else:
-            return 'incorrect fsmt', 400
+            return jsonify(success=success, errors="incorrect fsmt"), 400
 
-        return jsonify({"status": data['curr_fsmt']})
+        if not success:
+            response = jsonify(success=False, errors=document.errors), 400
+
+    if not response:
+        response = jsonify(success=success, message="unexpected error"), 400
+
+    return response
+
+
 
 
 @app.route('/reserves', methods=['GET'])
@@ -151,14 +180,23 @@ def get_reserves():
 
 @app.route('/reserves', methods=['POST'])
 def post_reserve():
-    data = request.get_json()
-    if data:
-        d = dao.Reserve(pool)
-        d.from_dict(data)
-        i = d.init()
-        return jsonify({'reserves': i})
+    success = False
+    document_id = None
+    inputs = OutboundDocumentJsonInputs(request)
+    if not inputs.validate():
+        response = jsonify(success=success, errors=inputs.errors), 400
+        return response
     else:
-        return '', 400
+        data = request.get_json()
+        document = dao.Reserve(pool)
+        document.from_dict(data)
+        document_id = document.init()
+    if document_id:
+        success = True
+        response = jsonify(success=success, message="document id=[{0}] created".format(document_id)), 200
+    else:
+        response = jsonify(success=success, errors=document.errors), 400
+    return response
 
 
 @app.route('/reserves/<int:document_id>', methods=['GET'])
@@ -169,8 +207,14 @@ def get_reserve(document_id):
 
 @app.route('/reserve/<int:document_id>', methods=['DELETE'])
 def del_reserve(document_id):
-    dao.Reserve(pool).delete(document_id)
-    return '', 204
+    document = dao.Reserve(pool)
+    success = document.delete(document_id)
+    if success:
+        response = ('', 204)
+    else:
+        response = jsonify(success=False, errors=document.errors), 400
+
+    return response
 
 
 @app.route('/reserve/<int:document_id>/body', methods=['PATCH'])
@@ -187,16 +231,31 @@ def patch_reserve_body(document_id):
 
 @app.route('/reserves/<int:document_id>/fsmt', methods=['PUT'])
 def patch_reserve_fsmt(document_id):
-    data = request.get_json()
-    if data:
-        d = dao.Reserve(pool)
+    success = False
+    inputs = FsmtJsonInputs(request)
+
+    if not inputs.validate():
+        response = jsonify(success=False, errors=inputs.errors), 400
+    else:
+        data = request.get_json()
+        document = dao.Reserve(pool)
+
         if data['curr_fsmt'] == 'COMMITTED':
-            d.commit(document_id)
+            success = document.commit(document_id)
+            response = jsonify(success=success, message="document commited"), 200
         elif data['curr_fsmt'] == 'DECOMMITTED':
-            d.decommit(document_id)
+            success = document.decommit(document_id)
+            response = jsonify(success=success, message="document decommited"), 200
         else:
-            return 'incorrect fsmt', 400
-    return jsonify({"status": data['curr_fsmt']})
+            return jsonify(success=success, errors="incorrect fsmt"), 400
+
+        if not success:
+            response = jsonify(success=False, errors=document.errors), 400
+
+    if not response:
+        response = jsonify(success=success, message="unexpected error"), 400
+
+    return response
 
 
 @app.route('/picklists', methods=['GET'])
@@ -223,14 +282,23 @@ def get_picklists():
 
 @app.route('/picklists', methods=['POST'])
 def post_picklist():
-    data = request.get_json()
-    if data:
-        d = dao.Picklist(pool)
-        d.from_dict(data)
-        i = d.init()
-        return jsonify({'picklists': i})
+    success = False
+    document_id = None
+    inputs = OutboundDocumentJsonInputs(request)
+    if not inputs.validate():
+        response = jsonify(success=success, errors=inputs.errors), 400
+        return response
     else:
-        return '', 400
+        data = request.get_json()
+        document = dao.Picklist(pool)
+        document.from_dict(data)
+        document_id = document.init()
+    if document_id:
+        success = True
+        response = jsonify(success=success, message="document id=[{0}] created".format(document_id)), 200
+    else:
+        response = jsonify(success=success, errors=document.errors), 400
+    return response
 
 
 @app.route('/picklists/<int:document_id>', methods=['GET'])
@@ -241,8 +309,14 @@ def get_picklist(document_id):
 
 @app.route('/picklists/<int:document_id>', methods=['DELETE'])
 def del_picklist(document_id):
-    dao.Picklist(pool).delete(document_id)
-    return '', 204
+    document = dao.Picklist(pool)
+    success = document.delete(document_id)
+    if success:
+        response = ('', 204)
+    else:
+        response = jsonify(success=False, errors=document.errors), 400
+
+    return response
 
 
 @app.route('/picklists/<int:document_id>/body', methods=['PATCH'])
@@ -259,16 +333,31 @@ def patch_picklists_body(document_id):
 
 @app.route('/picklists/<int:document_id>/fsmt', methods=['PUT'])
 def patch_picklist_fsmt(document_id):
-    data = request.get_json()
-    if data:
-        d = dao.Picklist(pool)
+    success = False
+    inputs = FsmtJsonInputs(request)
+
+    if not inputs.validate():
+        response = jsonify(success=False, errors=inputs.errors), 400
+    else:
+        data = request.get_json()
+        document = dao.Picklist(pool)
+
         if data['curr_fsmt'] == 'COMMITTED':
-            d.commit(document_id)
+            success = document.commit(document_id)
+            response = jsonify(success=success, message="document commited"), 200
         elif data['curr_fsmt'] == 'DECOMMITTED':
-            d.decommit(document_id)
+            success = document.decommit(document_id)
+            response = jsonify(success=success, message="document decommited"), 200
         else:
-            return 'incorrect fsmt', 400
-    return jsonify({"status": data['curr_fsmt']})
+            return jsonify(success=success, errors="incorrect fsmt"), 400
+
+        if not success:
+            response = jsonify(success=False, errors=document.errors), 400
+
+    if not response:
+        response = jsonify(success=success, message="unexpected error"), 400
+
+    return response
 
 
 @app.route('/issues', methods=['GET'])
@@ -295,14 +384,23 @@ def get_issues():
 
 @app.route('/issues', methods=['POST'])
 def post_issue():
-    data = request.get_json()
-    if data:
-        d = dao.Issue(pool)
-        d.from_dict(data)
-        i = d.init()
-        return jsonify({'issues': i})
+    success = False
+    document_id = None
+    inputs = OutboundDocumentJsonInputs(request)
+    if not inputs.validate():
+        response = jsonify(success=success, errors=inputs.errors), 400
+        return response
     else:
-        return '', 400
+        data = request.get_json()
+        document = dao.Issue(pool)
+        document.from_dict(data)
+        document_id = document.init()
+    if document_id:
+        success = True
+        response = jsonify(success=success, message="document id=[{0}] created".format(document_id)), 200
+    else:
+        response = jsonify(success=success, errors=document.errors), 400
+    return response
 
 
 @app.route('/issues/<int:document_id>', methods=['GET'])
@@ -313,8 +411,14 @@ def get_issue(document_id):
 
 @app.route('/issues/<int:document_id>', methods=['DELETE'])
 def del_issue(document_id):
-    dao.Issue(pool).delete(document_id)
-    return '', 204
+    document = dao.Issue(pool)
+    success = document.delete(document_id)
+    if success:
+        response = ('', 204)
+    else:
+        response = jsonify(success=False, errors=document.errors), 400
+
+    return response
 
 
 @app.route('/issues/<int:document_id>/body', methods=['PATCH'])
@@ -331,16 +435,31 @@ def patch_issues_body(document_id):
 
 @app.route('/issues/<int:document_id>/fsmt', methods=['PUT'])
 def patch_issue_fsmt(document_id):
-    data = request.get_json()
-    if data:
-        d = dao.Issue(pool)
+    success = False
+    inputs = FsmtJsonInputs(request)
+
+    if not inputs.validate():
+        response = jsonify(success=False, errors=inputs.errors), 400
+    else:
+        data = request.get_json()
+        document = dao.Issue(pool)
+
         if data['curr_fsmt'] == 'COMMITTED':
-            d.commit(document_id)
+            success = document.commit(document_id)
+            response = jsonify(success=success, message="document commited"), 200
         elif data['curr_fsmt'] == 'DECOMMITTED':
-            d.decommit(document_id)
+            success = document.decommit(document_id)
+            response = jsonify(success=success, message="document decommited"), 200
         else:
-            return 'incorrect fsmt', 400
-    return jsonify({"status": data['curr_fsmt']})
+            return jsonify(success=success, errors="incorrect fsmt"), 400
+
+        if not success:
+            response = jsonify(success=False, errors=document.errors), 400
+
+    if not response:
+        response = jsonify(success=success, message="unexpected error"), 400
+
+    return response
 
 
 @app.route('/despatches', methods=['GET'])
@@ -367,14 +486,23 @@ def get_despatches():
 
 @app.route('/despatches', methods=['POST'])
 def post_despatch():
-    data = request.get_json()
-    if data:
-        d = dao.Despatch(pool)
-        d.from_dict(data)
-        i = d.init()
-        return jsonify({'despatches': i})
+    success = False
+    document_id = None
+    inputs = OutboundDocumentJsonInputs(request)
+    if not inputs.validate():
+        response = jsonify(success=success, errors=inputs.errors), 400
+        return response
     else:
-        return '', 400
+        data = request.get_json()
+        document = dao.Despatch(pool)
+        document.from_dict(data)
+        document_id = document.init()
+    if document_id:
+        success = True
+        response = jsonify(success=success, message="document id=[{0}] created".format(document_id)), 200
+    else:
+        response = jsonify(success=success, errors=document.errors), 400
+    return response
 
 
 @app.route('/despatches/<int:document_id>', methods=['GET'])
@@ -385,8 +513,15 @@ def get_despatch(document_id):
 
 @app.route('/despatches/<int:document_id>', methods=['DELETE'])
 def del_despatch(document_id):
-    dao.Despatch(pool).delete(document_id)
-    return '', 204
+    document = dao.Despatch(pool)
+    success = document.delete(document_id)
+    if success:
+        response = ('', 204)
+    else:
+        response = jsonify(success=False, errors=document.errors), 400
+
+    return response
+
 
 
 @app.route('/despatches/<int:document_id>/body', methods=['PATCH'])
@@ -403,16 +538,31 @@ def patch_despatches_body(document_id):
 
 @app.route('/despatches/<int:document_id>/fsmt', methods=['PUT'])
 def patch_despatch_fsmt(document_id):
-    data = request.get_json()
-    if data:
-        d = dao.Despatch(pool)
+    success = False
+    inputs = FsmtJsonInputs(request)
+
+    if not inputs.validate():
+        response = jsonify(success=False, errors=inputs.errors), 400
+    else:
+        data = request.get_json()
+        document = dao.Despatch(pool)
+
         if data['curr_fsmt'] == 'COMMITTED':
-            d.commit(document_id)
+            success = document.commit(document_id)
+            response = jsonify(success=success, message="document commited"), 200
         elif data['curr_fsmt'] == 'DECOMMITTED':
-            d.decommit(document_id)
+            success = document.decommit(document_id)
+            response = jsonify(success=success, message="document decommited"), 200
         else:
-            return 'incorrect fsmt', 400
-    return jsonify({"status": data['curr_fsmt']})
+            return jsonify(success=success, errors="incorrect fsmt"), 400
+
+        if not success:
+            response = jsonify(success=False, errors=document.errors), 400
+
+    if not response:
+        response = jsonify(success=success, message="unexpected error"), 400
+
+    return response
 
 
 @app.route('/rebounds', methods=['GET'])
@@ -439,14 +589,23 @@ def get_rebounds():
 
 @app.route('/rebounds', methods=['POST'])
 def post_rebound():
-    data = request.get_json()
-    if data:
-        d = dao.Rebound(pool)
-        d.from_dict(data)
-        i = d.init()
-        return jsonify({'rebounds': i})
+    success = False
+    document_id = None
+    inputs = InboundDocumentJsonInputs(request)
+    if not inputs.validate():
+        response = jsonify(success=success, errors=inputs.errors), 400
+        return response
     else:
-        return '', 400
+        data = request.get_json()
+        document = dao.Rebound(pool)
+        document.from_dict(data)
+        document_id = document.init()
+    if document_id:
+        success = True
+        response = jsonify(success=success, message="document id=[{0}] created".format(document_id)), 200
+    else:
+        response = jsonify(success=success, errors=document.errors), 400
+    return response
 
 
 @app.route('/rebounds/<int:document_id>', methods=['GET'])
@@ -457,8 +616,14 @@ def get_rebound(document_id):
 
 @app.route('/rebounds/<int:document_id>', methods=['DELETE'])
 def del_rebound(document_id):
-    dao.Rebound(pool).delete(document_id)
-    return '', 204
+    document = dao.Rebound(pool)
+    success = document.delete(document_id)
+    if success:
+        response = ('', 204)
+    else:
+        response = jsonify(success=False, errors=document.errors), 400
+
+    return response
 
 
 @app.route('/rebounds/<int:document_id>/body', methods=['PATCH'])
@@ -475,16 +640,31 @@ def patch_rebounds_body(document_id):
 
 @app.route('/rebounds/<int:document_id>/fsmt', methods=['PUT'])
 def patch_rebound_fsmt(document_id):
-    data = request.get_json()
-    if data:
-        d = dao.Rebound(pool)
+    success = False
+    inputs = FsmtJsonInputs(request)
+
+    if not inputs.validate():
+        response = jsonify(success=False, errors=inputs.errors), 400
+    else:
+        data = request.get_json()
+        document = dao.Rebound(pool)
+
         if data['curr_fsmt'] == 'COMMITTED':
-            d.commit(document_id)
+            success = document.commit(document_id)
+            response = jsonify(success=success, message="document commited"), 200
         elif data['curr_fsmt'] == 'DECOMMITTED':
-            d.decommit(document_id)
+            success = document.decommit(document_id)
+            response = jsonify(success=success, message="document decommited"), 200
         else:
-            return 'incorrect fsmt', 400
-    return jsonify({"status": data['curr_fsmt']})
+            return jsonify(success=success, errors="incorrect fsmt"), 400
+
+        if not success:
+            response = jsonify(success=False, errors=document.errors), 400
+
+    if not response:
+        response = jsonify(success=success, message="unexpected error"), 400
+
+    return response
 
 
 @app.route('/deliveries', methods=['GET'])
@@ -511,14 +691,23 @@ def get_deliveries():
 
 @app.route('/deliveries', methods=['POST'])
 def post_delivery():
-    data = request.get_json()
-    if data:
-        d = dao.Delivery(pool)
-        d.from_dict(data)
-        i = d.init()
-        return jsonify({'deliveries': i})
+    success = False
+    document_id = None
+    inputs = InboundDocumentJsonInputs(request)
+    if not inputs.validate():
+        response = jsonify(success=success, errors=inputs.errors), 400
+        return response
     else:
-        return '', 400
+        data = request.get_json()
+        document = dao.Delivery(pool)
+        document.from_dict(data)
+        document_id = document.init()
+    if document_id:
+        success = True
+        response = jsonify(success=success, message="document id=[{0}] created".format(document_id)), 200
+    else:
+        response = jsonify(success=success, errors=document.errors), 400
+    return response
 
 
 @app.route('/deliveries/<int:document_id>', methods=['GET'])
@@ -529,8 +718,14 @@ def get_delivery(document_id):
 
 @app.route('/deliveries/<int:document_id>', methods=['DELETE'])
 def del_delivery(document_id):
-    dao.Delivery(pool).delete(document_id)
-    return '', 204
+    document = dao.Delivery(pool)
+    success = document.delete(document_id)
+    if success:
+        response = ('', 204)
+    else:
+        response = jsonify(success=False, errors=document.errors), 400
+
+    return response
 
 
 @app.route('/deliveries/<int:document_id>/body', methods=['PATCH'])
@@ -547,16 +742,31 @@ def patch_deliveries_body(document_id):
 
 @app.route('/deliveries/<int:document_id>/fsmt', methods=['PUT'])
 def patch_delivery_fsmt(document_id):
-    data = request.get_json()
-    if data:
-        d = dao.Delivery(pool)
+    success = False
+    inputs = FsmtJsonInputs(request)
+
+    if not inputs.validate():
+        response = jsonify(success=False, errors=inputs.errors), 400
+    else:
+        data = request.get_json()
+        document = dao.Delivery(pool)
+
         if data['curr_fsmt'] == 'COMMITTED':
-            d.commit(document_id)
+            success = document.commit(document_id)
+            response = jsonify(success=success, message="document commited"), 200
         elif data['curr_fsmt'] == 'DECOMMITTED':
-            d.decommit(document_id)
+            success = document.decommit(document_id)
+            response = jsonify(success=success, message="document decommited"), 200
         else:
-            return 'incorrect fsmt', 400
-    return jsonify({"status": data['curr_fsmt']})
+            return jsonify(success=success, errors="incorrect fsmt"), 400
+
+        if not success:
+            response = jsonify(success=False, errors=document.errors), 400
+
+    if not response:
+        response = jsonify(success=success, message="unexpected error"), 400
+
+    return response
 
 
 @app.route('/receipts', methods=['GET'])
@@ -583,14 +793,23 @@ def get_receipts():
 
 @app.route('/receipts', methods=['POST'])
 def post_receipt():
-    data = request.get_json()
-    if data:
-        d = dao.Receipt(pool)
-        d.from_dict(data)
-        i = d.init()
-        return jsonify({'receipts': i})
+    success = False
+    document_id = None
+    inputs = InboundDocumentJsonInputs(request)
+    if not inputs.validate():
+        response = jsonify(success=success, errors=inputs.errors), 400
+        return response
     else:
-        return '', 400
+        data = request.get_json()
+        document = dao.Receipt(pool)
+        document.from_dict(data)
+        document_id = document.init()
+    if document_id:
+        success = True
+        response = jsonify(success=success, message="document id=[{0}] created".format(document_id)), 200
+    else:
+        response = jsonify(success=success, errors=document.errors), 400
+    return response
 
 
 @app.route('/receipts/<int:document_id>', methods=['GET'])
@@ -601,8 +820,14 @@ def get_receipt(document_id):
 
 @app.route('/receipts/<int:document_id>', methods=['DELETE'])
 def del_receipt(document_id):
-    dao.Receipt(pool).delete(document_id)
-    return '', 204
+    document = dao.Receipt(pool)
+    success = document.delete(document_id)
+    if success:
+        response = ('', 204)
+    else:
+        response = jsonify(success=False, errors=document.errors), 400
+
+    return response
 
 
 @app.route('/receipts/<int:document_id>/body', methods=['PATCH'])
@@ -619,16 +844,31 @@ def patch_receipts_body(document_id):
 
 @app.route('/receipts/<int:document_id>/fsmt', methods=['PUT'])
 def patch_receipt_fsmt(document_id):
-    data = request.get_json()
-    if data:
-        d = dao.Receipt(pool)
+    success = False
+    inputs = FsmtJsonInputs(request)
+
+    if not inputs.validate():
+        response = jsonify(success=False, errors=inputs.errors), 400
+    else:
+        data = request.get_json()
+        document = dao.Receipt(pool)
+
         if data['curr_fsmt'] == 'COMMITTED':
-            d.commit(document_id)
+            success = document.commit(document_id)
+            response = jsonify(success=success, message="document commited"), 200
         elif data['curr_fsmt'] == 'DECOMMITTED':
-            d.decommit(document_id)
+            success = document.decommit(document_id)
+            response = jsonify(success=success, message="document decommited"), 200
         else:
-            return 'incorrect fsmt', 400
-    return jsonify({"status": data['curr_fsmt']})
+            return jsonify(success=success, errors="incorrect fsmt"), 400
+
+        if not success:
+            response = jsonify(success=False, errors=document.errors), 400
+
+    if not response:
+        response = jsonify(success=success, message="unexpected error"), 400
+
+    return response
 
 
 @app.route('/cutoffs', methods=['GET'])
@@ -655,14 +895,23 @@ def get_cutoffs():
 
 @app.route('/cutoffs', methods=['POST'])
 def post_cutoff():
-    data = request.get_json()
-    if data:
-        d = dao.Cutoff(pool)
-        d.from_dict(data)
-        i = d.init()
-        return jsonify({'cutoffs': i})
+    success = False
+    document_id = None
+    inputs = GenericDocumentJsonInputs(request)
+    if not inputs.validate():
+        response = jsonify(success=success, errors=inputs.errors), 400
+        return response
     else:
-        return '', 400
+        data = request.get_json()
+        document = dao.Cutoff(pool)
+        document.from_dict(data)
+        document_id = document.init()
+    if document_id:
+        success = True
+        response = jsonify(success=success, message="document id=[{0}] created".format(document_id)), 200
+    else:
+        response = jsonify(success=success, errors=document.errors), 400
+    return response
 
 
 @app.route('/cutoffs/<int:document_id>', methods=['GET'])
@@ -673,22 +922,43 @@ def get_cutoff(document_id):
 
 @app.route('/cutoffs/<int:document_id>', methods=['DELETE'])
 def del_cutoff(document_id):
-    dao.Cutoff(pool).delete(document_id)
-    return '', 204
+    document = dao.Cutoff(pool)
+    success = document.delete(document_id)
+    if success:
+        response = ('', 204)
+    else:
+        response = jsonify(success=False, errors=document.errors), 400
+
+    return response
 
 
 @app.route('/cutoffs/<int:document_id>/fsmt', methods=['PUT'])
 def patch_cutoffs_fsmt(document_id):
-    data = request.get_json()
-    if data:
-        d = dao.Cutoff(pool)
+    success = False
+    inputs = FsmtJsonInputs(request)
+
+    if not inputs.validate():
+        response = jsonify(success=False, errors=inputs.errors), 400
+    else:
+        data = request.get_json()
+        document = dao.Cutoff(pool)
+
         if data['curr_fsmt'] == 'COMMITTED':
-            d.commit(document_id)
+            success = document.commit(document_id)
+            response = jsonify(success=success, message="document commited"), 200
         elif data['curr_fsmt'] == 'DECOMMITTED':
-            d.decommit(document_id)
+            success = document.decommit(document_id)
+            response = jsonify(success=success, message="document decommited"), 200
         else:
-            return 'incorrect fsmt', 400
-    return jsonify({"status": data['curr_fsmt']})
+            return jsonify(success=success, errors="incorrect fsmt"), 400
+
+        if not success:
+            response = jsonify(success=False, errors=document.errors), 400
+
+    if not response:
+        response = jsonify(success=success, message="unexpected error"), 400
+
+    return response
 
 
 @app.route('/stocktakes', methods=['GET'])
@@ -715,14 +985,23 @@ def get_stocktakes():
 
 @app.route('/stocktakes', methods=['POST'])
 def post_stocktake():
-    data = request.get_json()
-    if data:
-        d = dao.Stocktake(pool)
-        d.from_dict(data)
-        i = d.init()
-        return jsonify({'stocktakes': i})
+    success = False
+    document_id = None
+    inputs = GenericDocumentJsonInputs(request)
+    if not inputs.validate():
+        response = jsonify(success=success, errors=inputs.errors), 400
+        return response
     else:
-        return '', 400
+        data = request.get_json()
+        document = dao.Stocktake(pool)
+        document.from_dict(data)
+        document_id = document.init()
+    if document_id:
+        success = True
+        response = jsonify(success=success, message="document id=[{0}] created".format(document_id)), 200
+    else:
+        response = jsonify(success=success, errors=document.errors), 400
+    return response
 
 
 @app.route('/stocktakes/<int:document_id>', methods=['GET'])
@@ -733,8 +1012,14 @@ def get_stocktake(document_id):
 
 @app.route('/stocktakes/<int:document_id>', methods=['DELETE'])
 def del_stocktake(document_id):
-    dao.Stocktake(pool).delete(document_id)
-    return '', 204
+    document = dao.Stocktake(pool)
+    success = document.delete(document_id)
+    if success:
+        response = ('', 204)
+    else:
+        response = jsonify(success=False, errors=document.errors), 400
+
+    return response
 
 
 @app.route('/stocktakes/<int:document_id>/body', methods=['PATCH'])
@@ -751,16 +1036,31 @@ def patch_stocktakes_body(document_id):
 
 @app.route('/stocktakes/<int:document_id>/fsmt', methods=['PUT'])
 def patch_stocktake_fsmt(document_id):
-    data = request.get_json()
-    if data:
-        d = dao.Stocktake(pool)
+    success = False
+    inputs = FsmtJsonInputs(request)
+
+    if not inputs.validate():
+        response = jsonify(success=False, errors=inputs.errors), 400
+    else:
+        data = request.get_json()
+        document = dao.Stocktake(pool)
+
         if data['curr_fsmt'] == 'COMMITTED':
-            d.commit(document_id)
+            success = document.commit(document_id)
+            response = jsonify(success=success, message="document commited"), 200
         elif data['curr_fsmt'] == 'DECOMMITTED':
-            d.decommit(document_id)
+            success = document.decommit(document_id)
+            response = jsonify(success=success, message="document decommited"), 200
         else:
-            return 'incorrect fsmt', 400
-    return jsonify({"status": data['curr_fsmt']})
+            return jsonify(success=success, errors="incorrect fsmt"), 400
+
+        if not success:
+            response = jsonify(success=False, errors=document.errors), 400
+
+    if not response:
+        response = jsonify(success=success, message="unexpected error"), 400
+
+    return response
 
 
 @app.route('/stockcards', methods=['GET'])
