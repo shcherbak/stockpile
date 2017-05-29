@@ -685,3 +685,13 @@ def register_common_inbound_head(oid=None, conn_or_curs=None):
     _ext.register_type(INBOUND_HEAD_ARRAY, conn_or_curs)
 
     return INBOUND_HEAD
+
+
+def pgcast(conn):
+    psycopg2.extras.register_uuid()
+    register_common_document_body(conn_or_curs=conn)
+    register_common_stoktake_body(conn_or_curs=conn)
+    register_common_document_head(conn_or_curs=conn)
+    register_common_goal_head(conn_or_curs=conn)
+    register_common_outbound_head(conn_or_curs=conn)
+    register_common_inbound_head(conn_or_curs=conn)

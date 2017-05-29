@@ -1,18 +1,8 @@
 #!/usr/bin/env python
 
-import pgcast
 import psycopg2.extras
-from connection import connection
 
-
-def _register_cast(conn):
-    psycopg2.extras.register_uuid()
-    pgcast.register_common_document_body(conn_or_curs=conn)
-    pgcast.register_common_stoktake_body(conn_or_curs=conn)
-    pgcast.register_common_document_head(conn_or_curs=conn)
-    pgcast.register_common_goal_head(conn_or_curs=conn)
-    pgcast.register_common_outbound_head(conn_or_curs=conn)
-    pgcast.register_common_inbound_head(conn_or_curs=conn)
+from pgcast import pgcast
 
 
 class BaseDocument:
@@ -24,9 +14,8 @@ class BaseDocument:
     COMMIT_DOCUMENT_SQL = None
     DECOMMIT_DOCUMENT_SQL = None
 
-    def __init__(self, document_id=None):
-        self._conn = connection()
-        _register_cast(self._conn)
+    def __init__(self, pool, document_id=None):
+        self.pool = pool
         if document_id:
             self.load(document_id)
         else:
@@ -34,84 +23,127 @@ class BaseDocument:
             self.body = None
 
     def init(self):
+        conn = None
+        document_id = None
         try:
-            curs = self._conn.cursor()
+            conn = self.pool.getconn()
+            pgcast(conn)
+            curs = conn.cursor()
             curs.execute(self.CREATE_DOCUMENT_SQL, (self.head, self.body,))
             print(curs.query)
             document_id = curs.fetchone()[0]
-            self._conn.commit()
+            conn.commit()
             curs.close()
-            return document_id
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
-        #finally:
-        #    if conn is not None:
-        #        conn.close()
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
+        return document_id
 
     def reinit(self, document_id):
+        conn = None
         try:
-            curs = self._conn.cursor()
+            conn = self.pool.getconn()
+            pgcast(conn)
+            curs = conn.cursor()
             curs.execute(self.UPDATE_BODY_SQL, (document_id, self.body,))
             print(curs.query)
-            self._conn.commit()
+            conn.commit()
             curs.close()
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
 
     def load(self, document_id):
         self._load_head(document_id)
         self._load_body(document_id)
 
     def delete(self, document_id):
+        conn = None
         try:
-            curs = self._conn.cursor()
+            conn = self.pool.getconn()
+            pgcast(conn)
+            curs = conn.cursor()
             curs.execute(self.DELETE_DOCUMENT_SQL, (document_id,))
             print(curs.query)
-            self._conn.commit()
+            conn.commit()
             curs.close()
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
 
     def commit(self, document_id, apprise=True):
+        conn = None
         try:
-            curs = self._conn.cursor()
+            conn = self.pool.getconn()
+            pgcast(conn)
+            curs = conn.cursor()
             curs.execute(self.COMMIT_DOCUMENT_SQL, (document_id, apprise,))
             print(curs.query)
-            self._conn.commit()
+            conn.commit()
             curs.close()
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
 
     def decommit(self, document_id, apprise=True):
-        curs = self._conn.cursor()
-        curs.execute(self.DECOMMIT_DOCUMENT_SQL, (document_id, apprise,))
-        print(curs.query)
-        self._conn.commit()
-        curs.close()
+        conn = None
+        try:
+            conn = self.pool.getconn()
+            pgcast(conn)
+            curs = conn.cursor()
+            curs.execute(self.DECOMMIT_DOCUMENT_SQL, (document_id, apprise,))
+            print(curs.query)
+            conn.commit()
+            curs.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
 
     def _load_head(self, document_id):
+        conn = None
         try:
-            curs = self._conn.cursor()
+            conn = self.pool.getconn()
+            pgcast(conn)
+            curs = conn.cursor()
             curs.execute(self.GET_HEAD_SQL, (document_id,))
             # print(curs.query)
             self.head = curs.fetchone()[0]
-            self._conn.commit()
+            conn.commit()
             curs.close()
             # return head
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
 
     def _load_body(self, document_id):
+        conn = None
         try:
-            curs = self._conn.cursor()
+            conn = self.pool.getconn()
+            pgcast(conn)
+            curs = conn.cursor()
             curs.execute(self.GET_BODY_SQL, (document_id,))
             # print(curs.query)
             self.body = curs.fetchone()[0]
-            self._conn.commit()
+            conn.commit()
             curs.close()
             # return body
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
 
     def to_dict(self):
         _body = []
@@ -241,8 +273,10 @@ class Reserve(OutboundDocument):
     COMMIT_DOCUMENT_SQL = "SELECT reserve.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT reserve.do_decommit(__document_id := %s, __apprise := %s)"
 
+
 class Cutoff(BaseDocument):
     pass
+
 
 class Stocktake(BaseDocument):
     GET_HEAD_SQL = "SELECT stocktake.get_head(__document_id := %s)"
@@ -267,25 +301,37 @@ class Stocktake(BaseDocument):
 class BaseDocumentList:
     GET_LSIT_SQL = None
 
-    def __init__(self, facility=None, sdate=None, edate=None):
-        self.facility_code = None
+    def __init__(self, pool, facility=None, sdate=None, edate=None):
+        self.pool = pool
+
+        # self.facility_code = None
         if facility:
             self.facility_code = facility
-        self.date_start = None
+
+        # self.date_start = None
         if sdate:
             self.date_start = sdate
-        self.date_end = None
+
+        # self.date_end = None
         if edate:
             self.date_end = edate
-        self._conn = connection()
-        _register_cast(self._conn)
 
     def get_document_list(self):
-        curs = self._conn.cursor()
-        curs.execute(self.GET_LSIT_SQL, (self.facility_code, self.date_start, self.date_end,))
-        document_list = curs.fetchone()[0]
-        self._conn.commit()
-        curs.close()
+        conn = None
+        document_list = None
+        try:
+            conn = self.pool.getconn()
+            pgcast(conn)
+            curs = conn.cursor()
+            curs.execute(self.GET_LSIT_SQL, (self.facility_code, self.date_start, self.date_end,))
+            document_list = curs.fetchone()[0]
+            conn.commit()
+            curs.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
         return document_list
 
     def to_dict(self):
