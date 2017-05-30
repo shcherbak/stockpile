@@ -937,7 +937,10 @@ def get_stockcard(document_id):
 
 @app.route('/balance', methods=['GET'])
 def get_balance():
-    return '', 405
+    document = dao.Balance(pool)
+    document.load()
+    print(document.body)
+    return jsonify(document.to_dict()), 200
 
 
 if __name__ == '__main__':

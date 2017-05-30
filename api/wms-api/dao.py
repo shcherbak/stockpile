@@ -403,15 +403,15 @@ class Stocktake(BaseDocument):
     COMMIT_DOCUMENT_SQL = "SELECT stocktake.do_commit(__document_id := %s, __apprise := %s)"
     DECOMMIT_DOCUMENT_SQL = "SELECT stocktake.do_decommit(__document_id := %s, __apprise := %s)"
 
-    def from_dict(self, d):
-        self.head = pgcast.DocumentHead()
-        self.head.from_dict(d['head'])
-        self.body = []
-        for row in d['body']:
-            b = pgcast.StocktakeBody()
-            b.from_dict(row)
-            self.body.append(b)
-            # return self.create_document(self.head, self.body)
+    #def from_dict(self, d):
+    #    self.head = pgcast.DocumentHead()
+    #    self.head.from_dict(d['head'])
+    #    self.body = []
+    #    for row in d['body']:
+    #        b = pgcast.StocktakeBody()
+    #        b.from_dict(row)
+    #        self.body.append(b)
+    #        # return self.create_document(self.head, self.body)
 
 
 class BaseDocumentList:
@@ -496,3 +496,37 @@ class StocktakeList(BaseDocumentList):
 
 class CutoffList(BaseDocumentList):
     GET_LSIT_SQL = "SELECT cutoff.get_head_batch_proposed(__facility_code := %s, __date_start := %s, __date_end := %s)"
+
+
+class Balance:
+    GET_BALANCE_SQL0 = "SELECT facility_code, good_code from balance.balance"
+    GET_BALANCE_SQL1 = "SELECT facility_code, good_code from balance.balance WHERE good_code = %s"
+
+    def __init__(self, pool):
+        self.pool = pool
+        self.errors = []
+
+    def to_dict(self):
+        _body = []
+        for row in self.body:
+            _body.append(row)
+        return {"body": _body}
+
+    def load(self, good_code=None):
+        conn = None
+        try:
+            conn = self.pool.getconn()
+            pgcast.register(conn)
+            curs = conn.cursor()
+            if good_code:
+                curs.execute(self.GET_BALANCE_SQL0)
+            else:
+                curs.execute(self.GET_BALANCE_SQL0, (good_code,))
+            self.body = curs.fetchall()
+            conn.commit()
+            curs.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
