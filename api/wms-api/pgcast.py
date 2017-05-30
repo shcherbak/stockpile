@@ -156,7 +156,7 @@ class StocktakeBody(object):
             self.from_string(s)
 
     def __repr__(self):
-        return "stoktake_body(good_code={0}, quantity={1}, uom_code={2}, quantity_diff={3})" \
+        return "stocktake_body(good_code={0}, quantity={1}, uom_code={2}, quantity_diff={3})" \
             .format(self.good_code,
                     self.quantity,
                     self.uom_code,
@@ -194,32 +194,32 @@ class StocktakeBody(object):
                              m.group(3),
                              m.group(4)))
         else:
-            raise psycopg2.InterfaceError("bad stoktake_body representation: %r" % s)
+            raise psycopg2.InterfaceError("bad stocktake_body representation: %r" % s)
 
     def getquoted(self):
-        return "({0}, {1}, {2}, {3})::common.stoktake_body"\
+        return "({0}, {1}, {2}, {3})::common.stocktake_body"\
             .format(_adapt(self.good_code),
                     _adapt(self.quantity),
                     _adapt(self.uom_code),
                     _adapt(self.quantity_diff))
 
 
-def register_common_stoktake_body(oid=None, conn_or_curs=None):
+def register_common_stocktake_body(oid=None, conn_or_curs=None):
     if not oid:
-        oid1 = _get_pg_typname_oid(conn_or_curs, 'common', 'stoktake_body')
-        oid2 = _get_pg_typarray_oid(conn_or_curs, 'common', 'stoktake_body')
+        oid1 = _get_pg_typname_oid(conn_or_curs, 'common', 'stocktake_body')
+        oid2 = _get_pg_typarray_oid(conn_or_curs, 'common', 'stocktake_body')
     elif isinstance(oid, (list, tuple)):
         oid1, oid2 = oid
     else:
         print('error')
 
-    STOKTAKE_BODY = _ext.new_type((oid1,), "STOCKTAKE_BODY", StocktakeBody)
-    STOKTAKE_BODY_ARRAY = _ext.new_array_type((oid2,), "STOCKTAKE_BODY_ARRAY", STOKTAKE_BODY)
+    stocktake_body = _ext.new_type((oid1,), "STOCKTAKE_BODY", StocktakeBody)
+    stocktake_body_ARRAY = _ext.new_array_type((oid2,), "STOCKTAKE_BODY_ARRAY", stocktake_body)
 
-    _ext.register_type(STOKTAKE_BODY, conn_or_curs)
-    _ext.register_type(STOKTAKE_BODY_ARRAY, conn_or_curs)
+    _ext.register_type(stocktake_body, conn_or_curs)
+    _ext.register_type(stocktake_body_ARRAY, conn_or_curs)
 
-    return STOKTAKE_BODY
+    return stocktake_body
 
 
 class DocumentHead(object):
@@ -690,7 +690,7 @@ def register_common_inbound_head(oid=None, conn_or_curs=None):
 def register(conn):
     psycopg2.extras.register_uuid()
     register_common_document_body(conn_or_curs=conn)
-    register_common_stoktake_body(conn_or_curs=conn)
+    register_common_stocktake_body(conn_or_curs=conn)
     register_common_document_head(conn_or_curs=conn)
     register_common_goal_head(conn_or_curs=conn)
     register_common_outbound_head(conn_or_curs=conn)
