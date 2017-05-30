@@ -281,7 +281,117 @@ class Reserve(OutboundDocument):
 
 
 class Cutoff(BaseDocument):
-    pass
+    GET_HEAD_SQL = "SELECT cutoff.get_head(__document_id := %s)"
+    GET_BODY_SQL = None
+    UPDATE_BODY_SQL = None
+    DELETE_DOCUMENT_SQL = "SELECT cutoff.destroy(__document_id := %s)"
+    CREATE_DOCUMENT_SQL = "SELECT cutoff.init(__head := %s)"
+    COMMIT_DOCUMENT_SQL = "SELECT cutoff.do_commit(__document_id := %s)"
+    DECOMMIT_DOCUMENT_SQL = "SELECT cutoff.do_decommit(__document_id := %s)"
+
+    def __init__(self, pool, document_id=None):
+        self.pool = pool
+        self.errors = []
+        if document_id:
+            self.load(document_id)
+        else:
+            self.head = None
+            self.body = None
+
+    def init(self):
+        conn = None
+        document_id = None
+        try:
+            conn = self.pool.getconn()
+            pgcast.register(conn)
+            curs = conn.cursor()
+            curs.execute(self.CREATE_DOCUMENT_SQL, (self.head,))
+            document_id = curs.fetchone()[0]
+            conn.commit()
+            curs.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            self.errors.append(error.pgerror)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
+        return document_id
+
+    def reinit(self, document_id):
+        pass
+
+    def load(self, document_id):
+        self._load_head(document_id)
+
+    def commit(self, document_id, apprise=True):
+        success = True
+        conn = None
+        try:
+            conn = self.pool.getconn()
+            pgcast.register(conn)
+            curs = conn.cursor()
+            curs.execute(self.COMMIT_DOCUMENT_SQL, (document_id,))
+            conn.commit()
+            curs.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            success = False
+            self.errors.append(error.pgerror)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
+        return success
+
+    def decommit(self, document_id, apprise=True):
+        success = True
+        conn = None
+        try:
+            conn = self.pool.getconn()
+            pgcast.register(conn)
+            curs = conn.cursor()
+            curs.execute(self.DECOMMIT_DOCUMENT_SQL, (document_id,))
+            conn.commit()
+            curs.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            success = False
+            self.errors.append(error.pgerror)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
+        return success
+
+    def _load_head(self, document_id):
+        conn = None
+        try:
+            conn = self.pool.getconn()
+            pgcast.register(conn)
+            curs = conn.cursor()
+            curs.execute(self.GET_HEAD_SQL, (document_id,))
+            self.head = curs.fetchone()[0]
+            conn.commit()
+            curs.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                self.pool.putconn(conn)
+
+    def _load_body(self, document_id):
+        pass
+
+    def to_dict(self):
+        #_body = []
+        #for row in self.body:
+        #    _body.append(row.to_dict())
+        return {"head": self.head.to_dict(), "body": []}
+
+    def from_dict(self, d):
+        self.head = pgcast.DocumentHead()
+        self.head.from_dict(d['head'])
+        self.body = []
+        #for row in d['body']:
+        #    b = pgcast.DocumentBody()
+        #    b.from_dict(row)
+        #    self.body.append(b)
+        #    # return self.create_document(self.head, self.body)
 
 
 class Stocktake(BaseDocument):
