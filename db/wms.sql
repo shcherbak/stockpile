@@ -618,10 +618,10 @@ COMMENT ON DOMAIN quantity_signed IS 'quantity signed domain';
 
 --
 -- TOC entry 1463 (class 1247 OID 60026)
--- Name: stoktake_body; Type: TYPE; Schema: common; Owner: postgres
+-- Name: stocktake_body; Type: TYPE; Schema: common; Owner: postgres
 --
 
-CREATE TYPE stoktake_body AS (
+CREATE TYPE stocktake_body AS (
 	good_code character varying,
 	quantity quantity,
 	uom_code character varying,
@@ -629,7 +629,7 @@ CREATE TYPE stoktake_body AS (
 );
 
 
-ALTER TYPE stoktake_body OWNER TO postgres;
+ALTER TYPE stocktake_body OWNER TO postgres;
 
 SET search_path = adjustmentcredit, pg_catalog;
 
@@ -5094,25 +5094,25 @@ ALTER FUNCTION common.convert_outbound_to_goal_head(__outbound_head outbound_hea
 
 --
 -- TOC entry 541 (class 1255 OID 60189)
--- Name: convert_stoktake_to_document_body(stoktake_body); Type: FUNCTION; Schema: common; Owner: postgres
+-- Name: convert_stocktake_to_document_body(stocktake_body); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
-CREATE FUNCTION convert_stoktake_to_document_body(__stoktake_body stoktake_body) RETURNS document_body
+CREATE FUNCTION convert_stocktake_to_document_body(__stocktake_body stocktake_body) RETURNS document_body
     LANGUAGE plpgsql
     AS $$
 BEGIN
 
   RETURN (
-    __stoktake_body.good_code,
-    __stoktake_body.quantity,
-    __stoktake_body.uom_code
+    __stocktake_body.good_code,
+    __stocktake_body.quantity,
+    __stocktake_body.uom_code
   )::common.document_body;
 
 END;
 $$;
 
 
-ALTER FUNCTION common.convert_stoktake_to_document_body(__stoktake_body stoktake_body) OWNER TO postgres;
+ALTER FUNCTION common.convert_stocktake_to_document_body(__stocktake_body stocktake_body) OWNER TO postgres;
 
 --
 -- TOC entry 542 (class 1255 OID 60190)
@@ -11608,7 +11608,7 @@ ALTER FUNCTION reserve.disallow_editing_of_committed_document_body() OWNER TO po
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
-CREATE FUNCTION do_commit(__reserve_id bigint, __apprise boolean DEFAULT true) RETURNS void
+CREATE FUNCTION do_commit(__document_id bigint, __apprise boolean DEFAULT true) RETURNS void
     LANGUAGE plpgsql
     AS $$
 DECLARE
@@ -11616,8 +11616,8 @@ DECLARE
   _body common.document_body[];
 BEGIN
 
-  _head := reserve.get_head(__reserve_id);
-  _body := reserve.get_body(__reserve_id);
+  _head := reserve.get_head(__document_id);
+  _body := reserve.get_body(__document_id);
 
   IF (_head.curr_fsmt = 'COMMITTED'::common.document_fsmt) THEN
     RAISE NOTICE 'reserve % already committed. exiting', _head.gid;
@@ -11629,7 +11629,7 @@ BEGIN
   SET
     curr_fsmt = 'COMMITTED'::common.document_fsmt
   WHERE
-    id = __reserve_id;
+    id = __document_id;
 
   PERFORM balance.gain_reserved_qty(
       __facility_code := _head.facility_code,
@@ -11637,7 +11637,7 @@ BEGIN
 
   IF (__apprise) THEN
     PERFORM goal.apprise(
-        __source_id :=__reserve_id,
+        __source_id := __document_id,
         __source_type := 'RESERVE'::common.document_kind,
         __source_state := 'COMMITTED'::common.document_fsmt);
   END IF;
@@ -11646,7 +11646,7 @@ END;
 $$;
 
 
-ALTER FUNCTION reserve.do_commit(__reserve_id bigint, __apprise boolean) OWNER TO postgres;
+ALTER FUNCTION reserve.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
 -- TOC entry 703 (class 1255 OID 60350)
@@ -18914,28 +18914,28 @@ ALTER FUNCTION tests.__common__convert_outbound_to_goal_head() OWNER TO postgres
 
 --
 -- TOC entry 799 (class 1255 OID 62248)
--- Name: __common__convert_stoktake_to_document_body(); Type: FUNCTION; Schema: tests; Owner: postgres
+-- Name: __common__convert_stocktake_to_document_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
-CREATE FUNCTION __common__convert_stoktake_to_document_body() RETURNS void
+CREATE FUNCTION __common__convert_stocktake_to_document_body() RETURNS void
     LANGUAGE plpgsql
     AS $$
 DECLARE
   _body common.document_body;
   _test_body CONSTANT common.document_body[] := ARRAY[('good2', 2.0, 'm')]::common.document_body[];
-  _test_stoktake_body CONSTANT common.stoktake_body[] := ARRAY[('good2', 2.0, 'm', 0.0)]::common.stoktake_body[];
+  _test_stocktake_body CONSTANT common.stocktake_body[] := ARRAY[('good2', 2.0, 'm', 0.0)]::common.stocktake_body[];
 BEGIN
   
-  RAISE DEBUG '#trace Check __common__convert_stoktake_to_document_body()';
+  RAISE DEBUG '#trace Check __common__convert_stocktake_to_document_body()';
 
-  _body := common.convert_stoktake_to_document_body(_test_stoktake_body[1]);
+  _body := common.convert_stocktake_to_document_body(_test_stocktake_body[1]);
   PERFORM pgunit.assert_equals(_test_body[1], _body, 'Incorrect _body value');
 
 END;
 $$;
 
 
-ALTER FUNCTION tests.__common__convert_stoktake_to_document_body() OWNER TO postgres;
+ALTER FUNCTION tests.__common__convert_stocktake_to_document_body() OWNER TO postgres;
 
 --
 -- TOC entry 890 (class 1255 OID 60538)
@@ -24129,10 +24129,10 @@ CREATE CAST (common.outbound_head AS common.goal_head) WITH FUNCTION common.conv
 
 --
 -- TOC entry 4139 (class 2605 OID 60686)
--- Name: CAST (common.stoktake_body AS common.document_body); Type: CAST; Schema: pg_catalog; Owner: 
+-- Name: CAST (common.stocktake_body AS common.document_body); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
-CREATE CAST (common.stoktake_body AS common.document_body) WITH FUNCTION common.convert_stoktake_to_document_body(common.stoktake_body) AS IMPLICIT;
+CREATE CAST (common.stocktake_body AS common.document_body) WITH FUNCTION common.convert_stocktake_to_document_body(common.stocktake_body) AS IMPLICIT;
 
 
 SET search_path = adjustmentcredit, pg_catalog;
