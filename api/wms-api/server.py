@@ -42,18 +42,7 @@ log.setLevel(logging.DEBUG)
 log.addHandler(handler)
 
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return "404 not found", 404
-
-
-@app.route('/')
-def hello_world():
-    return 'Stockpile WMS-API v1'
-
-
-@app.route('/demands', methods=['GET'])
-def get_demands():
+def date_range_helper(request):
     req_sdate = request.args.get('sdate')
     req_edate = request.args.get('edate')
     facility = request.args.get('facility')
@@ -71,6 +60,22 @@ def get_demands():
     if not facility:
         facility = 'A1'
 
+    return sdate, edate, facility
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return "404 not found", 404
+
+
+@app.route('/')
+def hello_world():
+    return 'Stockpile WMS-API v1'
+
+
+@app.route('/demands', methods=['GET'])
+def get_demands():
+    sdate, edate, facility = date_range_helper(request)
+    print (sdate, edate, facility)
     return jsonify(dao.DemandList(pool, facility, sdate, edate).to_dict())
 
 
@@ -158,23 +163,7 @@ def patch_demand_fsmt(document_id):
 
 @app.route('/reserves', methods=['GET'])
 def get_reserves():
-    req_sdate = request.args.get('sdate')
-    req_edate = request.args.get('edate')
-    facility = request.args.get('facility')
-
-    if req_sdate:
-        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
-    else:
-        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
-
-    if req_edate:
-        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
-    else:
-        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
-
-    if not facility:
-        facility = 'A1'
-
+    sdate, edate, facility = date_range_helper(request)
     return jsonify(dao.ReserveList(pool, facility, sdate, edate).to_dict())
 
 
@@ -260,23 +249,7 @@ def patch_reserve_fsmt(document_id):
 
 @app.route('/picklists', methods=['GET'])
 def get_picklists():
-    req_sdate = request.args.get('sdate')
-    req_edate = request.args.get('edate')
-    facility = request.args.get('facility')
-
-    if req_sdate:
-        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
-    else:
-        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
-
-    if req_edate:
-        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
-    else:
-        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
-
-    if not facility:
-        facility = 'A1'
-
+    sdate, edate, facility = date_range_helper(request)
     return jsonify(dao.PicklistList(pool, facility, sdate, edate).to_dict())
 
 
@@ -362,23 +335,7 @@ def patch_picklist_fsmt(document_id):
 
 @app.route('/issues', methods=['GET'])
 def get_issues():
-    req_sdate = request.args.get('sdate')
-    req_edate = request.args.get('edate')
-    facility = request.args.get('facility')
-
-    if req_sdate:
-        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
-    else:
-        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
-
-    if req_edate:
-        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
-    else:
-        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
-
-    if not facility:
-        facility = 'A1'
-
+    sdate, edate, facility = date_range_helper(request)
     return jsonify(dao.IssueList(pool, facility, sdate, edate).to_dict())
 
 
@@ -464,23 +421,7 @@ def patch_issue_fsmt(document_id):
 
 @app.route('/despatches', methods=['GET'])
 def get_despatches():
-    req_sdate = request.args.get('sdate')
-    req_edate = request.args.get('edate')
-    facility = request.args.get('facility')
-
-    if req_sdate:
-        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
-    else:
-        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
-
-    if req_edate:
-        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
-    else:
-        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
-
-    if not facility:
-        facility = 'A1'
-
+    sdate, edate, facility = date_range_helper(request)
     return jsonify(dao.DespatchList(pool, facility, sdate, edate).to_dict())
 
 
@@ -567,23 +508,7 @@ def patch_despatch_fsmt(document_id):
 
 @app.route('/rebounds', methods=['GET'])
 def get_rebounds():
-    req_sdate = request.args.get('sdate')
-    req_edate = request.args.get('edate')
-    facility = request.args.get('facility')
-
-    if req_sdate:
-        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
-    else:
-        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
-
-    if req_edate:
-        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
-    else:
-        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
-
-    if not facility:
-        facility = 'A1'
-
+    sdate, edate, facility = date_range_helper(request)
     return jsonify(dao.ReboundList(pool, facility, sdate, edate).to_dict())
 
 
@@ -669,23 +594,7 @@ def patch_rebound_fsmt(document_id):
 
 @app.route('/deliveries', methods=['GET'])
 def get_deliveries():
-    req_sdate = request.args.get('sdate')
-    req_edate = request.args.get('edate')
-    facility = request.args.get('facility')
-
-    if req_sdate:
-        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
-    else:
-        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
-
-    if req_edate:
-        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
-    else:
-        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
-
-    if not facility:
-        facility = 'A1'
-
+    sdate, edate, facility = date_range_helper(request)
     return jsonify(dao.DeliveryList(pool, facility, sdate, edate).to_dict())
 
 
@@ -771,23 +680,7 @@ def patch_delivery_fsmt(document_id):
 
 @app.route('/receipts', methods=['GET'])
 def get_receipts():
-    req_sdate = request.args.get('sdate')
-    req_edate = request.args.get('edate')
-    facility = request.args.get('facility')
-
-    if req_sdate:
-        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
-    else:
-        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
-
-    if req_edate:
-        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
-    else:
-        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
-
-    if not facility:
-        facility = 'A1'
-
+    sdate, edate, facility = date_range_helper(request)
     return jsonify(dao.ReceiptList(pool, facility, sdate, edate).to_dict())
 
 
@@ -873,24 +766,8 @@ def patch_receipt_fsmt(document_id):
 
 @app.route('/cutoffs', methods=['GET'])
 def get_cutoffs():
-    req_sdate = request.args.get('sdate')
-    req_edate = request.args.get('edate')
-    facility = request.args.get('facility')
-
-    if req_sdate:
-        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
-    else:
-        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
-
-    if req_edate:
-        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
-    else:
-        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
-
-    if not facility:
-        facility = 'A1'
-
-        return jsonify(dao.CutoffList(pool, facility, sdate, edate).to_dict())
+    sdate, edate, facility = date_range_helper(request)
+    return jsonify(dao.CutoffList(pool, facility, sdate, edate).to_dict())
 
 
 @app.route('/cutoffs', methods=['POST'])
@@ -963,23 +840,7 @@ def patch_cutoffs_fsmt(document_id):
 
 @app.route('/stocktakes', methods=['GET'])
 def get_stocktakes():
-    req_sdate = request.args.get('sdate')
-    req_edate = request.args.get('edate')
-    facility = request.args.get('facility')
-
-    if req_sdate:
-        sdate = datetime.datetime.strptime(req_sdate, "%Y-%m-%d").date()
-    else:
-        sdate = datetime.datetime.now().date() - datetime.timedelta(days=1000)
-
-    if req_edate:
-        edate = datetime.datetime.strptime(req_edate, "%Y-%m-%d").date()
-    else:
-        edate = datetime.datetime.now().date() + datetime.timedelta(days=1)
-
-    if not facility:
-        facility = 'A1'
-
+    sdate, edate, facility = date_range_helper(request)
     return jsonify(dao.StocktakeList(pool, facility, sdate, edate).to_dict())
 
 
