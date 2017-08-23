@@ -15,5 +15,8 @@ https://github.com/soycacan/pldebugger
 autodoc
 https://github.com/cbbrowne/autodoc
 
+profiler
+https://github.com/glynastill/plprofiler
+
 migration scripts management
 .
