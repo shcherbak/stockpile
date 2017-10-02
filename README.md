@@ -21,7 +21,7 @@ https://github.com/cbbrowne/autodoc
 profiler
 https://github.com/glynastill/plprofiler
 
-PL/pgSQL stored procedure code coverage too
+PL/pgSQL stored procedure code coverage tool
 https://github.com/kputnam/piggly
 
 migration scripts management
