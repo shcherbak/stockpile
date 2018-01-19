@@ -2,13 +2,14 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.6
--- Dumped by pg_dump version 9.5.6
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
--- Started on 2017-03-22 00:30:50 EET
+-- Started on 2018-01-19 23:32:24 EET
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -16,7 +17,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 12 (class 2615 OID 59776)
+-- TOC entry 33 (class 2615 OID 26601)
 -- Name: adjustmentcredit; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -26,8 +27,8 @@ CREATE SCHEMA adjustmentcredit;
 ALTER SCHEMA adjustmentcredit OWNER TO postgres;
 
 --
--- TOC entry 4804 (class 0 OID 0)
--- Dependencies: 12
+-- TOC entry 4963 (class 0 OID 0)
+-- Dependencies: 33
 -- Name: SCHEMA adjustmentcredit; Type: COMMENT; Schema: -; Owner: postgres
 --
 
@@ -35,7 +36,7 @@ COMMENT ON SCHEMA adjustmentcredit IS 'issue';
 
 
 --
--- TOC entry 13 (class 2615 OID 59777)
+-- TOC entry 9 (class 2615 OID 26602)
 -- Name: adjustmentdebit; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -45,8 +46,8 @@ CREATE SCHEMA adjustmentdebit;
 ALTER SCHEMA adjustmentdebit OWNER TO postgres;
 
 --
--- TOC entry 4805 (class 0 OID 0)
--- Dependencies: 13
+-- TOC entry 4964 (class 0 OID 0)
+-- Dependencies: 9
 -- Name: SCHEMA adjustmentdebit; Type: COMMENT; Schema: -; Owner: postgres
 --
 
@@ -54,7 +55,7 @@ COMMENT ON SCHEMA adjustmentdebit IS 'receipt';
 
 
 --
--- TOC entry 14 (class 2615 OID 59778)
+-- TOC entry 22 (class 2615 OID 26603)
 -- Name: api; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -64,7 +65,7 @@ CREATE SCHEMA api;
 ALTER SCHEMA api OWNER TO postgres;
 
 --
--- TOC entry 15 (class 2615 OID 59779)
+-- TOC entry 34 (class 2615 OID 26604)
 -- Name: balance; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -74,7 +75,7 @@ CREATE SCHEMA balance;
 ALTER SCHEMA balance OWNER TO postgres;
 
 --
--- TOC entry 16 (class 2615 OID 59780)
+-- TOC entry 21 (class 2615 OID 26605)
 -- Name: binding; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -84,8 +85,8 @@ CREATE SCHEMA binding;
 ALTER SCHEMA binding OWNER TO postgres;
 
 --
--- TOC entry 4806 (class 0 OID 0)
--- Dependencies: 16
+-- TOC entry 4965 (class 0 OID 0)
+-- Dependencies: 21
 -- Name: SCHEMA binding; Type: COMMENT; Schema: -; Owner: postgres
 --
 
@@ -93,7 +94,7 @@ COMMENT ON SCHEMA binding IS 'bond';
 
 
 --
--- TOC entry 17 (class 2615 OID 59781)
+-- TOC entry 35 (class 2615 OID 26606)
 -- Name: common; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -103,7 +104,7 @@ CREATE SCHEMA common;
 ALTER SCHEMA common OWNER TO postgres;
 
 --
--- TOC entry 18 (class 2615 OID 59782)
+-- TOC entry 28 (class 2615 OID 26607)
 -- Name: cutoff; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -113,7 +114,7 @@ CREATE SCHEMA cutoff;
 ALTER SCHEMA cutoff OWNER TO postgres;
 
 --
--- TOC entry 19 (class 2615 OID 59783)
+-- TOC entry 15 (class 2615 OID 26608)
 -- Name: delivery; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -123,7 +124,7 @@ CREATE SCHEMA delivery;
 ALTER SCHEMA delivery OWNER TO postgres;
 
 --
--- TOC entry 20 (class 2615 OID 59784)
+-- TOC entry 13 (class 2615 OID 26609)
 -- Name: demand; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -133,7 +134,7 @@ CREATE SCHEMA demand;
 ALTER SCHEMA demand OWNER TO postgres;
 
 --
--- TOC entry 21 (class 2615 OID 59785)
+-- TOC entry 36 (class 2615 OID 26610)
 -- Name: despatch; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -143,7 +144,17 @@ CREATE SCHEMA despatch;
 ALTER SCHEMA despatch OWNER TO postgres;
 
 --
--- TOC entry 22 (class 2615 OID 59786)
+-- TOC entry 32 (class 2615 OID 59190)
+-- Name: facility; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA facility;
+
+
+ALTER SCHEMA facility OWNER TO postgres;
+
+--
+-- TOC entry 19 (class 2615 OID 26611)
 -- Name: goal; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -153,7 +164,7 @@ CREATE SCHEMA goal;
 ALTER SCHEMA goal OWNER TO postgres;
 
 --
--- TOC entry 23 (class 2615 OID 59787)
+-- TOC entry 10 (class 2615 OID 26612)
 -- Name: issue; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -163,7 +174,7 @@ CREATE SCHEMA issue;
 ALTER SCHEMA issue OWNER TO postgres;
 
 --
--- TOC entry 24 (class 2615 OID 59788)
+-- TOC entry 29 (class 2615 OID 26613)
 -- Name: lot; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -173,7 +184,7 @@ CREATE SCHEMA lot;
 ALTER SCHEMA lot OWNER TO postgres;
 
 --
--- TOC entry 25 (class 2615 OID 59789)
+-- TOC entry 20 (class 2615 OID 26614)
 -- Name: pgunit; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -183,7 +194,7 @@ CREATE SCHEMA pgunit;
 ALTER SCHEMA pgunit OWNER TO postgres;
 
 --
--- TOC entry 26 (class 2615 OID 59790)
+-- TOC entry 27 (class 2615 OID 26615)
 -- Name: picklist; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -193,7 +204,7 @@ CREATE SCHEMA picklist;
 ALTER SCHEMA picklist OWNER TO postgres;
 
 --
--- TOC entry 27 (class 2615 OID 59791)
+-- TOC entry 25 (class 2615 OID 26616)
 -- Name: rebound; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -203,7 +214,7 @@ CREATE SCHEMA rebound;
 ALTER SCHEMA rebound OWNER TO postgres;
 
 --
--- TOC entry 28 (class 2615 OID 59792)
+-- TOC entry 30 (class 2615 OID 26617)
 -- Name: receipt; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -213,7 +224,7 @@ CREATE SCHEMA receipt;
 ALTER SCHEMA receipt OWNER TO postgres;
 
 --
--- TOC entry 29 (class 2615 OID 59793)
+-- TOC entry 12 (class 2615 OID 26618)
 -- Name: reserve; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -223,7 +234,7 @@ CREATE SCHEMA reserve;
 ALTER SCHEMA reserve OWNER TO postgres;
 
 --
--- TOC entry 30 (class 2615 OID 59794)
+-- TOC entry 16 (class 2615 OID 26619)
 -- Name: schedule; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -233,7 +244,7 @@ CREATE SCHEMA schedule;
 ALTER SCHEMA schedule OWNER TO postgres;
 
 --
--- TOC entry 31 (class 2615 OID 59795)
+-- TOC entry 11 (class 2615 OID 26620)
 -- Name: stockcard; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -243,7 +254,7 @@ CREATE SCHEMA stockcard;
 ALTER SCHEMA stockcard OWNER TO postgres;
 
 --
--- TOC entry 32 (class 2615 OID 59796)
+-- TOC entry 14 (class 2615 OID 26621)
 -- Name: stocktake; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -253,7 +264,7 @@ CREATE SCHEMA stocktake;
 ALTER SCHEMA stocktake OWNER TO postgres;
 
 --
--- TOC entry 33 (class 2615 OID 59797)
+-- TOC entry 18 (class 2615 OID 26622)
 -- Name: tests; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -263,7 +274,17 @@ CREATE SCHEMA tests;
 ALTER SCHEMA tests OWNER TO postgres;
 
 --
--- TOC entry 2 (class 3079 OID 13311)
+-- TOC entry 24 (class 2615 OID 58807)
+-- Name: uom; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA uom;
+
+
+ALTER SCHEMA uom OWNER TO postgres;
+
+--
+-- TOC entry 2 (class 3079 OID 13343)
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -271,7 +292,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 4809 (class 0 OID 0)
+-- TOC entry 4967 (class 0 OID 0)
 -- Dependencies: 2
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -280,7 +301,7 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 --
--- TOC entry 1 (class 3079 OID 59798)
+-- TOC entry 1 (class 3079 OID 26623)
 -- Name: adminpack; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -288,7 +309,7 @@ CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 4810 (class 0 OID 0)
+-- TOC entry 4968 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
 --
@@ -297,7 +318,7 @@ COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
 
 
 --
--- TOC entry 6 (class 3079 OID 59807)
+-- TOC entry 6 (class 3079 OID 26632)
 -- Name: pldbgapi; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -305,7 +326,7 @@ CREATE EXTENSION IF NOT EXISTS pldbgapi WITH SCHEMA public;
 
 
 --
--- TOC entry 4811 (class 0 OID 0)
+-- TOC entry 4969 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: EXTENSION pldbgapi; Type: COMMENT; Schema: -; Owner: 
 --
@@ -314,7 +335,7 @@ COMMENT ON EXTENSION pldbgapi IS 'server-side support for debugging PL/pgSQL fun
 
 
 --
--- TOC entry 5 (class 3079 OID 59844)
+-- TOC entry 5 (class 3079 OID 26669)
 -- Name: plpgsql_check; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -322,7 +343,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql_check WITH SCHEMA public;
 
 
 --
--- TOC entry 4812 (class 0 OID 0)
+-- TOC entry 4970 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: EXTENSION plpgsql_check; Type: COMMENT; Schema: -; Owner: 
 --
@@ -331,7 +352,7 @@ COMMENT ON EXTENSION plpgsql_check IS 'extended check for plpgsql functions';
 
 
 --
--- TOC entry 4 (class 3079 OID 59849)
+-- TOC entry 4 (class 3079 OID 26674)
 -- Name: plprofiler; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -339,7 +360,7 @@ CREATE EXTENSION IF NOT EXISTS plprofiler WITH SCHEMA public;
 
 
 --
--- TOC entry 4813 (class 0 OID 0)
+-- TOC entry 4971 (class 0 OID 0)
 -- Dependencies: 4
 -- Name: EXTENSION plprofiler; Type: COMMENT; Schema: -; Owner: 
 --
@@ -348,7 +369,7 @@ COMMENT ON EXTENSION plprofiler IS 'server-side support for profiling PL/pgSQL f
 
 
 --
--- TOC entry 3 (class 3079 OID 59918)
+-- TOC entry 3 (class 3079 OID 26743)
 -- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -356,7 +377,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 
 
 --
--- TOC entry 4814 (class 0 OID 0)
+-- TOC entry 4972 (class 0 OID 0)
 -- Dependencies: 3
 -- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
 --
@@ -367,7 +388,7 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 SET search_path = common, pg_catalog;
 
 --
--- TOC entry 1424 (class 1247 OID 59930)
+-- TOC entry 1454 (class 1247 OID 26755)
 -- Name: document_kind; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -392,7 +413,7 @@ CREATE TYPE document_kind AS ENUM (
 ALTER TYPE document_kind OWNER TO postgres;
 
 --
--- TOC entry 1427 (class 1247 OID 59960)
+-- TOC entry 1457 (class 1247 OID 26784)
 -- Name: result_kind; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -405,7 +426,7 @@ CREATE TYPE result_kind AS ENUM (
 ALTER TYPE result_kind OWNER TO postgres;
 
 --
--- TOC entry 1430 (class 1247 OID 59967)
+-- TOC entry 1460 (class 1247 OID 26791)
 -- Name: action_result; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -419,7 +440,7 @@ CREATE TYPE action_result AS (
 ALTER TYPE action_result OWNER TO postgres;
 
 --
--- TOC entry 1433 (class 1247 OID 59968)
+-- TOC entry 1463 (class 1247 OID 26792)
 -- Name: quantity; Type: DOMAIN; Schema: common; Owner: postgres
 --
 
@@ -430,8 +451,8 @@ CREATE DOMAIN quantity AS numeric(20,4) DEFAULT 0
 ALTER DOMAIN quantity OWNER TO postgres;
 
 --
--- TOC entry 4815 (class 0 OID 0)
--- Dependencies: 1433
+-- TOC entry 4973 (class 0 OID 0)
+-- Dependencies: 1463
 -- Name: DOMAIN quantity; Type: COMMENT; Schema: common; Owner: postgres
 --
 
@@ -439,7 +460,7 @@ COMMENT ON DOMAIN quantity IS 'quantity domain';
 
 
 --
--- TOC entry 1435 (class 1247 OID 59972)
+-- TOC entry 1465 (class 1247 OID 26796)
 -- Name: document_body; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -453,7 +474,7 @@ CREATE TYPE document_body AS (
 ALTER TYPE document_body OWNER TO postgres;
 
 --
--- TOC entry 1438 (class 1247 OID 59974)
+-- TOC entry 1468 (class 1247 OID 26798)
 -- Name: document_fsmt; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -467,7 +488,7 @@ CREATE TYPE document_fsmt AS ENUM (
 ALTER TYPE document_fsmt OWNER TO postgres;
 
 --
--- TOC entry 1441 (class 1247 OID 59983)
+-- TOC entry 1471 (class 1247 OID 26807)
 -- Name: document_head; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -485,7 +506,7 @@ CREATE TYPE document_head AS (
 ALTER TYPE document_head OWNER TO postgres;
 
 --
--- TOC entry 1444 (class 1247 OID 59986)
+-- TOC entry 1474 (class 1247 OID 26810)
 -- Name: document_type; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -498,7 +519,42 @@ CREATE TYPE document_type AS (
 ALTER TYPE document_type OWNER TO postgres;
 
 --
--- TOC entry 1447 (class 1247 OID 59988)
+-- TOC entry 1789 (class 1247 OID 59177)
+-- Name: facility_kind; Type: TYPE; Schema: common; Owner: postgres
+--
+
+CREATE TYPE facility_kind AS ENUM (
+    'ENTERPRISE',
+    'SITE',
+    'AREA',
+    'LINE',
+    'ZONE'
+);
+
+
+ALTER TYPE facility_kind OWNER TO postgres;
+
+--
+-- TOC entry 1792 (class 1247 OID 59189)
+-- Name: facility_head; Type: TYPE; Schema: common; Owner: postgres
+--
+
+CREATE TYPE facility_head AS (
+	document_id bigint,
+	gid uuid,
+	facility_code character varying,
+	version_num integer,
+	display_name character varying,
+	document_date date,
+	parent_facility_code character varying,
+	facility_type facility_kind
+);
+
+
+ALTER TYPE facility_head OWNER TO postgres;
+
+--
+-- TOC entry 1477 (class 1247 OID 26812)
 -- Name: goal_fsmt; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -518,8 +574,8 @@ CREATE TYPE goal_fsmt AS ENUM (
 ALTER TYPE goal_fsmt OWNER TO postgres;
 
 --
--- TOC entry 4816 (class 0 OID 0)
--- Dependencies: 1447
+-- TOC entry 4974 (class 0 OID 0)
+-- Dependencies: 1477
 -- Name: TYPE goal_fsmt; Type: COMMENT; Schema: common; Owner: postgres
 --
 
@@ -527,7 +583,7 @@ COMMENT ON TYPE goal_fsmt IS 'fsmt type';
 
 
 --
--- TOC entry 1450 (class 1247 OID 60009)
+-- TOC entry 1480 (class 1247 OID 26833)
 -- Name: goal_head; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -545,7 +601,7 @@ CREATE TYPE goal_head AS (
 ALTER TYPE goal_head OWNER TO postgres;
 
 --
--- TOC entry 1453 (class 1247 OID 60012)
+-- TOC entry 1483 (class 1247 OID 26836)
 -- Name: inbound_head; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -564,7 +620,7 @@ CREATE TYPE inbound_head AS (
 ALTER TYPE inbound_head OWNER TO postgres;
 
 --
--- TOC entry 1456 (class 1247 OID 60015)
+-- TOC entry 1486 (class 1247 OID 26839)
 -- Name: outbound_head; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -584,7 +640,7 @@ CREATE TYPE outbound_head AS (
 ALTER TYPE outbound_head OWNER TO postgres;
 
 --
--- TOC entry 1459 (class 1247 OID 60017)
+-- TOC entry 1489 (class 1247 OID 26841)
 -- Name: policy_mode; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -598,7 +654,7 @@ CREATE TYPE policy_mode AS ENUM (
 ALTER TYPE policy_mode OWNER TO postgres;
 
 --
--- TOC entry 1462 (class 1247 OID 60023)
+-- TOC entry 1492 (class 1247 OID 26847)
 -- Name: quantity_signed; Type: DOMAIN; Schema: common; Owner: postgres
 --
 
@@ -608,8 +664,8 @@ CREATE DOMAIN quantity_signed AS numeric(20,4) DEFAULT 0;
 ALTER DOMAIN quantity_signed OWNER TO postgres;
 
 --
--- TOC entry 4817 (class 0 OID 0)
--- Dependencies: 1462
+-- TOC entry 4975 (class 0 OID 0)
+-- Dependencies: 1492
 -- Name: DOMAIN quantity_signed; Type: COMMENT; Schema: common; Owner: postgres
 --
 
@@ -617,7 +673,7 @@ COMMENT ON DOMAIN quantity_signed IS 'quantity signed domain';
 
 
 --
--- TOC entry 1463 (class 1247 OID 60026)
+-- TOC entry 1493 (class 1247 OID 26850)
 -- Name: stocktake_body; Type: TYPE; Schema: common; Owner: postgres
 --
 
@@ -634,7 +690,7 @@ ALTER TYPE stocktake_body OWNER TO postgres;
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 379 (class 1255 OID 60027)
+-- TOC entry 396 (class 1255 OID 26851)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -651,7 +707,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 380 (class 1255 OID 60028)
+-- TOC entry 397 (class 1255 OID 26852)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -702,7 +758,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 381 (class 1255 OID 60029)
+-- TOC entry 398 (class 1255 OID 26853)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -810,7 +866,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 382 (class 1255 OID 60030)
+-- TOC entry 399 (class 1255 OID 26854)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -917,7 +973,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 383 (class 1255 OID 60031)
+-- TOC entry 400 (class 1255 OID 26855)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -946,7 +1002,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 384 (class 1255 OID 60032)
+-- TOC entry 401 (class 1255 OID 26856)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -972,7 +1028,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 385 (class 1255 OID 60033)
+-- TOC entry 402 (class 1255 OID 26857)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -994,7 +1050,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 386 (class 1255 OID 60034)
+-- TOC entry 403 (class 1255 OID 26858)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -1024,7 +1080,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 388 (class 1255 OID 60035)
+-- TOC entry 404 (class 1255 OID 26859)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -1057,7 +1113,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 389 (class 1255 OID 60036)
+-- TOC entry 405 (class 1255 OID 26860)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -1092,7 +1148,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 390 (class 1255 OID 60037)
+-- TOC entry 406 (class 1255 OID 26861)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -1114,7 +1170,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 391 (class 1255 OID 60038)
+-- TOC entry 407 (class 1255 OID 26862)
 -- Name: init(common.outbound_head, common.document_body[]); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -1156,7 +1212,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.init(__head common.outbound_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 392 (class 1255 OID 60039)
+-- TOC entry 409 (class 1255 OID 26863)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -1198,7 +1254,7 @@ $$;
 ALTER FUNCTION adjustmentcredit.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 393 (class 1255 OID 60040)
+-- TOC entry 410 (class 1255 OID 26864)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -1239,7 +1295,7 @@ ALTER FUNCTION adjustmentcredit.reinit(__document_id bigint, __body common.docum
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 394 (class 1255 OID 60041)
+-- TOC entry 411 (class 1255 OID 26865)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1256,7 +1312,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 395 (class 1255 OID 60042)
+-- TOC entry 412 (class 1255 OID 26866)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1307,7 +1363,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 396 (class 1255 OID 60043)
+-- TOC entry 413 (class 1255 OID 26867)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1415,7 +1471,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 397 (class 1255 OID 60044)
+-- TOC entry 414 (class 1255 OID 26868)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1522,7 +1578,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 398 (class 1255 OID 60045)
+-- TOC entry 415 (class 1255 OID 26869)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1551,7 +1607,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 399 (class 1255 OID 60046)
+-- TOC entry 416 (class 1255 OID 26870)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1577,7 +1633,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 400 (class 1255 OID 60047)
+-- TOC entry 417 (class 1255 OID 26871)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1599,7 +1655,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 401 (class 1255 OID 60048)
+-- TOC entry 418 (class 1255 OID 26872)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1628,7 +1684,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 402 (class 1255 OID 60049)
+-- TOC entry 408 (class 1255 OID 26873)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1660,7 +1716,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 403 (class 1255 OID 60050)
+-- TOC entry 420 (class 1255 OID 26874)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1694,7 +1750,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 404 (class 1255 OID 60051)
+-- TOC entry 421 (class 1255 OID 26875)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1716,7 +1772,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 405 (class 1255 OID 60052)
+-- TOC entry 422 (class 1255 OID 26876)
 -- Name: init(common.inbound_head, common.document_body[]); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1756,7 +1812,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.init(__head common.inbound_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 406 (class 1255 OID 60053)
+-- TOC entry 423 (class 1255 OID 26877)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1798,7 +1854,7 @@ $$;
 ALTER FUNCTION adjustmentdebit.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 407 (class 1255 OID 60054)
+-- TOC entry 424 (class 1255 OID 26878)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -1839,7 +1895,7 @@ ALTER FUNCTION adjustmentdebit.reinit(__document_id bigint, __body common.docume
 SET search_path = balance, pg_catalog;
 
 --
--- TOC entry 408 (class 1255 OID 60055)
+-- TOC entry 425 (class 1255 OID 26879)
 -- Name: gain_en_route_qty(character varying, common.document_body[]); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -1887,7 +1943,7 @@ $$;
 ALTER FUNCTION balance.gain_en_route_qty(__facility_code character varying, __inventory common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 409 (class 1255 OID 60056)
+-- TOC entry 426 (class 1255 OID 26880)
 -- Name: gain_on_hand_qty(character varying, common.document_body[]); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -1935,7 +1991,7 @@ $$;
 ALTER FUNCTION balance.gain_on_hand_qty(__facility_code character varying, __inventory common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 411 (class 1255 OID 60057)
+-- TOC entry 427 (class 1255 OID 26881)
 -- Name: gain_on_order_qty(character varying, common.document_body[]); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -1983,7 +2039,7 @@ $$;
 ALTER FUNCTION balance.gain_on_order_qty(__facility_code character varying, __inventory common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 412 (class 1255 OID 60058)
+-- TOC entry 428 (class 1255 OID 26882)
 -- Name: gain_reserved_qty(character varying, common.document_body[]); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -2031,7 +2087,7 @@ $$;
 ALTER FUNCTION balance.gain_reserved_qty(__facility_code character varying, __inventory common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 413 (class 1255 OID 60059)
+-- TOC entry 429 (class 1255 OID 26883)
 -- Name: get_on_hand_qty(character varying); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -2057,7 +2113,7 @@ $$;
 ALTER FUNCTION balance.get_on_hand_qty(__facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 414 (class 1255 OID 60060)
+-- TOC entry 430 (class 1255 OID 26884)
 -- Name: get_on_hand_qty(character varying, character varying[]); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -2084,7 +2140,7 @@ $$;
 ALTER FUNCTION balance.get_on_hand_qty(__facility_code character varying, __good_codes character varying[]) OWNER TO postgres;
 
 --
--- TOC entry 415 (class 1255 OID 60061)
+-- TOC entry 431 (class 1255 OID 26885)
 -- Name: get_on_hand_qty(character varying, character varying); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -2115,7 +2171,7 @@ $$;
 ALTER FUNCTION balance.get_on_hand_qty(__facility_code character varying, __good_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 416 (class 1255 OID 60062)
+-- TOC entry 432 (class 1255 OID 26886)
 -- Name: loss_en_route_qty(character varying, common.document_body[]); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -2149,7 +2205,7 @@ $$;
 ALTER FUNCTION balance.loss_en_route_qty(__facility_code character varying, __inventory common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 417 (class 1255 OID 60063)
+-- TOC entry 433 (class 1255 OID 26887)
 -- Name: loss_on_hand_qty(character varying, common.document_body[]); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -2183,7 +2239,7 @@ $$;
 ALTER FUNCTION balance.loss_on_hand_qty(__facility_code character varying, __inventory common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 418 (class 1255 OID 60064)
+-- TOC entry 434 (class 1255 OID 26888)
 -- Name: loss_on_order_qty(character varying, common.document_body[]); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -2217,7 +2273,7 @@ $$;
 ALTER FUNCTION balance.loss_on_order_qty(__facility_code character varying, __inventory common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 419 (class 1255 OID 60065)
+-- TOC entry 435 (class 1255 OID 26889)
 -- Name: loss_reserved_qty(character varying, common.document_body[]); Type: FUNCTION; Schema: balance; Owner: postgres
 --
 
@@ -2253,7 +2309,7 @@ ALTER FUNCTION balance.loss_reserved_qty(__facility_code character varying, __in
 SET search_path = binding, pg_catalog;
 
 --
--- TOC entry 420 (class 1255 OID 60066)
+-- TOC entry 436 (class 1255 OID 26890)
 -- Name: bind_cutoff_and_adjustmentcredit(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2277,7 +2333,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_adjustmentcredit(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 421 (class 1255 OID 60067)
+-- TOC entry 437 (class 1255 OID 26891)
 -- Name: bind_cutoff_and_adjustmentdebit(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2301,7 +2357,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_adjustmentdebit(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 422 (class 1255 OID 60068)
+-- TOC entry 438 (class 1255 OID 26892)
 -- Name: bind_cutoff_and_delivery(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2325,7 +2381,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_delivery(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 423 (class 1255 OID 60069)
+-- TOC entry 439 (class 1255 OID 26893)
 -- Name: bind_cutoff_and_demand(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2349,7 +2405,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_demand(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 387 (class 1255 OID 60070)
+-- TOC entry 440 (class 1255 OID 26894)
 -- Name: bind_cutoff_and_despatch(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2373,7 +2429,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_despatch(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 425 (class 1255 OID 60071)
+-- TOC entry 441 (class 1255 OID 26895)
 -- Name: bind_cutoff_and_goal(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2397,7 +2453,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_goal(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 426 (class 1255 OID 60072)
+-- TOC entry 442 (class 1255 OID 26896)
 -- Name: bind_cutoff_and_issue(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2421,7 +2477,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_issue(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 427 (class 1255 OID 60073)
+-- TOC entry 443 (class 1255 OID 26897)
 -- Name: bind_cutoff_and_picklist(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2445,7 +2501,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_picklist(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 428 (class 1255 OID 60074)
+-- TOC entry 444 (class 1255 OID 26898)
 -- Name: bind_cutoff_and_rebound(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2469,7 +2525,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_rebound(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 429 (class 1255 OID 60075)
+-- TOC entry 445 (class 1255 OID 26899)
 -- Name: bind_cutoff_and_receipt(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2493,7 +2549,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_receipt(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 430 (class 1255 OID 60076)
+-- TOC entry 446 (class 1255 OID 26900)
 -- Name: bind_cutoff_and_reserve(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2517,7 +2573,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_reserve(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 431 (class 1255 OID 60077)
+-- TOC entry 447 (class 1255 OID 26901)
 -- Name: bind_cutoff_and_stocktake(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2541,7 +2597,7 @@ $$;
 ALTER FUNCTION binding.bind_cutoff_and_stocktake(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 432 (class 1255 OID 60078)
+-- TOC entry 419 (class 1255 OID 26902)
 -- Name: bind_delivery_and_receipt(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2565,7 +2621,7 @@ $$;
 ALTER FUNCTION binding.bind_delivery_and_receipt(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 433 (class 1255 OID 60079)
+-- TOC entry 448 (class 1255 OID 26903)
 -- Name: bind_demand_and_picklist(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2589,7 +2645,7 @@ $$;
 ALTER FUNCTION binding.bind_demand_and_picklist(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 434 (class 1255 OID 60080)
+-- TOC entry 449 (class 1255 OID 26904)
 -- Name: bind_demand_and_reserve(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2613,7 +2669,7 @@ $$;
 ALTER FUNCTION binding.bind_demand_and_reserve(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 435 (class 1255 OID 60081)
+-- TOC entry 450 (class 1255 OID 26905)
 -- Name: bind_goal_and_demand(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2637,7 +2693,7 @@ $$;
 ALTER FUNCTION binding.bind_goal_and_demand(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 436 (class 1255 OID 60082)
+-- TOC entry 451 (class 1255 OID 26906)
 -- Name: bind_goal_and_despatch(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2661,7 +2717,7 @@ $$;
 ALTER FUNCTION binding.bind_goal_and_despatch(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 437 (class 1255 OID 60083)
+-- TOC entry 452 (class 1255 OID 26907)
 -- Name: bind_goal_and_issue(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2685,7 +2741,7 @@ $$;
 ALTER FUNCTION binding.bind_goal_and_issue(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 438 (class 1255 OID 60084)
+-- TOC entry 453 (class 1255 OID 26908)
 -- Name: bind_goal_and_picklist(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2709,7 +2765,7 @@ $$;
 ALTER FUNCTION binding.bind_goal_and_picklist(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 439 (class 1255 OID 60085)
+-- TOC entry 454 (class 1255 OID 26909)
 -- Name: bind_goal_and_reserve(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2733,7 +2789,7 @@ $$;
 ALTER FUNCTION binding.bind_goal_and_reserve(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 440 (class 1255 OID 60086)
+-- TOC entry 455 (class 1255 OID 26910)
 -- Name: bind_issue_and_adjustmentcredit(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2757,7 +2813,7 @@ $$;
 ALTER FUNCTION binding.bind_issue_and_adjustmentcredit(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 441 (class 1255 OID 60087)
+-- TOC entry 456 (class 1255 OID 26911)
 -- Name: bind_issue_and_despatch(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2781,7 +2837,7 @@ $$;
 ALTER FUNCTION binding.bind_issue_and_despatch(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 442 (class 1255 OID 60088)
+-- TOC entry 457 (class 1255 OID 26912)
 -- Name: bind_issue_and_rebound(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2805,7 +2861,7 @@ $$;
 ALTER FUNCTION binding.bind_issue_and_rebound(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 443 (class 1255 OID 60089)
+-- TOC entry 458 (class 1255 OID 26913)
 -- Name: bind_picklist_and_issue(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2829,7 +2885,7 @@ $$;
 ALTER FUNCTION binding.bind_picklist_and_issue(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 444 (class 1255 OID 60090)
+-- TOC entry 459 (class 1255 OID 26914)
 -- Name: bind_receipt_and_adjustmentdebit(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2853,7 +2909,7 @@ $$;
 ALTER FUNCTION binding.bind_receipt_and_adjustmentdebit(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 445 (class 1255 OID 60091)
+-- TOC entry 460 (class 1255 OID 26915)
 -- Name: bind_receipt_and_rebound(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2877,7 +2933,7 @@ $$;
 ALTER FUNCTION binding.bind_receipt_and_rebound(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 446 (class 1255 OID 60092)
+-- TOC entry 461 (class 1255 OID 26916)
 -- Name: get_adjustmentcredit_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2903,7 +2959,7 @@ $$;
 ALTER FUNCTION binding.get_adjustmentcredit_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 447 (class 1255 OID 60093)
+-- TOC entry 462 (class 1255 OID 26917)
 -- Name: get_adjustmentcredit_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2929,7 +2985,7 @@ $$;
 ALTER FUNCTION binding.get_adjustmentcredit_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 448 (class 1255 OID 60094)
+-- TOC entry 463 (class 1255 OID 26918)
 -- Name: get_adjustmentcredit_binded_to_issue(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2947,7 +3003,7 @@ $$;
 ALTER FUNCTION binding.get_adjustmentcredit_binded_to_issue(__issue_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 449 (class 1255 OID 60095)
+-- TOC entry 464 (class 1255 OID 26919)
 -- Name: get_adjustmentdebit_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2973,7 +3029,7 @@ $$;
 ALTER FUNCTION binding.get_adjustmentdebit_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 450 (class 1255 OID 60096)
+-- TOC entry 465 (class 1255 OID 26920)
 -- Name: get_adjustmentdebit_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -2999,7 +3055,7 @@ $$;
 ALTER FUNCTION binding.get_adjustmentdebit_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 451 (class 1255 OID 60097)
+-- TOC entry 466 (class 1255 OID 26921)
 -- Name: get_adjustmentdebit_binded_to_receipt(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3017,7 +3073,7 @@ $$;
 ALTER FUNCTION binding.get_adjustmentdebit_binded_to_receipt(__receipt_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 452 (class 1255 OID 60098)
+-- TOC entry 470 (class 1255 OID 26922)
 -- Name: get_cutoff_binded_to(common.document_head); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3064,7 +3120,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to(__head common.document_head) OWNER TO postgres;
 
 --
--- TOC entry 453 (class 1255 OID 60099)
+-- TOC entry 471 (class 1255 OID 26923)
 -- Name: get_cutoff_binded_to_adjustmentcredit(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3087,7 +3143,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_adjustmentcredit(__adjustmentcredit_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 454 (class 1255 OID 60100)
+-- TOC entry 472 (class 1255 OID 26924)
 -- Name: get_cutoff_binded_to_adjustmentdebit(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3110,7 +3166,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_adjustmentdebit(__adjustmentdebit_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 455 (class 1255 OID 60101)
+-- TOC entry 473 (class 1255 OID 26925)
 -- Name: get_cutoff_binded_to_delivery(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3133,7 +3189,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_delivery(__delivery_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 456 (class 1255 OID 60102)
+-- TOC entry 474 (class 1255 OID 26926)
 -- Name: get_cutoff_binded_to_demand(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3156,7 +3212,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_demand(__demand_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 457 (class 1255 OID 60103)
+-- TOC entry 475 (class 1255 OID 26927)
 -- Name: get_cutoff_binded_to_despatch(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3179,7 +3235,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_despatch(__despatch_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 458 (class 1255 OID 60104)
+-- TOC entry 476 (class 1255 OID 26928)
 -- Name: get_cutoff_binded_to_goal(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3202,7 +3258,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_goal(__goal_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 459 (class 1255 OID 60105)
+-- TOC entry 477 (class 1255 OID 26929)
 -- Name: get_cutoff_binded_to_issue(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3225,7 +3281,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_issue(__issue_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 460 (class 1255 OID 60106)
+-- TOC entry 478 (class 1255 OID 26930)
 -- Name: get_cutoff_binded_to_picklist(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3248,7 +3304,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_picklist(__picklist_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 461 (class 1255 OID 60107)
+-- TOC entry 479 (class 1255 OID 26931)
 -- Name: get_cutoff_binded_to_rebound(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3271,7 +3327,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_rebound(__rebound_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 462 (class 1255 OID 60108)
+-- TOC entry 480 (class 1255 OID 26932)
 -- Name: get_cutoff_binded_to_receipt(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3294,7 +3350,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_receipt(__receipt_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 463 (class 1255 OID 60109)
+-- TOC entry 481 (class 1255 OID 26933)
 -- Name: get_cutoff_binded_to_reserve(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3317,7 +3373,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_reserve(__reserve_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 410 (class 1255 OID 60110)
+-- TOC entry 482 (class 1255 OID 26934)
 -- Name: get_cutoff_binded_to_stocktake(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3340,7 +3396,7 @@ $$;
 ALTER FUNCTION binding.get_cutoff_binded_to_stocktake(__stocktake_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 464 (class 1255 OID 60111)
+-- TOC entry 483 (class 1255 OID 26935)
 -- Name: get_delivery_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3366,7 +3422,7 @@ $$;
 ALTER FUNCTION binding.get_delivery_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 465 (class 1255 OID 60112)
+-- TOC entry 484 (class 1255 OID 26936)
 -- Name: get_delivery_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3392,7 +3448,7 @@ $$;
 ALTER FUNCTION binding.get_delivery_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 466 (class 1255 OID 60113)
+-- TOC entry 485 (class 1255 OID 26937)
 -- Name: get_delivery_binded_to_receipt(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3410,7 +3466,7 @@ $$;
 ALTER FUNCTION binding.get_delivery_binded_to_receipt(__receipt_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 467 (class 1255 OID 60114)
+-- TOC entry 486 (class 1255 OID 26938)
 -- Name: get_demand_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3436,7 +3492,7 @@ $$;
 ALTER FUNCTION binding.get_demand_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 468 (class 1255 OID 60115)
+-- TOC entry 487 (class 1255 OID 26939)
 -- Name: get_demand_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3462,7 +3518,7 @@ $$;
 ALTER FUNCTION binding.get_demand_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 469 (class 1255 OID 60116)
+-- TOC entry 467 (class 1255 OID 26940)
 -- Name: get_demand_binded_to_goal(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3480,7 +3536,7 @@ $$;
 ALTER FUNCTION binding.get_demand_binded_to_goal(__goal_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 470 (class 1255 OID 60117)
+-- TOC entry 468 (class 1255 OID 26941)
 -- Name: get_demand_binded_to_picklist(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3498,7 +3554,7 @@ $$;
 ALTER FUNCTION binding.get_demand_binded_to_picklist(__picklist_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 471 (class 1255 OID 60118)
+-- TOC entry 469 (class 1255 OID 26942)
 -- Name: get_demand_binded_to_reserve(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3516,7 +3572,7 @@ $$;
 ALTER FUNCTION binding.get_demand_binded_to_reserve(__reserve_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 472 (class 1255 OID 60119)
+-- TOC entry 488 (class 1255 OID 26943)
 -- Name: get_despatch_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3542,7 +3598,7 @@ $$;
 ALTER FUNCTION binding.get_despatch_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 473 (class 1255 OID 60120)
+-- TOC entry 489 (class 1255 OID 26944)
 -- Name: get_despatch_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3568,7 +3624,7 @@ $$;
 ALTER FUNCTION binding.get_despatch_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 474 (class 1255 OID 60121)
+-- TOC entry 490 (class 1255 OID 26945)
 -- Name: get_despatch_binded_to_goal(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3586,7 +3642,7 @@ $$;
 ALTER FUNCTION binding.get_despatch_binded_to_goal(__goal_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 475 (class 1255 OID 60122)
+-- TOC entry 491 (class 1255 OID 26946)
 -- Name: get_despatch_binded_to_issue(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3604,7 +3660,7 @@ $$;
 ALTER FUNCTION binding.get_despatch_binded_to_issue(__issue_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 476 (class 1255 OID 60123)
+-- TOC entry 492 (class 1255 OID 26947)
 -- Name: get_goal_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3630,7 +3686,7 @@ $$;
 ALTER FUNCTION binding.get_goal_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 477 (class 1255 OID 60124)
+-- TOC entry 493 (class 1255 OID 26948)
 -- Name: get_goal_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3656,7 +3712,7 @@ $$;
 ALTER FUNCTION binding.get_goal_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 478 (class 1255 OID 60125)
+-- TOC entry 494 (class 1255 OID 26949)
 -- Name: get_goal_binded_to_demand(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3674,7 +3730,7 @@ $$;
 ALTER FUNCTION binding.get_goal_binded_to_demand(__demand_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 479 (class 1255 OID 60126)
+-- TOC entry 495 (class 1255 OID 26950)
 -- Name: get_goal_binded_to_despatch(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3692,7 +3748,7 @@ $$;
 ALTER FUNCTION binding.get_goal_binded_to_despatch(__despatch_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 480 (class 1255 OID 60127)
+-- TOC entry 496 (class 1255 OID 26951)
 -- Name: get_goal_binded_to_issue(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3710,7 +3766,7 @@ $$;
 ALTER FUNCTION binding.get_goal_binded_to_issue(__issue_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 481 (class 1255 OID 60128)
+-- TOC entry 497 (class 1255 OID 26952)
 -- Name: get_goal_binded_to_picklist(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3728,7 +3784,7 @@ $$;
 ALTER FUNCTION binding.get_goal_binded_to_picklist(__picklist_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 482 (class 1255 OID 60129)
+-- TOC entry 498 (class 1255 OID 26953)
 -- Name: get_goal_binded_to_reserve(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3746,7 +3802,7 @@ $$;
 ALTER FUNCTION binding.get_goal_binded_to_reserve(__reserve_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 483 (class 1255 OID 60130)
+-- TOC entry 499 (class 1255 OID 26954)
 -- Name: get_issue_binded_to_adjustmentcredit(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3764,7 +3820,7 @@ $$;
 ALTER FUNCTION binding.get_issue_binded_to_adjustmentcredit(__adjustmentcredit_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 484 (class 1255 OID 60131)
+-- TOC entry 500 (class 1255 OID 26955)
 -- Name: get_issue_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3790,7 +3846,7 @@ $$;
 ALTER FUNCTION binding.get_issue_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 485 (class 1255 OID 60132)
+-- TOC entry 501 (class 1255 OID 26956)
 -- Name: get_issue_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3816,7 +3872,7 @@ $$;
 ALTER FUNCTION binding.get_issue_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 486 (class 1255 OID 60133)
+-- TOC entry 502 (class 1255 OID 26957)
 -- Name: get_issue_binded_to_despatch(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3834,7 +3890,7 @@ $$;
 ALTER FUNCTION binding.get_issue_binded_to_despatch(__despatch_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 424 (class 1255 OID 60134)
+-- TOC entry 503 (class 1255 OID 26958)
 -- Name: get_issue_binded_to_goal(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3852,7 +3908,7 @@ $$;
 ALTER FUNCTION binding.get_issue_binded_to_goal(__goal_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 487 (class 1255 OID 60135)
+-- TOC entry 504 (class 1255 OID 26959)
 -- Name: get_issue_binded_to_picklist(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3870,7 +3926,7 @@ $$;
 ALTER FUNCTION binding.get_issue_binded_to_picklist(__picklist_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 488 (class 1255 OID 60136)
+-- TOC entry 505 (class 1255 OID 26960)
 -- Name: get_issue_binded_to_rebound(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3888,7 +3944,7 @@ $$;
 ALTER FUNCTION binding.get_issue_binded_to_rebound(__rebound_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 489 (class 1255 OID 60137)
+-- TOC entry 506 (class 1255 OID 26961)
 -- Name: get_picklist_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3914,7 +3970,7 @@ $$;
 ALTER FUNCTION binding.get_picklist_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 490 (class 1255 OID 60138)
+-- TOC entry 507 (class 1255 OID 26962)
 -- Name: get_picklist_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3940,7 +3996,7 @@ $$;
 ALTER FUNCTION binding.get_picklist_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 491 (class 1255 OID 60139)
+-- TOC entry 508 (class 1255 OID 26963)
 -- Name: get_picklist_binded_to_demand(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3958,7 +4014,7 @@ $$;
 ALTER FUNCTION binding.get_picklist_binded_to_demand(__demand_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 492 (class 1255 OID 60140)
+-- TOC entry 509 (class 1255 OID 26964)
 -- Name: get_picklist_binded_to_goal(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3976,7 +4032,7 @@ $$;
 ALTER FUNCTION binding.get_picklist_binded_to_goal(__goal_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 493 (class 1255 OID 60141)
+-- TOC entry 510 (class 1255 OID 26965)
 -- Name: get_picklist_binded_to_issue(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -3994,7 +4050,7 @@ $$;
 ALTER FUNCTION binding.get_picklist_binded_to_issue(__issue_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 494 (class 1255 OID 60142)
+-- TOC entry 511 (class 1255 OID 26966)
 -- Name: get_rebound_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4020,7 +4076,7 @@ $$;
 ALTER FUNCTION binding.get_rebound_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 495 (class 1255 OID 60143)
+-- TOC entry 512 (class 1255 OID 26967)
 -- Name: get_rebound_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4046,7 +4102,7 @@ $$;
 ALTER FUNCTION binding.get_rebound_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 496 (class 1255 OID 60144)
+-- TOC entry 513 (class 1255 OID 26968)
 -- Name: get_rebound_binded_to_issue(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4064,7 +4120,7 @@ $$;
 ALTER FUNCTION binding.get_rebound_binded_to_issue(__issue_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 497 (class 1255 OID 60145)
+-- TOC entry 514 (class 1255 OID 26969)
 -- Name: get_rebound_binded_to_receipt(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4082,7 +4138,7 @@ $$;
 ALTER FUNCTION binding.get_rebound_binded_to_receipt(__receipt_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 498 (class 1255 OID 60146)
+-- TOC entry 515 (class 1255 OID 26970)
 -- Name: get_receipt_binded_to_adjustmentdebit(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4100,7 +4156,7 @@ $$;
 ALTER FUNCTION binding.get_receipt_binded_to_adjustmentdebit(__adjustmentdebit_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 499 (class 1255 OID 60147)
+-- TOC entry 516 (class 1255 OID 26971)
 -- Name: get_receipt_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4126,7 +4182,7 @@ $$;
 ALTER FUNCTION binding.get_receipt_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 500 (class 1255 OID 60148)
+-- TOC entry 517 (class 1255 OID 26972)
 -- Name: get_receipt_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4152,7 +4208,7 @@ $$;
 ALTER FUNCTION binding.get_receipt_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 501 (class 1255 OID 60149)
+-- TOC entry 518 (class 1255 OID 26973)
 -- Name: get_receipt_binded_to_delivery(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4170,7 +4226,7 @@ $$;
 ALTER FUNCTION binding.get_receipt_binded_to_delivery(__delivery_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 502 (class 1255 OID 60150)
+-- TOC entry 519 (class 1255 OID 26974)
 -- Name: get_receipt_binded_to_rebound(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4188,7 +4244,7 @@ $$;
 ALTER FUNCTION binding.get_receipt_binded_to_rebound(__rebound_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 503 (class 1255 OID 60151)
+-- TOC entry 520 (class 1255 OID 26975)
 -- Name: get_reserve_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4214,7 +4270,7 @@ $$;
 ALTER FUNCTION binding.get_reserve_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 504 (class 1255 OID 60152)
+-- TOC entry 521 (class 1255 OID 26976)
 -- Name: get_reserve_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4240,7 +4296,7 @@ $$;
 ALTER FUNCTION binding.get_reserve_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 505 (class 1255 OID 60153)
+-- TOC entry 522 (class 1255 OID 26977)
 -- Name: get_reserve_binded_to_demand(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4258,7 +4314,7 @@ $$;
 ALTER FUNCTION binding.get_reserve_binded_to_demand(__demand_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 506 (class 1255 OID 60154)
+-- TOC entry 523 (class 1255 OID 26978)
 -- Name: get_reserve_binded_to_goal(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4276,7 +4332,7 @@ $$;
 ALTER FUNCTION binding.get_reserve_binded_to_goal(__goal_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 507 (class 1255 OID 60155)
+-- TOC entry 524 (class 1255 OID 26979)
 -- Name: get_stocktake_binded_to_cutoff(bigint[]); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4302,7 +4358,7 @@ $$;
 ALTER FUNCTION binding.get_stocktake_binded_to_cutoff(__cutoff_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 508 (class 1255 OID 60156)
+-- TOC entry 525 (class 1255 OID 26980)
 -- Name: get_stocktake_binded_to_cutoff(bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4328,7 +4384,7 @@ $$;
 ALTER FUNCTION binding.get_stocktake_binded_to_cutoff(__cutoff_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 509 (class 1255 OID 60157)
+-- TOC entry 526 (class 1255 OID 26981)
 -- Name: unbind_cutoff_and_adjustmentcredit(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4350,7 +4406,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_adjustmentcredit(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 510 (class 1255 OID 60158)
+-- TOC entry 527 (class 1255 OID 26982)
 -- Name: unbind_cutoff_and_adjustmentdebit(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4372,7 +4428,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_adjustmentdebit(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 511 (class 1255 OID 60159)
+-- TOC entry 528 (class 1255 OID 26983)
 -- Name: unbind_cutoff_and_delivery(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4394,7 +4450,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_delivery(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 512 (class 1255 OID 60160)
+-- TOC entry 529 (class 1255 OID 26984)
 -- Name: unbind_cutoff_and_demand(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4416,7 +4472,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_demand(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 513 (class 1255 OID 60161)
+-- TOC entry 530 (class 1255 OID 26985)
 -- Name: unbind_cutoff_and_despatch(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4438,7 +4494,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_despatch(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 514 (class 1255 OID 60162)
+-- TOC entry 531 (class 1255 OID 26986)
 -- Name: unbind_cutoff_and_goal(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4460,7 +4516,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_goal(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 515 (class 1255 OID 60163)
+-- TOC entry 532 (class 1255 OID 26987)
 -- Name: unbind_cutoff_and_issue(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4482,7 +4538,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_issue(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 516 (class 1255 OID 60164)
+-- TOC entry 533 (class 1255 OID 26988)
 -- Name: unbind_cutoff_and_picklist(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4504,7 +4560,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_picklist(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 517 (class 1255 OID 60165)
+-- TOC entry 534 (class 1255 OID 26989)
 -- Name: unbind_cutoff_and_rebound(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4526,7 +4582,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_rebound(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 518 (class 1255 OID 60166)
+-- TOC entry 535 (class 1255 OID 26990)
 -- Name: unbind_cutoff_and_receipt(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4548,7 +4604,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_receipt(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 519 (class 1255 OID 60167)
+-- TOC entry 536 (class 1255 OID 26991)
 -- Name: unbind_cutoff_and_reserve(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4570,7 +4626,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_reserve(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 520 (class 1255 OID 60168)
+-- TOC entry 537 (class 1255 OID 26992)
 -- Name: unbind_cutoff_and_stocktake(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4592,7 +4648,7 @@ $$;
 ALTER FUNCTION binding.unbind_cutoff_and_stocktake(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 521 (class 1255 OID 60169)
+-- TOC entry 538 (class 1255 OID 26993)
 -- Name: unbind_delivery_and_receipt(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4614,7 +4670,7 @@ $$;
 ALTER FUNCTION binding.unbind_delivery_and_receipt(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 522 (class 1255 OID 60170)
+-- TOC entry 539 (class 1255 OID 26994)
 -- Name: unbind_demand_and_picklist(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4635,7 +4691,7 @@ $$;
 ALTER FUNCTION binding.unbind_demand_and_picklist(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 523 (class 1255 OID 60171)
+-- TOC entry 540 (class 1255 OID 26995)
 -- Name: unbind_demand_and_reserve(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4657,7 +4713,7 @@ $$;
 ALTER FUNCTION binding.unbind_demand_and_reserve(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 524 (class 1255 OID 60172)
+-- TOC entry 541 (class 1255 OID 26996)
 -- Name: unbind_goal_and_demand(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4679,7 +4735,7 @@ $$;
 ALTER FUNCTION binding.unbind_goal_and_demand(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 525 (class 1255 OID 60173)
+-- TOC entry 542 (class 1255 OID 26997)
 -- Name: unbind_goal_and_despatch(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4701,7 +4757,7 @@ $$;
 ALTER FUNCTION binding.unbind_goal_and_despatch(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 526 (class 1255 OID 60174)
+-- TOC entry 543 (class 1255 OID 26998)
 -- Name: unbind_goal_and_issue(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4723,7 +4779,7 @@ $$;
 ALTER FUNCTION binding.unbind_goal_and_issue(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 527 (class 1255 OID 60175)
+-- TOC entry 544 (class 1255 OID 26999)
 -- Name: unbind_goal_and_picklist(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4745,7 +4801,7 @@ $$;
 ALTER FUNCTION binding.unbind_goal_and_picklist(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 528 (class 1255 OID 60176)
+-- TOC entry 545 (class 1255 OID 27000)
 -- Name: unbind_goal_and_reserve(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4767,7 +4823,7 @@ $$;
 ALTER FUNCTION binding.unbind_goal_and_reserve(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 529 (class 1255 OID 60177)
+-- TOC entry 546 (class 1255 OID 27001)
 -- Name: unbind_issue_and_adjustmentcredit(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4789,7 +4845,7 @@ $$;
 ALTER FUNCTION binding.unbind_issue_and_adjustmentcredit(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 530 (class 1255 OID 60178)
+-- TOC entry 547 (class 1255 OID 27002)
 -- Name: unbind_issue_and_despatch(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4811,7 +4867,7 @@ $$;
 ALTER FUNCTION binding.unbind_issue_and_despatch(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 531 (class 1255 OID 60179)
+-- TOC entry 548 (class 1255 OID 27003)
 -- Name: unbind_issue_and_rebound(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4833,7 +4889,7 @@ $$;
 ALTER FUNCTION binding.unbind_issue_and_rebound(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 532 (class 1255 OID 60180)
+-- TOC entry 549 (class 1255 OID 27004)
 -- Name: unbind_picklist_and_issue(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4855,7 +4911,7 @@ $$;
 ALTER FUNCTION binding.unbind_picklist_and_issue(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 533 (class 1255 OID 60181)
+-- TOC entry 550 (class 1255 OID 27005)
 -- Name: unbind_receipt_and_adjustmentdebit(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4877,7 +4933,7 @@ $$;
 ALTER FUNCTION binding.unbind_receipt_and_adjustmentdebit(__parent_id bigint, __child_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 534 (class 1255 OID 60182)
+-- TOC entry 551 (class 1255 OID 27006)
 -- Name: unbind_receipt_and_rebound(bigint, bigint); Type: FUNCTION; Schema: binding; Owner: postgres
 --
 
@@ -4901,7 +4957,7 @@ ALTER FUNCTION binding.unbind_receipt_and_rebound(__parent_id bigint, __child_id
 SET search_path = common, pg_catalog;
 
 --
--- TOC entry 535 (class 1255 OID 60183)
+-- TOC entry 552 (class 1255 OID 27007)
 -- Name: convert_document_to_goal_fsmt(document_fsmt); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -4936,7 +4992,7 @@ $$;
 ALTER FUNCTION common.convert_document_to_goal_fsmt(__document_fsmt document_fsmt) OWNER TO postgres;
 
 --
--- TOC entry 536 (class 1255 OID 60184)
+-- TOC entry 554 (class 1255 OID 27008)
 -- Name: convert_goal_to_document_fsmt(goal_fsmt); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -4989,7 +5045,7 @@ $$;
 ALTER FUNCTION common.convert_goal_to_document_fsmt(__goal_fsmt goal_fsmt) OWNER TO postgres;
 
 --
--- TOC entry 537 (class 1255 OID 60185)
+-- TOC entry 555 (class 1255 OID 27009)
 -- Name: convert_goal_to_document_head(goal_head); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5015,7 +5071,7 @@ $$;
 ALTER FUNCTION common.convert_goal_to_document_head(__goal_head goal_head) OWNER TO postgres;
 
 --
--- TOC entry 538 (class 1255 OID 60186)
+-- TOC entry 556 (class 1255 OID 27010)
 -- Name: convert_inbound_to_document_head(inbound_head); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5041,7 +5097,7 @@ $$;
 ALTER FUNCTION common.convert_inbound_to_document_head(__inbound_head inbound_head) OWNER TO postgres;
 
 --
--- TOC entry 539 (class 1255 OID 60187)
+-- TOC entry 557 (class 1255 OID 27011)
 -- Name: convert_outbound_to_document_head(outbound_head); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5067,7 +5123,7 @@ $$;
 ALTER FUNCTION common.convert_outbound_to_document_head(__outbound_head outbound_head) OWNER TO postgres;
 
 --
--- TOC entry 540 (class 1255 OID 60188)
+-- TOC entry 558 (class 1255 OID 27012)
 -- Name: convert_outbound_to_goal_head(outbound_head); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5093,7 +5149,7 @@ $$;
 ALTER FUNCTION common.convert_outbound_to_goal_head(__outbound_head outbound_head) OWNER TO postgres;
 
 --
--- TOC entry 541 (class 1255 OID 60189)
+-- TOC entry 559 (class 1255 OID 27013)
 -- Name: convert_stocktake_to_document_body(stocktake_body); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5115,7 +5171,7 @@ $$;
 ALTER FUNCTION common.convert_stocktake_to_document_body(__stocktake_body stocktake_body) OWNER TO postgres;
 
 --
--- TOC entry 542 (class 1255 OID 60190)
+-- TOC entry 560 (class 1255 OID 27014)
 -- Name: disallow_editing_of_committed_document_head(); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5147,7 +5203,7 @@ $$;
 ALTER FUNCTION common.disallow_editing_of_committed_document_head() OWNER TO postgres;
 
 --
--- TOC entry 543 (class 1255 OID 60191)
+-- TOC entry 561 (class 1255 OID 27015)
 -- Name: get_document_abbrevation(document_kind); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5177,7 +5233,7 @@ $$;
 ALTER FUNCTION common.get_document_abbrevation(__doctype document_kind) OWNER TO postgres;
 
 --
--- TOC entry 544 (class 1255 OID 60192)
+-- TOC entry 562 (class 1255 OID 27016)
 -- Name: get_document_head_types(policy_mode); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5202,7 +5258,7 @@ $$;
 ALTER FUNCTION common.get_document_head_types(__policy_mode policy_mode) OWNER TO postgres;
 
 --
--- TOC entry 545 (class 1255 OID 60193)
+-- TOC entry 563 (class 1255 OID 27017)
 -- Name: get_policy_mode(document_kind); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5234,7 +5290,7 @@ $$;
 ALTER FUNCTION common.get_policy_mode(__document_kind document_kind) OWNER TO postgres;
 
 --
--- TOC entry 547 (class 1255 OID 60194)
+-- TOC entry 564 (class 1255 OID 27018)
 -- Name: get_stocktake_mode(document_kind); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5266,7 +5322,7 @@ $$;
 ALTER FUNCTION common.get_stocktake_mode(__document_kind document_kind) OWNER TO postgres;
 
 --
--- TOC entry 548 (class 1255 OID 60195)
+-- TOC entry 565 (class 1255 OID 27019)
 -- Name: number_encode2(integer, boolean); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5340,7 +5396,7 @@ $$;
 ALTER FUNCTION common.number_encode2(__number integer, __upper_only boolean) OWNER TO postgres;
 
 --
--- TOC entry 549 (class 1255 OID 60196)
+-- TOC entry 567 (class 1255 OID 27020)
 -- Name: number_encode4(integer, boolean); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5394,7 +5450,7 @@ $$;
 ALTER FUNCTION common.number_encode4(__number integer, __upper_only boolean) OWNER TO postgres;
 
 --
--- TOC entry 550 (class 1255 OID 60197)
+-- TOC entry 568 (class 1255 OID 27021)
 -- Name: raise_custom_exception(text); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5436,8 +5492,8 @@ $$;
 ALTER FUNCTION common.raise_custom_exception(__condition_name text) OWNER TO postgres;
 
 --
--- TOC entry 4818 (class 0 OID 0)
--- Dependencies: 550
+-- TOC entry 4976 (class 0 OID 0)
+-- Dependencies: 568
 -- Name: FUNCTION raise_custom_exception(__condition_name text); Type: COMMENT; Schema: common; Owner: postgres
 --
 
@@ -5445,7 +5501,7 @@ COMMENT ON FUNCTION raise_custom_exception(__condition_name text) IS 'Raise exce
 
 
 --
--- TOC entry 551 (class 1255 OID 60198)
+-- TOC entry 569 (class 1255 OID 27022)
 -- Name: remake_document_head(document_head, bigint, uuid, character varying, date, character varying, document_fsmt, document_kind); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5492,7 +5548,7 @@ $$;
 ALTER FUNCTION common.remake_document_head(__head document_head, __document_id bigint, __gid uuid, __display_name character varying, __document_date date, __facility_code character varying, __curr_fsmt document_fsmt, __doctype document_kind) OWNER TO postgres;
 
 --
--- TOC entry 552 (class 1255 OID 60199)
+-- TOC entry 570 (class 1255 OID 27023)
 -- Name: remake_inbound_head(inbound_head, bigint, uuid, character varying, date, character varying, document_fsmt, document_kind, character varying); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5543,7 +5599,7 @@ $$;
 ALTER FUNCTION common.remake_inbound_head(__head inbound_head, __document_id bigint, __gid uuid, __display_name character varying, __document_date date, __facility_code character varying, __curr_fsmt document_fsmt, __doctype document_kind, __addresser character varying) OWNER TO postgres;
 
 --
--- TOC entry 554 (class 1255 OID 60200)
+-- TOC entry 571 (class 1255 OID 27024)
 -- Name: remake_outbound_head(outbound_head, bigint, uuid, character varying, date, character varying, document_fsmt, document_kind, character varying, date); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5602,7 +5658,7 @@ $$;
 ALTER FUNCTION common.remake_outbound_head(__head outbound_head, __document_id bigint, __gid uuid, __display_name character varying, __document_date date, __facility_code character varying, __curr_fsmt document_fsmt, __doctype document_kind, __addressee character varying, __due_date date) OWNER TO postgres;
 
 --
--- TOC entry 555 (class 1255 OID 60201)
+-- TOC entry 572 (class 1255 OID 27025)
 -- Name: set_prev_doc_fsmt(); Type: FUNCTION; Schema: common; Owner: postgres
 --
 
@@ -5625,7 +5681,7 @@ ALTER FUNCTION common.set_prev_doc_fsmt() OWNER TO postgres;
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 556 (class 1255 OID 60202)
+-- TOC entry 573 (class 1255 OID 27026)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -5642,7 +5698,7 @@ $$;
 ALTER FUNCTION cutoff.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 557 (class 1255 OID 60203)
+-- TOC entry 553 (class 1255 OID 27027)
 -- Name: do_blockers_check(common.document_head, common.document_kind, date, date); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -5716,7 +5772,7 @@ $$;
 ALTER FUNCTION cutoff.do_blockers_check(__head common.document_head, __document_kind common.document_kind, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 558 (class 1255 OID 60204)
+-- TOC entry 566 (class 1255 OID 27028)
 -- Name: do_blockers_delete(bigint); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -5732,7 +5788,7 @@ $$;
 ALTER FUNCTION cutoff.do_blockers_delete(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 559 (class 1255 OID 60205)
+-- TOC entry 574 (class 1255 OID 27029)
 -- Name: do_blockers_denote(bigint, common.document_head[]); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -5756,7 +5812,7 @@ $$;
 ALTER FUNCTION cutoff.do_blockers_denote(__document_id bigint, __head common.document_head[]) OWNER TO postgres;
 
 --
--- TOC entry 560 (class 1255 OID 60206)
+-- TOC entry 575 (class 1255 OID 27030)
 -- Name: do_blockers_exclude(common.document_head, common.document_kind, date, date); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -5988,7 +6044,7 @@ $$;
 ALTER FUNCTION cutoff.do_blockers_exclude(__head common.document_head, __document_kind common.document_kind, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 561 (class 1255 OID 60207)
+-- TOC entry 576 (class 1255 OID 27031)
 -- Name: do_commit(bigint); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6062,7 +6118,7 @@ $$;
 ALTER FUNCTION cutoff.do_commit(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 562 (class 1255 OID 60208)
+-- TOC entry 577 (class 1255 OID 27032)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6113,7 +6169,7 @@ $$;
 ALTER FUNCTION cutoff.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 564 (class 1255 OID 60209)
+-- TOC entry 578 (class 1255 OID 27033)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6142,7 +6198,7 @@ $$;
 ALTER FUNCTION cutoff.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 565 (class 1255 OID 60210)
+-- TOC entry 579 (class 1255 OID 27034)
 -- Name: get_all_comitted(character varying); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6167,7 +6223,7 @@ $$;
 ALTER FUNCTION cutoff.get_all_comitted(__facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 566 (class 1255 OID 60211)
+-- TOC entry 580 (class 1255 OID 27035)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6189,7 +6245,7 @@ $$;
 ALTER FUNCTION cutoff.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 567 (class 1255 OID 60212)
+-- TOC entry 581 (class 1255 OID 27036)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6217,7 +6273,71 @@ $$;
 ALTER FUNCTION cutoff.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 568 (class 1255 OID 60213)
+-- TOC entry 1059 (class 1255 OID 28620)
+-- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: cutoff; Owner: postgres
+--
+
+CREATE FUNCTION get_head_batch(__document_ids bigint[]) RETURNS common.document_head[]
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+BEGIN
+  RETURN
+    ARRAY (
+      SELECT 
+        (id, 
+        gid, 
+        display_name,
+        document_date,
+        facility_code,
+        curr_fsmt,
+        'CUTOFF'::common.document_kind)::common.document_head
+      FROM 
+        cutoff.head
+      WHERE 
+        id = ANY(__document_ids)
+    );
+END;
+$$;
+
+
+ALTER FUNCTION cutoff.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
+
+--
+-- TOC entry 1060 (class 1255 OID 28621)
+-- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: cutoff; Owner: postgres
+--
+
+CREATE FUNCTION get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) RETURNS common.document_head[]
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+BEGIN
+  RETURN
+    ARRAY (
+      SELECT 
+        (id, 
+        gid, 
+        display_name,
+        document_date,
+        facility_code,
+        curr_fsmt,
+        'CUTOFF'::common.document_kind)::common.document_head
+      FROM 
+        cutoff.head
+      WHERE 
+        facility_code = __facility_code AND
+        curr_fsmt = 'PROPOSED' AND
+        document_date BETWEEN __date_start AND __date_end
+    );
+END;
+$$;
+
+
+ALTER FUNCTION cutoff.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
+
+--
+-- TOC entry 582 (class 1255 OID 27037)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6239,7 +6359,7 @@ $$;
 ALTER FUNCTION cutoff.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 569 (class 1255 OID 60214)
+-- TOC entry 583 (class 1255 OID 27038)
 -- Name: get_last_cutoff_date(character varying); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6271,7 +6391,7 @@ $$;
 ALTER FUNCTION cutoff.get_last_cutoff_date(__facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 570 (class 1255 OID 60215)
+-- TOC entry 584 (class 1255 OID 27039)
 -- Name: has_blockers(bigint); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6298,7 +6418,7 @@ $$;
 ALTER FUNCTION cutoff.has_blockers(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 571 (class 1255 OID 60216)
+-- TOC entry 586 (class 1255 OID 27040)
 -- Name: init(common.document_head); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6345,7 +6465,7 @@ $$;
 ALTER FUNCTION cutoff.init(__head common.document_head) OWNER TO postgres;
 
 --
--- TOC entry 572 (class 1255 OID 60217)
+-- TOC entry 587 (class 1255 OID 27041)
 -- Name: is_document_locked(common.document_head); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6386,7 +6506,7 @@ $$;
 ALTER FUNCTION cutoff.is_document_locked(__head common.document_head) OWNER TO postgres;
 
 --
--- TOC entry 573 (class 1255 OID 60218)
+-- TOC entry 588 (class 1255 OID 27042)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: cutoff; Owner: postgres
 --
 
@@ -6430,7 +6550,7 @@ ALTER FUNCTION cutoff.numerator_nextval(__facility_code character varying, __jul
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 574 (class 1255 OID 60219)
+-- TOC entry 589 (class 1255 OID 27043)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6447,7 +6567,7 @@ $$;
 ALTER FUNCTION delivery.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 575 (class 1255 OID 60220)
+-- TOC entry 590 (class 1255 OID 27044)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6498,7 +6618,7 @@ $$;
 ALTER FUNCTION delivery.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 577 (class 1255 OID 60221)
+-- TOC entry 591 (class 1255 OID 27045)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6560,7 +6680,7 @@ $$;
 ALTER FUNCTION delivery.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 578 (class 1255 OID 60222)
+-- TOC entry 592 (class 1255 OID 27046)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6622,7 +6742,7 @@ $$;
 ALTER FUNCTION delivery.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 579 (class 1255 OID 60223)
+-- TOC entry 593 (class 1255 OID 27047)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6651,7 +6771,7 @@ $$;
 ALTER FUNCTION delivery.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 580 (class 1255 OID 60224)
+-- TOC entry 585 (class 1255 OID 27048)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6677,7 +6797,7 @@ $$;
 ALTER FUNCTION delivery.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 581 (class 1255 OID 60225)
+-- TOC entry 594 (class 1255 OID 27049)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6699,7 +6819,7 @@ $$;
 ALTER FUNCTION delivery.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 582 (class 1255 OID 60226)
+-- TOC entry 595 (class 1255 OID 27050)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6728,7 +6848,7 @@ $$;
 ALTER FUNCTION delivery.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 583 (class 1255 OID 60227)
+-- TOC entry 596 (class 1255 OID 27051)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6760,7 +6880,7 @@ $$;
 ALTER FUNCTION delivery.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 584 (class 1255 OID 60228)
+-- TOC entry 597 (class 1255 OID 27052)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6794,7 +6914,7 @@ $$;
 ALTER FUNCTION delivery.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 585 (class 1255 OID 60229)
+-- TOC entry 598 (class 1255 OID 27053)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6816,7 +6936,7 @@ $$;
 ALTER FUNCTION delivery.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 586 (class 1255 OID 60230)
+-- TOC entry 599 (class 1255 OID 27054)
 -- Name: init(common.inbound_head, common.document_body[]); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6882,7 +7002,7 @@ $$;
 ALTER FUNCTION delivery.init(__head common.inbound_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 576 (class 1255 OID 60231)
+-- TOC entry 600 (class 1255 OID 27055)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6924,7 +7044,7 @@ $$;
 ALTER FUNCTION delivery.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 587 (class 1255 OID 60232)
+-- TOC entry 601 (class 1255 OID 27056)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: delivery; Owner: postgres
 --
 
@@ -6965,7 +7085,7 @@ ALTER FUNCTION delivery.reinit(__document_id bigint, __body common.document_body
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 588 (class 1255 OID 60233)
+-- TOC entry 602 (class 1255 OID 27057)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -6982,7 +7102,7 @@ $$;
 ALTER FUNCTION demand.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 589 (class 1255 OID 60234)
+-- TOC entry 603 (class 1255 OID 27058)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7033,7 +7153,7 @@ $$;
 ALTER FUNCTION demand.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 590 (class 1255 OID 60235)
+-- TOC entry 604 (class 1255 OID 27059)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7084,7 +7204,7 @@ $$;
 ALTER FUNCTION demand.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 591 (class 1255 OID 60236)
+-- TOC entry 606 (class 1255 OID 27060)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7135,7 +7255,7 @@ $$;
 ALTER FUNCTION demand.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 592 (class 1255 OID 60237)
+-- TOC entry 607 (class 1255 OID 27061)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7164,7 +7284,7 @@ $$;
 ALTER FUNCTION demand.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 593 (class 1255 OID 60238)
+-- TOC entry 608 (class 1255 OID 27062)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7190,7 +7310,7 @@ $$;
 ALTER FUNCTION demand.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 594 (class 1255 OID 60239)
+-- TOC entry 609 (class 1255 OID 27063)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7212,7 +7332,7 @@ $$;
 ALTER FUNCTION demand.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 595 (class 1255 OID 60240)
+-- TOC entry 610 (class 1255 OID 27064)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7242,7 +7362,7 @@ $$;
 ALTER FUNCTION demand.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 596 (class 1255 OID 60241)
+-- TOC entry 611 (class 1255 OID 27065)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7275,7 +7395,7 @@ $$;
 ALTER FUNCTION demand.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 597 (class 1255 OID 60242)
+-- TOC entry 612 (class 1255 OID 27066)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7310,7 +7430,7 @@ $$;
 ALTER FUNCTION demand.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 546 (class 1255 OID 60243)
+-- TOC entry 613 (class 1255 OID 27067)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7332,7 +7452,7 @@ $$;
 ALTER FUNCTION demand.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 598 (class 1255 OID 60244)
+-- TOC entry 614 (class 1255 OID 27068)
 -- Name: init(common.outbound_head, common.document_body[]); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7404,7 +7524,7 @@ $$;
 ALTER FUNCTION demand.init(__head common.outbound_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 599 (class 1255 OID 60245)
+-- TOC entry 615 (class 1255 OID 27069)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7446,7 +7566,7 @@ $$;
 ALTER FUNCTION demand.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 600 (class 1255 OID 60246)
+-- TOC entry 616 (class 1255 OID 27070)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: demand; Owner: postgres
 --
 
@@ -7487,7 +7607,7 @@ ALTER FUNCTION demand.reinit(__document_id bigint, __body common.document_body[]
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 601 (class 1255 OID 60247)
+-- TOC entry 605 (class 1255 OID 27071)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7504,7 +7624,7 @@ $$;
 ALTER FUNCTION despatch.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 602 (class 1255 OID 60248)
+-- TOC entry 617 (class 1255 OID 27072)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7555,7 +7675,7 @@ $$;
 ALTER FUNCTION despatch.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 603 (class 1255 OID 60249)
+-- TOC entry 618 (class 1255 OID 27073)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7650,7 +7770,7 @@ $$;
 ALTER FUNCTION despatch.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 604 (class 1255 OID 60250)
+-- TOC entry 619 (class 1255 OID 27074)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7669,7 +7789,7 @@ $$;
 ALTER FUNCTION despatch.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 605 (class 1255 OID 60251)
+-- TOC entry 620 (class 1255 OID 27075)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7698,7 +7818,7 @@ $$;
 ALTER FUNCTION despatch.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 606 (class 1255 OID 60252)
+-- TOC entry 621 (class 1255 OID 27076)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7724,7 +7844,7 @@ $$;
 ALTER FUNCTION despatch.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 607 (class 1255 OID 60253)
+-- TOC entry 622 (class 1255 OID 27077)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7746,7 +7866,7 @@ $$;
 ALTER FUNCTION despatch.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 608 (class 1255 OID 60254)
+-- TOC entry 623 (class 1255 OID 27078)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7776,7 +7896,7 @@ $$;
 ALTER FUNCTION despatch.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 553 (class 1255 OID 60255)
+-- TOC entry 624 (class 1255 OID 27079)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7809,7 +7929,7 @@ $$;
 ALTER FUNCTION despatch.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 609 (class 1255 OID 60256)
+-- TOC entry 625 (class 1255 OID 27080)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7844,7 +7964,7 @@ $$;
 ALTER FUNCTION despatch.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 610 (class 1255 OID 60257)
+-- TOC entry 626 (class 1255 OID 27081)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7866,7 +7986,7 @@ $$;
 ALTER FUNCTION despatch.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 611 (class 1255 OID 60258)
+-- TOC entry 627 (class 1255 OID 27082)
 -- Name: init(common.outbound_head, common.document_body[]); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7938,7 +8058,7 @@ $$;
 ALTER FUNCTION despatch.init(__head common.outbound_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 612 (class 1255 OID 60259)
+-- TOC entry 629 (class 1255 OID 27083)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -7980,7 +8100,7 @@ $$;
 ALTER FUNCTION despatch.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 613 (class 1255 OID 60260)
+-- TOC entry 630 (class 1255 OID 27084)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: despatch; Owner: postgres
 --
 
@@ -8018,10 +8138,278 @@ $$;
 
 ALTER FUNCTION despatch.reinit(__document_id bigint, __body common.document_body[]) OWNER TO postgres;
 
+SET search_path = facility, pg_catalog;
+
+--
+-- TOC entry 995 (class 1255 OID 59191)
+-- Name: destroy(bigint); Type: FUNCTION; Schema: facility; Owner: postgres
+--
+
+CREATE FUNCTION destroy(__document_id bigint) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  DELETE FROM facility.information WHERE id = __document_id;
+END;
+$$;
+
+
+ALTER FUNCTION facility.destroy(__document_id bigint) OWNER TO postgres;
+
+--
+-- TOC entry 1003 (class 1255 OID 59192)
+-- Name: get_head(bigint); Type: FUNCTION; Schema: facility; Owner: postgres
+--
+
+CREATE FUNCTION get_head(__document_id bigint) RETURNS common.facility_head
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+BEGIN
+  RETURN 
+    (information.id, 
+    information.gid, 
+    information.facility_code, 
+    information.version_num, 
+    information.display_name, 
+    information.published_date, 
+    information.parent_facility_code, 
+    information.facility_type)::common.facility_head
+  FROM 
+    facility.information
+  WHERE 
+    information.id = __document_id;
+END;
+$$;
+
+
+ALTER FUNCTION facility.get_head(__document_id bigint) OWNER TO postgres;
+
+--
+-- TOC entry 1056 (class 1255 OID 59193)
+-- Name: init(common.facility_head); Type: FUNCTION; Schema: facility; Owner: postgres
+--
+
+CREATE FUNCTION init(__head common.facility_head) RETURNS bigint
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  _information_id bigint;
+BEGIN
+
+
+  CASE __head.facility_type
+    WHEN 'ENTERPRISE'::common.facility_kind THEN 
+      INSERT INTO
+        facility.enterprise (
+          id, 
+          gid, 
+          facility_code, 
+          version_num, 
+          display_name, 
+          published_date, 
+          parent_facility_code, 
+          facility_type)
+      VALUES (
+        DEFAULT,
+        __head.gid,
+        __head.facility_code,
+        __head.version_num,
+        __head.display_name,
+        __head.document_date,
+        __head.parent_facility_code,
+        __head.facility_type)
+      RETURNING id INTO _information_id;
+
+    WHEN 'SITE'::common.facility_kind THEN
+      INSERT INTO
+        facility.site (
+          id, 
+          gid, 
+          facility_code, 
+          version_num, 
+          display_name, 
+          published_date, 
+          parent_facility_code, 
+          facility_type)
+      VALUES (
+        DEFAULT,
+        __head.gid,
+        __head.facility_code,
+        __head.version_num,
+        __head.display_name,
+        __head.document_date,
+        __head.parent_facility_code,
+        __head.facility_type)
+      RETURNING id INTO _information_id;
+
+    WHEN 'AREA'::common.facility_kind THEN 
+      INSERT INTO
+        facility.area (
+          id, 
+          gid, 
+          facility_code, 
+          version_num, 
+          display_name, 
+          published_date, 
+          parent_facility_code, 
+          facility_type)
+      VALUES (
+        DEFAULT,
+        __head.gid,
+        __head.facility_code,
+        __head.version_num,
+        __head.display_name,
+        __head.document_date,
+        __head.parent_facility_code,
+        __head.facility_type)
+      RETURNING id INTO _information_id;
+
+    WHEN 'LINE'::common.facility_kind THEN 
+      INSERT INTO
+        facility.line (
+          id, 
+          gid, 
+          facility_code, 
+          version_num, 
+          display_name, 
+          published_date, 
+          parent_facility_code, 
+          facility_type)
+      VALUES (
+        DEFAULT,
+        __head.gid,
+        __head.facility_code,
+        __head.version_num,
+        __head.display_name,
+        __head.document_date,
+        __head.parent_facility_code,
+        __head.facility_type)
+      RETURNING id INTO _information_id;
+
+    WHEN 'ZONE'::common.facility_kind THEN 
+      INSERT INTO
+        facility.zone (
+          id, 
+          gid, 
+          facility_code, 
+          version_num, 
+          display_name, 
+          published_date, 
+          parent_facility_code, 
+          facility_type)
+      VALUES (
+        DEFAULT,
+        __head.gid,
+        __head.facility_code,
+        __head.version_num,
+        __head.display_name,
+        __head.document_date,
+        __head.parent_facility_code,
+        __head.facility_type)
+      RETURNING id INTO _information_id;
+
+    ELSE
+      RAISE EXCEPTION 'unsupported facility_type %', __head.facility_type;
+
+    END CASE;
+
+    RETURN _information_id;
+
+END;
+$$;
+
+
+ALTER FUNCTION facility.init(__head common.facility_head) OWNER TO postgres;
+
+--
+-- TOC entry 773 (class 1255 OID 59194)
+-- Name: reinit(common.facility_head); Type: FUNCTION; Schema: facility; Owner: postgres
+--
+
+CREATE FUNCTION reinit(__head common.facility_head) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+BEGIN
+  --DELETE FROM facility.information WHERE id = __head.document_id;
+
+  CASE __head.facility_type
+    WHEN 'ENTERPRISE'::common.facility_kind THEN 
+      UPDATE
+        facility.enterprise
+      SET 
+        facility_code = __head.facility_code, 
+        version_num = __head.version_num, 
+        display_name = __head.display_name, 
+        published_date = __head.document_date, 
+        parent_facility_code = __head.parent_facility_code
+      WHERE
+        id = __head.document_id;
+
+    WHEN 'SITE'::common.facility_kind THEN
+      UPDATE
+        facility.site
+      SET 
+        facility_code = __head.facility_code, 
+        version_num = __head.version_num, 
+        display_name = __head.display_name, 
+        published_date = __head.document_date, 
+        parent_facility_code = __head.parent_facility_code
+      WHERE
+        id = __head.document_id;
+
+    WHEN 'AREA'::common.facility_kind THEN 
+      UPDATE
+        facility.area
+      SET 
+        facility_code = __head.facility_code, 
+        version_num = __head.version_num, 
+        display_name = __head.display_name, 
+        published_date = __head.document_date, 
+        parent_facility_code = __head.parent_facility_code
+      WHERE
+        id = __head.document_id;
+
+    WHEN 'LINE'::common.facility_kind THEN 
+      UPDATE
+        facility.line
+      SET 
+        facility_code = __head.facility_code, 
+        version_num = __head.version_num, 
+        display_name = __head.display_name, 
+        published_date = __head.document_date, 
+        parent_facility_code = __head.parent_facility_code
+      WHERE
+        id = __head.document_id;
+
+    WHEN 'ZONE'::common.facility_kind THEN 
+      UPDATE
+        facility.zone
+      SET 
+        facility_code = __head.facility_code, 
+        version_num = __head.version_num, 
+        display_name = __head.display_name, 
+        published_date = __head.document_date, 
+        parent_facility_code = __head.parent_facility_code
+      WHERE
+        id = __head.document_id;
+
+    ELSE
+      RAISE EXCEPTION 'unsupported facility_type %', __head.facility_type;
+
+    END CASE;
+
+END;
+$$;
+
+
+ALTER FUNCTION facility.reinit(__head common.facility_head) OWNER TO postgres;
+
 SET search_path = goal, pg_catalog;
 
 --
--- TOC entry 614 (class 1255 OID 60261)
+-- TOC entry 631 (class 1255 OID 27085)
 -- Name: analyze_ability(bigint); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8086,7 +8474,7 @@ $$;
 ALTER FUNCTION goal.analyze_ability(__demand_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 615 (class 1255 OID 60262)
+-- TOC entry 632 (class 1255 OID 27086)
 -- Name: analyze_outcome(bigint); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8131,7 +8519,7 @@ $$;
 ALTER FUNCTION goal.analyze_outcome(__goal_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 616 (class 1255 OID 60263)
+-- TOC entry 633 (class 1255 OID 27087)
 -- Name: apprise(bigint, common.document_kind, common.document_fsmt); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8388,7 +8776,7 @@ $$;
 ALTER FUNCTION goal.apprise(__source_id bigint, __source_type common.document_kind, __source_state common.document_fsmt) OWNER TO postgres;
 
 --
--- TOC entry 617 (class 1255 OID 60265)
+-- TOC entry 634 (class 1255 OID 27089)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8405,7 +8793,7 @@ $$;
 ALTER FUNCTION goal.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 618 (class 1255 OID 60266)
+-- TOC entry 635 (class 1255 OID 27090)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8434,7 +8822,7 @@ $$;
 ALTER FUNCTION goal.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 619 (class 1255 OID 60267)
+-- TOC entry 636 (class 1255 OID 27091)
 -- Name: get_curr_fsmt(bigint); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8452,7 +8840,7 @@ $$;
 ALTER FUNCTION goal.get_curr_fsmt(__goal_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 563 (class 1255 OID 60268)
+-- TOC entry 637 (class 1255 OID 27092)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8480,7 +8868,7 @@ $$;
 ALTER FUNCTION goal.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 620 (class 1255 OID 60269)
+-- TOC entry 638 (class 1255 OID 27093)
 -- Name: give_advise(bigint); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8567,7 +8955,7 @@ $$;
 ALTER FUNCTION goal.give_advise(__demand_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 621 (class 1255 OID 60270)
+-- TOC entry 639 (class 1255 OID 27094)
 -- Name: init(common.goal_head); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8614,7 +9002,7 @@ $$;
 ALTER FUNCTION goal.init(__head common.goal_head) OWNER TO postgres;
 
 --
--- TOC entry 622 (class 1255 OID 60271)
+-- TOC entry 641 (class 1255 OID 27095)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8656,7 +9044,7 @@ $$;
 ALTER FUNCTION goal.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 623 (class 1255 OID 60272)
+-- TOC entry 642 (class 1255 OID 27096)
 -- Name: set_prev_goal_fsmt(); Type: FUNCTION; Schema: goal; Owner: postgres
 --
 
@@ -8679,7 +9067,7 @@ ALTER FUNCTION goal.set_prev_goal_fsmt() OWNER TO postgres;
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 624 (class 1255 OID 60273)
+-- TOC entry 643 (class 1255 OID 27097)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -8696,7 +9084,7 @@ $$;
 ALTER FUNCTION issue.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 625 (class 1255 OID 60274)
+-- TOC entry 644 (class 1255 OID 27098)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -8747,7 +9135,7 @@ $$;
 ALTER FUNCTION issue.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 626 (class 1255 OID 60275)
+-- TOC entry 645 (class 1255 OID 27099)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -8796,7 +9184,7 @@ $$;
 ALTER FUNCTION issue.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 627 (class 1255 OID 60276)
+-- TOC entry 646 (class 1255 OID 27100)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -8861,7 +9249,7 @@ $$;
 ALTER FUNCTION issue.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 628 (class 1255 OID 60277)
+-- TOC entry 647 (class 1255 OID 27101)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -8890,7 +9278,7 @@ $$;
 ALTER FUNCTION issue.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 629 (class 1255 OID 60278)
+-- TOC entry 648 (class 1255 OID 27102)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -8916,7 +9304,7 @@ $$;
 ALTER FUNCTION issue.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 630 (class 1255 OID 60279)
+-- TOC entry 649 (class 1255 OID 27103)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -8938,7 +9326,7 @@ $$;
 ALTER FUNCTION issue.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 631 (class 1255 OID 60280)
+-- TOC entry 650 (class 1255 OID 27104)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -8968,7 +9356,7 @@ $$;
 ALTER FUNCTION issue.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 632 (class 1255 OID 60281)
+-- TOC entry 651 (class 1255 OID 27105)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -9001,7 +9389,7 @@ $$;
 ALTER FUNCTION issue.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 633 (class 1255 OID 60282)
+-- TOC entry 652 (class 1255 OID 27106)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -9036,7 +9424,7 @@ $$;
 ALTER FUNCTION issue.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 634 (class 1255 OID 60283)
+-- TOC entry 653 (class 1255 OID 27107)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -9058,7 +9446,7 @@ $$;
 ALTER FUNCTION issue.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 635 (class 1255 OID 60284)
+-- TOC entry 654 (class 1255 OID 27108)
 -- Name: init(common.outbound_head, common.document_body[]); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -9130,7 +9518,7 @@ $$;
 ALTER FUNCTION issue.init(__head common.outbound_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 636 (class 1255 OID 60285)
+-- TOC entry 655 (class 1255 OID 27109)
 -- Name: make_adjustment(bigint); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -9159,7 +9547,7 @@ $$;
 ALTER FUNCTION issue.make_adjustment(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 637 (class 1255 OID 60286)
+-- TOC entry 656 (class 1255 OID 27110)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -9201,7 +9589,7 @@ $$;
 ALTER FUNCTION issue.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 638 (class 1255 OID 60287)
+-- TOC entry 657 (class 1255 OID 27111)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: issue; Owner: postgres
 --
 
@@ -9242,7 +9630,7 @@ ALTER FUNCTION issue.reinit(__document_id bigint, __body common.document_body[])
 SET search_path = pgunit, pg_catalog;
 
 --
--- TOC entry 639 (class 1255 OID 60288)
+-- TOC entry 658 (class 1255 OID 27112)
 -- Name: assert_array_equals(anyelement, anyelement, character varying); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9266,7 +9654,7 @@ $$;
 ALTER FUNCTION pgunit.assert_array_equals(_expected anyelement, _actual anyelement, _message character varying) OWNER TO postgres;
 
 --
--- TOC entry 640 (class 1255 OID 60289)
+-- TOC entry 659 (class 1255 OID 27113)
 -- Name: assert_equals(anyelement, anyelement, character varying); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9287,7 +9675,7 @@ $$;
 ALTER FUNCTION pgunit.assert_equals(_expected anyelement, _actual anyelement, _message character varying) OWNER TO postgres;
 
 --
--- TOC entry 641 (class 1255 OID 60290)
+-- TOC entry 660 (class 1255 OID 27114)
 -- Name: assert_false(boolean, character varying); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9305,7 +9693,7 @@ $$;
 ALTER FUNCTION pgunit.assert_false(_value boolean, _message character varying) OWNER TO postgres;
 
 --
--- TOC entry 642 (class 1255 OID 60291)
+-- TOC entry 661 (class 1255 OID 27115)
 -- Name: assert_not_equals(anyelement, anyelement, character varying); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9326,7 +9714,7 @@ $$;
 ALTER FUNCTION pgunit.assert_not_equals(_expected anyelement, _actual anyelement, _message character varying) OWNER TO postgres;
 
 --
--- TOC entry 643 (class 1255 OID 60292)
+-- TOC entry 662 (class 1255 OID 27116)
 -- Name: assert_not_null(anyelement, character varying); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9344,7 +9732,7 @@ $$;
 ALTER FUNCTION pgunit.assert_not_null(_value anyelement, _message character varying) OWNER TO postgres;
 
 --
--- TOC entry 644 (class 1255 OID 60293)
+-- TOC entry 663 (class 1255 OID 27117)
 -- Name: assert_null(anyelement, character varying); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9362,7 +9750,7 @@ $$;
 ALTER FUNCTION pgunit.assert_null(_value anyelement, _message character varying) OWNER TO postgres;
 
 --
--- TOC entry 645 (class 1255 OID 60294)
+-- TOC entry 664 (class 1255 OID 27118)
 -- Name: assert_true(boolean, character varying); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9380,7 +9768,7 @@ $$;
 ALTER FUNCTION pgunit.assert_true(_value boolean, _message character varying) OWNER TO postgres;
 
 --
--- TOC entry 646 (class 1255 OID 60295)
+-- TOC entry 665 (class 1255 OID 27119)
 -- Name: fail(character varying); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9396,7 +9784,7 @@ $$;
 ALTER FUNCTION pgunit.fail(_message character varying) OWNER TO postgres;
 
 --
--- TOC entry 647 (class 1255 OID 60296)
+-- TOC entry 628 (class 1255 OID 27120)
 -- Name: run_test(character varying); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9416,7 +9804,7 @@ $$;
 ALTER FUNCTION pgunit.run_test(_sp character varying) OWNER TO postgres;
 
 --
--- TOC entry 648 (class 1255 OID 60297)
+-- TOC entry 666 (class 1255 OID 27121)
 -- Name: test_assert_array_equals(); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9540,7 +9928,7 @@ $$;
 ALTER FUNCTION pgunit.test_assert_array_equals() OWNER TO postgres;
 
 --
--- TOC entry 649 (class 1255 OID 60298)
+-- TOC entry 667 (class 1255 OID 27122)
 -- Name: test_assert_equals(); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9639,7 +10027,7 @@ $$;
 ALTER FUNCTION pgunit.test_assert_equals() OWNER TO postgres;
 
 --
--- TOC entry 650 (class 1255 OID 60299)
+-- TOC entry 668 (class 1255 OID 27123)
 -- Name: test_assert_false(); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9681,7 +10069,7 @@ $$;
 ALTER FUNCTION pgunit.test_assert_false() OWNER TO postgres;
 
 --
--- TOC entry 651 (class 1255 OID 60300)
+-- TOC entry 669 (class 1255 OID 27124)
 -- Name: test_assert_not_null(); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9770,7 +10158,7 @@ $$;
 ALTER FUNCTION pgunit.test_assert_not_null() OWNER TO postgres;
 
 --
--- TOC entry 652 (class 1255 OID 60301)
+-- TOC entry 670 (class 1255 OID 27125)
 -- Name: test_assert_null(); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9860,7 +10248,7 @@ $$;
 ALTER FUNCTION pgunit.test_assert_null() OWNER TO postgres;
 
 --
--- TOC entry 653 (class 1255 OID 60302)
+-- TOC entry 671 (class 1255 OID 27126)
 -- Name: test_assert_true(); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9900,7 +10288,7 @@ $$;
 ALTER FUNCTION pgunit.test_assert_true() OWNER TO postgres;
 
 --
--- TOC entry 654 (class 1255 OID 60303)
+-- TOC entry 672 (class 1255 OID 27127)
 -- Name: test_fail(); Type: FUNCTION; Schema: pgunit; Owner: postgres
 --
 
@@ -9929,7 +10317,7 @@ ALTER FUNCTION pgunit.test_fail() OWNER TO postgres;
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 655 (class 1255 OID 60304)
+-- TOC entry 673 (class 1255 OID 27128)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -9946,7 +10334,7 @@ $$;
 ALTER FUNCTION picklist.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 656 (class 1255 OID 60305)
+-- TOC entry 674 (class 1255 OID 27129)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -9997,7 +10385,7 @@ $$;
 ALTER FUNCTION picklist.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 657 (class 1255 OID 60306)
+-- TOC entry 675 (class 1255 OID 27130)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10042,7 +10430,7 @@ $$;
 ALTER FUNCTION picklist.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 658 (class 1255 OID 60307)
+-- TOC entry 676 (class 1255 OID 27131)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10087,7 +10475,7 @@ $$;
 ALTER FUNCTION picklist.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 659 (class 1255 OID 60308)
+-- TOC entry 677 (class 1255 OID 27132)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10116,7 +10504,7 @@ $$;
 ALTER FUNCTION picklist.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 660 (class 1255 OID 60309)
+-- TOC entry 678 (class 1255 OID 27133)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10142,7 +10530,7 @@ $$;
 ALTER FUNCTION picklist.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 661 (class 1255 OID 60310)
+-- TOC entry 679 (class 1255 OID 27134)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10164,7 +10552,7 @@ $$;
 ALTER FUNCTION picklist.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 662 (class 1255 OID 60311)
+-- TOC entry 680 (class 1255 OID 27135)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10194,7 +10582,7 @@ $$;
 ALTER FUNCTION picklist.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 663 (class 1255 OID 60312)
+-- TOC entry 681 (class 1255 OID 27136)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10227,7 +10615,7 @@ $$;
 ALTER FUNCTION picklist.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 664 (class 1255 OID 60313)
+-- TOC entry 682 (class 1255 OID 27137)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10262,7 +10650,7 @@ $$;
 ALTER FUNCTION picklist.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 665 (class 1255 OID 60314)
+-- TOC entry 683 (class 1255 OID 27138)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10284,7 +10672,7 @@ $$;
 ALTER FUNCTION picklist.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 667 (class 1255 OID 60315)
+-- TOC entry 684 (class 1255 OID 27139)
 -- Name: init(common.outbound_head, common.document_body[]); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10356,7 +10744,7 @@ $$;
 ALTER FUNCTION picklist.init(__head common.outbound_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 668 (class 1255 OID 60316)
+-- TOC entry 686 (class 1255 OID 27140)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10398,7 +10786,7 @@ $$;
 ALTER FUNCTION picklist.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 669 (class 1255 OID 60317)
+-- TOC entry 687 (class 1255 OID 27141)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: picklist; Owner: postgres
 --
 
@@ -10439,7 +10827,7 @@ ALTER FUNCTION picklist.reinit(__document_id bigint, __body common.document_body
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 670 (class 1255 OID 60318)
+-- TOC entry 688 (class 1255 OID 27142)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10456,7 +10844,7 @@ $$;
 ALTER FUNCTION rebound.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 671 (class 1255 OID 60319)
+-- TOC entry 689 (class 1255 OID 27143)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10507,7 +10895,7 @@ $$;
 ALTER FUNCTION rebound.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 672 (class 1255 OID 60320)
+-- TOC entry 690 (class 1255 OID 27144)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10552,7 +10940,7 @@ $$;
 ALTER FUNCTION rebound.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 673 (class 1255 OID 60321)
+-- TOC entry 691 (class 1255 OID 27145)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10597,7 +10985,7 @@ $$;
 ALTER FUNCTION rebound.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 674 (class 1255 OID 60322)
+-- TOC entry 692 (class 1255 OID 27146)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10626,7 +11014,7 @@ $$;
 ALTER FUNCTION rebound.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 675 (class 1255 OID 60323)
+-- TOC entry 693 (class 1255 OID 27147)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10652,7 +11040,7 @@ $$;
 ALTER FUNCTION rebound.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 676 (class 1255 OID 60324)
+-- TOC entry 694 (class 1255 OID 27148)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10674,7 +11062,7 @@ $$;
 ALTER FUNCTION rebound.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 677 (class 1255 OID 60325)
+-- TOC entry 695 (class 1255 OID 27149)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10703,7 +11091,7 @@ $$;
 ALTER FUNCTION rebound.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 678 (class 1255 OID 60326)
+-- TOC entry 696 (class 1255 OID 27150)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10735,7 +11123,7 @@ $$;
 ALTER FUNCTION rebound.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 679 (class 1255 OID 60327)
+-- TOC entry 685 (class 1255 OID 27151)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10769,7 +11157,7 @@ $$;
 ALTER FUNCTION rebound.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 680 (class 1255 OID 60328)
+-- TOC entry 697 (class 1255 OID 27152)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10791,7 +11179,7 @@ $$;
 ALTER FUNCTION rebound.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 681 (class 1255 OID 60329)
+-- TOC entry 698 (class 1255 OID 27153)
 -- Name: init(common.inbound_head, common.document_body[]); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10857,7 +11245,7 @@ $$;
 ALTER FUNCTION rebound.init(__head common.inbound_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 682 (class 1255 OID 60330)
+-- TOC entry 699 (class 1255 OID 27154)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10899,7 +11287,7 @@ $$;
 ALTER FUNCTION rebound.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 683 (class 1255 OID 60331)
+-- TOC entry 700 (class 1255 OID 27155)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: rebound; Owner: postgres
 --
 
@@ -10940,7 +11328,7 @@ ALTER FUNCTION rebound.reinit(__document_id bigint, __body common.document_body[
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 684 (class 1255 OID 60332)
+-- TOC entry 701 (class 1255 OID 27156)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -10957,7 +11345,7 @@ $$;
 ALTER FUNCTION receipt.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 685 (class 1255 OID 60333)
+-- TOC entry 702 (class 1255 OID 27157)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11008,7 +11396,7 @@ $$;
 ALTER FUNCTION receipt.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 686 (class 1255 OID 60334)
+-- TOC entry 703 (class 1255 OID 27158)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11078,7 +11466,7 @@ $$;
 ALTER FUNCTION receipt.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 687 (class 1255 OID 60335)
+-- TOC entry 704 (class 1255 OID 27159)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11164,7 +11552,7 @@ $$;
 ALTER FUNCTION receipt.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 688 (class 1255 OID 60336)
+-- TOC entry 705 (class 1255 OID 27160)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11193,7 +11581,7 @@ $$;
 ALTER FUNCTION receipt.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 689 (class 1255 OID 60337)
+-- TOC entry 640 (class 1255 OID 27161)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11219,7 +11607,7 @@ $$;
 ALTER FUNCTION receipt.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 690 (class 1255 OID 60338)
+-- TOC entry 706 (class 1255 OID 27162)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11241,7 +11629,7 @@ $$;
 ALTER FUNCTION receipt.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 691 (class 1255 OID 60339)
+-- TOC entry 707 (class 1255 OID 27163)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11270,7 +11658,7 @@ $$;
 ALTER FUNCTION receipt.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 692 (class 1255 OID 60340)
+-- TOC entry 708 (class 1255 OID 27164)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11302,7 +11690,7 @@ $$;
 ALTER FUNCTION receipt.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 693 (class 1255 OID 60341)
+-- TOC entry 709 (class 1255 OID 27165)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11336,7 +11724,7 @@ $$;
 ALTER FUNCTION receipt.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 694 (class 1255 OID 60342)
+-- TOC entry 710 (class 1255 OID 27166)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11358,7 +11746,7 @@ $$;
 ALTER FUNCTION receipt.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 695 (class 1255 OID 60343)
+-- TOC entry 711 (class 1255 OID 27167)
 -- Name: init(common.inbound_head, common.document_body[]); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11424,7 +11812,7 @@ $$;
 ALTER FUNCTION receipt.init(__head common.inbound_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 696 (class 1255 OID 60344)
+-- TOC entry 712 (class 1255 OID 27168)
 -- Name: make_adjustment(bigint); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11453,7 +11841,7 @@ $$;
 ALTER FUNCTION receipt.make_adjustment(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 697 (class 1255 OID 60345)
+-- TOC entry 713 (class 1255 OID 27169)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11495,7 +11883,7 @@ $$;
 ALTER FUNCTION receipt.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 699 (class 1255 OID 60346)
+-- TOC entry 714 (class 1255 OID 27170)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: receipt; Owner: postgres
 --
 
@@ -11536,7 +11924,7 @@ ALTER FUNCTION receipt.reinit(__document_id bigint, __body common.document_body[
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 700 (class 1255 OID 60347)
+-- TOC entry 715 (class 1255 OID 27171)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11553,7 +11941,7 @@ $$;
 ALTER FUNCTION reserve.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 701 (class 1255 OID 60348)
+-- TOC entry 716 (class 1255 OID 27172)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11604,7 +11992,7 @@ $$;
 ALTER FUNCTION reserve.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 702 (class 1255 OID 60349)
+-- TOC entry 717 (class 1255 OID 27173)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11649,7 +12037,7 @@ $$;
 ALTER FUNCTION reserve.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 703 (class 1255 OID 60350)
+-- TOC entry 718 (class 1255 OID 27174)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11694,7 +12082,7 @@ $$;
 ALTER FUNCTION reserve.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 704 (class 1255 OID 60351)
+-- TOC entry 719 (class 1255 OID 27175)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11723,7 +12111,7 @@ $$;
 ALTER FUNCTION reserve.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 705 (class 1255 OID 60352)
+-- TOC entry 720 (class 1255 OID 27176)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11749,7 +12137,7 @@ $$;
 ALTER FUNCTION reserve.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 706 (class 1255 OID 60353)
+-- TOC entry 721 (class 1255 OID 27177)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11771,7 +12159,7 @@ $$;
 ALTER FUNCTION reserve.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 707 (class 1255 OID 60354)
+-- TOC entry 722 (class 1255 OID 27178)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11801,7 +12189,7 @@ $$;
 ALTER FUNCTION reserve.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 708 (class 1255 OID 60355)
+-- TOC entry 723 (class 1255 OID 27179)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11834,7 +12222,7 @@ $$;
 ALTER FUNCTION reserve.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 709 (class 1255 OID 60356)
+-- TOC entry 724 (class 1255 OID 27180)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11869,7 +12257,7 @@ $$;
 ALTER FUNCTION reserve.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 710 (class 1255 OID 60357)
+-- TOC entry 725 (class 1255 OID 27181)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11891,7 +12279,7 @@ $$;
 ALTER FUNCTION reserve.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 711 (class 1255 OID 60358)
+-- TOC entry 726 (class 1255 OID 27182)
 -- Name: init(common.outbound_head, common.document_body[]); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -11963,7 +12351,7 @@ $$;
 ALTER FUNCTION reserve.init(__head common.outbound_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 712 (class 1255 OID 60359)
+-- TOC entry 727 (class 1255 OID 27183)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -12005,7 +12393,7 @@ $$;
 ALTER FUNCTION reserve.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 713 (class 1255 OID 60360)
+-- TOC entry 728 (class 1255 OID 27184)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: reserve; Owner: postgres
 --
 
@@ -12046,7 +12434,7 @@ ALTER FUNCTION reserve.reinit(__document_id bigint, __body common.document_body[
 SET search_path = schedule, pg_catalog;
 
 --
--- TOC entry 714 (class 1255 OID 60361)
+-- TOC entry 730 (class 1255 OID 27185)
 -- Name: get_date_of_julianized_day(integer); Type: FUNCTION; Schema: schedule; Owner: postgres
 --
 
@@ -12082,7 +12470,7 @@ $$;
 ALTER FUNCTION schedule.get_date_of_julianized_day(__jylianized_day integer) OWNER TO postgres;
 
 --
--- TOC entry 715 (class 1255 OID 60362)
+-- TOC entry 731 (class 1255 OID 27186)
 -- Name: get_julianized_day(date); Type: FUNCTION; Schema: schedule; Owner: postgres
 --
 
@@ -12115,7 +12503,7 @@ $$;
 ALTER FUNCTION schedule.get_julianized_day(__date date) OWNER TO postgres;
 
 --
--- TOC entry 716 (class 1255 OID 60363)
+-- TOC entry 732 (class 1255 OID 27187)
 -- Name: get_julianized_week(date); Type: FUNCTION; Schema: schedule; Owner: postgres
 --
 
@@ -12150,7 +12538,7 @@ ALTER FUNCTION schedule.get_julianized_week(__date date) OWNER TO postgres;
 SET search_path = stockcard, pg_catalog;
 
 --
--- TOC entry 717 (class 1255 OID 60364)
+-- TOC entry 733 (class 1255 OID 27188)
 -- Name: assign_adjustmentcredit(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12176,7 +12564,7 @@ $$;
 ALTER FUNCTION stockcard.assign_adjustmentcredit(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 718 (class 1255 OID 60365)
+-- TOC entry 734 (class 1255 OID 27189)
 -- Name: assign_adjustmentcredit(common.outbound_head, common.document_body[]); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12253,7 +12641,7 @@ $$;
 ALTER FUNCTION stockcard.assign_adjustmentcredit(__document_head common.outbound_head, __document_body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 719 (class 1255 OID 60366)
+-- TOC entry 735 (class 1255 OID 27190)
 -- Name: assign_adjustmentdebit(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12279,7 +12667,7 @@ $$;
 ALTER FUNCTION stockcard.assign_adjustmentdebit(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 721 (class 1255 OID 60367)
+-- TOC entry 736 (class 1255 OID 27191)
 -- Name: assign_adjustmentdebit(common.inbound_head, common.document_body[]); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12356,7 +12744,7 @@ $$;
 ALTER FUNCTION stockcard.assign_adjustmentdebit(__document_head common.inbound_head, __document_body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 722 (class 1255 OID 60368)
+-- TOC entry 737 (class 1255 OID 27192)
 -- Name: assign_issue(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12382,7 +12770,7 @@ $$;
 ALTER FUNCTION stockcard.assign_issue(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 723 (class 1255 OID 60369)
+-- TOC entry 738 (class 1255 OID 27193)
 -- Name: assign_issue(common.outbound_head, common.document_body[]); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12427,7 +12815,7 @@ $$;
 ALTER FUNCTION stockcard.assign_issue(__document_head common.outbound_head, __document_body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 724 (class 1255 OID 60370)
+-- TOC entry 739 (class 1255 OID 27194)
 -- Name: assign_rebound(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12453,7 +12841,7 @@ $$;
 ALTER FUNCTION stockcard.assign_rebound(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 725 (class 1255 OID 60371)
+-- TOC entry 740 (class 1255 OID 27195)
 -- Name: assign_rebound(common.inbound_head, common.document_body[]); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12498,7 +12886,7 @@ $$;
 ALTER FUNCTION stockcard.assign_rebound(__document_head common.inbound_head, __document_body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 726 (class 1255 OID 60372)
+-- TOC entry 741 (class 1255 OID 27196)
 -- Name: assign_receipt(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12524,7 +12912,7 @@ $$;
 ALTER FUNCTION stockcard.assign_receipt(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 727 (class 1255 OID 60373)
+-- TOC entry 742 (class 1255 OID 27197)
 -- Name: assign_receipt(common.inbound_head, common.document_body[]); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12569,7 +12957,7 @@ $$;
 ALTER FUNCTION stockcard.assign_receipt(__document_head common.inbound_head, __document_body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 728 (class 1255 OID 60374)
+-- TOC entry 743 (class 1255 OID 27198)
 -- Name: assign_stocktake(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12595,7 +12983,7 @@ $$;
 ALTER FUNCTION stockcard.assign_stocktake(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 729 (class 1255 OID 60375)
+-- TOC entry 744 (class 1255 OID 27199)
 -- Name: assign_stocktake(common.document_head, common.document_body[]); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12641,7 +13029,7 @@ $$;
 ALTER FUNCTION stockcard.assign_stocktake(__document_head common.document_head, __document_body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 730 (class 1255 OID 60376)
+-- TOC entry 745 (class 1255 OID 27200)
 -- Name: deassign_adjustmentcredit(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12681,7 +13069,7 @@ $$;
 ALTER FUNCTION stockcard.deassign_adjustmentcredit(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 720 (class 1255 OID 60377)
+-- TOC entry 746 (class 1255 OID 27201)
 -- Name: deassign_adjustmentdebit(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12721,7 +13109,7 @@ $$;
 ALTER FUNCTION stockcard.deassign_adjustmentdebit(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 666 (class 1255 OID 60378)
+-- TOC entry 747 (class 1255 OID 27202)
 -- Name: deassign_issue(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12748,7 +13136,7 @@ $$;
 ALTER FUNCTION stockcard.deassign_issue(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 698 (class 1255 OID 60379)
+-- TOC entry 748 (class 1255 OID 27203)
 -- Name: deassign_rebound(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12775,7 +13163,7 @@ $$;
 ALTER FUNCTION stockcard.deassign_rebound(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 731 (class 1255 OID 60380)
+-- TOC entry 749 (class 1255 OID 27204)
 -- Name: deassign_receipt(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12802,7 +13190,7 @@ $$;
 ALTER FUNCTION stockcard.deassign_receipt(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 732 (class 1255 OID 60381)
+-- TOC entry 750 (class 1255 OID 27205)
 -- Name: deassign_stocktake(bigint); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12829,7 +13217,7 @@ $$;
 ALTER FUNCTION stockcard.deassign_stocktake(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 733 (class 1255 OID 60382)
+-- TOC entry 751 (class 1255 OID 27206)
 -- Name: get_stocktake_recent_date(character varying, character varying[]); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12862,7 +13250,7 @@ $$;
 ALTER FUNCTION stockcard.get_stocktake_recent_date(__facility_code character varying, __good_codes character varying[]) OWNER TO postgres;
 
 --
--- TOC entry 734 (class 1255 OID 60383)
+-- TOC entry 752 (class 1255 OID 27207)
 -- Name: get_stocktake_recent_date(character varying, character varying); Type: FUNCTION; Schema: stockcard; Owner: postgres
 --
 
@@ -12897,7 +13285,7 @@ ALTER FUNCTION stockcard.get_stocktake_recent_date(__facility_code character var
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 735 (class 1255 OID 60384)
+-- TOC entry 753 (class 1255 OID 27208)
 -- Name: check_commit(common.document_head); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -12939,7 +13327,7 @@ $$;
 ALTER FUNCTION stocktake.check_commit(__head common.document_head) OWNER TO postgres;
 
 --
--- TOC entry 736 (class 1255 OID 60385)
+-- TOC entry 754 (class 1255 OID 27209)
 -- Name: destroy(bigint); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -12956,7 +13344,7 @@ $$;
 ALTER FUNCTION stocktake.destroy(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 737 (class 1255 OID 60386)
+-- TOC entry 755 (class 1255 OID 27210)
 -- Name: disallow_editing_of_committed_document_body(); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13007,7 +13395,7 @@ $$;
 ALTER FUNCTION stocktake.disallow_editing_of_committed_document_body() OWNER TO postgres;
 
 --
--- TOC entry 738 (class 1255 OID 60387)
+-- TOC entry 756 (class 1255 OID 27211)
 -- Name: do_commit(bigint, boolean); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13102,7 +13490,7 @@ $$;
 ALTER FUNCTION stocktake.do_commit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 739 (class 1255 OID 60388)
+-- TOC entry 757 (class 1255 OID 27212)
 -- Name: do_decommit(bigint, boolean); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13176,7 +13564,7 @@ $$;
 ALTER FUNCTION stocktake.do_decommit(__document_id bigint, __apprise boolean) OWNER TO postgres;
 
 --
--- TOC entry 740 (class 1255 OID 60389)
+-- TOC entry 758 (class 1255 OID 27213)
 -- Name: generate_display_name(date, character varying); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13205,7 +13593,7 @@ $$;
 ALTER FUNCTION stocktake.generate_display_name(__document_date date, __facility_code character varying) OWNER TO postgres;
 
 --
--- TOC entry 741 (class 1255 OID 60390)
+-- TOC entry 759 (class 1255 OID 27214)
 -- Name: get_body(bigint); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13231,7 +13619,7 @@ $$;
 ALTER FUNCTION stocktake.get_body(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 742 (class 1255 OID 60391)
+-- TOC entry 760 (class 1255 OID 27215)
 -- Name: get_gid_by_id(bigint); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13253,7 +13641,7 @@ $$;
 ALTER FUNCTION stocktake.get_gid_by_id(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 743 (class 1255 OID 60392)
+-- TOC entry 761 (class 1255 OID 27216)
 -- Name: get_head(bigint); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13281,7 +13669,7 @@ $$;
 ALTER FUNCTION stocktake.get_head(__document_id bigint) OWNER TO postgres;
 
 --
--- TOC entry 744 (class 1255 OID 60393)
+-- TOC entry 762 (class 1255 OID 27217)
 -- Name: get_head_batch(bigint[]); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13312,7 +13700,7 @@ $$;
 ALTER FUNCTION stocktake.get_head_batch(__document_ids bigint[]) OWNER TO postgres;
 
 --
--- TOC entry 745 (class 1255 OID 60394)
+-- TOC entry 763 (class 1255 OID 27218)
 -- Name: get_head_batch_proposed(character varying, date, date); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13345,7 +13733,7 @@ $$;
 ALTER FUNCTION stocktake.get_head_batch_proposed(__facility_code character varying, __date_start date, __date_end date) OWNER TO postgres;
 
 --
--- TOC entry 746 (class 1255 OID 60395)
+-- TOC entry 764 (class 1255 OID 27219)
 -- Name: get_id_by_gid(uuid); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13367,7 +13755,7 @@ $$;
 ALTER FUNCTION stocktake.get_id_by_gid(__document_gid uuid) OWNER TO postgres;
 
 --
--- TOC entry 747 (class 1255 OID 60396)
+-- TOC entry 729 (class 1255 OID 27220)
 -- Name: init(common.document_head); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13394,7 +13782,7 @@ $$;
 ALTER FUNCTION stocktake.init(__head common.document_head) OWNER TO postgres;
 
 --
--- TOC entry 748 (class 1255 OID 60397)
+-- TOC entry 765 (class 1255 OID 27221)
 -- Name: init(common.document_head, common.document_body[]); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13458,7 +13846,7 @@ $$;
 ALTER FUNCTION stocktake.init(__head common.document_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 749 (class 1255 OID 60398)
+-- TOC entry 766 (class 1255 OID 27222)
 -- Name: init(common.document_head, character varying[]); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13487,7 +13875,7 @@ $$;
 ALTER FUNCTION stocktake.init(__head common.document_head, __good_codes character varying[]) OWNER TO postgres;
 
 --
--- TOC entry 750 (class 1255 OID 60399)
+-- TOC entry 767 (class 1255 OID 27223)
 -- Name: is_document_locked(common.document_head, common.document_body[]); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13522,7 +13910,7 @@ $$;
 ALTER FUNCTION stocktake.is_document_locked(__head common.document_head, __body common.document_body[]) OWNER TO postgres;
 
 --
--- TOC entry 751 (class 1255 OID 60400)
+-- TOC entry 768 (class 1255 OID 27224)
 -- Name: numerator_nextval(character varying, integer); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13564,7 +13952,7 @@ $$;
 ALTER FUNCTION stocktake.numerator_nextval(__facility_code character varying, __julianized_week integer) OWNER TO postgres;
 
 --
--- TOC entry 752 (class 1255 OID 60401)
+-- TOC entry 769 (class 1255 OID 27225)
 -- Name: reinit(bigint, common.document_body[]); Type: FUNCTION; Schema: stocktake; Owner: postgres
 --
 
@@ -13605,7 +13993,7 @@ ALTER FUNCTION stocktake.reinit(__document_id bigint, __body common.document_bod
 SET search_path = tests, pg_catalog;
 
 --
--- TOC entry 753 (class 1255 OID 60402)
+-- TOC entry 770 (class 1255 OID 27226)
 -- Name: __adjustmentcredit__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13637,7 +14025,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__destroy() OWNER TO postgres;
 
 --
--- TOC entry 754 (class 1255 OID 60403)
+-- TOC entry 771 (class 1255 OID 27227)
 -- Name: __adjustmentcredit__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13662,7 +14050,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 755 (class 1255 OID 60404)
+-- TOC entry 772 (class 1255 OID 27228)
 -- Name: __adjustmentcredit__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13694,7 +14082,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__get_body() OWNER TO postgres;
 
 --
--- TOC entry 756 (class 1255 OID 60405)
+-- TOC entry 774 (class 1255 OID 27229)
 -- Name: __adjustmentcredit__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13723,7 +14111,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 757 (class 1255 OID 60406)
+-- TOC entry 775 (class 1255 OID 27230)
 -- Name: __adjustmentcredit__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13771,7 +14159,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__get_head() OWNER TO postgres;
 
 --
--- TOC entry 758 (class 1255 OID 60407)
+-- TOC entry 776 (class 1255 OID 27231)
 -- Name: __adjustmentcredit__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13819,7 +14207,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 759 (class 1255 OID 60408)
+-- TOC entry 777 (class 1255 OID 27232)
 -- Name: __adjustmentcredit__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13870,7 +14258,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 760 (class 1255 OID 60409)
+-- TOC entry 778 (class 1255 OID 27233)
 -- Name: __adjustmentcredit__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13899,7 +14287,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 761 (class 1255 OID 60410)
+-- TOC entry 779 (class 1255 OID 27234)
 -- Name: __adjustmentcredit__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13930,7 +14318,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__init() OWNER TO postgres;
 
 --
--- TOC entry 762 (class 1255 OID 60411)
+-- TOC entry 780 (class 1255 OID 27235)
 -- Name: __adjustmentcredit__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13966,7 +14354,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 763 (class 1255 OID 60412)
+-- TOC entry 781 (class 1255 OID 27236)
 -- Name: __adjustmentcredit__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -13999,7 +14387,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentcredit__reinit() OWNER TO postgres;
 
 --
--- TOC entry 764 (class 1255 OID 60413)
+-- TOC entry 782 (class 1255 OID 27237)
 -- Name: __adjustmentdebit__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14031,7 +14419,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__destroy() OWNER TO postgres;
 
 --
--- TOC entry 765 (class 1255 OID 60414)
+-- TOC entry 783 (class 1255 OID 27238)
 -- Name: __adjustmentdebit__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14056,7 +14444,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 766 (class 1255 OID 60415)
+-- TOC entry 784 (class 1255 OID 27239)
 -- Name: __adjustmentdebit__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14088,7 +14476,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__get_body() OWNER TO postgres;
 
 --
--- TOC entry 767 (class 1255 OID 60416)
+-- TOC entry 785 (class 1255 OID 27240)
 -- Name: __adjustmentdebit__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14117,7 +14505,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 768 (class 1255 OID 60417)
+-- TOC entry 786 (class 1255 OID 27241)
 -- Name: __adjustmentdebit__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14164,7 +14552,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__get_head() OWNER TO postgres;
 
 --
--- TOC entry 769 (class 1255 OID 60418)
+-- TOC entry 787 (class 1255 OID 27242)
 -- Name: __adjustmentdebit__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14210,7 +14598,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 770 (class 1255 OID 60419)
+-- TOC entry 788 (class 1255 OID 27243)
 -- Name: __adjustmentdebit__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14259,7 +14647,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 771 (class 1255 OID 60420)
+-- TOC entry 789 (class 1255 OID 27244)
 -- Name: __adjustmentdebit__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14288,7 +14676,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 772 (class 1255 OID 60421)
+-- TOC entry 790 (class 1255 OID 27245)
 -- Name: __adjustmentdebit__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14319,7 +14707,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__init() OWNER TO postgres;
 
 --
--- TOC entry 773 (class 1255 OID 60422)
+-- TOC entry 791 (class 1255 OID 27246)
 -- Name: __adjustmentdebit__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14355,7 +14743,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 774 (class 1255 OID 60423)
+-- TOC entry 792 (class 1255 OID 27247)
 -- Name: __adjustmentdebit__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14388,7 +14776,7 @@ $$;
 ALTER FUNCTION tests.__adjustmentdebit__reinit() OWNER TO postgres;
 
 --
--- TOC entry 775 (class 1255 OID 60424)
+-- TOC entry 793 (class 1255 OID 27248)
 -- Name: __balance__gain_en_route_qty(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14424,7 +14812,7 @@ $$;
 ALTER FUNCTION tests.__balance__gain_en_route_qty() OWNER TO postgres;
 
 --
--- TOC entry 776 (class 1255 OID 60425)
+-- TOC entry 795 (class 1255 OID 27249)
 -- Name: __balance__gain_on_hand_qty(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14460,7 +14848,7 @@ $$;
 ALTER FUNCTION tests.__balance__gain_on_hand_qty() OWNER TO postgres;
 
 --
--- TOC entry 777 (class 1255 OID 60426)
+-- TOC entry 796 (class 1255 OID 27250)
 -- Name: __balance__gain_on_order_qty(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14496,7 +14884,7 @@ $$;
 ALTER FUNCTION tests.__balance__gain_on_order_qty() OWNER TO postgres;
 
 --
--- TOC entry 778 (class 1255 OID 60427)
+-- TOC entry 797 (class 1255 OID 27251)
 -- Name: __balance__gain_reserved_qty(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14532,7 +14920,7 @@ $$;
 ALTER FUNCTION tests.__balance__gain_reserved_qty() OWNER TO postgres;
 
 --
--- TOC entry 779 (class 1255 OID 60428)
+-- TOC entry 798 (class 1255 OID 27252)
 -- Name: __balance__get_on_hand_qty(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14570,7 +14958,7 @@ $$;
 ALTER FUNCTION tests.__balance__get_on_hand_qty() OWNER TO postgres;
 
 --
--- TOC entry 781 (class 1255 OID 60429)
+-- TOC entry 799 (class 1255 OID 27253)
 -- Name: __balance__loss_en_route_qty(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14606,7 +14994,7 @@ $$;
 ALTER FUNCTION tests.__balance__loss_en_route_qty() OWNER TO postgres;
 
 --
--- TOC entry 782 (class 1255 OID 60430)
+-- TOC entry 801 (class 1255 OID 27254)
 -- Name: __balance__loss_on_hand_qty(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14642,7 +15030,7 @@ $$;
 ALTER FUNCTION tests.__balance__loss_on_hand_qty() OWNER TO postgres;
 
 --
--- TOC entry 783 (class 1255 OID 60431)
+-- TOC entry 802 (class 1255 OID 27255)
 -- Name: __balance__loss_on_order_qty(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14678,7 +15066,7 @@ $$;
 ALTER FUNCTION tests.__balance__loss_on_order_qty() OWNER TO postgres;
 
 --
--- TOC entry 784 (class 1255 OID 60432)
+-- TOC entry 803 (class 1255 OID 27256)
 -- Name: __balance__loss_reserved_qty(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14714,7 +15102,7 @@ $$;
 ALTER FUNCTION tests.__balance__loss_reserved_qty() OWNER TO postgres;
 
 --
--- TOC entry 785 (class 1255 OID 60433)
+-- TOC entry 804 (class 1255 OID 27257)
 -- Name: __binding__bind_cutoff_and_adjustmentcredit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14748,7 +15136,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_adjustmentcredit() OWNER TO postgres;
 
 --
--- TOC entry 786 (class 1255 OID 60434)
+-- TOC entry 807 (class 1255 OID 27258)
 -- Name: __binding__bind_cutoff_and_adjustmentdebit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14782,7 +15170,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_adjustmentdebit() OWNER TO postgres;
 
 --
--- TOC entry 787 (class 1255 OID 60435)
+-- TOC entry 808 (class 1255 OID 27259)
 -- Name: __binding__bind_cutoff_and_delivery(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14815,7 +15203,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_delivery() OWNER TO postgres;
 
 --
--- TOC entry 788 (class 1255 OID 60436)
+-- TOC entry 809 (class 1255 OID 27260)
 -- Name: __binding__bind_cutoff_and_demand(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14848,7 +15236,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_demand() OWNER TO postgres;
 
 --
--- TOC entry 789 (class 1255 OID 60437)
+-- TOC entry 810 (class 1255 OID 27261)
 -- Name: __binding__bind_cutoff_and_despatch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14881,7 +15269,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_despatch() OWNER TO postgres;
 
 --
--- TOC entry 790 (class 1255 OID 60438)
+-- TOC entry 811 (class 1255 OID 27262)
 -- Name: __binding__bind_cutoff_and_goal(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14914,7 +15302,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_goal() OWNER TO postgres;
 
 --
--- TOC entry 791 (class 1255 OID 60439)
+-- TOC entry 812 (class 1255 OID 27263)
 -- Name: __binding__bind_cutoff_and_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14947,7 +15335,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_issue() OWNER TO postgres;
 
 --
--- TOC entry 792 (class 1255 OID 60440)
+-- TOC entry 813 (class 1255 OID 27264)
 -- Name: __binding__bind_cutoff_and_picklist(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -14980,7 +15368,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_picklist() OWNER TO postgres;
 
 --
--- TOC entry 793 (class 1255 OID 60441)
+-- TOC entry 814 (class 1255 OID 27265)
 -- Name: __binding__bind_cutoff_and_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15013,7 +15401,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_rebound() OWNER TO postgres;
 
 --
--- TOC entry 795 (class 1255 OID 60442)
+-- TOC entry 816 (class 1255 OID 27266)
 -- Name: __binding__bind_cutoff_and_receipt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15046,7 +15434,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_receipt() OWNER TO postgres;
 
 --
--- TOC entry 796 (class 1255 OID 60443)
+-- TOC entry 817 (class 1255 OID 27267)
 -- Name: __binding__bind_cutoff_and_reserve(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15079,7 +15467,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_reserve() OWNER TO postgres;
 
 --
--- TOC entry 797 (class 1255 OID 60444)
+-- TOC entry 818 (class 1255 OID 27268)
 -- Name: __binding__bind_cutoff_and_stocktake(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15112,7 +15500,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_cutoff_and_stocktake() OWNER TO postgres;
 
 --
--- TOC entry 798 (class 1255 OID 60445)
+-- TOC entry 819 (class 1255 OID 27269)
 -- Name: __binding__bind_delivery_and_receipt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15145,7 +15533,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_delivery_and_receipt() OWNER TO postgres;
 
 --
--- TOC entry 800 (class 1255 OID 60446)
+-- TOC entry 820 (class 1255 OID 27270)
 -- Name: __binding__bind_demand_and_picklist(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15178,7 +15566,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_demand_and_picklist() OWNER TO postgres;
 
 --
--- TOC entry 801 (class 1255 OID 60447)
+-- TOC entry 821 (class 1255 OID 27271)
 -- Name: __binding__bind_demand_and_reserve(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15211,7 +15599,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_demand_and_reserve() OWNER TO postgres;
 
 --
--- TOC entry 802 (class 1255 OID 60448)
+-- TOC entry 822 (class 1255 OID 27272)
 -- Name: __binding__bind_goal_and_demand(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15244,7 +15632,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_goal_and_demand() OWNER TO postgres;
 
 --
--- TOC entry 803 (class 1255 OID 60449)
+-- TOC entry 823 (class 1255 OID 27273)
 -- Name: __binding__bind_goal_and_despatch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15277,7 +15665,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_goal_and_despatch() OWNER TO postgres;
 
 --
--- TOC entry 804 (class 1255 OID 60450)
+-- TOC entry 824 (class 1255 OID 27274)
 -- Name: __binding__bind_goal_and_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15310,7 +15698,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_goal_and_issue() OWNER TO postgres;
 
 --
--- TOC entry 805 (class 1255 OID 60451)
+-- TOC entry 825 (class 1255 OID 27275)
 -- Name: __binding__bind_goal_and_picklist(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15343,7 +15731,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_goal_and_picklist() OWNER TO postgres;
 
 --
--- TOC entry 806 (class 1255 OID 60452)
+-- TOC entry 826 (class 1255 OID 27276)
 -- Name: __binding__bind_goal_and_reserve(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15376,7 +15764,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_goal_and_reserve() OWNER TO postgres;
 
 --
--- TOC entry 807 (class 1255 OID 60453)
+-- TOC entry 827 (class 1255 OID 27277)
 -- Name: __binding__bind_issue_and_adjustmentcredit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15409,7 +15797,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_issue_and_adjustmentcredit() OWNER TO postgres;
 
 --
--- TOC entry 808 (class 1255 OID 60454)
+-- TOC entry 828 (class 1255 OID 27278)
 -- Name: __binding__bind_issue_and_despatch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15442,7 +15830,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_issue_and_despatch() OWNER TO postgres;
 
 --
--- TOC entry 809 (class 1255 OID 60455)
+-- TOC entry 829 (class 1255 OID 27279)
 -- Name: __binding__bind_issue_and_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15475,7 +15863,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_issue_and_rebound() OWNER TO postgres;
 
 --
--- TOC entry 810 (class 1255 OID 60456)
+-- TOC entry 830 (class 1255 OID 27280)
 -- Name: __binding__bind_picklist_and_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15508,7 +15896,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_picklist_and_issue() OWNER TO postgres;
 
 --
--- TOC entry 811 (class 1255 OID 60457)
+-- TOC entry 831 (class 1255 OID 27281)
 -- Name: __binding__bind_receipt_and_adjustmentdebit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15541,7 +15929,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_receipt_and_adjustmentdebit() OWNER TO postgres;
 
 --
--- TOC entry 812 (class 1255 OID 60458)
+-- TOC entry 832 (class 1255 OID 27282)
 -- Name: __binding__bind_receipt_and_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15574,7 +15962,7 @@ $$;
 ALTER FUNCTION tests.__binding__bind_receipt_and_rebound() OWNER TO postgres;
 
 --
--- TOC entry 813 (class 1255 OID 60459)
+-- TOC entry 833 (class 1255 OID 27283)
 -- Name: __binding__get_adjustmentcredit_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15619,7 +16007,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_adjustmentcredit_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 814 (class 1255 OID 60460)
+-- TOC entry 834 (class 1255 OID 27284)
 -- Name: __binding__get_adjustmentcredit_binded_to_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15656,7 +16044,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_adjustmentcredit_binded_to_issue() OWNER TO postgres;
 
 --
--- TOC entry 815 (class 1255 OID 60461)
+-- TOC entry 835 (class 1255 OID 27285)
 -- Name: __binding__get_adjustmentdebit_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15701,7 +16089,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_adjustmentdebit_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 816 (class 1255 OID 60462)
+-- TOC entry 836 (class 1255 OID 27286)
 -- Name: __binding__get_adjustmentdebit_binded_to_receipt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15738,7 +16126,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_adjustmentdebit_binded_to_receipt() OWNER TO postgres;
 
 --
--- TOC entry 817 (class 1255 OID 60463)
+-- TOC entry 837 (class 1255 OID 27287)
 -- Name: __binding__get_cutoff_binded_to(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15835,7 +16223,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to() OWNER TO postgres;
 
 --
--- TOC entry 818 (class 1255 OID 60464)
+-- TOC entry 838 (class 1255 OID 27288)
 -- Name: __binding__get_cutoff_binded_to_adjustmentcredit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15874,7 +16262,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_adjustmentcredit() OWNER TO postgres;
 
 --
--- TOC entry 780 (class 1255 OID 60465)
+-- TOC entry 794 (class 1255 OID 27289)
 -- Name: __binding__get_cutoff_binded_to_adjustmentdebit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15913,7 +16301,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_adjustmentdebit() OWNER TO postgres;
 
 --
--- TOC entry 819 (class 1255 OID 60466)
+-- TOC entry 805 (class 1255 OID 27290)
 -- Name: __binding__get_cutoff_binded_to_delivery(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15952,7 +16340,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_delivery() OWNER TO postgres;
 
 --
--- TOC entry 820 (class 1255 OID 60467)
+-- TOC entry 839 (class 1255 OID 27291)
 -- Name: __binding__get_cutoff_binded_to_demand(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -15991,7 +16379,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_demand() OWNER TO postgres;
 
 --
--- TOC entry 821 (class 1255 OID 60468)
+-- TOC entry 840 (class 1255 OID 27292)
 -- Name: __binding__get_cutoff_binded_to_despatch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16030,7 +16418,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_despatch() OWNER TO postgres;
 
 --
--- TOC entry 822 (class 1255 OID 60469)
+-- TOC entry 841 (class 1255 OID 27293)
 -- Name: __binding__get_cutoff_binded_to_goal(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16069,7 +16457,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_goal() OWNER TO postgres;
 
 --
--- TOC entry 823 (class 1255 OID 60470)
+-- TOC entry 842 (class 1255 OID 27294)
 -- Name: __binding__get_cutoff_binded_to_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16108,7 +16496,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_issue() OWNER TO postgres;
 
 --
--- TOC entry 824 (class 1255 OID 60471)
+-- TOC entry 843 (class 1255 OID 27295)
 -- Name: __binding__get_cutoff_binded_to_picklist(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16147,7 +16535,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_picklist() OWNER TO postgres;
 
 --
--- TOC entry 825 (class 1255 OID 60472)
+-- TOC entry 844 (class 1255 OID 27296)
 -- Name: __binding__get_cutoff_binded_to_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16186,7 +16574,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_rebound() OWNER TO postgres;
 
 --
--- TOC entry 826 (class 1255 OID 60473)
+-- TOC entry 845 (class 1255 OID 27297)
 -- Name: __binding__get_cutoff_binded_to_receipt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16225,7 +16613,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_receipt() OWNER TO postgres;
 
 --
--- TOC entry 827 (class 1255 OID 60474)
+-- TOC entry 846 (class 1255 OID 27298)
 -- Name: __binding__get_cutoff_binded_to_reserve(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16264,7 +16652,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_reserve() OWNER TO postgres;
 
 --
--- TOC entry 828 (class 1255 OID 60475)
+-- TOC entry 800 (class 1255 OID 27299)
 -- Name: __binding__get_cutoff_binded_to_stocktake(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16303,7 +16691,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_cutoff_binded_to_stocktake() OWNER TO postgres;
 
 --
--- TOC entry 829 (class 1255 OID 60476)
+-- TOC entry 847 (class 1255 OID 27300)
 -- Name: __binding__get_delivery_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16348,7 +16736,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_delivery_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 830 (class 1255 OID 60477)
+-- TOC entry 848 (class 1255 OID 27301)
 -- Name: __binding__get_delivery_binded_to_receipt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16385,7 +16773,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_delivery_binded_to_receipt() OWNER TO postgres;
 
 --
--- TOC entry 831 (class 1255 OID 60478)
+-- TOC entry 849 (class 1255 OID 27302)
 -- Name: __binding__get_demand_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16430,7 +16818,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_demand_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 832 (class 1255 OID 60479)
+-- TOC entry 850 (class 1255 OID 27303)
 -- Name: __binding__get_demand_binded_to_goal(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16467,7 +16855,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_demand_binded_to_goal() OWNER TO postgres;
 
 --
--- TOC entry 794 (class 1255 OID 60480)
+-- TOC entry 851 (class 1255 OID 27304)
 -- Name: __binding__get_demand_binded_to_picklist(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16504,7 +16892,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_demand_binded_to_picklist() OWNER TO postgres;
 
 --
--- TOC entry 833 (class 1255 OID 60481)
+-- TOC entry 852 (class 1255 OID 27305)
 -- Name: __binding__get_demand_binded_to_reserve(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16541,7 +16929,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_demand_binded_to_reserve() OWNER TO postgres;
 
 --
--- TOC entry 834 (class 1255 OID 60482)
+-- TOC entry 854 (class 1255 OID 27306)
 -- Name: __binding__get_despatch_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16586,7 +16974,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_despatch_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 835 (class 1255 OID 60483)
+-- TOC entry 855 (class 1255 OID 27307)
 -- Name: __binding__get_despatch_binded_to_goal(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16623,7 +17011,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_despatch_binded_to_goal() OWNER TO postgres;
 
 --
--- TOC entry 836 (class 1255 OID 60484)
+-- TOC entry 856 (class 1255 OID 27308)
 -- Name: __binding__get_despatch_binded_to_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16660,7 +17048,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_despatch_binded_to_issue() OWNER TO postgres;
 
 --
--- TOC entry 837 (class 1255 OID 60485)
+-- TOC entry 857 (class 1255 OID 27309)
 -- Name: __binding__get_goal_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16705,7 +17093,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_goal_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 838 (class 1255 OID 60486)
+-- TOC entry 858 (class 1255 OID 27310)
 -- Name: __binding__get_goal_binded_to_demand(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16742,7 +17130,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_goal_binded_to_demand() OWNER TO postgres;
 
 --
--- TOC entry 840 (class 1255 OID 60487)
+-- TOC entry 860 (class 1255 OID 27311)
 -- Name: __binding__get_goal_binded_to_despatch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16779,7 +17167,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_goal_binded_to_despatch() OWNER TO postgres;
 
 --
--- TOC entry 841 (class 1255 OID 60488)
+-- TOC entry 861 (class 1255 OID 27312)
 -- Name: __binding__get_goal_binded_to_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16816,7 +17204,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_goal_binded_to_issue() OWNER TO postgres;
 
 --
--- TOC entry 842 (class 1255 OID 60489)
+-- TOC entry 862 (class 1255 OID 27313)
 -- Name: __binding__get_goal_binded_to_picklist(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16853,7 +17241,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_goal_binded_to_picklist() OWNER TO postgres;
 
 --
--- TOC entry 843 (class 1255 OID 60490)
+-- TOC entry 863 (class 1255 OID 27314)
 -- Name: __binding__get_goal_binded_to_reserve(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16890,7 +17278,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_goal_binded_to_reserve() OWNER TO postgres;
 
 --
--- TOC entry 839 (class 1255 OID 60491)
+-- TOC entry 806 (class 1255 OID 27315)
 -- Name: __binding__get_issue_binded_to_adjustmentcredit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16927,7 +17315,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_issue_binded_to_adjustmentcredit() OWNER TO postgres;
 
 --
--- TOC entry 844 (class 1255 OID 60492)
+-- TOC entry 859 (class 1255 OID 27316)
 -- Name: __binding__get_issue_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -16972,7 +17360,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_issue_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 845 (class 1255 OID 60493)
+-- TOC entry 815 (class 1255 OID 27317)
 -- Name: __binding__get_issue_binded_to_despatch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17009,7 +17397,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_issue_binded_to_despatch() OWNER TO postgres;
 
 --
--- TOC entry 846 (class 1255 OID 60494)
+-- TOC entry 864 (class 1255 OID 27318)
 -- Name: __binding__get_issue_binded_to_goal(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17046,7 +17434,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_issue_binded_to_goal() OWNER TO postgres;
 
 --
--- TOC entry 847 (class 1255 OID 60495)
+-- TOC entry 865 (class 1255 OID 27319)
 -- Name: __binding__get_issue_binded_to_picklist(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17083,7 +17471,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_issue_binded_to_picklist() OWNER TO postgres;
 
 --
--- TOC entry 848 (class 1255 OID 60496)
+-- TOC entry 866 (class 1255 OID 27320)
 -- Name: __binding__get_issue_binded_to_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17120,7 +17508,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_issue_binded_to_rebound() OWNER TO postgres;
 
 --
--- TOC entry 849 (class 1255 OID 60497)
+-- TOC entry 867 (class 1255 OID 27321)
 -- Name: __binding__get_picklist_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17165,7 +17553,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_picklist_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 850 (class 1255 OID 60498)
+-- TOC entry 868 (class 1255 OID 27322)
 -- Name: __binding__get_picklist_binded_to_demand(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17202,7 +17590,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_picklist_binded_to_demand() OWNER TO postgres;
 
 --
--- TOC entry 851 (class 1255 OID 60499)
+-- TOC entry 870 (class 1255 OID 27323)
 -- Name: __binding__get_picklist_binded_to_goal(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17239,7 +17627,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_picklist_binded_to_goal() OWNER TO postgres;
 
 --
--- TOC entry 852 (class 1255 OID 60500)
+-- TOC entry 871 (class 1255 OID 27324)
 -- Name: __binding__get_picklist_binded_to_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17276,7 +17664,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_picklist_binded_to_issue() OWNER TO postgres;
 
 --
--- TOC entry 853 (class 1255 OID 60501)
+-- TOC entry 872 (class 1255 OID 27325)
 -- Name: __binding__get_rebound_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17321,7 +17709,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_rebound_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 854 (class 1255 OID 60502)
+-- TOC entry 873 (class 1255 OID 27326)
 -- Name: __binding__get_rebound_binded_to_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17358,7 +17746,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_rebound_binded_to_issue() OWNER TO postgres;
 
 --
--- TOC entry 855 (class 1255 OID 60503)
+-- TOC entry 874 (class 1255 OID 27327)
 -- Name: __binding__get_rebound_binded_to_receipt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17395,7 +17783,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_rebound_binded_to_receipt() OWNER TO postgres;
 
 --
--- TOC entry 856 (class 1255 OID 60504)
+-- TOC entry 853 (class 1255 OID 27328)
 -- Name: __binding__get_receipt_binded_to_adjustmentdebit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17432,7 +17820,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_receipt_binded_to_adjustmentdebit() OWNER TO postgres;
 
 --
--- TOC entry 857 (class 1255 OID 60505)
+-- TOC entry 869 (class 1255 OID 27329)
 -- Name: __binding__get_receipt_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17477,7 +17865,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_receipt_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 858 (class 1255 OID 60506)
+-- TOC entry 875 (class 1255 OID 27330)
 -- Name: __binding__get_receipt_binded_to_delivery(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17514,7 +17902,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_receipt_binded_to_delivery() OWNER TO postgres;
 
 --
--- TOC entry 859 (class 1255 OID 60507)
+-- TOC entry 876 (class 1255 OID 27331)
 -- Name: __binding__get_receipt_binded_to_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17551,7 +17939,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_receipt_binded_to_rebound() OWNER TO postgres;
 
 --
--- TOC entry 860 (class 1255 OID 60508)
+-- TOC entry 877 (class 1255 OID 27332)
 -- Name: __binding__get_reserve_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17596,7 +17984,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_reserve_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 861 (class 1255 OID 60509)
+-- TOC entry 878 (class 1255 OID 27333)
 -- Name: __binding__get_reserve_binded_to_demand(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17633,7 +18021,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_reserve_binded_to_demand() OWNER TO postgres;
 
 --
--- TOC entry 862 (class 1255 OID 60510)
+-- TOC entry 879 (class 1255 OID 27334)
 -- Name: __binding__get_reserve_binded_to_goal(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17670,7 +18058,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_reserve_binded_to_goal() OWNER TO postgres;
 
 --
--- TOC entry 863 (class 1255 OID 60511)
+-- TOC entry 880 (class 1255 OID 27335)
 -- Name: __binding__get_stocktake_binded_to_cutoff(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17715,7 +18103,7 @@ $$;
 ALTER FUNCTION tests.__binding__get_stocktake_binded_to_cutoff() OWNER TO postgres;
 
 --
--- TOC entry 864 (class 1255 OID 60512)
+-- TOC entry 881 (class 1255 OID 27336)
 -- Name: __binding__unbind_cutoff_and_adjustmentcredit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17752,7 +18140,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_adjustmentcredit() OWNER TO postgres;
 
 --
--- TOC entry 865 (class 1255 OID 60513)
+-- TOC entry 882 (class 1255 OID 27337)
 -- Name: __binding__unbind_cutoff_and_adjustmentdebit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17789,7 +18177,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_adjustmentdebit() OWNER TO postgres;
 
 --
--- TOC entry 866 (class 1255 OID 60514)
+-- TOC entry 883 (class 1255 OID 27338)
 -- Name: __binding__unbind_cutoff_and_delivery(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17826,7 +18214,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_delivery() OWNER TO postgres;
 
 --
--- TOC entry 867 (class 1255 OID 60515)
+-- TOC entry 884 (class 1255 OID 27339)
 -- Name: __binding__unbind_cutoff_and_demand(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17863,7 +18251,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_demand() OWNER TO postgres;
 
 --
--- TOC entry 868 (class 1255 OID 60516)
+-- TOC entry 885 (class 1255 OID 27340)
 -- Name: __binding__unbind_cutoff_and_despatch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17900,7 +18288,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_despatch() OWNER TO postgres;
 
 --
--- TOC entry 869 (class 1255 OID 60517)
+-- TOC entry 888 (class 1255 OID 27341)
 -- Name: __binding__unbind_cutoff_and_goal(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17937,7 +18325,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_goal() OWNER TO postgres;
 
 --
--- TOC entry 870 (class 1255 OID 60518)
+-- TOC entry 889 (class 1255 OID 27342)
 -- Name: __binding__unbind_cutoff_and_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -17974,7 +18362,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_issue() OWNER TO postgres;
 
 --
--- TOC entry 871 (class 1255 OID 60519)
+-- TOC entry 890 (class 1255 OID 27343)
 -- Name: __binding__unbind_cutoff_and_picklist(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18011,7 +18399,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_picklist() OWNER TO postgres;
 
 --
--- TOC entry 872 (class 1255 OID 60520)
+-- TOC entry 891 (class 1255 OID 27344)
 -- Name: __binding__unbind_cutoff_and_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18048,7 +18436,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_rebound() OWNER TO postgres;
 
 --
--- TOC entry 873 (class 1255 OID 60521)
+-- TOC entry 893 (class 1255 OID 27345)
 -- Name: __binding__unbind_cutoff_and_receipt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18085,7 +18473,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_receipt() OWNER TO postgres;
 
 --
--- TOC entry 874 (class 1255 OID 60522)
+-- TOC entry 894 (class 1255 OID 27346)
 -- Name: __binding__unbind_cutoff_and_reserve(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18122,7 +18510,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_reserve() OWNER TO postgres;
 
 --
--- TOC entry 875 (class 1255 OID 60523)
+-- TOC entry 895 (class 1255 OID 27347)
 -- Name: __binding__unbind_cutoff_and_stocktake(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18163,7 +18551,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_cutoff_and_stocktake() OWNER TO postgres;
 
 --
--- TOC entry 876 (class 1255 OID 60524)
+-- TOC entry 896 (class 1255 OID 27348)
 -- Name: __binding__unbind_delivery_and_receipt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18201,7 +18589,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_delivery_and_receipt() OWNER TO postgres;
 
 --
--- TOC entry 877 (class 1255 OID 60525)
+-- TOC entry 897 (class 1255 OID 27349)
 -- Name: __binding__unbind_demand_and_picklist(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18239,7 +18627,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_demand_and_picklist() OWNER TO postgres;
 
 --
--- TOC entry 878 (class 1255 OID 60526)
+-- TOC entry 898 (class 1255 OID 27350)
 -- Name: __binding__unbind_demand_and_reserve(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18277,7 +18665,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_demand_and_reserve() OWNER TO postgres;
 
 --
--- TOC entry 881 (class 1255 OID 60527)
+-- TOC entry 901 (class 1255 OID 27351)
 -- Name: __binding__unbind_goal_and_demand(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18315,7 +18703,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_goal_and_demand() OWNER TO postgres;
 
 --
--- TOC entry 882 (class 1255 OID 60528)
+-- TOC entry 902 (class 1255 OID 27352)
 -- Name: __binding__unbind_goal_and_despatch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18353,7 +18741,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_goal_and_despatch() OWNER TO postgres;
 
 --
--- TOC entry 883 (class 1255 OID 60529)
+-- TOC entry 903 (class 1255 OID 27353)
 -- Name: __binding__unbind_goal_and_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18391,7 +18779,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_goal_and_issue() OWNER TO postgres;
 
 --
--- TOC entry 884 (class 1255 OID 60530)
+-- TOC entry 904 (class 1255 OID 27354)
 -- Name: __binding__unbind_goal_and_picklist(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18429,7 +18817,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_goal_and_picklist() OWNER TO postgres;
 
 --
--- TOC entry 885 (class 1255 OID 60531)
+-- TOC entry 905 (class 1255 OID 27355)
 -- Name: __binding__unbind_goal_and_reserve(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18467,7 +18855,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_goal_and_reserve() OWNER TO postgres;
 
 --
--- TOC entry 886 (class 1255 OID 60532)
+-- TOC entry 906 (class 1255 OID 27356)
 -- Name: __binding__unbind_issue_and_adjustmentcredit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18505,7 +18893,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_issue_and_adjustmentcredit() OWNER TO postgres;
 
 --
--- TOC entry 879 (class 1255 OID 60533)
+-- TOC entry 886 (class 1255 OID 27357)
 -- Name: __binding__unbind_issue_and_despatch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18543,7 +18931,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_issue_and_despatch() OWNER TO postgres;
 
 --
--- TOC entry 880 (class 1255 OID 60534)
+-- TOC entry 887 (class 1255 OID 27358)
 -- Name: __binding__unbind_issue_and_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18581,7 +18969,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_issue_and_rebound() OWNER TO postgres;
 
 --
--- TOC entry 887 (class 1255 OID 60535)
+-- TOC entry 892 (class 1255 OID 27359)
 -- Name: __binding__unbind_picklist_and_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18619,7 +19007,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_picklist_and_issue() OWNER TO postgres;
 
 --
--- TOC entry 888 (class 1255 OID 60536)
+-- TOC entry 899 (class 1255 OID 27360)
 -- Name: __binding__unbind_receipt_and_adjustmentdebit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18657,7 +19045,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_receipt_and_adjustmentdebit() OWNER TO postgres;
 
 --
--- TOC entry 889 (class 1255 OID 60537)
+-- TOC entry 900 (class 1255 OID 27361)
 -- Name: __binding__unbind_receipt_and_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18695,7 +19083,7 @@ $$;
 ALTER FUNCTION tests.__binding__unbind_receipt_and_rebound() OWNER TO postgres;
 
 --
--- TOC entry 1032 (class 1255 OID 61858)
+-- TOC entry 908 (class 1255 OID 27362)
 -- Name: __common__convert_document_to_goal_fsmt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18737,7 +19125,7 @@ $$;
 ALTER FUNCTION tests.__common__convert_document_to_goal_fsmt() OWNER TO postgres;
 
 --
--- TOC entry 1033 (class 1255 OID 61859)
+-- TOC entry 909 (class 1255 OID 27363)
 -- Name: __common__convert_goal_to_document_fsmt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18797,7 +19185,7 @@ $$;
 ALTER FUNCTION tests.__common__convert_goal_to_document_fsmt() OWNER TO postgres;
 
 --
--- TOC entry 1034 (class 1255 OID 61892)
+-- TOC entry 910 (class 1255 OID 27364)
 -- Name: __common__convert_goal_to_document_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18828,7 +19216,7 @@ $$;
 ALTER FUNCTION tests.__common__convert_goal_to_document_head() OWNER TO postgres;
 
 --
--- TOC entry 1035 (class 1255 OID 62085)
+-- TOC entry 911 (class 1255 OID 27365)
 -- Name: __common__convert_inbound_to_document_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18859,7 +19247,7 @@ $$;
 ALTER FUNCTION tests.__common__convert_inbound_to_document_head() OWNER TO postgres;
 
 --
--- TOC entry 1018 (class 1255 OID 62118)
+-- TOC entry 912 (class 1255 OID 27366)
 -- Name: __common__convert_outbound_to_document_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18886,7 +19274,7 @@ $$;
 ALTER FUNCTION tests.__common__convert_outbound_to_document_head() OWNER TO postgres;
 
 --
--- TOC entry 1036 (class 1255 OID 62151)
+-- TOC entry 913 (class 1255 OID 27367)
 -- Name: __common__convert_outbound_to_goal_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18913,7 +19301,7 @@ $$;
 ALTER FUNCTION tests.__common__convert_outbound_to_goal_head() OWNER TO postgres;
 
 --
--- TOC entry 799 (class 1255 OID 62248)
+-- TOC entry 914 (class 1255 OID 27368)
 -- Name: __common__convert_stocktake_to_document_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18938,7 +19326,7 @@ $$;
 ALTER FUNCTION tests.__common__convert_stocktake_to_document_body() OWNER TO postgres;
 
 --
--- TOC entry 890 (class 1255 OID 60538)
+-- TOC entry 907 (class 1255 OID 27369)
 -- Name: __common__get_document_abbrevation(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18961,7 +19349,7 @@ $$;
 ALTER FUNCTION tests.__common__get_document_abbrevation() OWNER TO postgres;
 
 --
--- TOC entry 891 (class 1255 OID 60539)
+-- TOC entry 915 (class 1255 OID 27370)
 -- Name: __common__get_document_head_types(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -18990,7 +19378,7 @@ $$;
 ALTER FUNCTION tests.__common__get_document_head_types() OWNER TO postgres;
 
 --
--- TOC entry 892 (class 1255 OID 60540)
+-- TOC entry 916 (class 1255 OID 27371)
 -- Name: __common__get_policy_mode(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19019,7 +19407,7 @@ $$;
 ALTER FUNCTION tests.__common__get_policy_mode() OWNER TO postgres;
 
 --
--- TOC entry 893 (class 1255 OID 60541)
+-- TOC entry 917 (class 1255 OID 27372)
 -- Name: __common__get_stocktake_mode(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19048,7 +19436,7 @@ $$;
 ALTER FUNCTION tests.__common__get_stocktake_mode() OWNER TO postgres;
 
 --
--- TOC entry 894 (class 1255 OID 60542)
+-- TOC entry 918 (class 1255 OID 27373)
 -- Name: __common__remake_document_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19086,7 +19474,7 @@ $$;
 ALTER FUNCTION tests.__common__remake_document_head() OWNER TO postgres;
 
 --
--- TOC entry 896 (class 1255 OID 60543)
+-- TOC entry 919 (class 1255 OID 27374)
 -- Name: __common__remake_inbound_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19126,7 +19514,7 @@ $$;
 ALTER FUNCTION tests.__common__remake_inbound_head() OWNER TO postgres;
 
 --
--- TOC entry 897 (class 1255 OID 60544)
+-- TOC entry 920 (class 1255 OID 27375)
 -- Name: __common__remake_outbound_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19168,7 +19556,7 @@ $$;
 ALTER FUNCTION tests.__common__remake_outbound_head() OWNER TO postgres;
 
 --
--- TOC entry 898 (class 1255 OID 60545)
+-- TOC entry 922 (class 1255 OID 27376)
 -- Name: __cutoff__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19198,7 +19586,7 @@ $$;
 ALTER FUNCTION tests.__cutoff__destroy() OWNER TO postgres;
 
 --
--- TOC entry 899 (class 1255 OID 60546)
+-- TOC entry 923 (class 1255 OID 27377)
 -- Name: __cutoff__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19223,7 +19611,7 @@ $$;
 ALTER FUNCTION tests.__cutoff__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 900 (class 1255 OID 60547)
+-- TOC entry 924 (class 1255 OID 27378)
 -- Name: __cutoff__get_all_comitted(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19251,7 +19639,7 @@ $$;
 ALTER FUNCTION tests.__cutoff__get_all_comitted() OWNER TO postgres;
 
 --
--- TOC entry 901 (class 1255 OID 60548)
+-- TOC entry 925 (class 1255 OID 27379)
 -- Name: __cutoff__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19280,7 +19668,7 @@ $$;
 ALTER FUNCTION tests.__cutoff__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 895 (class 1255 OID 60549)
+-- TOC entry 926 (class 1255 OID 27380)
 -- Name: __cutoff__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19324,7 +19712,7 @@ $$;
 ALTER FUNCTION tests.__cutoff__get_head() OWNER TO postgres;
 
 --
--- TOC entry 903 (class 1255 OID 60550)
+-- TOC entry 927 (class 1255 OID 27381)
 -- Name: __cutoff__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19353,7 +19741,7 @@ $$;
 ALTER FUNCTION tests.__cutoff__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 904 (class 1255 OID 60551)
+-- TOC entry 928 (class 1255 OID 27382)
 -- Name: __cutoff__get_last_cutoff_date(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19386,7 +19774,7 @@ $$;
 ALTER FUNCTION tests.__cutoff__get_last_cutoff_date() OWNER TO postgres;
 
 --
--- TOC entry 905 (class 1255 OID 60552)
+-- TOC entry 929 (class 1255 OID 27383)
 -- Name: __cutoff__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19414,7 +19802,7 @@ $$;
 ALTER FUNCTION tests.__cutoff__init() OWNER TO postgres;
 
 --
--- TOC entry 906 (class 1255 OID 60553)
+-- TOC entry 930 (class 1255 OID 27384)
 -- Name: __cutoff__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19450,7 +19838,7 @@ $$;
 ALTER FUNCTION tests.__cutoff__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 907 (class 1255 OID 60554)
+-- TOC entry 931 (class 1255 OID 27385)
 -- Name: __delivery__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19482,7 +19870,7 @@ $$;
 ALTER FUNCTION tests.__delivery__destroy() OWNER TO postgres;
 
 --
--- TOC entry 908 (class 1255 OID 60555)
+-- TOC entry 932 (class 1255 OID 27386)
 -- Name: __delivery__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19507,7 +19895,7 @@ $$;
 ALTER FUNCTION tests.__delivery__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 909 (class 1255 OID 60556)
+-- TOC entry 933 (class 1255 OID 27387)
 -- Name: __delivery__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19539,7 +19927,7 @@ $$;
 ALTER FUNCTION tests.__delivery__get_body() OWNER TO postgres;
 
 --
--- TOC entry 911 (class 1255 OID 60557)
+-- TOC entry 934 (class 1255 OID 27388)
 -- Name: __delivery__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19568,7 +19956,7 @@ $$;
 ALTER FUNCTION tests.__delivery__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 912 (class 1255 OID 60558)
+-- TOC entry 935 (class 1255 OID 27389)
 -- Name: __delivery__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19614,7 +20002,7 @@ $$;
 ALTER FUNCTION tests.__delivery__get_head() OWNER TO postgres;
 
 --
--- TOC entry 913 (class 1255 OID 60559)
+-- TOC entry 936 (class 1255 OID 27390)
 -- Name: __delivery__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19660,7 +20048,7 @@ $$;
 ALTER FUNCTION tests.__delivery__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 914 (class 1255 OID 60560)
+-- TOC entry 937 (class 1255 OID 27391)
 -- Name: __delivery__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19709,7 +20097,7 @@ $$;
 ALTER FUNCTION tests.__delivery__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 915 (class 1255 OID 60561)
+-- TOC entry 938 (class 1255 OID 27392)
 -- Name: __delivery__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19738,7 +20126,7 @@ $$;
 ALTER FUNCTION tests.__delivery__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 916 (class 1255 OID 60562)
+-- TOC entry 939 (class 1255 OID 27393)
 -- Name: __delivery__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19769,7 +20157,7 @@ $$;
 ALTER FUNCTION tests.__delivery__init() OWNER TO postgres;
 
 --
--- TOC entry 917 (class 1255 OID 60563)
+-- TOC entry 940 (class 1255 OID 27394)
 -- Name: __delivery__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19805,7 +20193,7 @@ $$;
 ALTER FUNCTION tests.__delivery__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 918 (class 1255 OID 60564)
+-- TOC entry 941 (class 1255 OID 27395)
 -- Name: __delivery__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19838,7 +20226,7 @@ $$;
 ALTER FUNCTION tests.__delivery__reinit() OWNER TO postgres;
 
 --
--- TOC entry 919 (class 1255 OID 60565)
+-- TOC entry 942 (class 1255 OID 27396)
 -- Name: __demand__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19870,7 +20258,7 @@ $$;
 ALTER FUNCTION tests.__demand__destroy() OWNER TO postgres;
 
 --
--- TOC entry 1037 (class 1255 OID 60566)
+-- TOC entry 943 (class 1255 OID 27397)
 -- Name: __demand__do_commit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19912,7 +20300,7 @@ $$;
 ALTER FUNCTION tests.__demand__do_commit() OWNER TO postgres;
 
 --
--- TOC entry 920 (class 1255 OID 60567)
+-- TOC entry 921 (class 1255 OID 27398)
 -- Name: __demand__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19937,7 +20325,7 @@ $$;
 ALTER FUNCTION tests.__demand__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 921 (class 1255 OID 60568)
+-- TOC entry 944 (class 1255 OID 27399)
 -- Name: __demand__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19969,7 +20357,7 @@ $$;
 ALTER FUNCTION tests.__demand__get_body() OWNER TO postgres;
 
 --
--- TOC entry 922 (class 1255 OID 60569)
+-- TOC entry 945 (class 1255 OID 27400)
 -- Name: __demand__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -19998,7 +20386,7 @@ $$;
 ALTER FUNCTION tests.__demand__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 923 (class 1255 OID 60570)
+-- TOC entry 946 (class 1255 OID 27401)
 -- Name: __demand__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20046,7 +20434,7 @@ $$;
 ALTER FUNCTION tests.__demand__get_head() OWNER TO postgres;
 
 --
--- TOC entry 924 (class 1255 OID 60571)
+-- TOC entry 947 (class 1255 OID 27402)
 -- Name: __demand__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20094,7 +20482,7 @@ $$;
 ALTER FUNCTION tests.__demand__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 925 (class 1255 OID 60572)
+-- TOC entry 948 (class 1255 OID 27403)
 -- Name: __demand__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20145,7 +20533,7 @@ $$;
 ALTER FUNCTION tests.__demand__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 926 (class 1255 OID 60573)
+-- TOC entry 949 (class 1255 OID 27404)
 -- Name: __demand__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20174,7 +20562,7 @@ $$;
 ALTER FUNCTION tests.__demand__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 927 (class 1255 OID 60574)
+-- TOC entry 950 (class 1255 OID 27405)
 -- Name: __demand__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20205,7 +20593,7 @@ $$;
 ALTER FUNCTION tests.__demand__init() OWNER TO postgres;
 
 --
--- TOC entry 928 (class 1255 OID 60575)
+-- TOC entry 951 (class 1255 OID 27406)
 -- Name: __demand__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20241,7 +20629,7 @@ $$;
 ALTER FUNCTION tests.__demand__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 929 (class 1255 OID 60576)
+-- TOC entry 952 (class 1255 OID 27407)
 -- Name: __demand__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20274,7 +20662,7 @@ $$;
 ALTER FUNCTION tests.__demand__reinit() OWNER TO postgres;
 
 --
--- TOC entry 930 (class 1255 OID 60577)
+-- TOC entry 953 (class 1255 OID 27408)
 -- Name: __despatch__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20306,7 +20694,7 @@ $$;
 ALTER FUNCTION tests.__despatch__destroy() OWNER TO postgres;
 
 --
--- TOC entry 902 (class 1255 OID 60578)
+-- TOC entry 954 (class 1255 OID 27409)
 -- Name: __despatch__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20331,7 +20719,7 @@ $$;
 ALTER FUNCTION tests.__despatch__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 931 (class 1255 OID 60579)
+-- TOC entry 955 (class 1255 OID 27410)
 -- Name: __despatch__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20363,7 +20751,7 @@ $$;
 ALTER FUNCTION tests.__despatch__get_body() OWNER TO postgres;
 
 --
--- TOC entry 932 (class 1255 OID 60580)
+-- TOC entry 956 (class 1255 OID 27411)
 -- Name: __despatch__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20392,7 +20780,7 @@ $$;
 ALTER FUNCTION tests.__despatch__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 933 (class 1255 OID 60581)
+-- TOC entry 957 (class 1255 OID 27412)
 -- Name: __despatch__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20440,7 +20828,7 @@ $$;
 ALTER FUNCTION tests.__despatch__get_head() OWNER TO postgres;
 
 --
--- TOC entry 934 (class 1255 OID 60582)
+-- TOC entry 958 (class 1255 OID 27413)
 -- Name: __despatch__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20488,7 +20876,7 @@ $$;
 ALTER FUNCTION tests.__despatch__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 935 (class 1255 OID 60583)
+-- TOC entry 959 (class 1255 OID 27414)
 -- Name: __despatch__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20539,7 +20927,7 @@ $$;
 ALTER FUNCTION tests.__despatch__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 936 (class 1255 OID 60584)
+-- TOC entry 960 (class 1255 OID 27415)
 -- Name: __despatch__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20568,7 +20956,7 @@ $$;
 ALTER FUNCTION tests.__despatch__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 937 (class 1255 OID 60585)
+-- TOC entry 961 (class 1255 OID 27416)
 -- Name: __despatch__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20599,7 +20987,7 @@ $$;
 ALTER FUNCTION tests.__despatch__init() OWNER TO postgres;
 
 --
--- TOC entry 938 (class 1255 OID 60586)
+-- TOC entry 962 (class 1255 OID 27417)
 -- Name: __despatch__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20635,7 +21023,7 @@ $$;
 ALTER FUNCTION tests.__despatch__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 939 (class 1255 OID 60587)
+-- TOC entry 963 (class 1255 OID 27418)
 -- Name: __despatch__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20668,7 +21056,7 @@ $$;
 ALTER FUNCTION tests.__despatch__reinit() OWNER TO postgres;
 
 --
--- TOC entry 940 (class 1255 OID 60588)
+-- TOC entry 964 (class 1255 OID 27419)
 -- Name: __goal__analyze_ability(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20714,7 +21102,7 @@ $$;
 ALTER FUNCTION tests.__goal__analyze_ability() OWNER TO postgres;
 
 --
--- TOC entry 941 (class 1255 OID 60589)
+-- TOC entry 965 (class 1255 OID 27420)
 -- Name: __goal__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20744,7 +21132,7 @@ $$;
 ALTER FUNCTION tests.__goal__destroy() OWNER TO postgres;
 
 --
--- TOC entry 942 (class 1255 OID 60590)
+-- TOC entry 966 (class 1255 OID 27421)
 -- Name: __goal__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20769,7 +21157,7 @@ $$;
 ALTER FUNCTION tests.__goal__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 943 (class 1255 OID 60591)
+-- TOC entry 967 (class 1255 OID 27422)
 -- Name: __goal__get_curr_fsmt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20798,7 +21186,7 @@ $$;
 ALTER FUNCTION tests.__goal__get_curr_fsmt() OWNER TO postgres;
 
 --
--- TOC entry 944 (class 1255 OID 60592)
+-- TOC entry 968 (class 1255 OID 27423)
 -- Name: __goal__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20842,7 +21230,7 @@ $$;
 ALTER FUNCTION tests.__goal__get_head() OWNER TO postgres;
 
 --
--- TOC entry 946 (class 1255 OID 60593)
+-- TOC entry 969 (class 1255 OID 27424)
 -- Name: __goal__give_advise(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20880,7 +21268,7 @@ $$;
 ALTER FUNCTION tests.__goal__give_advise() OWNER TO postgres;
 
 --
--- TOC entry 947 (class 1255 OID 60594)
+-- TOC entry 970 (class 1255 OID 27425)
 -- Name: __goal__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20908,7 +21296,7 @@ $$;
 ALTER FUNCTION tests.__goal__init() OWNER TO postgres;
 
 --
--- TOC entry 948 (class 1255 OID 60595)
+-- TOC entry 971 (class 1255 OID 27426)
 -- Name: __goal__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20944,7 +21332,7 @@ $$;
 ALTER FUNCTION tests.__goal__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 949 (class 1255 OID 60596)
+-- TOC entry 973 (class 1255 OID 27427)
 -- Name: __issue__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -20976,7 +21364,7 @@ $$;
 ALTER FUNCTION tests.__issue__destroy() OWNER TO postgres;
 
 --
--- TOC entry 950 (class 1255 OID 60597)
+-- TOC entry 974 (class 1255 OID 27428)
 -- Name: __issue__do_commit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21012,7 +21400,7 @@ $$;
 ALTER FUNCTION tests.__issue__do_commit() OWNER TO postgres;
 
 --
--- TOC entry 951 (class 1255 OID 60598)
+-- TOC entry 975 (class 1255 OID 27429)
 -- Name: __issue__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21037,7 +21425,7 @@ $$;
 ALTER FUNCTION tests.__issue__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 952 (class 1255 OID 60599)
+-- TOC entry 976 (class 1255 OID 27430)
 -- Name: __issue__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21069,7 +21457,7 @@ $$;
 ALTER FUNCTION tests.__issue__get_body() OWNER TO postgres;
 
 --
--- TOC entry 945 (class 1255 OID 60600)
+-- TOC entry 977 (class 1255 OID 27431)
 -- Name: __issue__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21098,7 +21486,7 @@ $$;
 ALTER FUNCTION tests.__issue__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 910 (class 1255 OID 60601)
+-- TOC entry 978 (class 1255 OID 27432)
 -- Name: __issue__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21146,7 +21534,7 @@ $$;
 ALTER FUNCTION tests.__issue__get_head() OWNER TO postgres;
 
 --
--- TOC entry 953 (class 1255 OID 60602)
+-- TOC entry 979 (class 1255 OID 27433)
 -- Name: __issue__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21194,7 +21582,7 @@ $$;
 ALTER FUNCTION tests.__issue__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 954 (class 1255 OID 60603)
+-- TOC entry 972 (class 1255 OID 27434)
 -- Name: __issue__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21245,7 +21633,7 @@ $$;
 ALTER FUNCTION tests.__issue__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 955 (class 1255 OID 60604)
+-- TOC entry 981 (class 1255 OID 27435)
 -- Name: __issue__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21274,7 +21662,7 @@ $$;
 ALTER FUNCTION tests.__issue__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 956 (class 1255 OID 60605)
+-- TOC entry 982 (class 1255 OID 27436)
 -- Name: __issue__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21305,7 +21693,7 @@ $$;
 ALTER FUNCTION tests.__issue__init() OWNER TO postgres;
 
 --
--- TOC entry 957 (class 1255 OID 60606)
+-- TOC entry 983 (class 1255 OID 27437)
 -- Name: __issue__make_adjustment(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21341,7 +21729,7 @@ $$;
 ALTER FUNCTION tests.__issue__make_adjustment() OWNER TO postgres;
 
 --
--- TOC entry 958 (class 1255 OID 60607)
+-- TOC entry 984 (class 1255 OID 27438)
 -- Name: __issue__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21377,7 +21765,7 @@ $$;
 ALTER FUNCTION tests.__issue__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 959 (class 1255 OID 60608)
+-- TOC entry 985 (class 1255 OID 27439)
 -- Name: __issue__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21410,7 +21798,7 @@ $$;
 ALTER FUNCTION tests.__issue__reinit() OWNER TO postgres;
 
 --
--- TOC entry 960 (class 1255 OID 60609)
+-- TOC entry 986 (class 1255 OID 27440)
 -- Name: __picklist__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21442,7 +21830,7 @@ $$;
 ALTER FUNCTION tests.__picklist__destroy() OWNER TO postgres;
 
 --
--- TOC entry 961 (class 1255 OID 60610)
+-- TOC entry 987 (class 1255 OID 27441)
 -- Name: __picklist__do_commit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21481,7 +21869,7 @@ $$;
 ALTER FUNCTION tests.__picklist__do_commit() OWNER TO postgres;
 
 --
--- TOC entry 962 (class 1255 OID 60611)
+-- TOC entry 980 (class 1255 OID 27442)
 -- Name: __picklist__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21506,7 +21894,7 @@ $$;
 ALTER FUNCTION tests.__picklist__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 963 (class 1255 OID 60612)
+-- TOC entry 988 (class 1255 OID 27443)
 -- Name: __picklist__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21538,7 +21926,7 @@ $$;
 ALTER FUNCTION tests.__picklist__get_body() OWNER TO postgres;
 
 --
--- TOC entry 964 (class 1255 OID 60613)
+-- TOC entry 989 (class 1255 OID 27444)
 -- Name: __picklist__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21567,7 +21955,7 @@ $$;
 ALTER FUNCTION tests.__picklist__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 965 (class 1255 OID 60614)
+-- TOC entry 990 (class 1255 OID 27445)
 -- Name: __picklist__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21615,7 +22003,7 @@ $$;
 ALTER FUNCTION tests.__picklist__get_head() OWNER TO postgres;
 
 --
--- TOC entry 966 (class 1255 OID 60615)
+-- TOC entry 991 (class 1255 OID 27446)
 -- Name: __picklist__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21663,7 +22051,7 @@ $$;
 ALTER FUNCTION tests.__picklist__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 967 (class 1255 OID 60616)
+-- TOC entry 992 (class 1255 OID 27447)
 -- Name: __picklist__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21714,7 +22102,7 @@ $$;
 ALTER FUNCTION tests.__picklist__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 968 (class 1255 OID 60617)
+-- TOC entry 993 (class 1255 OID 27448)
 -- Name: __picklist__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21743,7 +22131,7 @@ $$;
 ALTER FUNCTION tests.__picklist__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 969 (class 1255 OID 60618)
+-- TOC entry 994 (class 1255 OID 27449)
 -- Name: __picklist__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21774,7 +22162,7 @@ $$;
 ALTER FUNCTION tests.__picklist__init() OWNER TO postgres;
 
 --
--- TOC entry 970 (class 1255 OID 60619)
+-- TOC entry 996 (class 1255 OID 27450)
 -- Name: __picklist__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21810,7 +22198,7 @@ $$;
 ALTER FUNCTION tests.__picklist__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 971 (class 1255 OID 60620)
+-- TOC entry 997 (class 1255 OID 27451)
 -- Name: __picklist__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21843,7 +22231,7 @@ $$;
 ALTER FUNCTION tests.__picklist__reinit() OWNER TO postgres;
 
 --
--- TOC entry 972 (class 1255 OID 60621)
+-- TOC entry 998 (class 1255 OID 27452)
 -- Name: __rebound__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21875,7 +22263,7 @@ $$;
 ALTER FUNCTION tests.__rebound__destroy() OWNER TO postgres;
 
 --
--- TOC entry 973 (class 1255 OID 60622)
+-- TOC entry 999 (class 1255 OID 27453)
 -- Name: __rebound__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21900,7 +22288,7 @@ $$;
 ALTER FUNCTION tests.__rebound__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 975 (class 1255 OID 60623)
+-- TOC entry 1000 (class 1255 OID 27454)
 -- Name: __rebound__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21932,7 +22320,7 @@ $$;
 ALTER FUNCTION tests.__rebound__get_body() OWNER TO postgres;
 
 --
--- TOC entry 976 (class 1255 OID 60624)
+-- TOC entry 1001 (class 1255 OID 27455)
 -- Name: __rebound__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -21961,7 +22349,7 @@ $$;
 ALTER FUNCTION tests.__rebound__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 977 (class 1255 OID 60625)
+-- TOC entry 1002 (class 1255 OID 27456)
 -- Name: __rebound__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22007,7 +22395,7 @@ $$;
 ALTER FUNCTION tests.__rebound__get_head() OWNER TO postgres;
 
 --
--- TOC entry 978 (class 1255 OID 60626)
+-- TOC entry 1004 (class 1255 OID 27457)
 -- Name: __rebound__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22053,7 +22441,7 @@ $$;
 ALTER FUNCTION tests.__rebound__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 979 (class 1255 OID 60627)
+-- TOC entry 1005 (class 1255 OID 27458)
 -- Name: __rebound__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22102,7 +22490,7 @@ $$;
 ALTER FUNCTION tests.__rebound__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 980 (class 1255 OID 60628)
+-- TOC entry 1006 (class 1255 OID 27459)
 -- Name: __rebound__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22131,7 +22519,7 @@ $$;
 ALTER FUNCTION tests.__rebound__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 981 (class 1255 OID 60629)
+-- TOC entry 1007 (class 1255 OID 27460)
 -- Name: __rebound__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22162,7 +22550,7 @@ $$;
 ALTER FUNCTION tests.__rebound__init() OWNER TO postgres;
 
 --
--- TOC entry 982 (class 1255 OID 60630)
+-- TOC entry 1008 (class 1255 OID 27461)
 -- Name: __rebound__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22198,7 +22586,7 @@ $$;
 ALTER FUNCTION tests.__rebound__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 983 (class 1255 OID 60631)
+-- TOC entry 1009 (class 1255 OID 27462)
 -- Name: __rebound__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22231,7 +22619,7 @@ $$;
 ALTER FUNCTION tests.__rebound__reinit() OWNER TO postgres;
 
 --
--- TOC entry 984 (class 1255 OID 60632)
+-- TOC entry 1010 (class 1255 OID 27463)
 -- Name: __receipt__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22263,7 +22651,7 @@ $$;
 ALTER FUNCTION tests.__receipt__destroy() OWNER TO postgres;
 
 --
--- TOC entry 985 (class 1255 OID 60633)
+-- TOC entry 1011 (class 1255 OID 27464)
 -- Name: __receipt__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22288,7 +22676,7 @@ $$;
 ALTER FUNCTION tests.__receipt__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 986 (class 1255 OID 60634)
+-- TOC entry 1012 (class 1255 OID 27465)
 -- Name: __receipt__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22320,7 +22708,7 @@ $$;
 ALTER FUNCTION tests.__receipt__get_body() OWNER TO postgres;
 
 --
--- TOC entry 987 (class 1255 OID 60635)
+-- TOC entry 1013 (class 1255 OID 27466)
 -- Name: __receipt__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22349,7 +22737,7 @@ $$;
 ALTER FUNCTION tests.__receipt__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 988 (class 1255 OID 60636)
+-- TOC entry 1014 (class 1255 OID 27467)
 -- Name: __receipt__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22395,7 +22783,7 @@ $$;
 ALTER FUNCTION tests.__receipt__get_head() OWNER TO postgres;
 
 --
--- TOC entry 989 (class 1255 OID 60637)
+-- TOC entry 1015 (class 1255 OID 27468)
 -- Name: __receipt__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22441,7 +22829,7 @@ $$;
 ALTER FUNCTION tests.__receipt__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 990 (class 1255 OID 60638)
+-- TOC entry 1016 (class 1255 OID 27469)
 -- Name: __receipt__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22490,7 +22878,7 @@ $$;
 ALTER FUNCTION tests.__receipt__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 991 (class 1255 OID 60639)
+-- TOC entry 1017 (class 1255 OID 27470)
 -- Name: __receipt__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22519,7 +22907,7 @@ $$;
 ALTER FUNCTION tests.__receipt__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 992 (class 1255 OID 60640)
+-- TOC entry 1018 (class 1255 OID 27471)
 -- Name: __receipt__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22550,7 +22938,7 @@ $$;
 ALTER FUNCTION tests.__receipt__init() OWNER TO postgres;
 
 --
--- TOC entry 993 (class 1255 OID 60641)
+-- TOC entry 1019 (class 1255 OID 27472)
 -- Name: __receipt__make_adjustment(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22586,7 +22974,7 @@ $$;
 ALTER FUNCTION tests.__receipt__make_adjustment() OWNER TO postgres;
 
 --
--- TOC entry 994 (class 1255 OID 60642)
+-- TOC entry 1020 (class 1255 OID 27473)
 -- Name: __receipt__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22622,7 +23010,7 @@ $$;
 ALTER FUNCTION tests.__receipt__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 995 (class 1255 OID 60643)
+-- TOC entry 1021 (class 1255 OID 27474)
 -- Name: __receipt__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22655,7 +23043,7 @@ $$;
 ALTER FUNCTION tests.__receipt__reinit() OWNER TO postgres;
 
 --
--- TOC entry 996 (class 1255 OID 60644)
+-- TOC entry 1022 (class 1255 OID 27475)
 -- Name: __reserve__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22687,7 +23075,7 @@ $$;
 ALTER FUNCTION tests.__reserve__destroy() OWNER TO postgres;
 
 --
--- TOC entry 997 (class 1255 OID 60645)
+-- TOC entry 1023 (class 1255 OID 27476)
 -- Name: __reserve__do_commit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22721,7 +23109,7 @@ $$;
 ALTER FUNCTION tests.__reserve__do_commit() OWNER TO postgres;
 
 --
--- TOC entry 998 (class 1255 OID 60646)
+-- TOC entry 1024 (class 1255 OID 27477)
 -- Name: __reserve__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22746,7 +23134,7 @@ $$;
 ALTER FUNCTION tests.__reserve__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 999 (class 1255 OID 60647)
+-- TOC entry 1025 (class 1255 OID 27478)
 -- Name: __reserve__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22778,7 +23166,7 @@ $$;
 ALTER FUNCTION tests.__reserve__get_body() OWNER TO postgres;
 
 --
--- TOC entry 1000 (class 1255 OID 60648)
+-- TOC entry 1026 (class 1255 OID 27479)
 -- Name: __reserve__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22807,7 +23195,7 @@ $$;
 ALTER FUNCTION tests.__reserve__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 1001 (class 1255 OID 60649)
+-- TOC entry 1027 (class 1255 OID 27480)
 -- Name: __reserve__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22855,7 +23243,7 @@ $$;
 ALTER FUNCTION tests.__reserve__get_head() OWNER TO postgres;
 
 --
--- TOC entry 1002 (class 1255 OID 60650)
+-- TOC entry 1028 (class 1255 OID 27481)
 -- Name: __reserve__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22903,7 +23291,7 @@ $$;
 ALTER FUNCTION tests.__reserve__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 1003 (class 1255 OID 60651)
+-- TOC entry 1029 (class 1255 OID 27482)
 -- Name: __reserve__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22954,7 +23342,7 @@ $$;
 ALTER FUNCTION tests.__reserve__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 1004 (class 1255 OID 60652)
+-- TOC entry 1030 (class 1255 OID 27483)
 -- Name: __reserve__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -22983,7 +23371,7 @@ $$;
 ALTER FUNCTION tests.__reserve__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 1005 (class 1255 OID 60653)
+-- TOC entry 1031 (class 1255 OID 27484)
 -- Name: __reserve__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23014,7 +23402,7 @@ $$;
 ALTER FUNCTION tests.__reserve__init() OWNER TO postgres;
 
 --
--- TOC entry 1006 (class 1255 OID 60654)
+-- TOC entry 1032 (class 1255 OID 27485)
 -- Name: __reserve__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23050,7 +23438,7 @@ $$;
 ALTER FUNCTION tests.__reserve__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 1007 (class 1255 OID 60655)
+-- TOC entry 1033 (class 1255 OID 27486)
 -- Name: __reserve__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23083,7 +23471,7 @@ $$;
 ALTER FUNCTION tests.__reserve__reinit() OWNER TO postgres;
 
 --
--- TOC entry 1008 (class 1255 OID 60656)
+-- TOC entry 1034 (class 1255 OID 27487)
 -- Name: __schedule__get_date_of_julianized_day(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23112,7 +23500,7 @@ $$;
 ALTER FUNCTION tests.__schedule__get_date_of_julianized_day() OWNER TO postgres;
 
 --
--- TOC entry 1009 (class 1255 OID 60657)
+-- TOC entry 1035 (class 1255 OID 27488)
 -- Name: __schedule__get_julianized_day(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23141,7 +23529,7 @@ $$;
 ALTER FUNCTION tests.__schedule__get_julianized_day() OWNER TO postgres;
 
 --
--- TOC entry 1010 (class 1255 OID 60658)
+-- TOC entry 1036 (class 1255 OID 27489)
 -- Name: __schedule__get_julianized_week(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23170,7 +23558,7 @@ $$;
 ALTER FUNCTION tests.__schedule__get_julianized_week() OWNER TO postgres;
 
 --
--- TOC entry 974 (class 1255 OID 60659)
+-- TOC entry 1037 (class 1255 OID 27490)
 -- Name: __stockcard__assign_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23219,7 +23607,7 @@ $$;
 ALTER FUNCTION tests.__stockcard__assign_issue() OWNER TO postgres;
 
 --
--- TOC entry 1011 (class 1255 OID 60660)
+-- TOC entry 1038 (class 1255 OID 27491)
 -- Name: __stockcard__assign_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23268,7 +23656,7 @@ $$;
 ALTER FUNCTION tests.__stockcard__assign_rebound() OWNER TO postgres;
 
 --
--- TOC entry 1012 (class 1255 OID 60661)
+-- TOC entry 1039 (class 1255 OID 27492)
 -- Name: __stockcard__assign_receipt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23317,7 +23705,7 @@ $$;
 ALTER FUNCTION tests.__stockcard__assign_receipt() OWNER TO postgres;
 
 --
--- TOC entry 1013 (class 1255 OID 60662)
+-- TOC entry 1040 (class 1255 OID 27493)
 -- Name: __stockcard__assign_stocktake(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23368,7 +23756,7 @@ $$;
 ALTER FUNCTION tests.__stockcard__assign_stocktake() OWNER TO postgres;
 
 --
--- TOC entry 1014 (class 1255 OID 60663)
+-- TOC entry 1041 (class 1255 OID 27494)
 -- Name: __stockcard__deassign_issue(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23411,7 +23799,7 @@ $$;
 ALTER FUNCTION tests.__stockcard__deassign_issue() OWNER TO postgres;
 
 --
--- TOC entry 1015 (class 1255 OID 60664)
+-- TOC entry 1042 (class 1255 OID 27495)
 -- Name: __stockcard__deassign_rebound(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23454,7 +23842,7 @@ $$;
 ALTER FUNCTION tests.__stockcard__deassign_rebound() OWNER TO postgres;
 
 --
--- TOC entry 1016 (class 1255 OID 60665)
+-- TOC entry 1043 (class 1255 OID 27496)
 -- Name: __stockcard__deassign_receipt(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23497,7 +23885,7 @@ $$;
 ALTER FUNCTION tests.__stockcard__deassign_receipt() OWNER TO postgres;
 
 --
--- TOC entry 1017 (class 1255 OID 60666)
+-- TOC entry 1044 (class 1255 OID 27497)
 -- Name: __stockcard__deassign_stocktake(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23541,7 +23929,7 @@ $$;
 ALTER FUNCTION tests.__stockcard__deassign_stocktake() OWNER TO postgres;
 
 --
--- TOC entry 1019 (class 1255 OID 60667)
+-- TOC entry 1045 (class 1255 OID 27498)
 -- Name: __stocktake__destroy(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23573,7 +23961,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__destroy() OWNER TO postgres;
 
 --
--- TOC entry 1020 (class 1255 OID 60668)
+-- TOC entry 1046 (class 1255 OID 27499)
 -- Name: __stocktake__generate_display_name(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23598,7 +23986,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__generate_display_name() OWNER TO postgres;
 
 --
--- TOC entry 1021 (class 1255 OID 60669)
+-- TOC entry 1047 (class 1255 OID 27500)
 -- Name: __stocktake__get_body(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23630,7 +24018,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__get_body() OWNER TO postgres;
 
 --
--- TOC entry 1022 (class 1255 OID 60670)
+-- TOC entry 1048 (class 1255 OID 27501)
 -- Name: __stocktake__get_gid_by_id(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23659,7 +24047,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__get_gid_by_id() OWNER TO postgres;
 
 --
--- TOC entry 1023 (class 1255 OID 60671)
+-- TOC entry 1049 (class 1255 OID 27502)
 -- Name: __stocktake__get_head(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23703,7 +24091,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__get_head() OWNER TO postgres;
 
 --
--- TOC entry 1024 (class 1255 OID 60672)
+-- TOC entry 1050 (class 1255 OID 27503)
 -- Name: __stocktake__get_head_batch(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23748,7 +24136,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__get_head_batch() OWNER TO postgres;
 
 --
--- TOC entry 1025 (class 1255 OID 60673)
+-- TOC entry 1051 (class 1255 OID 27504)
 -- Name: __stocktake__get_head_batch_proposed(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23795,7 +24183,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__get_head_batch_proposed() OWNER TO postgres;
 
 --
--- TOC entry 1026 (class 1255 OID 60674)
+-- TOC entry 1052 (class 1255 OID 27505)
 -- Name: __stocktake__get_id_by_gid(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23824,7 +24212,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__get_id_by_gid() OWNER TO postgres;
 
 --
--- TOC entry 1027 (class 1255 OID 60675)
+-- TOC entry 1053 (class 1255 OID 27506)
 -- Name: __stocktake__init(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23855,7 +24243,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__init() OWNER TO postgres;
 
 --
--- TOC entry 1028 (class 1255 OID 60676)
+-- TOC entry 1054 (class 1255 OID 27507)
 -- Name: __stocktake__numerator_nextval(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23891,7 +24279,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__numerator_nextval() OWNER TO postgres;
 
 --
--- TOC entry 1029 (class 1255 OID 60677)
+-- TOC entry 1055 (class 1255 OID 27508)
 -- Name: __stocktake__reinit(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -23924,7 +24312,7 @@ $$;
 ALTER FUNCTION tests.__stocktake__reinit() OWNER TO postgres;
 
 --
--- TOC entry 1030 (class 1255 OID 60678)
+-- TOC entry 1057 (class 1255 OID 27509)
 -- Name: _reset_data(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -24031,7 +24419,7 @@ $$;
 ALTER FUNCTION tests._reset_data() OWNER TO postgres;
 
 --
--- TOC entry 1031 (class 1255 OID 60679)
+-- TOC entry 1058 (class 1255 OID 27510)
 -- Name: _run_all(); Type: FUNCTION; Schema: tests; Owner: postgres
 --
 
@@ -24077,10 +24465,80 @@ $$;
 
 ALTER FUNCTION tests._run_all() OWNER TO postgres;
 
+SET search_path = uom, pg_catalog;
+
+--
+-- TOC entry 1061 (class 1255 OID 58808)
+-- Name: get_domain(character varying); Type: FUNCTION; Schema: uom; Owner: postgres
+--
+
+CREATE FUNCTION get_domain(_uom_code character varying) RETURNS character varying
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+
+  RETURN uom_domain FROM uom.information WHERE uom_code = _uom_code;
+
+END;
+$$;
+
+
+ALTER FUNCTION uom.get_domain(_uom_code character varying) OWNER TO postgres;
+
+--
+-- TOC entry 1062 (class 1255 OID 58809)
+-- Name: get_factor(character varying, character varying); Type: FUNCTION; Schema: uom; Owner: postgres
+--
+
+CREATE FUNCTION get_factor(_uom_code_src character varying, _uom_code_dst character varying) RETURNS double precision
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  __factor_1 double precision;
+  __factor_2 double precision;
+  __uom_domain_from character varying;
+  __uom_domain_to character varying;
+
+BEGIN
+
+  -- визначити домен одиниці виміру, з якої приводимо
+  __uom_domain_from := uom.get_domain(_uom_code := _uom_code_src);
+
+  -- визначити домен одиниці виміру, до якої приводимо
+  __uom_domain_to := uom.get_domain(_uom_code := _uom_code_dst);
+
+  IF (__uom_domain_from = __uom_domain_to) THEN
+    -- привести з вказаної одиниці до базової Сі = *
+    __factor_1 := factor
+      FROM 
+        uom.information
+      WHERE 
+        uom_code = _uom_code_src;
+
+    -- привести з базової Сі до вказаної = /
+    __factor_2 := factor
+      FROM 
+        uom.information
+      WHERE 
+        uom_code = _uom_code_dst;
+
+    RETURN __factor_1 / __factor_2;
+
+  ELSE
+    RAISE EXCEPTION 'units of measure are not in the same domain: "%" and "%"', _uom_code_src, _uom_code_dst;
+    RETURN NULL;
+  END IF;
+
+END;
+$$;
+
+
+ALTER FUNCTION uom.get_factor(_uom_code_src character varying, _uom_code_dst character varying) OWNER TO postgres;
+
 SET search_path = pg_catalog;
 
 --
--- TOC entry 4133 (class 2605 OID 60680)
+-- TOC entry 4213 (class 2605 OID 27511)
 -- Name: CAST (common.document_fsmt AS common.goal_fsmt); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -24088,7 +24546,7 @@ CREATE CAST (common.document_fsmt AS common.goal_fsmt) WITH FUNCTION common.conv
 
 
 --
--- TOC entry 4134 (class 2605 OID 60681)
+-- TOC entry 4214 (class 2605 OID 27512)
 -- Name: CAST (common.goal_fsmt AS common.document_fsmt); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -24096,7 +24554,7 @@ CREATE CAST (common.goal_fsmt AS common.document_fsmt) WITH FUNCTION common.conv
 
 
 --
--- TOC entry 4135 (class 2605 OID 60682)
+-- TOC entry 4215 (class 2605 OID 27513)
 -- Name: CAST (common.goal_head AS common.document_head); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -24104,7 +24562,7 @@ CREATE CAST (common.goal_head AS common.document_head) WITH FUNCTION common.conv
 
 
 --
--- TOC entry 4136 (class 2605 OID 60683)
+-- TOC entry 4216 (class 2605 OID 27514)
 -- Name: CAST (common.inbound_head AS common.document_head); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -24112,7 +24570,7 @@ CREATE CAST (common.inbound_head AS common.document_head) WITH FUNCTION common.c
 
 
 --
--- TOC entry 4137 (class 2605 OID 60684)
+-- TOC entry 4217 (class 2605 OID 27515)
 -- Name: CAST (common.outbound_head AS common.document_head); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -24120,7 +24578,7 @@ CREATE CAST (common.outbound_head AS common.document_head) WITH FUNCTION common.
 
 
 --
--- TOC entry 4138 (class 2605 OID 60685)
+-- TOC entry 4218 (class 2605 OID 27516)
 -- Name: CAST (common.outbound_head AS common.goal_head); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -24128,7 +24586,7 @@ CREATE CAST (common.outbound_head AS common.goal_head) WITH FUNCTION common.conv
 
 
 --
--- TOC entry 4139 (class 2605 OID 60686)
+-- TOC entry 4219 (class 2605 OID 27517)
 -- Name: CAST (common.stocktake_body AS common.document_body); Type: CAST; Schema: pg_catalog; Owner: 
 --
 
@@ -24142,7 +24600,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 226 (class 1259 OID 60687)
+-- TOC entry 232 (class 1259 OID 27518)
 -- Name: body; Type: TABLE; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -24157,7 +24615,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 60693)
+-- TOC entry 233 (class 1259 OID 27524)
 -- Name: head; Type: TABLE; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -24182,7 +24640,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 228 (class 1259 OID 60705)
+-- TOC entry 234 (class 1259 OID 27536)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -24197,8 +24655,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4819 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 4977 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -24206,7 +24664,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 229 (class 1259 OID 60707)
+-- TOC entry 235 (class 1259 OID 27538)
 -- Name: numerator; Type: TABLE; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -24222,7 +24680,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 230 (class 1259 OID 60714)
+-- TOC entry 236 (class 1259 OID 27545)
 -- Name: body; Type: TABLE; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -24237,7 +24695,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 231 (class 1259 OID 60720)
+-- TOC entry 237 (class 1259 OID 27551)
 -- Name: head; Type: TABLE; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -24260,7 +24718,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 232 (class 1259 OID 60731)
+-- TOC entry 238 (class 1259 OID 27562)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -24275,8 +24733,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4820 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 4978 (class 0 OID 0)
+-- Dependencies: 238
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -24284,7 +24742,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 233 (class 1259 OID 60733)
+-- TOC entry 239 (class 1259 OID 27564)
 -- Name: numerator; Type: TABLE; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -24300,7 +24758,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = balance, pg_catalog;
 
 --
--- TOC entry 234 (class 1259 OID 60740)
+-- TOC entry 240 (class 1259 OID 27571)
 -- Name: balance; Type: TABLE; Schema: balance; Owner: postgres
 --
 
@@ -24319,8 +24777,8 @@ CREATE TABLE balance (
 ALTER TABLE balance OWNER TO postgres;
 
 --
--- TOC entry 4821 (class 0 OID 0)
--- Dependencies: 234
+-- TOC entry 4979 (class 0 OID 0)
+-- Dependencies: 240
 -- Name: TABLE balance; Type: COMMENT; Schema: balance; Owner: postgres
 --
 
@@ -24330,7 +24788,7 @@ COMMENT ON TABLE balance IS 'goods balance';
 SET search_path = binding, pg_catalog;
 
 --
--- TOC entry 235 (class 1259 OID 60746)
+-- TOC entry 241 (class 1259 OID 27577)
 -- Name: cutoff_to_adjustmentcredit; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24343,7 +24801,7 @@ CREATE TABLE cutoff_to_adjustmentcredit (
 ALTER TABLE cutoff_to_adjustmentcredit OWNER TO postgres;
 
 --
--- TOC entry 236 (class 1259 OID 60749)
+-- TOC entry 242 (class 1259 OID 27580)
 -- Name: cutoff_to_adjustmentdebit; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24356,7 +24814,7 @@ CREATE TABLE cutoff_to_adjustmentdebit (
 ALTER TABLE cutoff_to_adjustmentdebit OWNER TO postgres;
 
 --
--- TOC entry 237 (class 1259 OID 60752)
+-- TOC entry 243 (class 1259 OID 27583)
 -- Name: cutoff_to_delivery; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24369,7 +24827,7 @@ CREATE TABLE cutoff_to_delivery (
 ALTER TABLE cutoff_to_delivery OWNER TO postgres;
 
 --
--- TOC entry 238 (class 1259 OID 60755)
+-- TOC entry 244 (class 1259 OID 27586)
 -- Name: cutoff_to_demand; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24382,7 +24840,7 @@ CREATE TABLE cutoff_to_demand (
 ALTER TABLE cutoff_to_demand OWNER TO postgres;
 
 --
--- TOC entry 239 (class 1259 OID 60758)
+-- TOC entry 245 (class 1259 OID 27589)
 -- Name: cutoff_to_despatch; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24395,7 +24853,7 @@ CREATE TABLE cutoff_to_despatch (
 ALTER TABLE cutoff_to_despatch OWNER TO postgres;
 
 --
--- TOC entry 240 (class 1259 OID 60761)
+-- TOC entry 246 (class 1259 OID 27592)
 -- Name: cutoff_to_goal; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24408,7 +24866,7 @@ CREATE TABLE cutoff_to_goal (
 ALTER TABLE cutoff_to_goal OWNER TO postgres;
 
 --
--- TOC entry 241 (class 1259 OID 60764)
+-- TOC entry 247 (class 1259 OID 27595)
 -- Name: cutoff_to_issue; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24421,7 +24879,7 @@ CREATE TABLE cutoff_to_issue (
 ALTER TABLE cutoff_to_issue OWNER TO postgres;
 
 --
--- TOC entry 242 (class 1259 OID 60767)
+-- TOC entry 248 (class 1259 OID 27598)
 -- Name: cutoff_to_picklist; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24434,7 +24892,7 @@ CREATE TABLE cutoff_to_picklist (
 ALTER TABLE cutoff_to_picklist OWNER TO postgres;
 
 --
--- TOC entry 243 (class 1259 OID 60770)
+-- TOC entry 249 (class 1259 OID 27601)
 -- Name: cutoff_to_rebound; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24447,7 +24905,7 @@ CREATE TABLE cutoff_to_rebound (
 ALTER TABLE cutoff_to_rebound OWNER TO postgres;
 
 --
--- TOC entry 244 (class 1259 OID 60773)
+-- TOC entry 250 (class 1259 OID 27604)
 -- Name: cutoff_to_receipt; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24460,7 +24918,7 @@ CREATE TABLE cutoff_to_receipt (
 ALTER TABLE cutoff_to_receipt OWNER TO postgres;
 
 --
--- TOC entry 245 (class 1259 OID 60776)
+-- TOC entry 251 (class 1259 OID 27607)
 -- Name: cutoff_to_reserve; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24473,7 +24931,7 @@ CREATE TABLE cutoff_to_reserve (
 ALTER TABLE cutoff_to_reserve OWNER TO postgres;
 
 --
--- TOC entry 246 (class 1259 OID 60779)
+-- TOC entry 252 (class 1259 OID 27610)
 -- Name: cutoff_to_stocktake; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24486,7 +24944,7 @@ CREATE TABLE cutoff_to_stocktake (
 ALTER TABLE cutoff_to_stocktake OWNER TO postgres;
 
 --
--- TOC entry 247 (class 1259 OID 60782)
+-- TOC entry 253 (class 1259 OID 27613)
 -- Name: delivery_to_receipt; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24499,7 +24957,7 @@ CREATE TABLE delivery_to_receipt (
 ALTER TABLE delivery_to_receipt OWNER TO postgres;
 
 --
--- TOC entry 248 (class 1259 OID 60785)
+-- TOC entry 254 (class 1259 OID 27616)
 -- Name: demand_to_picklist; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24512,7 +24970,7 @@ CREATE TABLE demand_to_picklist (
 ALTER TABLE demand_to_picklist OWNER TO postgres;
 
 --
--- TOC entry 249 (class 1259 OID 60788)
+-- TOC entry 255 (class 1259 OID 27619)
 -- Name: demand_to_reserve; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24525,7 +24983,7 @@ CREATE TABLE demand_to_reserve (
 ALTER TABLE demand_to_reserve OWNER TO postgres;
 
 --
--- TOC entry 250 (class 1259 OID 60791)
+-- TOC entry 256 (class 1259 OID 27622)
 -- Name: goal_to_demand; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24538,7 +24996,7 @@ CREATE TABLE goal_to_demand (
 ALTER TABLE goal_to_demand OWNER TO postgres;
 
 --
--- TOC entry 251 (class 1259 OID 60794)
+-- TOC entry 257 (class 1259 OID 27625)
 -- Name: goal_to_despatch; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24551,7 +25009,7 @@ CREATE TABLE goal_to_despatch (
 ALTER TABLE goal_to_despatch OWNER TO postgres;
 
 --
--- TOC entry 252 (class 1259 OID 60797)
+-- TOC entry 258 (class 1259 OID 27628)
 -- Name: goal_to_issue; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24564,7 +25022,7 @@ CREATE TABLE goal_to_issue (
 ALTER TABLE goal_to_issue OWNER TO postgres;
 
 --
--- TOC entry 253 (class 1259 OID 60800)
+-- TOC entry 259 (class 1259 OID 27631)
 -- Name: goal_to_picklist; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24577,7 +25035,7 @@ CREATE TABLE goal_to_picklist (
 ALTER TABLE goal_to_picklist OWNER TO postgres;
 
 --
--- TOC entry 254 (class 1259 OID 60803)
+-- TOC entry 260 (class 1259 OID 27634)
 -- Name: goal_to_reserve; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24590,7 +25048,7 @@ CREATE TABLE goal_to_reserve (
 ALTER TABLE goal_to_reserve OWNER TO postgres;
 
 --
--- TOC entry 255 (class 1259 OID 60806)
+-- TOC entry 261 (class 1259 OID 27637)
 -- Name: issue_to_adjustmentcredit; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24603,7 +25061,7 @@ CREATE TABLE issue_to_adjustmentcredit (
 ALTER TABLE issue_to_adjustmentcredit OWNER TO postgres;
 
 --
--- TOC entry 256 (class 1259 OID 60809)
+-- TOC entry 262 (class 1259 OID 27640)
 -- Name: issue_to_despatch; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24616,7 +25074,7 @@ CREATE TABLE issue_to_despatch (
 ALTER TABLE issue_to_despatch OWNER TO postgres;
 
 --
--- TOC entry 257 (class 1259 OID 60812)
+-- TOC entry 263 (class 1259 OID 27643)
 -- Name: issue_to_rebound; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24629,7 +25087,7 @@ CREATE TABLE issue_to_rebound (
 ALTER TABLE issue_to_rebound OWNER TO postgres;
 
 --
--- TOC entry 258 (class 1259 OID 60815)
+-- TOC entry 264 (class 1259 OID 27646)
 -- Name: picklist_to_issue; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24642,7 +25100,7 @@ CREATE TABLE picklist_to_issue (
 ALTER TABLE picklist_to_issue OWNER TO postgres;
 
 --
--- TOC entry 259 (class 1259 OID 60818)
+-- TOC entry 265 (class 1259 OID 27649)
 -- Name: receipt_to_adjustmentdebit; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24655,7 +25113,7 @@ CREATE TABLE receipt_to_adjustmentdebit (
 ALTER TABLE receipt_to_adjustmentdebit OWNER TO postgres;
 
 --
--- TOC entry 260 (class 1259 OID 60821)
+-- TOC entry 266 (class 1259 OID 27652)
 -- Name: receipt_to_rebound; Type: TABLE; Schema: binding; Owner: postgres
 --
 
@@ -24670,7 +25128,7 @@ ALTER TABLE receipt_to_rebound OWNER TO postgres;
 SET search_path = common, pg_catalog;
 
 --
--- TOC entry 261 (class 1259 OID 60824)
+-- TOC entry 267 (class 1259 OID 27655)
 -- Name: cutoff_policy; Type: TABLE; Schema: common; Owner: postgres
 --
 
@@ -24683,7 +25141,7 @@ CREATE TABLE cutoff_policy (
 ALTER TABLE cutoff_policy OWNER TO postgres;
 
 --
--- TOC entry 262 (class 1259 OID 60828)
+-- TOC entry 268 (class 1259 OID 27659)
 -- Name: document_abbrevation; Type: TABLE; Schema: common; Owner: postgres
 --
 
@@ -24696,7 +25154,7 @@ CREATE TABLE document_abbrevation (
 ALTER TABLE document_abbrevation OWNER TO postgres;
 
 --
--- TOC entry 263 (class 1259 OID 60835)
+-- TOC entry 269 (class 1259 OID 27666)
 -- Name: exception_code; Type: TABLE; Schema: common; Owner: postgres
 --
 
@@ -24713,7 +25171,7 @@ CREATE TABLE exception_code (
 ALTER TABLE exception_code OWNER TO postgres;
 
 --
--- TOC entry 264 (class 1259 OID 60841)
+-- TOC entry 270 (class 1259 OID 27672)
 -- Name: exception_code_id_seq; Type: SEQUENCE; Schema: common; Owner: postgres
 --
 
@@ -24728,8 +25186,8 @@ CREATE SEQUENCE exception_code_id_seq
 ALTER TABLE exception_code_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4822 (class 0 OID 0)
--- Dependencies: 264
+-- TOC entry 4980 (class 0 OID 0)
+-- Dependencies: 270
 -- Name: exception_code_id_seq; Type: SEQUENCE OWNED BY; Schema: common; Owner: postgres
 --
 
@@ -24737,7 +25195,7 @@ ALTER SEQUENCE exception_code_id_seq OWNED BY exception_code.id;
 
 
 --
--- TOC entry 265 (class 1259 OID 60843)
+-- TOC entry 271 (class 1259 OID 27674)
 -- Name: stocktake_policy; Type: TABLE; Schema: common; Owner: postgres
 --
 
@@ -24752,7 +25210,7 @@ ALTER TABLE stocktake_policy OWNER TO postgres;
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 266 (class 1259 OID 60847)
+-- TOC entry 272 (class 1259 OID 27678)
 -- Name: blocker; Type: TABLE; Schema: cutoff; Owner: postgres
 --
 
@@ -24765,7 +25223,7 @@ CREATE TABLE blocker (
 ALTER TABLE blocker OWNER TO postgres;
 
 --
--- TOC entry 267 (class 1259 OID 60853)
+-- TOC entry 273 (class 1259 OID 27684)
 -- Name: head; Type: TABLE; Schema: cutoff; Owner: postgres
 --
 
@@ -24786,7 +25244,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 268 (class 1259 OID 60863)
+-- TOC entry 274 (class 1259 OID 27694)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: cutoff; Owner: postgres
 --
 
@@ -24801,8 +25259,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4823 (class 0 OID 0)
--- Dependencies: 268
+-- TOC entry 4981 (class 0 OID 0)
+-- Dependencies: 274
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: cutoff; Owner: postgres
 --
 
@@ -24810,7 +25268,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 269 (class 1259 OID 60865)
+-- TOC entry 275 (class 1259 OID 27696)
 -- Name: numerator; Type: TABLE; Schema: cutoff; Owner: postgres
 --
 
@@ -24826,7 +25284,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 270 (class 1259 OID 60872)
+-- TOC entry 276 (class 1259 OID 27703)
 -- Name: body; Type: TABLE; Schema: delivery; Owner: postgres
 --
 
@@ -24841,7 +25299,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 271 (class 1259 OID 60878)
+-- TOC entry 277 (class 1259 OID 27709)
 -- Name: head; Type: TABLE; Schema: delivery; Owner: postgres
 --
 
@@ -24864,7 +25322,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 272 (class 1259 OID 60889)
+-- TOC entry 278 (class 1259 OID 27720)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: delivery; Owner: postgres
 --
 
@@ -24879,8 +25337,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4824 (class 0 OID 0)
--- Dependencies: 272
+-- TOC entry 4982 (class 0 OID 0)
+-- Dependencies: 278
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: delivery; Owner: postgres
 --
 
@@ -24888,7 +25346,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 273 (class 1259 OID 60891)
+-- TOC entry 279 (class 1259 OID 27722)
 -- Name: numerator; Type: TABLE; Schema: delivery; Owner: postgres
 --
 
@@ -24904,7 +25362,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 274 (class 1259 OID 60898)
+-- TOC entry 280 (class 1259 OID 27729)
 -- Name: body; Type: TABLE; Schema: demand; Owner: postgres
 --
 
@@ -24919,7 +25377,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 275 (class 1259 OID 60904)
+-- TOC entry 281 (class 1259 OID 27735)
 -- Name: head; Type: TABLE; Schema: demand; Owner: postgres
 --
 
@@ -24944,7 +25402,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 276 (class 1259 OID 60916)
+-- TOC entry 282 (class 1259 OID 27747)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: demand; Owner: postgres
 --
 
@@ -24959,8 +25417,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4825 (class 0 OID 0)
--- Dependencies: 276
+-- TOC entry 4983 (class 0 OID 0)
+-- Dependencies: 282
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: demand; Owner: postgres
 --
 
@@ -24968,7 +25426,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 277 (class 1259 OID 60918)
+-- TOC entry 283 (class 1259 OID 27749)
 -- Name: numerator; Type: TABLE; Schema: demand; Owner: postgres
 --
 
@@ -24984,7 +25442,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 278 (class 1259 OID 60925)
+-- TOC entry 284 (class 1259 OID 27756)
 -- Name: body; Type: TABLE; Schema: despatch; Owner: postgres
 --
 
@@ -24999,7 +25457,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 279 (class 1259 OID 60931)
+-- TOC entry 285 (class 1259 OID 27762)
 -- Name: head; Type: TABLE; Schema: despatch; Owner: postgres
 --
 
@@ -25024,7 +25482,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 280 (class 1259 OID 60943)
+-- TOC entry 286 (class 1259 OID 27774)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: despatch; Owner: postgres
 --
 
@@ -25039,8 +25497,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4826 (class 0 OID 0)
--- Dependencies: 280
+-- TOC entry 4984 (class 0 OID 0)
+-- Dependencies: 286
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: despatch; Owner: postgres
 --
 
@@ -25048,7 +25506,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 281 (class 1259 OID 60945)
+-- TOC entry 287 (class 1259 OID 27776)
 -- Name: numerator; Type: TABLE; Schema: despatch; Owner: postgres
 --
 
@@ -25061,10 +25519,175 @@ CREATE TABLE numerator (
 
 ALTER TABLE numerator OWNER TO postgres;
 
+SET search_path = facility, pg_catalog;
+
+--
+-- TOC entry 327 (class 1259 OID 59195)
+-- Name: information; Type: TABLE; Schema: facility; Owner: postgres
+--
+
+CREATE TABLE information (
+    id bigint NOT NULL,
+    gid uuid DEFAULT public.uuid_generate_v1() NOT NULL,
+    facility_code character varying NOT NULL,
+    version_num integer DEFAULT 1 NOT NULL,
+    display_name character varying NOT NULL,
+    published_date date DEFAULT now() NOT NULL,
+    parent_facility_code character varying,
+    facility_type common.facility_kind NOT NULL
+);
+
+
+ALTER TABLE information OWNER TO postgres;
+
+--
+-- TOC entry 4985 (class 0 OID 0)
+-- Dependencies: 327
+-- Name: COLUMN information.facility_type; Type: COMMENT; Schema: facility; Owner: postgres
+--
+
+COMMENT ON COLUMN information.facility_type IS 'PERA organization level';
+
+
+--
+-- TOC entry 328 (class 1259 OID 59204)
+-- Name: area; Type: TABLE; Schema: facility; Owner: postgres
+--
+
+CREATE TABLE area (
+    CONSTRAINT area_facility_type_check CHECK ((facility_type = 'AREA'::common.facility_kind))
+)
+INHERITS (information);
+
+
+ALTER TABLE area OWNER TO postgres;
+
+--
+-- TOC entry 4986 (class 0 OID 0)
+-- Dependencies: 328
+-- Name: TABLE area; Type: COMMENT; Schema: facility; Owner: postgres
+--
+
+COMMENT ON TABLE area IS 'PERA model level-2';
+
+
+--
+-- TOC entry 329 (class 1259 OID 59214)
+-- Name: enterprise; Type: TABLE; Schema: facility; Owner: postgres
+--
+
+CREATE TABLE enterprise (
+    CONSTRAINT enterprise_facility_type_check CHECK ((facility_type = 'ENTERPRISE'::common.facility_kind))
+)
+INHERITS (information);
+
+
+ALTER TABLE enterprise OWNER TO postgres;
+
+--
+-- TOC entry 4987 (class 0 OID 0)
+-- Dependencies: 329
+-- Name: TABLE enterprise; Type: COMMENT; Schema: facility; Owner: postgres
+--
+
+COMMENT ON TABLE enterprise IS 'PERA model level-0';
+
+
+--
+-- TOC entry 330 (class 1259 OID 59224)
+-- Name: information_id_seq; Type: SEQUENCE; Schema: facility; Owner: postgres
+--
+
+CREATE SEQUENCE information_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE information_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4988 (class 0 OID 0)
+-- Dependencies: 330
+-- Name: information_id_seq; Type: SEQUENCE OWNED BY; Schema: facility; Owner: postgres
+--
+
+ALTER SEQUENCE information_id_seq OWNED BY information.id;
+
+
+--
+-- TOC entry 331 (class 1259 OID 59226)
+-- Name: line; Type: TABLE; Schema: facility; Owner: postgres
+--
+
+CREATE TABLE line (
+    CONSTRAINT line_facility_type_check CHECK ((facility_type = 'LINE'::common.facility_kind))
+)
+INHERITS (information);
+
+
+ALTER TABLE line OWNER TO postgres;
+
+--
+-- TOC entry 4989 (class 0 OID 0)
+-- Dependencies: 331
+-- Name: TABLE line; Type: COMMENT; Schema: facility; Owner: postgres
+--
+
+COMMENT ON TABLE line IS 'PERA model level-3 (production line)';
+
+
+--
+-- TOC entry 332 (class 1259 OID 59236)
+-- Name: site; Type: TABLE; Schema: facility; Owner: postgres
+--
+
+CREATE TABLE site (
+    CONSTRAINT site_facility_type_check CHECK ((facility_type = 'SITE'::common.facility_kind)),
+    CONSTRAINT site_parent_facility_code_check CHECK ((parent_facility_code IS NOT NULL))
+)
+INHERITS (information);
+
+
+ALTER TABLE site OWNER TO postgres;
+
+--
+-- TOC entry 4990 (class 0 OID 0)
+-- Dependencies: 332
+-- Name: TABLE site; Type: COMMENT; Schema: facility; Owner: postgres
+--
+
+COMMENT ON TABLE site IS 'PERA model level-1';
+
+
+--
+-- TOC entry 333 (class 1259 OID 59247)
+-- Name: zone; Type: TABLE; Schema: facility; Owner: postgres
+--
+
+CREATE TABLE zone (
+    CONSTRAINT zone_facility_type_check CHECK ((facility_type = 'ZONE'::common.facility_kind))
+)
+INHERITS (information);
+
+
+ALTER TABLE zone OWNER TO postgres;
+
+--
+-- TOC entry 4991 (class 0 OID 0)
+-- Dependencies: 333
+-- Name: TABLE zone; Type: COMMENT; Schema: facility; Owner: postgres
+--
+
+COMMENT ON TABLE zone IS 'PERA model level-3 (storge zone)';
+
+
 SET search_path = goal, pg_catalog;
 
 --
--- TOC entry 282 (class 1259 OID 60952)
+-- TOC entry 288 (class 1259 OID 27783)
 -- Name: head; Type: TABLE; Schema: goal; Owner: postgres
 --
 
@@ -25085,7 +25708,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 283 (class 1259 OID 60962)
+-- TOC entry 289 (class 1259 OID 27793)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: goal; Owner: postgres
 --
 
@@ -25100,8 +25723,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4827 (class 0 OID 0)
--- Dependencies: 283
+-- TOC entry 4992 (class 0 OID 0)
+-- Dependencies: 289
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: goal; Owner: postgres
 --
 
@@ -25109,7 +25732,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 284 (class 1259 OID 60964)
+-- TOC entry 290 (class 1259 OID 27795)
 -- Name: numerator; Type: TABLE; Schema: goal; Owner: postgres
 --
 
@@ -25125,7 +25748,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 285 (class 1259 OID 60971)
+-- TOC entry 291 (class 1259 OID 27802)
 -- Name: body; Type: TABLE; Schema: issue; Owner: postgres
 --
 
@@ -25140,7 +25763,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 286 (class 1259 OID 60977)
+-- TOC entry 292 (class 1259 OID 27808)
 -- Name: head; Type: TABLE; Schema: issue; Owner: postgres
 --
 
@@ -25165,7 +25788,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 287 (class 1259 OID 60989)
+-- TOC entry 293 (class 1259 OID 27820)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: issue; Owner: postgres
 --
 
@@ -25180,8 +25803,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4828 (class 0 OID 0)
--- Dependencies: 287
+-- TOC entry 4993 (class 0 OID 0)
+-- Dependencies: 293
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: issue; Owner: postgres
 --
 
@@ -25189,7 +25812,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 288 (class 1259 OID 60991)
+-- TOC entry 294 (class 1259 OID 27822)
 -- Name: numerator; Type: TABLE; Schema: issue; Owner: postgres
 --
 
@@ -25205,7 +25828,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = lot, pg_catalog;
 
 --
--- TOC entry 289 (class 1259 OID 60998)
+-- TOC entry 295 (class 1259 OID 27829)
 -- Name: head; Type: TABLE; Schema: lot; Owner: postgres
 --
 
@@ -25217,7 +25840,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 290 (class 1259 OID 61001)
+-- TOC entry 296 (class 1259 OID 27832)
 -- Name: head_ib_seq; Type: SEQUENCE; Schema: lot; Owner: postgres
 --
 
@@ -25232,8 +25855,8 @@ CREATE SEQUENCE head_ib_seq
 ALTER TABLE head_ib_seq OWNER TO postgres;
 
 --
--- TOC entry 4829 (class 0 OID 0)
--- Dependencies: 290
+-- TOC entry 4994 (class 0 OID 0)
+-- Dependencies: 296
 -- Name: head_ib_seq; Type: SEQUENCE OWNED BY; Schema: lot; Owner: postgres
 --
 
@@ -25243,7 +25866,7 @@ ALTER SEQUENCE head_ib_seq OWNED BY head.ib;
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 291 (class 1259 OID 61003)
+-- TOC entry 297 (class 1259 OID 27834)
 -- Name: body; Type: TABLE; Schema: picklist; Owner: postgres
 --
 
@@ -25258,7 +25881,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 292 (class 1259 OID 61009)
+-- TOC entry 298 (class 1259 OID 27840)
 -- Name: head; Type: TABLE; Schema: picklist; Owner: postgres
 --
 
@@ -25283,7 +25906,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 293 (class 1259 OID 61021)
+-- TOC entry 299 (class 1259 OID 27852)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: picklist; Owner: postgres
 --
 
@@ -25298,8 +25921,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4830 (class 0 OID 0)
--- Dependencies: 293
+-- TOC entry 4995 (class 0 OID 0)
+-- Dependencies: 299
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: picklist; Owner: postgres
 --
 
@@ -25307,7 +25930,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 294 (class 1259 OID 61023)
+-- TOC entry 300 (class 1259 OID 27854)
 -- Name: numerator; Type: TABLE; Schema: picklist; Owner: postgres
 --
 
@@ -25323,7 +25946,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 295 (class 1259 OID 61030)
+-- TOC entry 301 (class 1259 OID 27861)
 -- Name: myroutines; Type: VIEW; Schema: public; Owner: postgres
 --
 
@@ -25340,7 +25963,7 @@ ALTER TABLE myroutines OWNER TO postgres;
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 296 (class 1259 OID 61035)
+-- TOC entry 302 (class 1259 OID 27866)
 -- Name: body; Type: TABLE; Schema: rebound; Owner: postgres
 --
 
@@ -25355,7 +25978,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 297 (class 1259 OID 61041)
+-- TOC entry 303 (class 1259 OID 27872)
 -- Name: head; Type: TABLE; Schema: rebound; Owner: postgres
 --
 
@@ -25378,7 +26001,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 298 (class 1259 OID 61052)
+-- TOC entry 304 (class 1259 OID 27883)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: rebound; Owner: postgres
 --
 
@@ -25393,8 +26016,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4831 (class 0 OID 0)
--- Dependencies: 298
+-- TOC entry 4996 (class 0 OID 0)
+-- Dependencies: 304
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: rebound; Owner: postgres
 --
 
@@ -25402,7 +26025,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 299 (class 1259 OID 61054)
+-- TOC entry 305 (class 1259 OID 27885)
 -- Name: numerator; Type: TABLE; Schema: rebound; Owner: postgres
 --
 
@@ -25418,7 +26041,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 300 (class 1259 OID 61061)
+-- TOC entry 306 (class 1259 OID 27892)
 -- Name: body; Type: TABLE; Schema: receipt; Owner: postgres
 --
 
@@ -25433,7 +26056,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 301 (class 1259 OID 61067)
+-- TOC entry 307 (class 1259 OID 27898)
 -- Name: head; Type: TABLE; Schema: receipt; Owner: postgres
 --
 
@@ -25456,7 +26079,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 302 (class 1259 OID 61078)
+-- TOC entry 308 (class 1259 OID 27909)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: receipt; Owner: postgres
 --
 
@@ -25471,8 +26094,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4832 (class 0 OID 0)
--- Dependencies: 302
+-- TOC entry 4997 (class 0 OID 0)
+-- Dependencies: 308
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: receipt; Owner: postgres
 --
 
@@ -25480,7 +26103,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 303 (class 1259 OID 61080)
+-- TOC entry 309 (class 1259 OID 27911)
 -- Name: numerator; Type: TABLE; Schema: receipt; Owner: postgres
 --
 
@@ -25496,7 +26119,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 304 (class 1259 OID 61087)
+-- TOC entry 310 (class 1259 OID 27918)
 -- Name: body; Type: TABLE; Schema: reserve; Owner: postgres
 --
 
@@ -25511,7 +26134,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 305 (class 1259 OID 61093)
+-- TOC entry 311 (class 1259 OID 27924)
 -- Name: head; Type: TABLE; Schema: reserve; Owner: postgres
 --
 
@@ -25536,7 +26159,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 306 (class 1259 OID 61105)
+-- TOC entry 312 (class 1259 OID 27936)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: reserve; Owner: postgres
 --
 
@@ -25551,8 +26174,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4833 (class 0 OID 0)
--- Dependencies: 306
+-- TOC entry 4998 (class 0 OID 0)
+-- Dependencies: 312
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: reserve; Owner: postgres
 --
 
@@ -25560,7 +26183,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 307 (class 1259 OID 61107)
+-- TOC entry 313 (class 1259 OID 27938)
 -- Name: numerator; Type: TABLE; Schema: reserve; Owner: postgres
 --
 
@@ -25576,7 +26199,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = schedule, pg_catalog;
 
 --
--- TOC entry 308 (class 1259 OID 61114)
+-- TOC entry 314 (class 1259 OID 27945)
 -- Name: calendar; Type: TABLE; Schema: schedule; Owner: postgres
 --
 
@@ -25594,7 +26217,7 @@ ALTER TABLE calendar OWNER TO postgres;
 SET search_path = stockcard, pg_catalog;
 
 --
--- TOC entry 309 (class 1259 OID 61117)
+-- TOC entry 315 (class 1259 OID 27948)
 -- Name: head; Type: TABLE; Schema: stockcard; Owner: postgres
 --
 
@@ -25628,7 +26251,7 @@ ALTER TABLE head OWNER TO postgres;
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 310 (class 1259 OID 61124)
+-- TOC entry 316 (class 1259 OID 27955)
 -- Name: body; Type: TABLE; Schema: stocktake; Owner: postgres
 --
 
@@ -25644,7 +26267,7 @@ CREATE TABLE body (
 ALTER TABLE body OWNER TO postgres;
 
 --
--- TOC entry 311 (class 1259 OID 61130)
+-- TOC entry 317 (class 1259 OID 27961)
 -- Name: head; Type: TABLE; Schema: stocktake; Owner: postgres
 --
 
@@ -25665,7 +26288,7 @@ CREATE TABLE head (
 ALTER TABLE head OWNER TO postgres;
 
 --
--- TOC entry 312 (class 1259 OID 61140)
+-- TOC entry 318 (class 1259 OID 27971)
 -- Name: head_id_seq; Type: SEQUENCE; Schema: stocktake; Owner: postgres
 --
 
@@ -25680,8 +26303,8 @@ CREATE SEQUENCE head_id_seq
 ALTER TABLE head_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4834 (class 0 OID 0)
--- Dependencies: 312
+-- TOC entry 4999 (class 0 OID 0)
+-- Dependencies: 318
 -- Name: head_id_seq; Type: SEQUENCE OWNED BY; Schema: stocktake; Owner: postgres
 --
 
@@ -25689,7 +26312,7 @@ ALTER SEQUENCE head_id_seq OWNED BY head.id;
 
 
 --
--- TOC entry 313 (class 1259 OID 61142)
+-- TOC entry 319 (class 1259 OID 27973)
 -- Name: numerator; Type: TABLE; Schema: stocktake; Owner: postgres
 --
 
@@ -25705,7 +26328,7 @@ ALTER TABLE numerator OWNER TO postgres;
 SET search_path = tests, pg_catalog;
 
 --
--- TOC entry 314 (class 1259 OID 61149)
+-- TOC entry 320 (class 1259 OID 27980)
 -- Name: pgunit_covarage; Type: VIEW; Schema: tests; Owner: postgres
 --
 
@@ -25723,7 +26346,7 @@ EXCEPT
 ALTER TABLE pgunit_covarage OWNER TO postgres;
 
 --
--- TOC entry 315 (class 1259 OID 61154)
+-- TOC entry 321 (class 1259 OID 27985)
 -- Name: plpgsql_check_all; Type: VIEW; Schema: tests; Owner: postgres
 --
 
@@ -25756,7 +26379,7 @@ CREATE VIEW plpgsql_check_all AS
 ALTER TABLE plpgsql_check_all OWNER TO postgres;
 
 --
--- TOC entry 316 (class 1259 OID 61159)
+-- TOC entry 322 (class 1259 OID 27990)
 -- Name: plpgsql_check_nontriggered; Type: VIEW; Schema: tests; Owner: postgres
 --
 
@@ -25772,11 +26395,75 @@ CREATE VIEW plpgsql_check_nontriggered AS
 
 ALTER TABLE plpgsql_check_nontriggered OWNER TO postgres;
 
+SET search_path = uom, pg_catalog;
+
+--
+-- TOC entry 323 (class 1259 OID 58810)
+-- Name: assignment; Type: TABLE; Schema: uom; Owner: postgres
+--
+
+CREATE TABLE assignment (
+    uom_role_id bigint NOT NULL,
+    uom_role_code character varying(100),
+    uom_role_name character varying(300)
+);
+
+
+ALTER TABLE assignment OWNER TO postgres;
+
+--
+-- TOC entry 5000 (class 0 OID 0)
+-- Dependencies: 323
+-- Name: TABLE assignment; Type: COMMENT; Schema: uom; Owner: postgres
+--
+
+COMMENT ON TABLE assignment IS 'uom role';
+
+
+--
+-- TOC entry 324 (class 1259 OID 58813)
+-- Name: information; Type: TABLE; Schema: uom; Owner: postgres
+--
+
+CREATE TABLE information (
+    uom_code character varying(4) NOT NULL,
+    uom_domain character varying(10),
+    base_uom_code character varying,
+    factor double precision
+);
+
+
+ALTER TABLE information OWNER TO postgres;
+
+--
+-- TOC entry 325 (class 1259 OID 58819)
+-- Name: uom_role_uom_role_id_seq; Type: SEQUENCE; Schema: uom; Owner: postgres
+--
+
+CREATE SEQUENCE uom_role_uom_role_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE uom_role_uom_role_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5001 (class 0 OID 0)
+-- Dependencies: 325
+-- Name: uom_role_uom_role_id_seq; Type: SEQUENCE OWNED BY; Schema: uom; Owner: postgres
+--
+
+ALTER SEQUENCE uom_role_uom_role_id_seq OWNED BY assignment.uom_role_id;
+
+
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 4144 (class 2604 OID 61164)
--- Name: id; Type: DEFAULT; Schema: adjustmentcredit; Owner: postgres
+-- TOC entry 4226 (class 2604 OID 27995)
+-- Name: head id; Type: DEFAULT; Schema: adjustmentcredit; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25785,8 +26472,8 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 4152 (class 2604 OID 61165)
--- Name: id; Type: DEFAULT; Schema: adjustmentdebit; Owner: postgres
+-- TOC entry 4234 (class 2604 OID 27996)
+-- Name: head id; Type: DEFAULT; Schema: adjustmentdebit; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25795,8 +26482,8 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = common, pg_catalog;
 
 --
--- TOC entry 4157 (class 2604 OID 61166)
--- Name: id; Type: DEFAULT; Schema: common; Owner: postgres
+-- TOC entry 4239 (class 2604 OID 27997)
+-- Name: exception_code id; Type: DEFAULT; Schema: common; Owner: postgres
 --
 
 ALTER TABLE ONLY exception_code ALTER COLUMN id SET DEFAULT nextval('exception_code_id_seq'::regclass);
@@ -25805,8 +26492,8 @@ ALTER TABLE ONLY exception_code ALTER COLUMN id SET DEFAULT nextval('exception_c
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 4163 (class 2604 OID 61167)
--- Name: id; Type: DEFAULT; Schema: cutoff; Owner: postgres
+-- TOC entry 4245 (class 2604 OID 27998)
+-- Name: head id; Type: DEFAULT; Schema: cutoff; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25815,8 +26502,8 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 4169 (class 2604 OID 61168)
--- Name: id; Type: DEFAULT; Schema: delivery; Owner: postgres
+-- TOC entry 4251 (class 2604 OID 27999)
+-- Name: head id; Type: DEFAULT; Schema: delivery; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25825,8 +26512,8 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 4176 (class 2604 OID 61169)
--- Name: id; Type: DEFAULT; Schema: demand; Owner: postgres
+-- TOC entry 4258 (class 2604 OID 28000)
+-- Name: head id; Type: DEFAULT; Schema: demand; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25835,18 +26522,188 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 4184 (class 2604 OID 61170)
--- Name: id; Type: DEFAULT; Schema: despatch; Owner: postgres
+-- TOC entry 4266 (class 2604 OID 28001)
+-- Name: head id; Type: DEFAULT; Schema: despatch; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
 
 
+SET search_path = facility, pg_catalog;
+
+--
+-- TOC entry 4327 (class 2604 OID 59257)
+-- Name: area id; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY area ALTER COLUMN id SET DEFAULT nextval('information_id_seq'::regclass);
+
+
+--
+-- TOC entry 4328 (class 2604 OID 59258)
+-- Name: area gid; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY area ALTER COLUMN gid SET DEFAULT public.uuid_generate_v1();
+
+
+--
+-- TOC entry 4329 (class 2604 OID 59259)
+-- Name: area version_num; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY area ALTER COLUMN version_num SET DEFAULT 1;
+
+
+--
+-- TOC entry 4330 (class 2604 OID 59260)
+-- Name: area published_date; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY area ALTER COLUMN published_date SET DEFAULT now();
+
+
+--
+-- TOC entry 4332 (class 2604 OID 59261)
+-- Name: enterprise id; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY enterprise ALTER COLUMN id SET DEFAULT nextval('information_id_seq'::regclass);
+
+
+--
+-- TOC entry 4333 (class 2604 OID 59262)
+-- Name: enterprise gid; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY enterprise ALTER COLUMN gid SET DEFAULT public.uuid_generate_v1();
+
+
+--
+-- TOC entry 4334 (class 2604 OID 59263)
+-- Name: enterprise version_num; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY enterprise ALTER COLUMN version_num SET DEFAULT 1;
+
+
+--
+-- TOC entry 4335 (class 2604 OID 59264)
+-- Name: enterprise published_date; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY enterprise ALTER COLUMN published_date SET DEFAULT now();
+
+
+--
+-- TOC entry 4326 (class 2604 OID 59265)
+-- Name: information id; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY information ALTER COLUMN id SET DEFAULT nextval('information_id_seq'::regclass);
+
+
+--
+-- TOC entry 4337 (class 2604 OID 59266)
+-- Name: line id; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY line ALTER COLUMN id SET DEFAULT nextval('information_id_seq'::regclass);
+
+
+--
+-- TOC entry 4338 (class 2604 OID 59267)
+-- Name: line gid; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY line ALTER COLUMN gid SET DEFAULT public.uuid_generate_v1();
+
+
+--
+-- TOC entry 4339 (class 2604 OID 59268)
+-- Name: line version_num; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY line ALTER COLUMN version_num SET DEFAULT 1;
+
+
+--
+-- TOC entry 4340 (class 2604 OID 59269)
+-- Name: line published_date; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY line ALTER COLUMN published_date SET DEFAULT now();
+
+
+--
+-- TOC entry 4342 (class 2604 OID 59270)
+-- Name: site id; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY site ALTER COLUMN id SET DEFAULT nextval('information_id_seq'::regclass);
+
+
+--
+-- TOC entry 4343 (class 2604 OID 59271)
+-- Name: site gid; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY site ALTER COLUMN gid SET DEFAULT public.uuid_generate_v1();
+
+
+--
+-- TOC entry 4344 (class 2604 OID 59272)
+-- Name: site version_num; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY site ALTER COLUMN version_num SET DEFAULT 1;
+
+
+--
+-- TOC entry 4345 (class 2604 OID 59273)
+-- Name: site published_date; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY site ALTER COLUMN published_date SET DEFAULT now();
+
+
+--
+-- TOC entry 4348 (class 2604 OID 59274)
+-- Name: zone id; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY zone ALTER COLUMN id SET DEFAULT nextval('information_id_seq'::regclass);
+
+
+--
+-- TOC entry 4349 (class 2604 OID 59275)
+-- Name: zone gid; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY zone ALTER COLUMN gid SET DEFAULT public.uuid_generate_v1();
+
+
+--
+-- TOC entry 4350 (class 2604 OID 59276)
+-- Name: zone version_num; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY zone ALTER COLUMN version_num SET DEFAULT 1;
+
+
+--
+-- TOC entry 4351 (class 2604 OID 59277)
+-- Name: zone published_date; Type: DEFAULT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY zone ALTER COLUMN published_date SET DEFAULT now();
+
+
 SET search_path = goal, pg_catalog;
 
 --
--- TOC entry 4192 (class 2604 OID 61171)
--- Name: id; Type: DEFAULT; Schema: goal; Owner: postgres
+-- TOC entry 4274 (class 2604 OID 28002)
+-- Name: head id; Type: DEFAULT; Schema: goal; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25855,8 +26712,8 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 4198 (class 2604 OID 61172)
--- Name: id; Type: DEFAULT; Schema: issue; Owner: postgres
+-- TOC entry 4280 (class 2604 OID 28003)
+-- Name: head id; Type: DEFAULT; Schema: issue; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25865,8 +26722,8 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = lot, pg_catalog;
 
 --
--- TOC entry 4202 (class 2604 OID 61173)
--- Name: ib; Type: DEFAULT; Schema: lot; Owner: postgres
+-- TOC entry 4284 (class 2604 OID 28004)
+-- Name: head ib; Type: DEFAULT; Schema: lot; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN ib SET DEFAULT nextval('head_ib_seq'::regclass);
@@ -25875,8 +26732,8 @@ ALTER TABLE ONLY head ALTER COLUMN ib SET DEFAULT nextval('head_ib_seq'::regclas
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 4207 (class 2604 OID 61174)
--- Name: id; Type: DEFAULT; Schema: picklist; Owner: postgres
+-- TOC entry 4289 (class 2604 OID 28005)
+-- Name: head id; Type: DEFAULT; Schema: picklist; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25885,8 +26742,8 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 4215 (class 2604 OID 61175)
--- Name: id; Type: DEFAULT; Schema: rebound; Owner: postgres
+-- TOC entry 4297 (class 2604 OID 28006)
+-- Name: head id; Type: DEFAULT; Schema: rebound; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25895,8 +26752,8 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 4222 (class 2604 OID 61176)
--- Name: id; Type: DEFAULT; Schema: receipt; Owner: postgres
+-- TOC entry 4304 (class 2604 OID 28007)
+-- Name: head id; Type: DEFAULT; Schema: receipt; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25905,8 +26762,8 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 4229 (class 2604 OID 61177)
--- Name: id; Type: DEFAULT; Schema: reserve; Owner: postgres
+-- TOC entry 4311 (class 2604 OID 28008)
+-- Name: head id; Type: DEFAULT; Schema: reserve; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
@@ -25915,34 +26772,44 @@ ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclas
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 4238 (class 2604 OID 61178)
--- Name: id; Type: DEFAULT; Schema: stocktake; Owner: postgres
+-- TOC entry 4320 (class 2604 OID 28009)
+-- Name: head id; Type: DEFAULT; Schema: stocktake; Owner: postgres
 --
 
 ALTER TABLE ONLY head ALTER COLUMN id SET DEFAULT nextval('head_id_seq'::regclass);
 
 
+SET search_path = uom, pg_catalog;
+
+--
+-- TOC entry 4322 (class 2604 OID 58821)
+-- Name: assignment uom_role_id; Type: DEFAULT; Schema: uom; Owner: postgres
+--
+
+ALTER TABLE ONLY assignment ALTER COLUMN uom_role_id SET DEFAULT nextval('uom_role_uom_role_id_seq'::regclass);
+
+
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 4712 (class 0 OID 60687)
--- Dependencies: 226
+-- TOC entry 4861 (class 0 OID 27518)
+-- Dependencies: 232
 -- Data for Name: body; Type: TABLE DATA; Schema: adjustmentcredit; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4713 (class 0 OID 60693)
--- Dependencies: 227
+-- TOC entry 4862 (class 0 OID 27524)
+-- Dependencies: 233
 -- Data for Name: head; Type: TABLE DATA; Schema: adjustmentcredit; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4835 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 5002 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -25950,8 +26817,8 @@ SELECT pg_catalog.setval('head_id_seq', 120, true);
 
 
 --
--- TOC entry 4715 (class 0 OID 60707)
--- Dependencies: 229
+-- TOC entry 4864 (class 0 OID 27538)
+-- Dependencies: 235
 -- Data for Name: numerator; Type: TABLE DATA; Schema: adjustmentcredit; Owner: postgres
 --
 
@@ -25960,24 +26827,24 @@ SELECT pg_catalog.setval('head_id_seq', 120, true);
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 4716 (class 0 OID 60714)
--- Dependencies: 230
+-- TOC entry 4865 (class 0 OID 27545)
+-- Dependencies: 236
 -- Data for Name: body; Type: TABLE DATA; Schema: adjustmentdebit; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4717 (class 0 OID 60720)
--- Dependencies: 231
+-- TOC entry 4866 (class 0 OID 27551)
+-- Dependencies: 237
 -- Data for Name: head; Type: TABLE DATA; Schema: adjustmentdebit; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4836 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 5003 (class 0 OID 0)
+-- Dependencies: 238
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -25985,8 +26852,8 @@ SELECT pg_catalog.setval('head_id_seq', 120, true);
 
 
 --
--- TOC entry 4719 (class 0 OID 60733)
--- Dependencies: 233
+-- TOC entry 4868 (class 0 OID 27564)
+-- Dependencies: 239
 -- Data for Name: numerator; Type: TABLE DATA; Schema: adjustmentdebit; Owner: postgres
 --
 
@@ -25995,8 +26862,8 @@ SELECT pg_catalog.setval('head_id_seq', 120, true);
 SET search_path = balance, pg_catalog;
 
 --
--- TOC entry 4720 (class 0 OID 60740)
--- Dependencies: 234
+-- TOC entry 4869 (class 0 OID 27571)
+-- Dependencies: 240
 -- Data for Name: balance; Type: TABLE DATA; Schema: balance; Owner: postgres
 --
 
@@ -26005,208 +26872,208 @@ SET search_path = balance, pg_catalog;
 SET search_path = binding, pg_catalog;
 
 --
--- TOC entry 4721 (class 0 OID 60746)
--- Dependencies: 235
+-- TOC entry 4870 (class 0 OID 27577)
+-- Dependencies: 241
 -- Data for Name: cutoff_to_adjustmentcredit; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4722 (class 0 OID 60749)
--- Dependencies: 236
+-- TOC entry 4871 (class 0 OID 27580)
+-- Dependencies: 242
 -- Data for Name: cutoff_to_adjustmentdebit; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4723 (class 0 OID 60752)
--- Dependencies: 237
+-- TOC entry 4872 (class 0 OID 27583)
+-- Dependencies: 243
 -- Data for Name: cutoff_to_delivery; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4724 (class 0 OID 60755)
--- Dependencies: 238
+-- TOC entry 4873 (class 0 OID 27586)
+-- Dependencies: 244
 -- Data for Name: cutoff_to_demand; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4725 (class 0 OID 60758)
--- Dependencies: 239
+-- TOC entry 4874 (class 0 OID 27589)
+-- Dependencies: 245
 -- Data for Name: cutoff_to_despatch; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4726 (class 0 OID 60761)
--- Dependencies: 240
+-- TOC entry 4875 (class 0 OID 27592)
+-- Dependencies: 246
 -- Data for Name: cutoff_to_goal; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4727 (class 0 OID 60764)
--- Dependencies: 241
+-- TOC entry 4876 (class 0 OID 27595)
+-- Dependencies: 247
 -- Data for Name: cutoff_to_issue; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4728 (class 0 OID 60767)
--- Dependencies: 242
+-- TOC entry 4877 (class 0 OID 27598)
+-- Dependencies: 248
 -- Data for Name: cutoff_to_picklist; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4729 (class 0 OID 60770)
--- Dependencies: 243
+-- TOC entry 4878 (class 0 OID 27601)
+-- Dependencies: 249
 -- Data for Name: cutoff_to_rebound; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4730 (class 0 OID 60773)
--- Dependencies: 244
+-- TOC entry 4879 (class 0 OID 27604)
+-- Dependencies: 250
 -- Data for Name: cutoff_to_receipt; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4731 (class 0 OID 60776)
--- Dependencies: 245
+-- TOC entry 4880 (class 0 OID 27607)
+-- Dependencies: 251
 -- Data for Name: cutoff_to_reserve; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4732 (class 0 OID 60779)
--- Dependencies: 246
+-- TOC entry 4881 (class 0 OID 27610)
+-- Dependencies: 252
 -- Data for Name: cutoff_to_stocktake; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4733 (class 0 OID 60782)
--- Dependencies: 247
+-- TOC entry 4882 (class 0 OID 27613)
+-- Dependencies: 253
 -- Data for Name: delivery_to_receipt; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4734 (class 0 OID 60785)
--- Dependencies: 248
+-- TOC entry 4883 (class 0 OID 27616)
+-- Dependencies: 254
 -- Data for Name: demand_to_picklist; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4735 (class 0 OID 60788)
--- Dependencies: 249
+-- TOC entry 4884 (class 0 OID 27619)
+-- Dependencies: 255
 -- Data for Name: demand_to_reserve; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4736 (class 0 OID 60791)
--- Dependencies: 250
+-- TOC entry 4885 (class 0 OID 27622)
+-- Dependencies: 256
 -- Data for Name: goal_to_demand; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4737 (class 0 OID 60794)
--- Dependencies: 251
+-- TOC entry 4886 (class 0 OID 27625)
+-- Dependencies: 257
 -- Data for Name: goal_to_despatch; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4738 (class 0 OID 60797)
--- Dependencies: 252
+-- TOC entry 4887 (class 0 OID 27628)
+-- Dependencies: 258
 -- Data for Name: goal_to_issue; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4739 (class 0 OID 60800)
--- Dependencies: 253
+-- TOC entry 4888 (class 0 OID 27631)
+-- Dependencies: 259
 -- Data for Name: goal_to_picklist; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4740 (class 0 OID 60803)
--- Dependencies: 254
+-- TOC entry 4889 (class 0 OID 27634)
+-- Dependencies: 260
 -- Data for Name: goal_to_reserve; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4741 (class 0 OID 60806)
--- Dependencies: 255
+-- TOC entry 4890 (class 0 OID 27637)
+-- Dependencies: 261
 -- Data for Name: issue_to_adjustmentcredit; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4742 (class 0 OID 60809)
--- Dependencies: 256
+-- TOC entry 4891 (class 0 OID 27640)
+-- Dependencies: 262
 -- Data for Name: issue_to_despatch; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4743 (class 0 OID 60812)
--- Dependencies: 257
+-- TOC entry 4892 (class 0 OID 27643)
+-- Dependencies: 263
 -- Data for Name: issue_to_rebound; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4744 (class 0 OID 60815)
--- Dependencies: 258
+-- TOC entry 4893 (class 0 OID 27646)
+-- Dependencies: 264
 -- Data for Name: picklist_to_issue; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4745 (class 0 OID 60818)
--- Dependencies: 259
+-- TOC entry 4894 (class 0 OID 27649)
+-- Dependencies: 265
 -- Data for Name: receipt_to_adjustmentdebit; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4746 (class 0 OID 60821)
--- Dependencies: 260
+-- TOC entry 4895 (class 0 OID 27652)
+-- Dependencies: 266
 -- Data for Name: receipt_to_rebound; Type: TABLE DATA; Schema: binding; Owner: postgres
 --
 
@@ -26215,8 +27082,8 @@ SET search_path = binding, pg_catalog;
 SET search_path = common, pg_catalog;
 
 --
--- TOC entry 4747 (class 0 OID 60824)
--- Dependencies: 261
+-- TOC entry 4896 (class 0 OID 27655)
+-- Dependencies: 267
 -- Data for Name: cutoff_policy; Type: TABLE DATA; Schema: common; Owner: postgres
 --
 
@@ -26237,8 +27104,8 @@ INSERT INTO cutoff_policy VALUES ('CUTOFF', 'DISABLED');
 
 
 --
--- TOC entry 4748 (class 0 OID 60828)
--- Dependencies: 262
+-- TOC entry 4897 (class 0 OID 27659)
+-- Dependencies: 268
 -- Data for Name: document_abbrevation; Type: TABLE DATA; Schema: common; Owner: postgres
 --
 
@@ -26259,8 +27126,8 @@ INSERT INTO document_abbrevation VALUES ('CUTOFF', 'CUT');
 
 
 --
--- TOC entry 4749 (class 0 OID 60835)
--- Dependencies: 263
+-- TOC entry 4898 (class 0 OID 27666)
+-- Dependencies: 269
 -- Data for Name: exception_code; Type: TABLE DATA; Schema: common; Owner: postgres
 --
 
@@ -26277,8 +27144,8 @@ INSERT INTO exception_code VALUES (10, 'WMS WARNING 1 message', 'WMS NOTICE 1 de
 
 
 --
--- TOC entry 4837 (class 0 OID 0)
--- Dependencies: 264
+-- TOC entry 5004 (class 0 OID 0)
+-- Dependencies: 270
 -- Name: exception_code_id_seq; Type: SEQUENCE SET; Schema: common; Owner: postgres
 --
 
@@ -26286,8 +27153,8 @@ SELECT pg_catalog.setval('exception_code_id_seq', 1, false);
 
 
 --
--- TOC entry 4751 (class 0 OID 60843)
--- Dependencies: 265
+-- TOC entry 4900 (class 0 OID 27674)
+-- Dependencies: 271
 -- Data for Name: stocktake_policy; Type: TABLE DATA; Schema: common; Owner: postgres
 --
 
@@ -26310,24 +27177,24 @@ INSERT INTO stocktake_policy VALUES ('CUTOFF', 'DISABLED');
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 4752 (class 0 OID 60847)
--- Dependencies: 266
+-- TOC entry 4901 (class 0 OID 27678)
+-- Dependencies: 272
 -- Data for Name: blocker; Type: TABLE DATA; Schema: cutoff; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4753 (class 0 OID 60853)
--- Dependencies: 267
+-- TOC entry 4902 (class 0 OID 27684)
+-- Dependencies: 273
 -- Data for Name: head; Type: TABLE DATA; Schema: cutoff; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4838 (class 0 OID 0)
--- Dependencies: 268
+-- TOC entry 5005 (class 0 OID 0)
+-- Dependencies: 274
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: cutoff; Owner: postgres
 --
 
@@ -26335,8 +27202,8 @@ SELECT pg_catalog.setval('head_id_seq', 22, true);
 
 
 --
--- TOC entry 4755 (class 0 OID 60865)
--- Dependencies: 269
+-- TOC entry 4904 (class 0 OID 27696)
+-- Dependencies: 275
 -- Data for Name: numerator; Type: TABLE DATA; Schema: cutoff; Owner: postgres
 --
 
@@ -26345,24 +27212,24 @@ SELECT pg_catalog.setval('head_id_seq', 22, true);
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 4756 (class 0 OID 60872)
--- Dependencies: 270
+-- TOC entry 4905 (class 0 OID 27703)
+-- Dependencies: 276
 -- Data for Name: body; Type: TABLE DATA; Schema: delivery; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4757 (class 0 OID 60878)
--- Dependencies: 271
+-- TOC entry 4906 (class 0 OID 27709)
+-- Dependencies: 277
 -- Data for Name: head; Type: TABLE DATA; Schema: delivery; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4839 (class 0 OID 0)
--- Dependencies: 272
+-- TOC entry 5006 (class 0 OID 0)
+-- Dependencies: 278
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: delivery; Owner: postgres
 --
 
@@ -26370,8 +27237,8 @@ SELECT pg_catalog.setval('head_id_seq', 80, true);
 
 
 --
--- TOC entry 4759 (class 0 OID 60891)
--- Dependencies: 273
+-- TOC entry 4908 (class 0 OID 27722)
+-- Dependencies: 279
 -- Data for Name: numerator; Type: TABLE DATA; Schema: delivery; Owner: postgres
 --
 
@@ -26380,24 +27247,24 @@ SELECT pg_catalog.setval('head_id_seq', 80, true);
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 4760 (class 0 OID 60898)
--- Dependencies: 274
+-- TOC entry 4909 (class 0 OID 27729)
+-- Dependencies: 280
 -- Data for Name: body; Type: TABLE DATA; Schema: demand; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4761 (class 0 OID 60904)
--- Dependencies: 275
+-- TOC entry 4910 (class 0 OID 27735)
+-- Dependencies: 281
 -- Data for Name: head; Type: TABLE DATA; Schema: demand; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4840 (class 0 OID 0)
--- Dependencies: 276
+-- TOC entry 5007 (class 0 OID 0)
+-- Dependencies: 282
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: demand; Owner: postgres
 --
 
@@ -26405,8 +27272,8 @@ SELECT pg_catalog.setval('head_id_seq', 80, true);
 
 
 --
--- TOC entry 4763 (class 0 OID 60918)
--- Dependencies: 277
+-- TOC entry 4912 (class 0 OID 27749)
+-- Dependencies: 283
 -- Data for Name: numerator; Type: TABLE DATA; Schema: demand; Owner: postgres
 --
 
@@ -26415,24 +27282,24 @@ SELECT pg_catalog.setval('head_id_seq', 80, true);
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 4764 (class 0 OID 60925)
--- Dependencies: 278
+-- TOC entry 4913 (class 0 OID 27756)
+-- Dependencies: 284
 -- Data for Name: body; Type: TABLE DATA; Schema: despatch; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4765 (class 0 OID 60931)
--- Dependencies: 279
+-- TOC entry 4914 (class 0 OID 27762)
+-- Dependencies: 285
 -- Data for Name: head; Type: TABLE DATA; Schema: despatch; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4841 (class 0 OID 0)
--- Dependencies: 280
+-- TOC entry 5008 (class 0 OID 0)
+-- Dependencies: 286
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: despatch; Owner: postgres
 --
 
@@ -26440,9 +27307,77 @@ SELECT pg_catalog.setval('head_id_seq', 160, true);
 
 
 --
--- TOC entry 4767 (class 0 OID 60945)
--- Dependencies: 281
+-- TOC entry 4916 (class 0 OID 27776)
+-- Dependencies: 287
 -- Data for Name: numerator; Type: TABLE DATA; Schema: despatch; Owner: postgres
+--
+
+
+
+SET search_path = facility, pg_catalog;
+
+--
+-- TOC entry 4952 (class 0 OID 59204)
+-- Dependencies: 328
+-- Data for Name: area; Type: TABLE DATA; Schema: facility; Owner: postgres
+--
+
+INSERT INTO area VALUES (3, '00f11b88-fc89-11e7-b381-d4bed939923a', 'A01', 1, 'A01', '2018-01-18', 'S01', 'AREA');
+INSERT INTO area VALUES (11, '2f3546bc-fca3-11e7-9533-d4bed939923a', 'A04', 1, 'A04', '2018-01-18', 'S01', 'AREA');
+
+
+--
+-- TOC entry 4953 (class 0 OID 59214)
+-- Dependencies: 329
+-- Data for Name: enterprise; Type: TABLE DATA; Schema: facility; Owner: postgres
+--
+
+INSERT INTO enterprise VALUES (1, 'd344d486-fc88-11e7-aa48-d4bed939923a', 'E01', 1, 'E01', '2018-01-18', NULL, 'ENTERPRISE');
+
+
+--
+-- TOC entry 4951 (class 0 OID 59195)
+-- Dependencies: 327
+-- Data for Name: information; Type: TABLE DATA; Schema: facility; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 5009 (class 0 OID 0)
+-- Dependencies: 330
+-- Name: information_id_seq; Type: SEQUENCE SET; Schema: facility; Owner: postgres
+--
+
+SELECT pg_catalog.setval('information_id_seq', 13, true);
+
+
+--
+-- TOC entry 4955 (class 0 OID 59226)
+-- Dependencies: 331
+-- Data for Name: line; Type: TABLE DATA; Schema: facility; Owner: postgres
+--
+
+INSERT INTO line VALUES (4, '1e749946-fc89-11e7-b4dd-d4bed939923a', 'L01', 1, 'L01', '2018-01-18', 'A01', 'LINE');
+INSERT INTO line VALUES (6, 'f0f0aacc-fca2-11e7-952e-d4bed939923a', 'L02', 1, 'L02', '2018-01-18', 'A01', 'LINE');
+INSERT INTO line VALUES (7, 'fcead30c-fca2-11e7-952f-d4bed939923a', 'L03', 1, 'L03', '2018-01-18', 'A01', 'LINE');
+INSERT INTO line VALUES (9, '087b7910-fca3-11e7-9531-d4bed939923a', 'L04', 1, 'L04', '2018-01-18', 'A01', 'LINE');
+
+
+--
+-- TOC entry 4956 (class 0 OID 59236)
+-- Dependencies: 332
+-- Data for Name: site; Type: TABLE DATA; Schema: facility; Owner: postgres
+--
+
+INSERT INTO site VALUES (2, 'e975ae6a-fc88-11e7-a8d5-d4bed939923a', 'S01', 1, 'S01', '2018-01-18', 'E01', 'SITE');
+INSERT INTO site VALUES (12, '38c2ed2e-fca3-11e7-9534-d4bed939923a', 'S04', 1, 'S04', '2018-01-18', 'E01', 'SITE');
+
+
+--
+-- TOC entry 4957 (class 0 OID 59247)
+-- Dependencies: 333
+-- Data for Name: zone; Type: TABLE DATA; Schema: facility; Owner: postgres
 --
 
 
@@ -26450,16 +27385,16 @@ SELECT pg_catalog.setval('head_id_seq', 160, true);
 SET search_path = goal, pg_catalog;
 
 --
--- TOC entry 4768 (class 0 OID 60952)
--- Dependencies: 282
+-- TOC entry 4917 (class 0 OID 27783)
+-- Dependencies: 288
 -- Data for Name: head; Type: TABLE DATA; Schema: goal; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4842 (class 0 OID 0)
--- Dependencies: 283
+-- TOC entry 5010 (class 0 OID 0)
+-- Dependencies: 289
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: goal; Owner: postgres
 --
 
@@ -26467,8 +27402,8 @@ SELECT pg_catalog.setval('head_id_seq', 213, true);
 
 
 --
--- TOC entry 4770 (class 0 OID 60964)
--- Dependencies: 284
+-- TOC entry 4919 (class 0 OID 27795)
+-- Dependencies: 290
 -- Data for Name: numerator; Type: TABLE DATA; Schema: goal; Owner: postgres
 --
 
@@ -26477,24 +27412,24 @@ SELECT pg_catalog.setval('head_id_seq', 213, true);
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 4771 (class 0 OID 60971)
--- Dependencies: 285
+-- TOC entry 4920 (class 0 OID 27802)
+-- Dependencies: 291
 -- Data for Name: body; Type: TABLE DATA; Schema: issue; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4772 (class 0 OID 60977)
--- Dependencies: 286
+-- TOC entry 4921 (class 0 OID 27808)
+-- Dependencies: 292
 -- Data for Name: head; Type: TABLE DATA; Schema: issue; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4843 (class 0 OID 0)
--- Dependencies: 287
+-- TOC entry 5011 (class 0 OID 0)
+-- Dependencies: 293
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: issue; Owner: postgres
 --
 
@@ -26502,8 +27437,8 @@ SELECT pg_catalog.setval('head_id_seq', 120, true);
 
 
 --
--- TOC entry 4774 (class 0 OID 60991)
--- Dependencies: 288
+-- TOC entry 4923 (class 0 OID 27822)
+-- Dependencies: 294
 -- Data for Name: numerator; Type: TABLE DATA; Schema: issue; Owner: postgres
 --
 
@@ -26512,16 +27447,16 @@ SELECT pg_catalog.setval('head_id_seq', 120, true);
 SET search_path = lot, pg_catalog;
 
 --
--- TOC entry 4775 (class 0 OID 60998)
--- Dependencies: 289
+-- TOC entry 4924 (class 0 OID 27829)
+-- Dependencies: 295
 -- Data for Name: head; Type: TABLE DATA; Schema: lot; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4844 (class 0 OID 0)
--- Dependencies: 290
+-- TOC entry 5012 (class 0 OID 0)
+-- Dependencies: 296
 -- Name: head_ib_seq; Type: SEQUENCE SET; Schema: lot; Owner: postgres
 --
 
@@ -26531,24 +27466,24 @@ SELECT pg_catalog.setval('head_ib_seq', 1, false);
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 4777 (class 0 OID 61003)
--- Dependencies: 291
+-- TOC entry 4926 (class 0 OID 27834)
+-- Dependencies: 297
 -- Data for Name: body; Type: TABLE DATA; Schema: picklist; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4778 (class 0 OID 61009)
--- Dependencies: 292
+-- TOC entry 4927 (class 0 OID 27840)
+-- Dependencies: 298
 -- Data for Name: head; Type: TABLE DATA; Schema: picklist; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4845 (class 0 OID 0)
--- Dependencies: 293
+-- TOC entry 5013 (class 0 OID 0)
+-- Dependencies: 299
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: picklist; Owner: postgres
 --
 
@@ -26556,8 +27491,8 @@ SELECT pg_catalog.setval('head_id_seq', 118, true);
 
 
 --
--- TOC entry 4780 (class 0 OID 61023)
--- Dependencies: 294
+-- TOC entry 4929 (class 0 OID 27854)
+-- Dependencies: 300
 -- Data for Name: numerator; Type: TABLE DATA; Schema: picklist; Owner: postgres
 --
 
@@ -26566,24 +27501,24 @@ SELECT pg_catalog.setval('head_id_seq', 118, true);
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 4781 (class 0 OID 61035)
--- Dependencies: 296
+-- TOC entry 4930 (class 0 OID 27866)
+-- Dependencies: 302
 -- Data for Name: body; Type: TABLE DATA; Schema: rebound; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4782 (class 0 OID 61041)
--- Dependencies: 297
+-- TOC entry 4931 (class 0 OID 27872)
+-- Dependencies: 303
 -- Data for Name: head; Type: TABLE DATA; Schema: rebound; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4846 (class 0 OID 0)
--- Dependencies: 298
+-- TOC entry 5014 (class 0 OID 0)
+-- Dependencies: 304
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: rebound; Owner: postgres
 --
 
@@ -26591,8 +27526,8 @@ SELECT pg_catalog.setval('head_id_seq', 80, true);
 
 
 --
--- TOC entry 4784 (class 0 OID 61054)
--- Dependencies: 299
+-- TOC entry 4933 (class 0 OID 27885)
+-- Dependencies: 305
 -- Data for Name: numerator; Type: TABLE DATA; Schema: rebound; Owner: postgres
 --
 
@@ -26601,24 +27536,24 @@ SELECT pg_catalog.setval('head_id_seq', 80, true);
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 4785 (class 0 OID 61061)
--- Dependencies: 300
+-- TOC entry 4934 (class 0 OID 27892)
+-- Dependencies: 306
 -- Data for Name: body; Type: TABLE DATA; Schema: receipt; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4786 (class 0 OID 61067)
--- Dependencies: 301
+-- TOC entry 4935 (class 0 OID 27898)
+-- Dependencies: 307
 -- Data for Name: head; Type: TABLE DATA; Schema: receipt; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4847 (class 0 OID 0)
--- Dependencies: 302
+-- TOC entry 5015 (class 0 OID 0)
+-- Dependencies: 308
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: receipt; Owner: postgres
 --
 
@@ -26626,8 +27561,8 @@ SELECT pg_catalog.setval('head_id_seq', 80, true);
 
 
 --
--- TOC entry 4788 (class 0 OID 61080)
--- Dependencies: 303
+-- TOC entry 4937 (class 0 OID 27911)
+-- Dependencies: 309
 -- Data for Name: numerator; Type: TABLE DATA; Schema: receipt; Owner: postgres
 --
 
@@ -26636,24 +27571,24 @@ SELECT pg_catalog.setval('head_id_seq', 80, true);
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 4789 (class 0 OID 61087)
--- Dependencies: 304
+-- TOC entry 4938 (class 0 OID 27918)
+-- Dependencies: 310
 -- Data for Name: body; Type: TABLE DATA; Schema: reserve; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4790 (class 0 OID 61093)
--- Dependencies: 305
+-- TOC entry 4939 (class 0 OID 27924)
+-- Dependencies: 311
 -- Data for Name: head; Type: TABLE DATA; Schema: reserve; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4848 (class 0 OID 0)
--- Dependencies: 306
+-- TOC entry 5016 (class 0 OID 0)
+-- Dependencies: 312
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: reserve; Owner: postgres
 --
 
@@ -26661,8 +27596,8 @@ SELECT pg_catalog.setval('head_id_seq', 118, true);
 
 
 --
--- TOC entry 4792 (class 0 OID 61107)
--- Dependencies: 307
+-- TOC entry 4941 (class 0 OID 27938)
+-- Dependencies: 313
 -- Data for Name: numerator; Type: TABLE DATA; Schema: reserve; Owner: postgres
 --
 
@@ -26671,8 +27606,8 @@ SELECT pg_catalog.setval('head_id_seq', 118, true);
 SET search_path = schedule, pg_catalog;
 
 --
--- TOC entry 4793 (class 0 OID 61114)
--- Dependencies: 308
+-- TOC entry 4942 (class 0 OID 27945)
+-- Dependencies: 314
 -- Data for Name: calendar; Type: TABLE DATA; Schema: schedule; Owner: postgres
 --
 
@@ -26681,8 +27616,8 @@ SET search_path = schedule, pg_catalog;
 SET search_path = stockcard, pg_catalog;
 
 --
--- TOC entry 4794 (class 0 OID 61117)
--- Dependencies: 309
+-- TOC entry 4943 (class 0 OID 27948)
+-- Dependencies: 315
 -- Data for Name: head; Type: TABLE DATA; Schema: stockcard; Owner: postgres
 --
 
@@ -26691,24 +27626,24 @@ SET search_path = stockcard, pg_catalog;
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 4795 (class 0 OID 61124)
--- Dependencies: 310
+-- TOC entry 4944 (class 0 OID 27955)
+-- Dependencies: 316
 -- Data for Name: body; Type: TABLE DATA; Schema: stocktake; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4796 (class 0 OID 61130)
--- Dependencies: 311
+-- TOC entry 4945 (class 0 OID 27961)
+-- Dependencies: 317
 -- Data for Name: head; Type: TABLE DATA; Schema: stocktake; Owner: postgres
 --
 
 
 
 --
--- TOC entry 4849 (class 0 OID 0)
--- Dependencies: 312
+-- TOC entry 5017 (class 0 OID 0)
+-- Dependencies: 318
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: stocktake; Owner: postgres
 --
 
@@ -26716,18 +27651,55 @@ SELECT pg_catalog.setval('head_id_seq', 80, true);
 
 
 --
--- TOC entry 4798 (class 0 OID 61142)
--- Dependencies: 313
+-- TOC entry 4947 (class 0 OID 27973)
+-- Dependencies: 319
 -- Data for Name: numerator; Type: TABLE DATA; Schema: stocktake; Owner: postgres
 --
 
 
 
+SET search_path = uom, pg_catalog;
+
+--
+-- TOC entry 4948 (class 0 OID 58810)
+-- Dependencies: 323
+-- Data for Name: assignment; Type: TABLE DATA; Schema: uom; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 4949 (class 0 OID 58813)
+-- Dependencies: 324
+-- Data for Name: information; Type: TABLE DATA; Schema: uom; Owner: postgres
+--
+
+INSERT INTO information VALUES ('kg', 'MASS', 'kg', 1);
+INSERT INTO information VALUES ('m', 'LENGHT', 'm', 1);
+INSERT INTO information VALUES ('pcs', 'QUANTITY', 'pcs', 1);
+INSERT INTO information VALUES ('g', 'MASS', 'kg', 0.00100000000000000002);
+INSERT INTO information VALUES ('t', 'MASS', 'kg', 1000);
+INSERT INTO information VALUES ('mm', 'LENGHT', 'm', 0.00100000000000000002);
+INSERT INTO information VALUES ('km', 'LENGHT', 'm', 1000);
+INSERT INTO information VALUES ('cm', 'LENGHT', 'm', 0.0100000000000000002);
+INSERT INTO information VALUES ('l', 'VOLUME', 'l', 1);
+INSERT INTO information VALUES ('ml', 'VOLUME', 'l', 0.00100000000000000002);
+
+
+--
+-- TOC entry 5018 (class 0 OID 0)
+-- Dependencies: 325
+-- Name: uom_role_uom_role_id_seq; Type: SEQUENCE SET; Schema: uom; Owner: postgres
+--
+
+SELECT pg_catalog.setval('uom_role_uom_role_id_seq', 1, false);
+
+
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 4241 (class 2606 OID 61180)
--- Name: body_pkey; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
+-- TOC entry 4354 (class 2606 OID 28011)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -26735,8 +27707,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4243 (class 2606 OID 61182)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
+-- TOC entry 4356 (class 2606 OID 28013)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -26744,8 +27716,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4245 (class 2606 OID 61184)
--- Name: head_pkey; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
+-- TOC entry 4358 (class 2606 OID 28015)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -26753,8 +27725,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4247 (class 2606 OID 61186)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
+-- TOC entry 4360 (class 2606 OID 28017)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -26764,8 +27736,8 @@ ALTER TABLE ONLY numerator
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 4249 (class 2606 OID 61188)
--- Name: body_pkey; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
+-- TOC entry 4362 (class 2606 OID 28019)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -26773,8 +27745,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4251 (class 2606 OID 61190)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
+-- TOC entry 4364 (class 2606 OID 28021)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -26782,8 +27754,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4253 (class 2606 OID 61192)
--- Name: head_pkey; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
+-- TOC entry 4366 (class 2606 OID 28023)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -26791,8 +27763,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4255 (class 2606 OID 61194)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
+-- TOC entry 4368 (class 2606 OID 28025)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -26802,8 +27774,8 @@ ALTER TABLE ONLY numerator
 SET search_path = balance, pg_catalog;
 
 --
--- TOC entry 4257 (class 2606 OID 61196)
--- Name: balance_pkey; Type: CONSTRAINT; Schema: balance; Owner: postgres
+-- TOC entry 4370 (class 2606 OID 28027)
+-- Name: balance balance_pkey; Type: CONSTRAINT; Schema: balance; Owner: postgres
 --
 
 ALTER TABLE ONLY balance
@@ -26813,8 +27785,8 @@ ALTER TABLE ONLY balance
 SET search_path = binding, pg_catalog;
 
 --
--- TOC entry 4259 (class 2606 OID 61198)
--- Name: cutoff_to_adjustmentcredit_adjustmentcredit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4372 (class 2606 OID 28029)
+-- Name: cutoff_to_adjustmentcredit cutoff_to_adjustmentcredit_adjustmentcredit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_adjustmentcredit
@@ -26822,8 +27794,8 @@ ALTER TABLE ONLY cutoff_to_adjustmentcredit
 
 
 --
--- TOC entry 4261 (class 2606 OID 61200)
--- Name: cutoff_to_adjustmentcredit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4374 (class 2606 OID 28031)
+-- Name: cutoff_to_adjustmentcredit cutoff_to_adjustmentcredit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_adjustmentcredit
@@ -26831,8 +27803,8 @@ ALTER TABLE ONLY cutoff_to_adjustmentcredit
 
 
 --
--- TOC entry 4263 (class 2606 OID 61202)
--- Name: cutoff_to_adjustmentdebit_adjustmentdebit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4376 (class 2606 OID 28033)
+-- Name: cutoff_to_adjustmentdebit cutoff_to_adjustmentdebit_adjustmentdebit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_adjustmentdebit
@@ -26840,8 +27812,8 @@ ALTER TABLE ONLY cutoff_to_adjustmentdebit
 
 
 --
--- TOC entry 4265 (class 2606 OID 61204)
--- Name: cutoff_to_adjustmentdebit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4378 (class 2606 OID 28035)
+-- Name: cutoff_to_adjustmentdebit cutoff_to_adjustmentdebit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_adjustmentdebit
@@ -26849,8 +27821,8 @@ ALTER TABLE ONLY cutoff_to_adjustmentdebit
 
 
 --
--- TOC entry 4267 (class 2606 OID 61206)
--- Name: cutoff_to_delivery_delivery_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4380 (class 2606 OID 28037)
+-- Name: cutoff_to_delivery cutoff_to_delivery_delivery_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_delivery
@@ -26858,8 +27830,8 @@ ALTER TABLE ONLY cutoff_to_delivery
 
 
 --
--- TOC entry 4269 (class 2606 OID 61208)
--- Name: cutoff_to_delivery_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4382 (class 2606 OID 28039)
+-- Name: cutoff_to_delivery cutoff_to_delivery_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_delivery
@@ -26867,8 +27839,8 @@ ALTER TABLE ONLY cutoff_to_delivery
 
 
 --
--- TOC entry 4271 (class 2606 OID 61210)
--- Name: cutoff_to_demand_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4384 (class 2606 OID 28041)
+-- Name: cutoff_to_demand cutoff_to_demand_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_demand
@@ -26876,8 +27848,8 @@ ALTER TABLE ONLY cutoff_to_demand
 
 
 --
--- TOC entry 4273 (class 2606 OID 61212)
--- Name: cutoff_to_demand_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4386 (class 2606 OID 28043)
+-- Name: cutoff_to_demand cutoff_to_demand_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_demand
@@ -26885,8 +27857,8 @@ ALTER TABLE ONLY cutoff_to_demand
 
 
 --
--- TOC entry 4275 (class 2606 OID 61214)
--- Name: cutoff_to_despatch_despatch_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4388 (class 2606 OID 28045)
+-- Name: cutoff_to_despatch cutoff_to_despatch_despatch_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_despatch
@@ -26894,8 +27866,8 @@ ALTER TABLE ONLY cutoff_to_despatch
 
 
 --
--- TOC entry 4277 (class 2606 OID 61216)
--- Name: cutoff_to_despatch_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4390 (class 2606 OID 28047)
+-- Name: cutoff_to_despatch cutoff_to_despatch_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_despatch
@@ -26903,8 +27875,8 @@ ALTER TABLE ONLY cutoff_to_despatch
 
 
 --
--- TOC entry 4279 (class 2606 OID 61218)
--- Name: cutoff_to_goal_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4392 (class 2606 OID 28049)
+-- Name: cutoff_to_goal cutoff_to_goal_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_goal
@@ -26912,8 +27884,8 @@ ALTER TABLE ONLY cutoff_to_goal
 
 
 --
--- TOC entry 4281 (class 2606 OID 61220)
--- Name: cutoff_to_goal_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4394 (class 2606 OID 28051)
+-- Name: cutoff_to_goal cutoff_to_goal_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_goal
@@ -26921,8 +27893,8 @@ ALTER TABLE ONLY cutoff_to_goal
 
 
 --
--- TOC entry 4283 (class 2606 OID 61222)
--- Name: cutoff_to_issue_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4396 (class 2606 OID 28053)
+-- Name: cutoff_to_issue cutoff_to_issue_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_issue
@@ -26930,8 +27902,8 @@ ALTER TABLE ONLY cutoff_to_issue
 
 
 --
--- TOC entry 4285 (class 2606 OID 61224)
--- Name: cutoff_to_issue_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4398 (class 2606 OID 28055)
+-- Name: cutoff_to_issue cutoff_to_issue_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_issue
@@ -26939,8 +27911,8 @@ ALTER TABLE ONLY cutoff_to_issue
 
 
 --
--- TOC entry 4287 (class 2606 OID 61226)
--- Name: cutoff_to_picklist_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4400 (class 2606 OID 28057)
+-- Name: cutoff_to_picklist cutoff_to_picklist_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_picklist
@@ -26948,8 +27920,8 @@ ALTER TABLE ONLY cutoff_to_picklist
 
 
 --
--- TOC entry 4289 (class 2606 OID 61228)
--- Name: cutoff_to_picklist_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4402 (class 2606 OID 28059)
+-- Name: cutoff_to_picklist cutoff_to_picklist_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_picklist
@@ -26957,8 +27929,8 @@ ALTER TABLE ONLY cutoff_to_picklist
 
 
 --
--- TOC entry 4291 (class 2606 OID 61230)
--- Name: cutoff_to_rebound_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4404 (class 2606 OID 28061)
+-- Name: cutoff_to_rebound cutoff_to_rebound_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_rebound
@@ -26966,8 +27938,8 @@ ALTER TABLE ONLY cutoff_to_rebound
 
 
 --
--- TOC entry 4293 (class 2606 OID 61232)
--- Name: cutoff_to_rebound_rebound_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4406 (class 2606 OID 28063)
+-- Name: cutoff_to_rebound cutoff_to_rebound_rebound_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_rebound
@@ -26975,8 +27947,8 @@ ALTER TABLE ONLY cutoff_to_rebound
 
 
 --
--- TOC entry 4295 (class 2606 OID 61234)
--- Name: cutoff_to_receipt_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4408 (class 2606 OID 28065)
+-- Name: cutoff_to_receipt cutoff_to_receipt_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_receipt
@@ -26984,8 +27956,8 @@ ALTER TABLE ONLY cutoff_to_receipt
 
 
 --
--- TOC entry 4297 (class 2606 OID 61236)
--- Name: cutoff_to_receipt_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4410 (class 2606 OID 28067)
+-- Name: cutoff_to_receipt cutoff_to_receipt_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_receipt
@@ -26993,8 +27965,8 @@ ALTER TABLE ONLY cutoff_to_receipt
 
 
 --
--- TOC entry 4299 (class 2606 OID 61238)
--- Name: cutoff_to_reserve_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4412 (class 2606 OID 28069)
+-- Name: cutoff_to_reserve cutoff_to_reserve_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_reserve
@@ -27002,8 +27974,8 @@ ALTER TABLE ONLY cutoff_to_reserve
 
 
 --
--- TOC entry 4301 (class 2606 OID 61240)
--- Name: cutoff_to_reserve_reserve_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4414 (class 2606 OID 28071)
+-- Name: cutoff_to_reserve cutoff_to_reserve_reserve_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_reserve
@@ -27011,8 +27983,8 @@ ALTER TABLE ONLY cutoff_to_reserve
 
 
 --
--- TOC entry 4303 (class 2606 OID 61242)
--- Name: cutoff_to_stocktake_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4416 (class 2606 OID 28073)
+-- Name: cutoff_to_stocktake cutoff_to_stocktake_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_stocktake
@@ -27020,8 +27992,8 @@ ALTER TABLE ONLY cutoff_to_stocktake
 
 
 --
--- TOC entry 4305 (class 2606 OID 61244)
--- Name: cutoff_to_stocktake_stocktake_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4418 (class 2606 OID 28075)
+-- Name: cutoff_to_stocktake cutoff_to_stocktake_stocktake_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_stocktake
@@ -27029,8 +28001,8 @@ ALTER TABLE ONLY cutoff_to_stocktake
 
 
 --
--- TOC entry 4307 (class 2606 OID 61246)
--- Name: delivery_to_receipt_delivery_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4420 (class 2606 OID 28077)
+-- Name: delivery_to_receipt delivery_to_receipt_delivery_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY delivery_to_receipt
@@ -27038,8 +28010,8 @@ ALTER TABLE ONLY delivery_to_receipt
 
 
 --
--- TOC entry 4309 (class 2606 OID 61248)
--- Name: delivery_to_receipt_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4422 (class 2606 OID 28079)
+-- Name: delivery_to_receipt delivery_to_receipt_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY delivery_to_receipt
@@ -27047,8 +28019,8 @@ ALTER TABLE ONLY delivery_to_receipt
 
 
 --
--- TOC entry 4311 (class 2606 OID 61250)
--- Name: delivery_to_receipt_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4424 (class 2606 OID 28081)
+-- Name: delivery_to_receipt delivery_to_receipt_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY delivery_to_receipt
@@ -27056,8 +28028,8 @@ ALTER TABLE ONLY delivery_to_receipt
 
 
 --
--- TOC entry 4313 (class 2606 OID 61252)
--- Name: demand_to_picklist_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4426 (class 2606 OID 28083)
+-- Name: demand_to_picklist demand_to_picklist_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY demand_to_picklist
@@ -27065,8 +28037,8 @@ ALTER TABLE ONLY demand_to_picklist
 
 
 --
--- TOC entry 4315 (class 2606 OID 61254)
--- Name: demand_to_picklist_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4428 (class 2606 OID 28085)
+-- Name: demand_to_picklist demand_to_picklist_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY demand_to_picklist
@@ -27074,8 +28046,8 @@ ALTER TABLE ONLY demand_to_picklist
 
 
 --
--- TOC entry 4317 (class 2606 OID 61256)
--- Name: demand_to_picklist_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4430 (class 2606 OID 28087)
+-- Name: demand_to_picklist demand_to_picklist_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY demand_to_picklist
@@ -27083,8 +28055,8 @@ ALTER TABLE ONLY demand_to_picklist
 
 
 --
--- TOC entry 4319 (class 2606 OID 61258)
--- Name: demand_to_reserve_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4432 (class 2606 OID 28089)
+-- Name: demand_to_reserve demand_to_reserve_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY demand_to_reserve
@@ -27092,8 +28064,8 @@ ALTER TABLE ONLY demand_to_reserve
 
 
 --
--- TOC entry 4321 (class 2606 OID 61260)
--- Name: demand_to_reserve_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4434 (class 2606 OID 28091)
+-- Name: demand_to_reserve demand_to_reserve_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY demand_to_reserve
@@ -27101,8 +28073,8 @@ ALTER TABLE ONLY demand_to_reserve
 
 
 --
--- TOC entry 4323 (class 2606 OID 61262)
--- Name: demand_to_reserve_reserve_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4436 (class 2606 OID 28093)
+-- Name: demand_to_reserve demand_to_reserve_reserve_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY demand_to_reserve
@@ -27110,8 +28082,8 @@ ALTER TABLE ONLY demand_to_reserve
 
 
 --
--- TOC entry 4325 (class 2606 OID 61264)
--- Name: goal_to_demand_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4438 (class 2606 OID 28095)
+-- Name: goal_to_demand goal_to_demand_demand_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_demand
@@ -27119,8 +28091,8 @@ ALTER TABLE ONLY goal_to_demand
 
 
 --
--- TOC entry 4327 (class 2606 OID 61266)
--- Name: goal_to_demand_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4440 (class 2606 OID 28097)
+-- Name: goal_to_demand goal_to_demand_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_demand
@@ -27128,8 +28100,8 @@ ALTER TABLE ONLY goal_to_demand
 
 
 --
--- TOC entry 4329 (class 2606 OID 61268)
--- Name: goal_to_demand_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4442 (class 2606 OID 28099)
+-- Name: goal_to_demand goal_to_demand_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_demand
@@ -27137,8 +28109,8 @@ ALTER TABLE ONLY goal_to_demand
 
 
 --
--- TOC entry 4331 (class 2606 OID 61270)
--- Name: goal_to_despatch_despatch_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4444 (class 2606 OID 28101)
+-- Name: goal_to_despatch goal_to_despatch_despatch_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_despatch
@@ -27146,8 +28118,8 @@ ALTER TABLE ONLY goal_to_despatch
 
 
 --
--- TOC entry 4333 (class 2606 OID 61272)
--- Name: goal_to_despatch_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4446 (class 2606 OID 28103)
+-- Name: goal_to_despatch goal_to_despatch_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_despatch
@@ -27155,8 +28127,8 @@ ALTER TABLE ONLY goal_to_despatch
 
 
 --
--- TOC entry 4335 (class 2606 OID 61274)
--- Name: goal_to_despatch_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4448 (class 2606 OID 28105)
+-- Name: goal_to_despatch goal_to_despatch_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_despatch
@@ -27164,8 +28136,8 @@ ALTER TABLE ONLY goal_to_despatch
 
 
 --
--- TOC entry 4337 (class 2606 OID 61276)
--- Name: goal_to_issue_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4450 (class 2606 OID 28107)
+-- Name: goal_to_issue goal_to_issue_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_issue
@@ -27173,8 +28145,8 @@ ALTER TABLE ONLY goal_to_issue
 
 
 --
--- TOC entry 4339 (class 2606 OID 61278)
--- Name: goal_to_issue_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4452 (class 2606 OID 28109)
+-- Name: goal_to_issue goal_to_issue_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_issue
@@ -27182,8 +28154,8 @@ ALTER TABLE ONLY goal_to_issue
 
 
 --
--- TOC entry 4341 (class 2606 OID 61280)
--- Name: goal_to_issue_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4454 (class 2606 OID 28111)
+-- Name: goal_to_issue goal_to_issue_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_issue
@@ -27191,8 +28163,8 @@ ALTER TABLE ONLY goal_to_issue
 
 
 --
--- TOC entry 4343 (class 2606 OID 61282)
--- Name: goal_to_picklist_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4456 (class 2606 OID 28113)
+-- Name: goal_to_picklist goal_to_picklist_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_picklist
@@ -27200,8 +28172,8 @@ ALTER TABLE ONLY goal_to_picklist
 
 
 --
--- TOC entry 4345 (class 2606 OID 61284)
--- Name: goal_to_picklist_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4458 (class 2606 OID 28115)
+-- Name: goal_to_picklist goal_to_picklist_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_picklist
@@ -27209,8 +28181,8 @@ ALTER TABLE ONLY goal_to_picklist
 
 
 --
--- TOC entry 4347 (class 2606 OID 61286)
--- Name: goal_to_picklist_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4460 (class 2606 OID 28117)
+-- Name: goal_to_picklist goal_to_picklist_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_picklist
@@ -27218,8 +28190,8 @@ ALTER TABLE ONLY goal_to_picklist
 
 
 --
--- TOC entry 4349 (class 2606 OID 61288)
--- Name: goal_to_reserve_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4462 (class 2606 OID 28119)
+-- Name: goal_to_reserve goal_to_reserve_goal_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_reserve
@@ -27227,8 +28199,8 @@ ALTER TABLE ONLY goal_to_reserve
 
 
 --
--- TOC entry 4351 (class 2606 OID 61290)
--- Name: goal_to_reserve_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4464 (class 2606 OID 28121)
+-- Name: goal_to_reserve goal_to_reserve_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_reserve
@@ -27236,8 +28208,8 @@ ALTER TABLE ONLY goal_to_reserve
 
 
 --
--- TOC entry 4353 (class 2606 OID 61292)
--- Name: goal_to_reserve_reserve_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4466 (class 2606 OID 28123)
+-- Name: goal_to_reserve goal_to_reserve_reserve_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_reserve
@@ -27245,8 +28217,8 @@ ALTER TABLE ONLY goal_to_reserve
 
 
 --
--- TOC entry 4355 (class 2606 OID 61294)
--- Name: issue_to_adjustmentcredit_adjustmentcredit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4468 (class 2606 OID 28125)
+-- Name: issue_to_adjustmentcredit issue_to_adjustmentcredit_adjustmentcredit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_adjustmentcredit
@@ -27254,8 +28226,8 @@ ALTER TABLE ONLY issue_to_adjustmentcredit
 
 
 --
--- TOC entry 4357 (class 2606 OID 61296)
--- Name: issue_to_adjustmentcredit_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4470 (class 2606 OID 28127)
+-- Name: issue_to_adjustmentcredit issue_to_adjustmentcredit_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_adjustmentcredit
@@ -27263,8 +28235,8 @@ ALTER TABLE ONLY issue_to_adjustmentcredit
 
 
 --
--- TOC entry 4359 (class 2606 OID 61298)
--- Name: issue_to_adjustmentcredit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4472 (class 2606 OID 28129)
+-- Name: issue_to_adjustmentcredit issue_to_adjustmentcredit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_adjustmentcredit
@@ -27272,8 +28244,8 @@ ALTER TABLE ONLY issue_to_adjustmentcredit
 
 
 --
--- TOC entry 4361 (class 2606 OID 61300)
--- Name: issue_to_despatch_despatch_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4474 (class 2606 OID 28131)
+-- Name: issue_to_despatch issue_to_despatch_despatch_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_despatch
@@ -27281,8 +28253,8 @@ ALTER TABLE ONLY issue_to_despatch
 
 
 --
--- TOC entry 4363 (class 2606 OID 61302)
--- Name: issue_to_despatch_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4476 (class 2606 OID 28133)
+-- Name: issue_to_despatch issue_to_despatch_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_despatch
@@ -27290,8 +28262,8 @@ ALTER TABLE ONLY issue_to_despatch
 
 
 --
--- TOC entry 4365 (class 2606 OID 61304)
--- Name: issue_to_despatch_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4478 (class 2606 OID 28135)
+-- Name: issue_to_despatch issue_to_despatch_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_despatch
@@ -27299,8 +28271,8 @@ ALTER TABLE ONLY issue_to_despatch
 
 
 --
--- TOC entry 4367 (class 2606 OID 61306)
--- Name: issue_to_rebound_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4480 (class 2606 OID 28137)
+-- Name: issue_to_rebound issue_to_rebound_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_rebound
@@ -27308,8 +28280,8 @@ ALTER TABLE ONLY issue_to_rebound
 
 
 --
--- TOC entry 4369 (class 2606 OID 61308)
--- Name: issue_to_rebound_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4482 (class 2606 OID 28139)
+-- Name: issue_to_rebound issue_to_rebound_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_rebound
@@ -27317,8 +28289,8 @@ ALTER TABLE ONLY issue_to_rebound
 
 
 --
--- TOC entry 4371 (class 2606 OID 61310)
--- Name: issue_to_rebound_rebound_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4484 (class 2606 OID 28141)
+-- Name: issue_to_rebound issue_to_rebound_rebound_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_rebound
@@ -27326,8 +28298,8 @@ ALTER TABLE ONLY issue_to_rebound
 
 
 --
--- TOC entry 4373 (class 2606 OID 61312)
--- Name: picklist_to_issue_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4486 (class 2606 OID 28143)
+-- Name: picklist_to_issue picklist_to_issue_issue_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY picklist_to_issue
@@ -27335,8 +28307,8 @@ ALTER TABLE ONLY picklist_to_issue
 
 
 --
--- TOC entry 4375 (class 2606 OID 61314)
--- Name: picklist_to_issue_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4488 (class 2606 OID 28145)
+-- Name: picklist_to_issue picklist_to_issue_picklist_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY picklist_to_issue
@@ -27344,8 +28316,8 @@ ALTER TABLE ONLY picklist_to_issue
 
 
 --
--- TOC entry 4377 (class 2606 OID 61316)
--- Name: picklist_to_issue_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4490 (class 2606 OID 28147)
+-- Name: picklist_to_issue picklist_to_issue_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY picklist_to_issue
@@ -27353,8 +28325,8 @@ ALTER TABLE ONLY picklist_to_issue
 
 
 --
--- TOC entry 4379 (class 2606 OID 61318)
--- Name: receipt_to_adjustmentdebit_adjustmentdebit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4492 (class 2606 OID 28149)
+-- Name: receipt_to_adjustmentdebit receipt_to_adjustmentdebit_adjustmentdebit_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY receipt_to_adjustmentdebit
@@ -27362,8 +28334,8 @@ ALTER TABLE ONLY receipt_to_adjustmentdebit
 
 
 --
--- TOC entry 4381 (class 2606 OID 61320)
--- Name: receipt_to_adjustmentdebit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4494 (class 2606 OID 28151)
+-- Name: receipt_to_adjustmentdebit receipt_to_adjustmentdebit_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY receipt_to_adjustmentdebit
@@ -27371,8 +28343,8 @@ ALTER TABLE ONLY receipt_to_adjustmentdebit
 
 
 --
--- TOC entry 4383 (class 2606 OID 61322)
--- Name: receipt_to_adjustmentdebit_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4496 (class 2606 OID 28153)
+-- Name: receipt_to_adjustmentdebit receipt_to_adjustmentdebit_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY receipt_to_adjustmentdebit
@@ -27380,8 +28352,8 @@ ALTER TABLE ONLY receipt_to_adjustmentdebit
 
 
 --
--- TOC entry 4385 (class 2606 OID 61324)
--- Name: receipt_to_rebound_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4498 (class 2606 OID 28155)
+-- Name: receipt_to_rebound receipt_to_rebound_pkey; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY receipt_to_rebound
@@ -27389,8 +28361,8 @@ ALTER TABLE ONLY receipt_to_rebound
 
 
 --
--- TOC entry 4387 (class 2606 OID 61326)
--- Name: receipt_to_rebound_rebound_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4500 (class 2606 OID 28157)
+-- Name: receipt_to_rebound receipt_to_rebound_rebound_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY receipt_to_rebound
@@ -27398,8 +28370,8 @@ ALTER TABLE ONLY receipt_to_rebound
 
 
 --
--- TOC entry 4389 (class 2606 OID 61328)
--- Name: receipt_to_rebound_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4502 (class 2606 OID 28159)
+-- Name: receipt_to_rebound receipt_to_rebound_receipt_id_key; Type: CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY receipt_to_rebound
@@ -27409,8 +28381,8 @@ ALTER TABLE ONLY receipt_to_rebound
 SET search_path = common, pg_catalog;
 
 --
--- TOC entry 4391 (class 2606 OID 61330)
--- Name: cutoff_policy_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
+-- TOC entry 4504 (class 2606 OID 28161)
+-- Name: cutoff_policy cutoff_policy_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_policy
@@ -27418,8 +28390,8 @@ ALTER TABLE ONLY cutoff_policy
 
 
 --
--- TOC entry 4393 (class 2606 OID 61332)
--- Name: document_abbrevation_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
+-- TOC entry 4506 (class 2606 OID 28163)
+-- Name: document_abbrevation document_abbrevation_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
 ALTER TABLE ONLY document_abbrevation
@@ -27427,8 +28399,8 @@ ALTER TABLE ONLY document_abbrevation
 
 
 --
--- TOC entry 4395 (class 2606 OID 61334)
--- Name: exception_code_condition_name_key; Type: CONSTRAINT; Schema: common; Owner: postgres
+-- TOC entry 4508 (class 2606 OID 28165)
+-- Name: exception_code exception_code_condition_name_key; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
 ALTER TABLE ONLY exception_code
@@ -27436,8 +28408,8 @@ ALTER TABLE ONLY exception_code
 
 
 --
--- TOC entry 4397 (class 2606 OID 61336)
--- Name: exception_code_errcode_key; Type: CONSTRAINT; Schema: common; Owner: postgres
+-- TOC entry 4510 (class 2606 OID 28167)
+-- Name: exception_code exception_code_errcode_key; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
 ALTER TABLE ONLY exception_code
@@ -27445,8 +28417,8 @@ ALTER TABLE ONLY exception_code
 
 
 --
--- TOC entry 4399 (class 2606 OID 61338)
--- Name: exception_code_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
+-- TOC entry 4512 (class 2606 OID 28169)
+-- Name: exception_code exception_code_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
 ALTER TABLE ONLY exception_code
@@ -27454,8 +28426,8 @@ ALTER TABLE ONLY exception_code
 
 
 --
--- TOC entry 4401 (class 2606 OID 61340)
--- Name: stocktake_policy_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
+-- TOC entry 4514 (class 2606 OID 28171)
+-- Name: stocktake_policy stocktake_policy_pkey; Type: CONSTRAINT; Schema: common; Owner: postgres
 --
 
 ALTER TABLE ONLY stocktake_policy
@@ -27465,8 +28437,8 @@ ALTER TABLE ONLY stocktake_policy
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 4403 (class 2606 OID 61342)
--- Name: blocker_pkey; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
+-- TOC entry 4516 (class 2606 OID 28173)
+-- Name: blocker blocker_pkey; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
 --
 
 ALTER TABLE ONLY blocker
@@ -27474,8 +28446,8 @@ ALTER TABLE ONLY blocker
 
 
 --
--- TOC entry 4405 (class 2606 OID 61344)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
+-- TOC entry 4518 (class 2606 OID 28175)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27483,8 +28455,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4407 (class 2606 OID 61346)
--- Name: head_pkey; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
+-- TOC entry 4520 (class 2606 OID 28177)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27492,8 +28464,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4409 (class 2606 OID 61348)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
+-- TOC entry 4522 (class 2606 OID 28179)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: cutoff; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -27503,8 +28475,8 @@ ALTER TABLE ONLY numerator
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 4411 (class 2606 OID 61350)
--- Name: body_pkey; Type: CONSTRAINT; Schema: delivery; Owner: postgres
+-- TOC entry 4524 (class 2606 OID 28181)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: delivery; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -27512,8 +28484,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4413 (class 2606 OID 61352)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: delivery; Owner: postgres
+-- TOC entry 4526 (class 2606 OID 28183)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: delivery; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27521,8 +28493,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4415 (class 2606 OID 61354)
--- Name: head_pkey; Type: CONSTRAINT; Schema: delivery; Owner: postgres
+-- TOC entry 4528 (class 2606 OID 28185)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: delivery; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27530,8 +28502,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4417 (class 2606 OID 61356)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: delivery; Owner: postgres
+-- TOC entry 4530 (class 2606 OID 28187)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: delivery; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -27541,8 +28513,8 @@ ALTER TABLE ONLY numerator
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 4419 (class 2606 OID 61358)
--- Name: body_pkey; Type: CONSTRAINT; Schema: demand; Owner: postgres
+-- TOC entry 4532 (class 2606 OID 28189)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: demand; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -27550,8 +28522,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4421 (class 2606 OID 61360)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: demand; Owner: postgres
+-- TOC entry 4534 (class 2606 OID 28191)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: demand; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27559,8 +28531,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4423 (class 2606 OID 61362)
--- Name: head_pkey; Type: CONSTRAINT; Schema: demand; Owner: postgres
+-- TOC entry 4536 (class 2606 OID 28193)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: demand; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27568,8 +28540,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4425 (class 2606 OID 61364)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: demand; Owner: postgres
+-- TOC entry 4538 (class 2606 OID 28195)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: demand; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -27579,8 +28551,8 @@ ALTER TABLE ONLY numerator
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 4427 (class 2606 OID 61366)
--- Name: body_pkey; Type: CONSTRAINT; Schema: despatch; Owner: postgres
+-- TOC entry 4540 (class 2606 OID 28197)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: despatch; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -27588,8 +28560,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4429 (class 2606 OID 61368)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: despatch; Owner: postgres
+-- TOC entry 4542 (class 2606 OID 28199)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: despatch; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27597,8 +28569,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4431 (class 2606 OID 61370)
--- Name: head_pkey; Type: CONSTRAINT; Schema: despatch; Owner: postgres
+-- TOC entry 4544 (class 2606 OID 28201)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: despatch; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27606,19 +28578,120 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4433 (class 2606 OID 61372)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: despatch; Owner: postgres
+-- TOC entry 4546 (class 2606 OID 28203)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: despatch; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
     ADD CONSTRAINT numerator_pkey PRIMARY KEY (facility_code, julianized_week);
 
 
+SET search_path = facility, pg_catalog;
+
+--
+-- TOC entry 4617 (class 2606 OID 59279)
+-- Name: area area_facility_code_key; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY area
+    ADD CONSTRAINT area_facility_code_key UNIQUE (facility_code);
+
+
+--
+-- TOC entry 4619 (class 2606 OID 59281)
+-- Name: area area_pkey; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY area
+    ADD CONSTRAINT area_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4621 (class 2606 OID 59283)
+-- Name: enterprise enterprise_facility_code_key; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY enterprise
+    ADD CONSTRAINT enterprise_facility_code_key UNIQUE (facility_code);
+
+
+--
+-- TOC entry 4623 (class 2606 OID 59285)
+-- Name: enterprise enterprise_pkey; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY enterprise
+    ADD CONSTRAINT enterprise_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4615 (class 2606 OID 59287)
+-- Name: information information_pkey; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY information
+    ADD CONSTRAINT information_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4625 (class 2606 OID 59289)
+-- Name: line line_facility_code_key; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY line
+    ADD CONSTRAINT line_facility_code_key UNIQUE (facility_code);
+
+
+--
+-- TOC entry 4627 (class 2606 OID 59291)
+-- Name: line line_pkey; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY line
+    ADD CONSTRAINT line_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4629 (class 2606 OID 59293)
+-- Name: site site_facility_code_key; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY site
+    ADD CONSTRAINT site_facility_code_key UNIQUE (facility_code);
+
+
+--
+-- TOC entry 4631 (class 2606 OID 59295)
+-- Name: site site_pkey; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY site
+    ADD CONSTRAINT site_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4633 (class 2606 OID 59297)
+-- Name: zone zone_facility_code_key; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY zone
+    ADD CONSTRAINT zone_facility_code_key UNIQUE (facility_code);
+
+
+--
+-- TOC entry 4635 (class 2606 OID 59299)
+-- Name: zone zone_pkey; Type: CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY zone
+    ADD CONSTRAINT zone_pkey PRIMARY KEY (id);
+
+
 SET search_path = goal, pg_catalog;
 
 --
--- TOC entry 4435 (class 2606 OID 61374)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: goal; Owner: postgres
+-- TOC entry 4548 (class 2606 OID 28205)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: goal; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27626,8 +28699,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4437 (class 2606 OID 61376)
--- Name: head_pkey; Type: CONSTRAINT; Schema: goal; Owner: postgres
+-- TOC entry 4550 (class 2606 OID 28207)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: goal; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27635,8 +28708,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4439 (class 2606 OID 61378)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: goal; Owner: postgres
+-- TOC entry 4552 (class 2606 OID 28209)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: goal; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -27646,8 +28719,8 @@ ALTER TABLE ONLY numerator
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 4441 (class 2606 OID 61380)
--- Name: body_pkey; Type: CONSTRAINT; Schema: issue; Owner: postgres
+-- TOC entry 4554 (class 2606 OID 28211)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: issue; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -27655,8 +28728,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4443 (class 2606 OID 61382)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: issue; Owner: postgres
+-- TOC entry 4556 (class 2606 OID 28213)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: issue; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27664,8 +28737,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4445 (class 2606 OID 61384)
--- Name: head_pkey; Type: CONSTRAINT; Schema: issue; Owner: postgres
+-- TOC entry 4558 (class 2606 OID 28215)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: issue; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27673,8 +28746,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4447 (class 2606 OID 61386)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: issue; Owner: postgres
+-- TOC entry 4560 (class 2606 OID 28217)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: issue; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -27684,8 +28757,8 @@ ALTER TABLE ONLY numerator
 SET search_path = lot, pg_catalog;
 
 --
--- TOC entry 4449 (class 2606 OID 61388)
--- Name: head_pkey; Type: CONSTRAINT; Schema: lot; Owner: postgres
+-- TOC entry 4562 (class 2606 OID 28219)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: lot; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27695,8 +28768,8 @@ ALTER TABLE ONLY head
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 4451 (class 2606 OID 61390)
--- Name: body_pkey; Type: CONSTRAINT; Schema: picklist; Owner: postgres
+-- TOC entry 4564 (class 2606 OID 28221)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: picklist; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -27704,8 +28777,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4453 (class 2606 OID 61392)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: picklist; Owner: postgres
+-- TOC entry 4566 (class 2606 OID 28223)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: picklist; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27713,8 +28786,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4455 (class 2606 OID 61394)
--- Name: head_pkey; Type: CONSTRAINT; Schema: picklist; Owner: postgres
+-- TOC entry 4568 (class 2606 OID 28225)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: picklist; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27722,8 +28795,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4457 (class 2606 OID 61396)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: picklist; Owner: postgres
+-- TOC entry 4570 (class 2606 OID 28227)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: picklist; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -27733,8 +28806,8 @@ ALTER TABLE ONLY numerator
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 4459 (class 2606 OID 61398)
--- Name: body_pkey; Type: CONSTRAINT; Schema: rebound; Owner: postgres
+-- TOC entry 4572 (class 2606 OID 28229)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: rebound; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -27742,8 +28815,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4461 (class 2606 OID 61400)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: rebound; Owner: postgres
+-- TOC entry 4574 (class 2606 OID 28231)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: rebound; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27751,8 +28824,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4463 (class 2606 OID 61402)
--- Name: head_pkey; Type: CONSTRAINT; Schema: rebound; Owner: postgres
+-- TOC entry 4576 (class 2606 OID 28233)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: rebound; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27760,8 +28833,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4465 (class 2606 OID 61404)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: rebound; Owner: postgres
+-- TOC entry 4578 (class 2606 OID 28235)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: rebound; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -27771,8 +28844,8 @@ ALTER TABLE ONLY numerator
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 4467 (class 2606 OID 61406)
--- Name: body_pkey; Type: CONSTRAINT; Schema: receipt; Owner: postgres
+-- TOC entry 4580 (class 2606 OID 28237)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: receipt; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -27780,8 +28853,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4469 (class 2606 OID 61408)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: receipt; Owner: postgres
+-- TOC entry 4582 (class 2606 OID 28239)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: receipt; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27789,8 +28862,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4471 (class 2606 OID 61410)
--- Name: head_pkey; Type: CONSTRAINT; Schema: receipt; Owner: postgres
+-- TOC entry 4584 (class 2606 OID 28241)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: receipt; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27798,8 +28871,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4473 (class 2606 OID 61412)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: receipt; Owner: postgres
+-- TOC entry 4586 (class 2606 OID 28243)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: receipt; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -27809,8 +28882,8 @@ ALTER TABLE ONLY numerator
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 4475 (class 2606 OID 61414)
--- Name: body_pkey; Type: CONSTRAINT; Schema: reserve; Owner: postgres
+-- TOC entry 4588 (class 2606 OID 28245)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: reserve; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -27818,8 +28891,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4477 (class 2606 OID 61416)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: reserve; Owner: postgres
+-- TOC entry 4590 (class 2606 OID 28247)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: reserve; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27827,8 +28900,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4479 (class 2606 OID 61418)
--- Name: head_pkey; Type: CONSTRAINT; Schema: reserve; Owner: postgres
+-- TOC entry 4592 (class 2606 OID 28249)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: reserve; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27836,8 +28909,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4481 (class 2606 OID 61420)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: reserve; Owner: postgres
+-- TOC entry 4594 (class 2606 OID 28251)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: reserve; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
@@ -27847,8 +28920,8 @@ ALTER TABLE ONLY numerator
 SET search_path = schedule, pg_catalog;
 
 --
--- TOC entry 4483 (class 2606 OID 61422)
--- Name: calendar_pkey; Type: CONSTRAINT; Schema: schedule; Owner: postgres
+-- TOC entry 4596 (class 2606 OID 28253)
+-- Name: calendar calendar_pkey; Type: CONSTRAINT; Schema: schedule; Owner: postgres
 --
 
 ALTER TABLE ONLY calendar
@@ -27858,8 +28931,8 @@ ALTER TABLE ONLY calendar
 SET search_path = stockcard, pg_catalog;
 
 --
--- TOC entry 4486 (class 2606 OID 61424)
--- Name: head_pkey; Type: CONSTRAINT; Schema: stockcard; Owner: postgres
+-- TOC entry 4599 (class 2606 OID 28255)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: stockcard; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27869,8 +28942,8 @@ ALTER TABLE ONLY head
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 4488 (class 2606 OID 61426)
--- Name: body_pkey; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
+-- TOC entry 4601 (class 2606 OID 28257)
+-- Name: body body_pkey; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -27878,8 +28951,8 @@ ALTER TABLE ONLY body
 
 
 --
--- TOC entry 4490 (class 2606 OID 61428)
--- Name: head_gid_key; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
+-- TOC entry 4603 (class 2606 OID 28259)
+-- Name: head head_gid_key; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27887,8 +28960,8 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4492 (class 2606 OID 61430)
--- Name: head_pkey; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
+-- TOC entry 4605 (class 2606 OID 28261)
+-- Name: head head_pkey; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
 --
 
 ALTER TABLE ONLY head
@@ -27896,18 +28969,47 @@ ALTER TABLE ONLY head
 
 
 --
--- TOC entry 4494 (class 2606 OID 61432)
--- Name: numerator_pkey; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
+-- TOC entry 4607 (class 2606 OID 28263)
+-- Name: numerator numerator_pkey; Type: CONSTRAINT; Schema: stocktake; Owner: postgres
 --
 
 ALTER TABLE ONLY numerator
     ADD CONSTRAINT numerator_pkey PRIMARY KEY (facility_code, julianized_week);
 
 
+SET search_path = uom, pg_catalog;
+
+--
+-- TOC entry 4613 (class 2606 OID 58823)
+-- Name: information uom_pkey; Type: CONSTRAINT; Schema: uom; Owner: postgres
+--
+
+ALTER TABLE ONLY information
+    ADD CONSTRAINT uom_pkey PRIMARY KEY (uom_code);
+
+
+--
+-- TOC entry 4609 (class 2606 OID 58825)
+-- Name: assignment uom_role_pkey; Type: CONSTRAINT; Schema: uom; Owner: postgres
+--
+
+ALTER TABLE ONLY assignment
+    ADD CONSTRAINT uom_role_pkey PRIMARY KEY (uom_role_id);
+
+
+--
+-- TOC entry 4611 (class 2606 OID 58827)
+-- Name: assignment uom_role_uom_role_code_key; Type: CONSTRAINT; Schema: uom; Owner: postgres
+--
+
+ALTER TABLE ONLY assignment
+    ADD CONSTRAINT uom_role_uom_role_code_key UNIQUE (uom_role_code);
+
+
 SET search_path = stockcard, pg_catalog;
 
 --
--- TOC entry 4484 (class 1259 OID 61433)
+-- TOC entry 4597 (class 1259 OID 28264)
 -- Name: head_document_kind_facility_code_good_code_idx; Type: INDEX; Schema: stockcard; Owner: postgres
 --
 
@@ -27917,24 +29019,24 @@ CREATE INDEX head_document_kind_facility_code_good_code_idx ON head USING btree 
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 4559 (class 2620 OID 61434)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: adjustmentcredit; Owner: postgres
+-- TOC entry 4705 (class 2620 OID 28265)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: adjustmentcredit; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4560 (class 2620 OID 61435)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: adjustmentcredit; Owner: postgres
+-- TOC entry 4706 (class 2620 OID 28266)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: adjustmentcredit; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4561 (class 2620 OID 61436)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: adjustmentcredit; Owner: postgres
+-- TOC entry 4707 (class 2620 OID 28267)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: adjustmentcredit; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -27943,24 +29045,24 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 4562 (class 2620 OID 61437)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: adjustmentdebit; Owner: postgres
+-- TOC entry 4708 (class 2620 OID 28268)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: adjustmentdebit; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4563 (class 2620 OID 61438)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: adjustmentdebit; Owner: postgres
+-- TOC entry 4709 (class 2620 OID 28269)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: adjustmentdebit; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4564 (class 2620 OID 61439)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: adjustmentdebit; Owner: postgres
+-- TOC entry 4710 (class 2620 OID 28270)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: adjustmentdebit; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -27969,8 +29071,8 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 4565 (class 2620 OID 61440)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: cutoff; Owner: postgres
+-- TOC entry 4711 (class 2620 OID 28271)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: cutoff; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -27979,24 +29081,24 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 4566 (class 2620 OID 61441)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: delivery; Owner: postgres
+-- TOC entry 4712 (class 2620 OID 28272)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: delivery; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4567 (class 2620 OID 61442)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: delivery; Owner: postgres
+-- TOC entry 4713 (class 2620 OID 28273)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: delivery; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4568 (class 2620 OID 61443)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: delivery; Owner: postgres
+-- TOC entry 4714 (class 2620 OID 28274)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: delivery; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -28005,24 +29107,24 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 4569 (class 2620 OID 61444)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: demand; Owner: postgres
+-- TOC entry 4715 (class 2620 OID 28275)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: demand; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4570 (class 2620 OID 61445)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: demand; Owner: postgres
+-- TOC entry 4716 (class 2620 OID 28276)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: demand; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4571 (class 2620 OID 61446)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: demand; Owner: postgres
+-- TOC entry 4717 (class 2620 OID 28277)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: demand; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -28031,24 +29133,24 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 4572 (class 2620 OID 61447)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: despatch; Owner: postgres
+-- TOC entry 4718 (class 2620 OID 28278)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: despatch; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4573 (class 2620 OID 61448)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: despatch; Owner: postgres
+-- TOC entry 4719 (class 2620 OID 28279)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: despatch; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4574 (class 2620 OID 61449)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: despatch; Owner: postgres
+-- TOC entry 4720 (class 2620 OID 28280)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: despatch; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -28057,8 +29159,8 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = goal, pg_catalog;
 
 --
--- TOC entry 4575 (class 2620 OID 61450)
--- Name: set_prev_goal_fsmt; Type: TRIGGER; Schema: goal; Owner: postgres
+-- TOC entry 4721 (class 2620 OID 28281)
+-- Name: head set_prev_goal_fsmt; Type: TRIGGER; Schema: goal; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_goal_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE set_prev_goal_fsmt();
@@ -28067,24 +29169,24 @@ CREATE TRIGGER set_prev_goal_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PRO
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 4576 (class 2620 OID 61451)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: issue; Owner: postgres
+-- TOC entry 4722 (class 2620 OID 28282)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: issue; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4577 (class 2620 OID 61452)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: issue; Owner: postgres
+-- TOC entry 4723 (class 2620 OID 28283)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: issue; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4578 (class 2620 OID 61453)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: issue; Owner: postgres
+-- TOC entry 4724 (class 2620 OID 28284)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: issue; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -28093,24 +29195,24 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 4579 (class 2620 OID 61454)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: picklist; Owner: postgres
+-- TOC entry 4725 (class 2620 OID 28285)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: picklist; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4580 (class 2620 OID 61455)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: picklist; Owner: postgres
+-- TOC entry 4726 (class 2620 OID 28286)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: picklist; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4581 (class 2620 OID 61456)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: picklist; Owner: postgres
+-- TOC entry 4727 (class 2620 OID 28287)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: picklist; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -28119,24 +29221,24 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 4582 (class 2620 OID 61457)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: rebound; Owner: postgres
+-- TOC entry 4728 (class 2620 OID 28288)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: rebound; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4583 (class 2620 OID 61458)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: rebound; Owner: postgres
+-- TOC entry 4729 (class 2620 OID 28289)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: rebound; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4584 (class 2620 OID 61459)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: rebound; Owner: postgres
+-- TOC entry 4730 (class 2620 OID 28290)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: rebound; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -28145,24 +29247,24 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 4585 (class 2620 OID 61460)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: receipt; Owner: postgres
+-- TOC entry 4731 (class 2620 OID 28291)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: receipt; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4586 (class 2620 OID 61461)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: receipt; Owner: postgres
+-- TOC entry 4732 (class 2620 OID 28292)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: receipt; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4587 (class 2620 OID 61462)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: receipt; Owner: postgres
+-- TOC entry 4733 (class 2620 OID 28293)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: receipt; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -28171,24 +29273,24 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 4588 (class 2620 OID 61463)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: reserve; Owner: postgres
+-- TOC entry 4734 (class 2620 OID 28294)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: reserve; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4589 (class 2620 OID 61464)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: reserve; Owner: postgres
+-- TOC entry 4735 (class 2620 OID 28295)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: reserve; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4590 (class 2620 OID 61465)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: reserve; Owner: postgres
+-- TOC entry 4736 (class 2620 OID 28296)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: reserve; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -28197,24 +29299,24 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 4591 (class 2620 OID 61466)
--- Name: disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: stocktake; Owner: postgres
+-- TOC entry 4737 (class 2620 OID 28297)
+-- Name: body disallow_editing_of_committed_document_body; Type: TRIGGER; Schema: stocktake; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_body BEFORE INSERT OR DELETE OR UPDATE ON body FOR EACH ROW EXECUTE PROCEDURE disallow_editing_of_committed_document_body();
 
 
 --
--- TOC entry 4592 (class 2620 OID 61467)
--- Name: disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: stocktake; Owner: postgres
+-- TOC entry 4738 (class 2620 OID 28298)
+-- Name: head disallow_editing_of_committed_document_head; Type: TRIGGER; Schema: stocktake; Owner: postgres
 --
 
 CREATE TRIGGER disallow_editing_of_committed_document_head BEFORE DELETE OR UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.disallow_editing_of_committed_document_head();
 
 
 --
--- TOC entry 4593 (class 2620 OID 61468)
--- Name: set_prev_doc_fsmt; Type: TRIGGER; Schema: stocktake; Owner: postgres
+-- TOC entry 4739 (class 2620 OID 28299)
+-- Name: head set_prev_doc_fsmt; Type: TRIGGER; Schema: stocktake; Owner: postgres
 --
 
 CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROCEDURE common.set_prev_doc_fsmt();
@@ -28223,8 +29325,8 @@ CREATE TRIGGER set_prev_doc_fsmt BEFORE UPDATE ON head FOR EACH ROW EXECUTE PROC
 SET search_path = adjustmentcredit, pg_catalog;
 
 --
--- TOC entry 4495 (class 2606 OID 61469)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
+-- TOC entry 4636 (class 2606 OID 28300)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: adjustmentcredit; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -28234,8 +29336,8 @@ ALTER TABLE ONLY body
 SET search_path = adjustmentdebit, pg_catalog;
 
 --
--- TOC entry 4496 (class 2606 OID 61474)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
+-- TOC entry 4637 (class 2606 OID 28305)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: adjustmentdebit; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -28245,8 +29347,8 @@ ALTER TABLE ONLY body
 SET search_path = binding, pg_catalog;
 
 --
--- TOC entry 4497 (class 2606 OID 61479)
--- Name: cutoff_to_adjustmentcredit_adjustmentcredit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4638 (class 2606 OID 28310)
+-- Name: cutoff_to_adjustmentcredit cutoff_to_adjustmentcredit_adjustmentcredit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_adjustmentcredit
@@ -28254,8 +29356,8 @@ ALTER TABLE ONLY cutoff_to_adjustmentcredit
 
 
 --
--- TOC entry 4498 (class 2606 OID 61484)
--- Name: cutoff_to_adjustmentcredit_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4639 (class 2606 OID 28315)
+-- Name: cutoff_to_adjustmentcredit cutoff_to_adjustmentcredit_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_adjustmentcredit
@@ -28263,8 +29365,8 @@ ALTER TABLE ONLY cutoff_to_adjustmentcredit
 
 
 --
--- TOC entry 4499 (class 2606 OID 61489)
--- Name: cutoff_to_adjustmentdebit_adjustmentdebit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4640 (class 2606 OID 28320)
+-- Name: cutoff_to_adjustmentdebit cutoff_to_adjustmentdebit_adjustmentdebit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_adjustmentdebit
@@ -28272,8 +29374,8 @@ ALTER TABLE ONLY cutoff_to_adjustmentdebit
 
 
 --
--- TOC entry 4500 (class 2606 OID 61494)
--- Name: cutoff_to_adjustmentdebit_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4641 (class 2606 OID 28325)
+-- Name: cutoff_to_adjustmentdebit cutoff_to_adjustmentdebit_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_adjustmentdebit
@@ -28281,8 +29383,8 @@ ALTER TABLE ONLY cutoff_to_adjustmentdebit
 
 
 --
--- TOC entry 4501 (class 2606 OID 61499)
--- Name: cutoff_to_delivery_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4642 (class 2606 OID 28330)
+-- Name: cutoff_to_delivery cutoff_to_delivery_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_delivery
@@ -28290,8 +29392,8 @@ ALTER TABLE ONLY cutoff_to_delivery
 
 
 --
--- TOC entry 4502 (class 2606 OID 61504)
--- Name: cutoff_to_delivery_delivery_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4643 (class 2606 OID 28335)
+-- Name: cutoff_to_delivery cutoff_to_delivery_delivery_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_delivery
@@ -28299,8 +29401,8 @@ ALTER TABLE ONLY cutoff_to_delivery
 
 
 --
--- TOC entry 4503 (class 2606 OID 61509)
--- Name: cutoff_to_demand_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4644 (class 2606 OID 28340)
+-- Name: cutoff_to_demand cutoff_to_demand_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_demand
@@ -28308,8 +29410,8 @@ ALTER TABLE ONLY cutoff_to_demand
 
 
 --
--- TOC entry 4504 (class 2606 OID 61514)
--- Name: cutoff_to_demand_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4645 (class 2606 OID 28345)
+-- Name: cutoff_to_demand cutoff_to_demand_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_demand
@@ -28317,8 +29419,8 @@ ALTER TABLE ONLY cutoff_to_demand
 
 
 --
--- TOC entry 4505 (class 2606 OID 61519)
--- Name: cutoff_to_despatch_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4646 (class 2606 OID 28350)
+-- Name: cutoff_to_despatch cutoff_to_despatch_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_despatch
@@ -28326,8 +29428,8 @@ ALTER TABLE ONLY cutoff_to_despatch
 
 
 --
--- TOC entry 4506 (class 2606 OID 61524)
--- Name: cutoff_to_despatch_despatch_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4647 (class 2606 OID 28355)
+-- Name: cutoff_to_despatch cutoff_to_despatch_despatch_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_despatch
@@ -28335,8 +29437,8 @@ ALTER TABLE ONLY cutoff_to_despatch
 
 
 --
--- TOC entry 4507 (class 2606 OID 61529)
--- Name: cutoff_to_goal_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4648 (class 2606 OID 28360)
+-- Name: cutoff_to_goal cutoff_to_goal_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_goal
@@ -28344,8 +29446,8 @@ ALTER TABLE ONLY cutoff_to_goal
 
 
 --
--- TOC entry 4508 (class 2606 OID 61534)
--- Name: cutoff_to_goal_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4649 (class 2606 OID 28365)
+-- Name: cutoff_to_goal cutoff_to_goal_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_goal
@@ -28353,8 +29455,8 @@ ALTER TABLE ONLY cutoff_to_goal
 
 
 --
--- TOC entry 4509 (class 2606 OID 61539)
--- Name: cutoff_to_issue_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4650 (class 2606 OID 28370)
+-- Name: cutoff_to_issue cutoff_to_issue_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_issue
@@ -28362,8 +29464,8 @@ ALTER TABLE ONLY cutoff_to_issue
 
 
 --
--- TOC entry 4510 (class 2606 OID 61544)
--- Name: cutoff_to_issue_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4651 (class 2606 OID 28375)
+-- Name: cutoff_to_issue cutoff_to_issue_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_issue
@@ -28371,8 +29473,8 @@ ALTER TABLE ONLY cutoff_to_issue
 
 
 --
--- TOC entry 4511 (class 2606 OID 61549)
--- Name: cutoff_to_picklist_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4652 (class 2606 OID 28380)
+-- Name: cutoff_to_picklist cutoff_to_picklist_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_picklist
@@ -28380,8 +29482,8 @@ ALTER TABLE ONLY cutoff_to_picklist
 
 
 --
--- TOC entry 4512 (class 2606 OID 61554)
--- Name: cutoff_to_picklist_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4653 (class 2606 OID 28385)
+-- Name: cutoff_to_picklist cutoff_to_picklist_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_picklist
@@ -28389,8 +29491,8 @@ ALTER TABLE ONLY cutoff_to_picklist
 
 
 --
--- TOC entry 4513 (class 2606 OID 61559)
--- Name: cutoff_to_rebound_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4654 (class 2606 OID 28390)
+-- Name: cutoff_to_rebound cutoff_to_rebound_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_rebound
@@ -28398,8 +29500,8 @@ ALTER TABLE ONLY cutoff_to_rebound
 
 
 --
--- TOC entry 4514 (class 2606 OID 61564)
--- Name: cutoff_to_rebound_rebound_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4655 (class 2606 OID 28395)
+-- Name: cutoff_to_rebound cutoff_to_rebound_rebound_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_rebound
@@ -28407,8 +29509,8 @@ ALTER TABLE ONLY cutoff_to_rebound
 
 
 --
--- TOC entry 4515 (class 2606 OID 61569)
--- Name: cutoff_to_receipt_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4656 (class 2606 OID 28400)
+-- Name: cutoff_to_receipt cutoff_to_receipt_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_receipt
@@ -28416,8 +29518,8 @@ ALTER TABLE ONLY cutoff_to_receipt
 
 
 --
--- TOC entry 4516 (class 2606 OID 61574)
--- Name: cutoff_to_receipt_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4657 (class 2606 OID 28405)
+-- Name: cutoff_to_receipt cutoff_to_receipt_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_receipt
@@ -28425,8 +29527,8 @@ ALTER TABLE ONLY cutoff_to_receipt
 
 
 --
--- TOC entry 4517 (class 2606 OID 61579)
--- Name: cutoff_to_reserve_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4658 (class 2606 OID 28410)
+-- Name: cutoff_to_reserve cutoff_to_reserve_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_reserve
@@ -28434,8 +29536,8 @@ ALTER TABLE ONLY cutoff_to_reserve
 
 
 --
--- TOC entry 4518 (class 2606 OID 61584)
--- Name: cutoff_to_reserve_reserve_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4659 (class 2606 OID 28415)
+-- Name: cutoff_to_reserve cutoff_to_reserve_reserve_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_reserve
@@ -28443,8 +29545,8 @@ ALTER TABLE ONLY cutoff_to_reserve
 
 
 --
--- TOC entry 4519 (class 2606 OID 61589)
--- Name: cutoff_to_stocktake_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4660 (class 2606 OID 28420)
+-- Name: cutoff_to_stocktake cutoff_to_stocktake_cutoff_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_stocktake
@@ -28452,8 +29554,8 @@ ALTER TABLE ONLY cutoff_to_stocktake
 
 
 --
--- TOC entry 4520 (class 2606 OID 61594)
--- Name: cutoff_to_stocktake_stocktake_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4661 (class 2606 OID 28425)
+-- Name: cutoff_to_stocktake cutoff_to_stocktake_stocktake_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY cutoff_to_stocktake
@@ -28461,8 +29563,8 @@ ALTER TABLE ONLY cutoff_to_stocktake
 
 
 --
--- TOC entry 4521 (class 2606 OID 61599)
--- Name: delivery_to_receipt_delivery_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4662 (class 2606 OID 28430)
+-- Name: delivery_to_receipt delivery_to_receipt_delivery_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY delivery_to_receipt
@@ -28470,8 +29572,8 @@ ALTER TABLE ONLY delivery_to_receipt
 
 
 --
--- TOC entry 4522 (class 2606 OID 61604)
--- Name: delivery_to_receipt_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4663 (class 2606 OID 28435)
+-- Name: delivery_to_receipt delivery_to_receipt_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY delivery_to_receipt
@@ -28479,8 +29581,8 @@ ALTER TABLE ONLY delivery_to_receipt
 
 
 --
--- TOC entry 4523 (class 2606 OID 61609)
--- Name: demand_to_picklist_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4664 (class 2606 OID 28440)
+-- Name: demand_to_picklist demand_to_picklist_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY demand_to_picklist
@@ -28488,8 +29590,8 @@ ALTER TABLE ONLY demand_to_picklist
 
 
 --
--- TOC entry 4524 (class 2606 OID 61614)
--- Name: demand_to_picklist_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4665 (class 2606 OID 28445)
+-- Name: demand_to_picklist demand_to_picklist_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY demand_to_picklist
@@ -28497,8 +29599,8 @@ ALTER TABLE ONLY demand_to_picklist
 
 
 --
--- TOC entry 4525 (class 2606 OID 61619)
--- Name: demand_to_reserve_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4666 (class 2606 OID 28450)
+-- Name: demand_to_reserve demand_to_reserve_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY demand_to_reserve
@@ -28506,8 +29608,8 @@ ALTER TABLE ONLY demand_to_reserve
 
 
 --
--- TOC entry 4526 (class 2606 OID 61624)
--- Name: demand_to_reserve_reserve_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4667 (class 2606 OID 28455)
+-- Name: demand_to_reserve demand_to_reserve_reserve_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY demand_to_reserve
@@ -28515,8 +29617,8 @@ ALTER TABLE ONLY demand_to_reserve
 
 
 --
--- TOC entry 4527 (class 2606 OID 61629)
--- Name: goal_to_demand_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4668 (class 2606 OID 28460)
+-- Name: goal_to_demand goal_to_demand_demand_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_demand
@@ -28524,8 +29626,8 @@ ALTER TABLE ONLY goal_to_demand
 
 
 --
--- TOC entry 4528 (class 2606 OID 61634)
--- Name: goal_to_demand_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4669 (class 2606 OID 28465)
+-- Name: goal_to_demand goal_to_demand_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_demand
@@ -28533,8 +29635,8 @@ ALTER TABLE ONLY goal_to_demand
 
 
 --
--- TOC entry 4529 (class 2606 OID 61639)
--- Name: goal_to_despatch_despatch_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4670 (class 2606 OID 28470)
+-- Name: goal_to_despatch goal_to_despatch_despatch_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_despatch
@@ -28542,8 +29644,8 @@ ALTER TABLE ONLY goal_to_despatch
 
 
 --
--- TOC entry 4530 (class 2606 OID 61644)
--- Name: goal_to_despatch_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4671 (class 2606 OID 28475)
+-- Name: goal_to_despatch goal_to_despatch_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_despatch
@@ -28551,8 +29653,8 @@ ALTER TABLE ONLY goal_to_despatch
 
 
 --
--- TOC entry 4531 (class 2606 OID 61649)
--- Name: goal_to_issue_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4672 (class 2606 OID 28480)
+-- Name: goal_to_issue goal_to_issue_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_issue
@@ -28560,8 +29662,8 @@ ALTER TABLE ONLY goal_to_issue
 
 
 --
--- TOC entry 4532 (class 2606 OID 61654)
--- Name: goal_to_issue_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4673 (class 2606 OID 28485)
+-- Name: goal_to_issue goal_to_issue_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_issue
@@ -28569,8 +29671,8 @@ ALTER TABLE ONLY goal_to_issue
 
 
 --
--- TOC entry 4533 (class 2606 OID 61659)
--- Name: goal_to_picklist_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4674 (class 2606 OID 28490)
+-- Name: goal_to_picklist goal_to_picklist_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_picklist
@@ -28578,8 +29680,8 @@ ALTER TABLE ONLY goal_to_picklist
 
 
 --
--- TOC entry 4534 (class 2606 OID 61664)
--- Name: goal_to_picklist_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4675 (class 2606 OID 28495)
+-- Name: goal_to_picklist goal_to_picklist_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_picklist
@@ -28587,8 +29689,8 @@ ALTER TABLE ONLY goal_to_picklist
 
 
 --
--- TOC entry 4535 (class 2606 OID 61669)
--- Name: goal_to_reserve_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4676 (class 2606 OID 28500)
+-- Name: goal_to_reserve goal_to_reserve_goal_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_reserve
@@ -28596,8 +29698,8 @@ ALTER TABLE ONLY goal_to_reserve
 
 
 --
--- TOC entry 4536 (class 2606 OID 61674)
--- Name: goal_to_reserve_reserve_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4677 (class 2606 OID 28505)
+-- Name: goal_to_reserve goal_to_reserve_reserve_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY goal_to_reserve
@@ -28605,8 +29707,8 @@ ALTER TABLE ONLY goal_to_reserve
 
 
 --
--- TOC entry 4537 (class 2606 OID 61679)
--- Name: issue_to_adjustmentcredit_adjustmentcredit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4678 (class 2606 OID 28510)
+-- Name: issue_to_adjustmentcredit issue_to_adjustmentcredit_adjustmentcredit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_adjustmentcredit
@@ -28614,8 +29716,8 @@ ALTER TABLE ONLY issue_to_adjustmentcredit
 
 
 --
--- TOC entry 4538 (class 2606 OID 61684)
--- Name: issue_to_adjustmentcredit_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4679 (class 2606 OID 28515)
+-- Name: issue_to_adjustmentcredit issue_to_adjustmentcredit_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_adjustmentcredit
@@ -28623,8 +29725,8 @@ ALTER TABLE ONLY issue_to_adjustmentcredit
 
 
 --
--- TOC entry 4539 (class 2606 OID 61689)
--- Name: issue_to_despatch_despatch_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4680 (class 2606 OID 28520)
+-- Name: issue_to_despatch issue_to_despatch_despatch_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_despatch
@@ -28632,8 +29734,8 @@ ALTER TABLE ONLY issue_to_despatch
 
 
 --
--- TOC entry 4540 (class 2606 OID 61694)
--- Name: issue_to_despatch_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4681 (class 2606 OID 28525)
+-- Name: issue_to_despatch issue_to_despatch_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_despatch
@@ -28641,8 +29743,8 @@ ALTER TABLE ONLY issue_to_despatch
 
 
 --
--- TOC entry 4541 (class 2606 OID 61699)
--- Name: issue_to_rebound_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4682 (class 2606 OID 28530)
+-- Name: issue_to_rebound issue_to_rebound_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_rebound
@@ -28650,8 +29752,8 @@ ALTER TABLE ONLY issue_to_rebound
 
 
 --
--- TOC entry 4542 (class 2606 OID 61704)
--- Name: issue_to_rebound_rebound_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4683 (class 2606 OID 28535)
+-- Name: issue_to_rebound issue_to_rebound_rebound_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY issue_to_rebound
@@ -28659,8 +29761,8 @@ ALTER TABLE ONLY issue_to_rebound
 
 
 --
--- TOC entry 4543 (class 2606 OID 61709)
--- Name: picklist_to_issue_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4684 (class 2606 OID 28540)
+-- Name: picklist_to_issue picklist_to_issue_issue_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY picklist_to_issue
@@ -28668,8 +29770,8 @@ ALTER TABLE ONLY picklist_to_issue
 
 
 --
--- TOC entry 4544 (class 2606 OID 61714)
--- Name: picklist_to_issue_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4685 (class 2606 OID 28545)
+-- Name: picklist_to_issue picklist_to_issue_picklist_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY picklist_to_issue
@@ -28677,8 +29779,8 @@ ALTER TABLE ONLY picklist_to_issue
 
 
 --
--- TOC entry 4545 (class 2606 OID 61719)
--- Name: receipt_to_adjustmentdebit_adjustmentdebit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4686 (class 2606 OID 28550)
+-- Name: receipt_to_adjustmentdebit receipt_to_adjustmentdebit_adjustmentdebit_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY receipt_to_adjustmentdebit
@@ -28686,8 +29788,8 @@ ALTER TABLE ONLY receipt_to_adjustmentdebit
 
 
 --
--- TOC entry 4546 (class 2606 OID 61724)
--- Name: receipt_to_adjustmentdebit_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4687 (class 2606 OID 28555)
+-- Name: receipt_to_adjustmentdebit receipt_to_adjustmentdebit_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY receipt_to_adjustmentdebit
@@ -28695,8 +29797,8 @@ ALTER TABLE ONLY receipt_to_adjustmentdebit
 
 
 --
--- TOC entry 4547 (class 2606 OID 61729)
--- Name: receipt_to_rebound_rebound_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4688 (class 2606 OID 28560)
+-- Name: receipt_to_rebound receipt_to_rebound_rebound_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY receipt_to_rebound
@@ -28704,8 +29806,8 @@ ALTER TABLE ONLY receipt_to_rebound
 
 
 --
--- TOC entry 4548 (class 2606 OID 61734)
--- Name: receipt_to_rebound_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
+-- TOC entry 4689 (class 2606 OID 28565)
+-- Name: receipt_to_rebound receipt_to_rebound_receipt_id_fkey; Type: FK CONSTRAINT; Schema: binding; Owner: postgres
 --
 
 ALTER TABLE ONLY receipt_to_rebound
@@ -28715,8 +29817,8 @@ ALTER TABLE ONLY receipt_to_rebound
 SET search_path = cutoff, pg_catalog;
 
 --
--- TOC entry 4549 (class 2606 OID 61739)
--- Name: blocker_head_id_fkey; Type: FK CONSTRAINT; Schema: cutoff; Owner: postgres
+-- TOC entry 4690 (class 2606 OID 28570)
+-- Name: blocker blocker_head_id_fkey; Type: FK CONSTRAINT; Schema: cutoff; Owner: postgres
 --
 
 ALTER TABLE ONLY blocker
@@ -28726,8 +29828,8 @@ ALTER TABLE ONLY blocker
 SET search_path = delivery, pg_catalog;
 
 --
--- TOC entry 4550 (class 2606 OID 61744)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: delivery; Owner: postgres
+-- TOC entry 4691 (class 2606 OID 28575)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: delivery; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -28737,8 +29839,8 @@ ALTER TABLE ONLY body
 SET search_path = demand, pg_catalog;
 
 --
--- TOC entry 4551 (class 2606 OID 61749)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: demand; Owner: postgres
+-- TOC entry 4692 (class 2606 OID 28580)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: demand; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -28748,19 +29850,57 @@ ALTER TABLE ONLY body
 SET search_path = despatch, pg_catalog;
 
 --
--- TOC entry 4552 (class 2606 OID 61754)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: despatch; Owner: postgres
+-- TOC entry 4693 (class 2606 OID 28585)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: despatch; Owner: postgres
 --
 
 ALTER TABLE ONLY body
     ADD CONSTRAINT body_head_id_fkey FOREIGN KEY (head_id) REFERENCES head(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
+SET search_path = facility, pg_catalog;
+
+--
+-- TOC entry 4701 (class 2606 OID 59300)
+-- Name: area area_parent_facility_code_fkey; Type: FK CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY area
+    ADD CONSTRAINT area_parent_facility_code_fkey FOREIGN KEY (parent_facility_code) REFERENCES site(facility_code) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4702 (class 2606 OID 59305)
+-- Name: line line_parent_facility_code_fkey; Type: FK CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY line
+    ADD CONSTRAINT line_parent_facility_code_fkey FOREIGN KEY (parent_facility_code) REFERENCES area(facility_code) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4703 (class 2606 OID 59310)
+-- Name: site site_parent_facility_code_fkey; Type: FK CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY site
+    ADD CONSTRAINT site_parent_facility_code_fkey FOREIGN KEY (parent_facility_code) REFERENCES enterprise(facility_code) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4704 (class 2606 OID 59315)
+-- Name: zone zone_parent_facility_code_fkey; Type: FK CONSTRAINT; Schema: facility; Owner: postgres
+--
+
+ALTER TABLE ONLY zone
+    ADD CONSTRAINT zone_parent_facility_code_fkey FOREIGN KEY (parent_facility_code) REFERENCES area(facility_code);
+
+
 SET search_path = issue, pg_catalog;
 
 --
--- TOC entry 4553 (class 2606 OID 61759)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: issue; Owner: postgres
+-- TOC entry 4694 (class 2606 OID 28590)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: issue; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -28770,8 +29910,8 @@ ALTER TABLE ONLY body
 SET search_path = picklist, pg_catalog;
 
 --
--- TOC entry 4554 (class 2606 OID 61764)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: picklist; Owner: postgres
+-- TOC entry 4695 (class 2606 OID 28595)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: picklist; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -28781,8 +29921,8 @@ ALTER TABLE ONLY body
 SET search_path = rebound, pg_catalog;
 
 --
--- TOC entry 4555 (class 2606 OID 61769)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: rebound; Owner: postgres
+-- TOC entry 4696 (class 2606 OID 28600)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: rebound; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -28792,8 +29932,8 @@ ALTER TABLE ONLY body
 SET search_path = receipt, pg_catalog;
 
 --
--- TOC entry 4556 (class 2606 OID 61774)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: receipt; Owner: postgres
+-- TOC entry 4697 (class 2606 OID 28605)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: receipt; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -28803,8 +29943,8 @@ ALTER TABLE ONLY body
 SET search_path = reserve, pg_catalog;
 
 --
--- TOC entry 4557 (class 2606 OID 61779)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: reserve; Owner: postgres
+-- TOC entry 4698 (class 2606 OID 28610)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: reserve; Owner: postgres
 --
 
 ALTER TABLE ONLY body
@@ -28814,27 +29954,26 @@ ALTER TABLE ONLY body
 SET search_path = stocktake, pg_catalog;
 
 --
--- TOC entry 4558 (class 2606 OID 61784)
--- Name: body_head_id_fkey; Type: FK CONSTRAINT; Schema: stocktake; Owner: postgres
+-- TOC entry 4699 (class 2606 OID 28615)
+-- Name: body body_head_id_fkey; Type: FK CONSTRAINT; Schema: stocktake; Owner: postgres
 --
 
 ALTER TABLE ONLY body
     ADD CONSTRAINT body_head_id_fkey FOREIGN KEY (head_id) REFERENCES head(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
+SET search_path = uom, pg_catalog;
+
 --
--- TOC entry 4808 (class 0 OID 0)
--- Dependencies: 34
--- Name: public; Type: ACL; Schema: -; Owner: postgres
+-- TOC entry 4700 (class 2606 OID 58828)
+-- Name: information uom_base_uom_code_fkey; Type: FK CONSTRAINT; Schema: uom; Owner: postgres
 --
 
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
+ALTER TABLE ONLY information
+    ADD CONSTRAINT uom_base_uom_code_fkey FOREIGN KEY (base_uom_code) REFERENCES information(uom_code);
 
 
--- Completed on 2017-03-22 00:30:52 EET
+-- Completed on 2018-01-19 23:32:27 EET
 
 --
 -- PostgreSQL database dump complete
