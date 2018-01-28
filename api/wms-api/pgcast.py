@@ -58,47 +58,124 @@ def pg_typ_caster(connection, nspname, typname, mapclass):
     return pg_udf_type
 
 
-def date_from_py(pydate):
-    pass
+class PgUserTypeMaping(object):
+    pg_schm_name = ''
+    pg_type_name = ''
+    pg_field_list = []
 
-def date_from_pg(sqldate):
-    pass
+    def __conform__(self, proto):
+        if proto == _ext.ISQLQuote:
+            return self
 
-def decimal_from_py(pydecimal):
-    pass
+    def date_from_py(self, pydate):
+        pass
 
-def decimal_from_pg(sqlnumeric):
-    pass
+    def date_from_pg(self, sqldate):
+        pass
 
-def _adapt(o):
-    if o is None:
-        return 'NULL'
-    else:
-        if isinstance(o, str):
-            return "'{0}'".format(o)
+    def decimal_from_py(self, pydecimal):
+        pass
+
+    def decimal_from_pg(self, sqlnumeric):
+        pass
+
+    @staticmethod
+    def _adapt(o):
+        if o is None:
+            return 'NULL'
         else:
-            # return _ext.adapt(obj=o, alternate=None, protocol=None)
-            return _ext.adapt(o)
+            # return _ext.adapt(o)
+            if isinstance(o, str):
+                return "'{0}'".format(o)
+            else:
+                # return _ext.adapt(obj=o, alternate=None, protocol=None)
+                return _ext.adapt(obj=o, alternate=None, protocol=None)
+
+    _re_tokenize = re.compile(r"""
+      \(? ([,)])                        # an empty token, representing NULL
+    | \(? " ((?: [^"] | "")*) " [,)]    # or a quoted string
+    | \(? ([^",)]+) [,)]                # or an unquoted string
+        """, re.VERBOSE)
+
+    _re_undouble = re.compile(r'(["\\])\1')
+
+    def from_tuple(self, t):
+        return self
+
+    def to_tuple(self):
+        return ()
+
+    def from_dict(self, d):
+        return self
+
+    def to_dict(self):
+        return {}
+
+    def __repr__(self):
+        return self.repr_helper(self.pg_field_list).format(t=self.pg_type_name, d=self.to_dict())
+
+    @staticmethod
+    def repr_helper(field_list):
+        result = '{t}=('
+        idx = 1
+        length = len(field_list)
+        for item in field_list:
+            if idx < length:
+                result = result + "{0}={1}{0}{2} ".format(item, '{d[', ']},')
+            else:
+                result = result + "{0}={1}{0}{2} ".format(item, '{d[', ']})')
+            idx += 1
+        return result
+
+    def from_string(self, s):
+        rv = []
+        for m in self._re_tokenize.finditer(s):
+            if m is None:
+                raise psycopg2.InterfaceError("bad pgtype representation: %r" % s)
+            if m.group(1) is not None:
+                rv.append(None)
+            elif m.group(2) is not None:
+                rv.append(self._re_undouble.sub(r"\1", m.group(2)))
+            else:
+                rv.append(m.group(3))
+
+        self.from_tuple(tuple(rv))
+
+    def adapt_tuple(self, t):
+        l = []
+        for i in t:
+            l.append(self._adapt(i))
+        return tuple(l)
+
+    @staticmethod
+    def repr_helper2(field_list):
+        result = '('
+        idx = 0
+        length = len(field_list) - 1
+        for item in field_list:
+            if idx < length:
+                result = result + "{1}{0}{2} ".format(idx, '{t[', ']},')
+            else:
+                result = result + "{1}{0}{2}::{3}.{4} ".format(idx, '{t[', ']})', '{schema}', '{pgtype}')
+            idx += 1
+        return result
+
+    def getquoted(self):
+        return self.repr_helper2(self.pg_field_list) \
+            .format(schema=self.pg_schm_name, pgtype=self.pg_type_name, t=self.adapt_tuple(self.to_tuple()))
 
 
-class DocumentBody(object):
+class DocumentBody(PgUserTypeMaping):
+    pg_schm_name = 'common'
+    pg_type_name = 'document_body'
+    pg_field_list = ['good_code', 'quantity', 'uom_code']
+
     def __init__(self, s=None, curs=None):
         self.good_code = ''
         self.quantity = Decimal(0)
         self.uom_code = ''
         if s:
             self.from_string(s)
-
-    def __repr__(self):
-        return "{0}(good_code={1}, quantity={2}, uom_code={3})" \
-            .format(type(self).__name__,
-                    self.good_code,
-                    str(self.quantity),
-                    self.uom_code)
-
-    def __conform__(self, proto):
-        if proto == _ext.ISQLQuote:
-            return self
 
     def to_dict(self):
         return {"good_code": self.good_code,
@@ -115,25 +192,17 @@ class DocumentBody(object):
         self.quantity = Decimal(t[1])
         self.uom_code = t[2]
 
-    def from_string(self, s):
-        if s is None:
-            return None
-        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
-        if m:
-            self.from_tuple((m.group(1),
-                             m.group(2),
-                             m.group(3)))
-        else:
-            raise psycopg2.InterfaceError("bad document_body representation: %r" % s)
-
-    def getquoted(self):
-        return "({0}, {1}, {2})::common.document_body"\
-            .format(_adapt(self.good_code),
-                    _adapt(self.quantity),
-                    _adapt(self.uom_code))
+    def to_tuple(self):
+        return (self.good_code,
+                self.quantity,
+                self.uom_code)
 
 
-class StocktakeBody(object):
+class StocktakeBody(PgUserTypeMaping):
+    pg_schm_name = 'common'
+    pg_type_name = 'stocktake_body'
+    pg_field_list = ['good_code', 'quantity', 'uom_code', 'quantity_diff']
+
     def __init__(self, s=None, curs=None):
         self.good_code = ''
         self.quantity = Decimal(0)
@@ -141,17 +210,6 @@ class StocktakeBody(object):
         self.quantity_diff = Decimal(0)
         if s:
             self.from_string(s)
-
-    def __repr__(self):
-        return "stocktake_body(good_code={0}, quantity={1}, uom_code={2}, quantity_diff={3})" \
-            .format(self.good_code,
-                    self.quantity,
-                    self.uom_code,
-                    self.quantity_diff)
-
-    def __conform__(self, proto):
-        if proto == _ext.ISQLQuote:
-            return self
 
     def to_dict(self):
         return {"good_code": self.good_code,
@@ -171,27 +229,19 @@ class StocktakeBody(object):
         self.uom_code = t[2]
         self.quantity_diff = Decimal(t[3])
 
-    def from_string(self, s):
-        if s is None:
-            return None
-        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
-        if m:
-            self.from_tuple((m.group(1),
-                             m.group(2),
-                             m.group(3),
-                             m.group(4)))
-        else:
-            raise psycopg2.InterfaceError("bad stocktake_body representation: %r" % s)
-
-    def getquoted(self):
-        return "({0}, {1}, {2}, {3})::common.stocktake_body"\
-            .format(_adapt(self.good_code),
-                    _adapt(self.quantity),
-                    _adapt(self.uom_code),
-                    _adapt(self.quantity_diff))
+    def to_tuple(self):
+        return (self.good_code,
+                self.quantity,
+                self.uom_code,
+                self.quantity_diff)
 
 
-class DocumentHead(object):
+class DocumentHead(PgUserTypeMaping):
+    pg_schm_name = 'common'
+    pg_type_name = 'document_head'
+    pg_field_list = ['document_id', 'gid', 'display_name', 'document_date',
+                     'facility_code', 'curr_fsmt', 'doctype']
+
     def __init__(self, s=None, curs=None):
         self.document_id = None
         self.gid = None
@@ -202,20 +252,6 @@ class DocumentHead(object):
         self.doctype = None
         if s:
             self.from_string(s)
-
-    def __repr__(self):
-        return "document_head(document_id={0}, gid={1}, display_name={2}, document_date={3}, facility_code={4}, curr_fsmt={5}, doctype={6})". \
-            format(self.document_id,
-                   self.gid,
-                   self.display_name,
-                   self.document_date,
-                   self.facility_code,
-                   self.curr_fsmt,
-                   self.doctype)
-
-    def __conform__(self, proto):
-        if proto == _ext.ISQLQuote:
-            return self
 
     def to_dict(self):
         if self.document_date:
@@ -256,33 +292,22 @@ class DocumentHead(object):
         self.curr_fsmt = t[5]
         self.doctype = t[6]
 
-    def from_string(self, s):
-        if s is None:
-            return None
-        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
-        if m:
-            self.from_tuple((m.group(1),
-                             m.group(2),
-                             m.group(3),
-                             m.group(4),
-                             m.group(5),
-                             m.group(6),
-                             m.group(7)))
-        else:
-            raise psycopg2.InterfaceError("bad document_head representation: %r" % s)
-
-    def getquoted(self):
-        return "({0}, {1}, {2}, {3}, {4}, {5}, {6})" \
-            .format(_adapt(self.document_id),
-                    _adapt(self.gid),
-                    _adapt(self.display_name),
-                    _adapt(self.document_date),
-                    _adapt(self.facility_code),
-                    _adapt(self.curr_fsmt),
-                    _adapt(self.doctype))
+    def to_tuple(self):
+        return (self.document_id,
+                self.gid,
+                self.display_name,
+                self.document_date,
+                self.facility_code,
+                self.curr_fsmt,
+                self.doctype)
 
 
-class GoalHead(object):
+class GoalHead(PgUserTypeMaping):
+    pg_schm_name = 'common'
+    pg_type_name = 'goal_head'
+    pg_field_list = ['document_id', 'gid', 'display_name', 'document_date',
+                     'facility_code', 'curr_fsmt', 'doctype']
+
     def __init__(self, s=None, curs=None):
         self.document_id = None
         self.gid = None
@@ -293,20 +318,6 @@ class GoalHead(object):
         self.doctype = None
         if s:
             self.from_string(s)
-
-    def __repr__(self):
-        return "goal_head(document_id={0}, gid={1}, display_name={2}, document_date={3}, facility_code={4}, curr_fsmt={5}, doctype={6})". \
-            format(self.document_id,
-                   self.gid,
-                   self.display_name,
-                   self.document_date,
-                   self.facility_code,
-                   self.curr_fsmt,
-                   self.doctype)
-
-    def __conform__(self, proto):
-        if proto == _ext.ISQLQuote:
-            return self
 
     def to_dict(self):
         if self.document_date:
@@ -346,33 +357,22 @@ class GoalHead(object):
         self.curr_fsmt = t[5]
         self.doctype = t[6]
 
-    def from_string(self, s):
-        if s is None:
-            return None
-        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
-        if m:
-            self.from_tuple((m.group(1),
-                             m.group(2),
-                             m.group(3),
-                             m.group(4),
-                             m.group(5),
-                             m.group(6),
-                             m.group(7)))
-        else:
-            raise psycopg2.InterfaceError("bad goal_head representation: %r" % s)
-
-    def getquoted(self):
-        return "({0}, {1}, {2}, {3}, {4}, {5}, {6})" \
-            .format(_adapt(self.document_id),
-                    _adapt(self.gid),
-                    _adapt(self.display_name),
-                    _adapt(self.document_date),
-                    _adapt(self.facility_code),
-                    _adapt(self.curr_fsmt),
-                    _adapt(self.doctype))
+    def to_tuple(self):
+        return (self.document_id,
+                self.gid,
+                self.display_name,
+                self.document_date,
+                self.facility_code,
+                self.curr_fsmt,
+                self.doctype)
 
 
-class OutboundHead(object):
+class OutboundHead(PgUserTypeMaping):
+    pg_schm_name = 'common'
+    pg_type_name = 'outbound_head'
+    pg_field_list = ['document_id', 'gid', 'display_name', 'document_date',
+                     'facility_code', 'curr_fsmt', 'doctype', 'addressee', 'due_date']
+
     def __init__(self, s=None, curs=None):
         self.document_id = None
         self.gid = None
@@ -385,18 +385,6 @@ class OutboundHead(object):
         self.due_date = None
         if s:
             self.from_string(s)
-
-    def __repr__(self):
-        return "outbound_head(document_id={0}, gid={1}, display_name={2}, document_date={3}, facility_code={4}, curr_fsmt={5}, doctype={6}, addressee={7}, due_date={8})" \
-            .format(self.document_id,
-                    self.gid,
-                    self.display_name,
-                    self.document_date,
-                    self.facility_code,
-                    self.curr_fsmt,
-                    self.doctype,
-                    self.addressee,
-                    self.due_date)
 
     def to_dict(self):
         if self.due_date:
@@ -457,37 +445,24 @@ class OutboundHead(object):
         else:
             self.due_date = None
 
-    def from_string(self, s):
-        if s is None:
-            return None
-        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
-        if m:
-            self.from_tuple((m.group(1),
-                             m.group(2),
-                             m.group(3),
-                             m.group(4),
-                             m.group(5),
-                             m.group(6),
-                             m.group(7),
-                             m.group(8),
-                             m.group(9)))
-        else:
-            raise psycopg2.InterfaceError("bad outbound_head representation: %r" % s)
-
-    def getquoted(self):
-        return "({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})::common.outbound_head" \
-            .format(_adapt(self.document_id),
-                    _adapt(self.gid),
-                    _adapt(self.display_name),
-                    _adapt(self.document_date),
-                    _adapt(self.facility_code),
-                    _adapt(self.curr_fsmt),
-                    _adapt(self.doctype),
-                    _adapt(self.addressee),
-                    _adapt(self.due_date))
+    def to_tuple(self):
+        return (self.document_id,
+                self.gid,
+                self.display_name,
+                self.document_date,
+                self.facility_code,
+                self.curr_fsmt,
+                self.doctype,
+                self.addressee,
+                self.due_date)
 
 
-class InboundHead(object):
+class InboundHead(PgUserTypeMaping):
+    pg_schm_name = 'common'
+    pg_type_name = 'inbound_head'
+    pg_field_list = ['document_id', 'gid', 'display_name', 'document_date',
+                     'facility_code', 'curr_fsmt', 'doctype', 'addresser']
+
     def __init__(self, s=None, curs=None):
         self.document_id = None
         self.gid = None
@@ -528,21 +503,6 @@ class InboundHead(object):
         self.doctype = d['doctype']
         self.addresser = d['addresser']
 
-    def __repr__(self):
-        return "inbound_head(document_id={0}, gid={1}, display_name={2}, document_date={3}, facility_code={4}, curr_fsmt={5}, doctype={6}, addresser={7})" \
-            .format(self.document_id,
-                    self.gid,
-                    self.display_name,
-                    self.document_date,
-                    self.facility_code,
-                    self.curr_fsmt,
-                    self.doctype,
-                    self.addresser)
-
-    def __conform__(self, proto):
-        if proto == _ext.ISQLQuote:
-            return self
-
     def from_tuple(self, t):
         self.document_id = int(t[0])
         self.gid = uuid.UUID(t[1])
@@ -556,32 +516,15 @@ class InboundHead(object):
         self.doctype = t[6]
         self.addresser = t[7]
 
-    def from_string(self, s):
-        if s is None:
-            return None
-        m = re.match(r"\((\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?,(\"[^\"]*\"|[^,]+)?\)", s)
-        if m:
-            self.from_tuple((m.group(1),
-                             m.group(2),
-                             m.group(3),
-                             m.group(4),
-                             m.group(5),
-                             m.group(6),
-                             m.group(7),
-                             m.group(8)))
-        else:
-            raise psycopg2.InterfaceError("bad inbound_head representation: %r" % s)
-
-    def getquoted(self):
-        return "({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})" \
-            .format(_adapt(self.document_id),
-                    _adapt(self.gid),
-                    _adapt(self.display_name),
-                    _adapt(self.document_date),
-                    _adapt(self.facility_code),
-                    _adapt(self.curr_fsmt),
-                    _adapt(self.doctype),
-                    _adapt(self.addresser))
+    def to_tuple(self):
+        return (self.document_id,
+                self.gid,
+                self.display_name,
+                self.document_date,
+                self.facility_code,
+                self.curr_fsmt,
+                self.doctype,
+                self.addresser)
 
 
 def register(conn):
