@@ -10,46 +10,52 @@ import psycopg2.extras
 import re
 
 
-def _get_pg_nspname_oid(conn, nspname):
-    _sql = 'SELECT oid FROM pg_namespace WHERE nspname = %s'
-    _connection = conn
-    try:
-        _curs = _connection.cursor()
-        _curs.execute(_sql, (nspname,))
-        _oid = _curs.fetchone()[0]
-        _curs.close()
-        return _oid
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+def pg_typ_caster(connection, nspname, typname, mapclass):
+    def _get_pg_nspname_oid():
+        _sql = 'SELECT oid FROM pg_namespace WHERE nspname = %s'
+        try:
+            _curs = connection.cursor()
+            _curs.execute(_sql, (nspname,))
+            _oid = _curs.fetchone()[0]
+            _curs.close()
+            return _oid
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
 
+    def _get_pg_typname_oid():
+        _sql = 'SELECT oid FROM pg_type WHERE typname = %s AND typnamespace = %s;'
+        try:
+            _nspoid = _get_pg_nspname_oid()
+            _curs = connection.cursor()
+            _curs.execute(_sql, (typname, _nspoid,))
+            _oid = _curs.fetchone()[0]
+            _curs.close()
+            return _oid
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
 
-def _get_pg_typname_oid(conn, nspname, typname):
-    _sql = 'SELECT oid FROM pg_type WHERE typname = %s AND typnamespace = %s;'
-    _connection = conn
-    try:
-        _nspoid = _get_pg_nspname_oid(_connection, nspname)
-        _curs = _connection.cursor()
-        _curs.execute(_sql, (typname, _nspoid,))
-        _oid = _curs.fetchone()[0]
-        _curs.close()
-        return _oid
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+    def _get_pg_typarray_oid():
+        _sql = 'SELECT typarray FROM pg_type WHERE typname = %s AND typnamespace = %s'
+        try:
+            _nspoid = _get_pg_nspname_oid()
+            _curs = connection.cursor()
+            _curs.execute(_sql, (typname, _nspoid,))
+            _oid = _curs.fetchone()[0]
+            _curs.close()
+            return _oid
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
 
+    oid1 = _get_pg_typname_oid()
+    oid2 = _get_pg_typarray_oid()
 
-def _get_pg_typarray_oid(conn, nspname, typname):
-    _sql = 'SELECT typarray FROM pg_type WHERE typname = %s AND typnamespace = %s'
-    _connection = conn
-    try:
-        _nspoid = _get_pg_nspname_oid(_connection, nspname)
-        _curs = _connection.cursor()
-        _curs.execute(_sql, (typname, _nspoid,))
-        _oid = _curs.fetchone()[0]
-        _curs.close()
-        return _oid
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+    pg_udf_type = _ext.new_type((oid1,), typname.upper(), mapclass)
+    pg_udf_type_array = _ext.new_array_type((oid2,), "{0}_ARRAY".format(typname.upper()), pg_udf_type)
 
+    _ext.register_type(pg_udf_type, connection)
+    _ext.register_type(pg_udf_type_array, connection)
+
+    return pg_udf_type
 
 
 def date_from_py(pydate):
@@ -127,25 +133,6 @@ class DocumentBody(object):
                     _adapt(self.uom_code))
 
 
-def register_common_document_body(oid=None, conn_or_curs=None):
-    if not oid:
-        oid1 = _get_pg_typname_oid(conn_or_curs, 'common', 'document_body')
-        oid2 = _get_pg_typarray_oid(conn_or_curs, 'common', 'document_body')
-    elif isinstance(oid, (list, tuple)):
-        oid1, oid2 = oid
-    else:
-        print('error')
-        exit(1)
-
-    DOCUMENT_BODY = _ext.new_type((oid1,), "DOCUMENT_BODY", DocumentBody)
-    DOCUMENT_BODY_ARRAY = _ext.new_array_type((oid2,), "DOCUMENT_BODY_ARRAY", DOCUMENT_BODY)
-
-    _ext.register_type(DOCUMENT_BODY, conn_or_curs)
-    _ext.register_type(DOCUMENT_BODY_ARRAY, conn_or_curs)
-
-    return DOCUMENT_BODY
-
-
 class StocktakeBody(object):
     def __init__(self, s=None, curs=None):
         self.good_code = ''
@@ -202,24 +189,6 @@ class StocktakeBody(object):
                     _adapt(self.quantity),
                     _adapt(self.uom_code),
                     _adapt(self.quantity_diff))
-
-
-def register_common_stocktake_body(oid=None, conn_or_curs=None):
-    if not oid:
-        oid1 = _get_pg_typname_oid(conn_or_curs, 'common', 'stocktake_body')
-        oid2 = _get_pg_typarray_oid(conn_or_curs, 'common', 'stocktake_body')
-    elif isinstance(oid, (list, tuple)):
-        oid1, oid2 = oid
-    else:
-        print('error')
-
-    stocktake_body = _ext.new_type((oid1,), "STOCKTAKE_BODY", StocktakeBody)
-    stocktake_body_ARRAY = _ext.new_array_type((oid2,), "STOCKTAKE_BODY_ARRAY", stocktake_body)
-
-    _ext.register_type(stocktake_body, conn_or_curs)
-    _ext.register_type(stocktake_body_ARRAY, conn_or_curs)
-
-    return stocktake_body
 
 
 class DocumentHead(object):
@@ -313,24 +282,6 @@ class DocumentHead(object):
                     _adapt(self.doctype))
 
 
-def register_common_document_head(oid=None, conn_or_curs=None):
-    if not oid:
-        oid1 = _get_pg_typname_oid(conn_or_curs, 'common', 'document_head')
-        oid2 = _get_pg_typarray_oid(conn_or_curs, 'common', 'document_head')
-    elif isinstance(oid, (list, tuple)):
-        oid1, oid2 = oid
-    else:
-        print('error')
-
-    DOCUMENT_HEAD = _ext.new_type((oid1,), "DOCUMENT_HEAD", DocumentHead)
-    DOCUMENT_HEAD_ARRAY = _ext.new_array_type((oid2,), "DOCUMENT_HEAD_ARRAY", DOCUMENT_HEAD)
-
-    _ext.register_type(DOCUMENT_HEAD, conn_or_curs)
-    _ext.register_type(DOCUMENT_HEAD_ARRAY, conn_or_curs)
-
-    return DOCUMENT_HEAD
-
-
 class GoalHead(object):
     def __init__(self, s=None, curs=None):
         self.document_id = None
@@ -419,24 +370,6 @@ class GoalHead(object):
                     _adapt(self.facility_code),
                     _adapt(self.curr_fsmt),
                     _adapt(self.doctype))
-
-
-def register_common_goal_head(oid=None, conn_or_curs=None):
-    if not oid:
-        oid1 = _get_pg_typname_oid(conn_or_curs, 'common', 'goal_head')
-        oid2 = _get_pg_typarray_oid(conn_or_curs, 'common', 'goal_head')
-    elif isinstance(oid, (list, tuple)):
-        oid1, oid2 = oid
-    else:
-        print('error')
-
-    GOAL_HEAD = _ext.new_type((oid1,), "DOCUMENT_HEAD", GoalHead)
-    GOAL_HEAD_ARRAY = _ext.new_array_type((oid2,), "DOCUMENT_HEAD_ARRAY", GOAL_HEAD)
-
-    _ext.register_type(GOAL_HEAD, conn_or_curs)
-    _ext.register_type(GOAL_HEAD_ARRAY, conn_or_curs)
-
-    return GOAL_HEAD
 
 
 class OutboundHead(object):
@@ -554,24 +487,6 @@ class OutboundHead(object):
                     _adapt(self.due_date))
 
 
-def register_common_outbound_head(oid=None, conn_or_curs=None):
-    if not oid:
-        oid1 = _get_pg_typname_oid(conn_or_curs, 'common', 'outbound_head')
-        oid2 = _get_pg_typarray_oid(conn_or_curs, 'common', 'outbound_head')
-    elif isinstance(oid, (list, tuple)):
-        oid1, oid2 = oid
-    else:
-        print('error')
-
-    OUTBOUND_HEAD = _ext.new_type((oid1,), "OUTBOUND_HEAD", OutboundHead)
-    OUTBOUND_HEAD_ARRAY = _ext.new_array_type((oid2,), "OUTBOUND_HEAD_ARRAY", OUTBOUND_HEAD)
-
-    _ext.register_type(OUTBOUND_HEAD, conn_or_curs)
-    _ext.register_type(OUTBOUND_HEAD_ARRAY, conn_or_curs)
-
-    return OUTBOUND_HEAD
-
-
 class InboundHead(object):
     def __init__(self, s=None, curs=None):
         self.document_id = None
@@ -669,29 +584,11 @@ class InboundHead(object):
                     _adapt(self.addresser))
 
 
-def register_common_inbound_head(oid=None, conn_or_curs=None):
-    if not oid:
-        oid1 = _get_pg_typname_oid(conn_or_curs, 'common', 'inbound_head')
-        oid2 = _get_pg_typarray_oid(conn_or_curs, 'common', 'inbound_head')
-    elif isinstance(oid, (list, tuple)):
-        oid1, oid2 = oid
-    else:
-        print('error')
-
-    INBOUND_HEAD = _ext.new_type((oid1,), "OUTBOUND_HEAD", InboundHead)
-    INBOUND_HEAD_ARRAY = _ext.new_array_type((oid2,), "OUTBOUND_HEAD_ARRAY", INBOUND_HEAD)
-
-    _ext.register_type(INBOUND_HEAD, conn_or_curs)
-    _ext.register_type(INBOUND_HEAD_ARRAY, conn_or_curs)
-
-    return INBOUND_HEAD
-
-
 def register(conn):
     psycopg2.extras.register_uuid()
-    register_common_document_body(conn_or_curs=conn)
-    register_common_stocktake_body(conn_or_curs=conn)
-    register_common_document_head(conn_or_curs=conn)
-    register_common_goal_head(conn_or_curs=conn)
-    register_common_outbound_head(conn_or_curs=conn)
-    register_common_inbound_head(conn_or_curs=conn)
+    pg_typ_caster(connection=conn, nspname='common', typname='document_body', mapclass=DocumentBody)
+    pg_typ_caster(connection=conn, nspname='common', typname='stocktake_body', mapclass=StocktakeBody)
+    pg_typ_caster(connection=conn, nspname='common', typname='document_head', mapclass=DocumentHead)
+    pg_typ_caster(connection=conn, nspname='common', typname='goal_head', mapclass=GoalHead)
+    pg_typ_caster(connection=conn, nspname='common', typname='outbound_head', mapclass=OutboundHead)
+    pg_typ_caster(connection=conn, nspname='common', typname='inbound_head', mapclass=InboundHead)
