@@ -29,7 +29,7 @@
       "exclusiveMinimum": true
     }
   },
-  "additionalPoperties": false,
+  "additionalProperties": false,
   "required": [
     "sku",
     "name",
