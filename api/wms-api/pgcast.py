@@ -424,10 +424,6 @@ class OutboundHead(PgUserTypeMaping):
         self.addressee = d['addressee']
         self.due_date = _due_date
 
-    def __conform__(self, proto):
-        if proto == _ext.ISQLQuote:
-            return self
-
     def from_tuple(self, t):
         self.document_id = int(t[0])
         self.gid = uuid.UUID(t[1])
