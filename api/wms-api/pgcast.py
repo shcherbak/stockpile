@@ -85,7 +85,6 @@ class PgUserTypeMaping(object):
         else:
             if isinstance(o, str):
                 return "'{0}'".format(o)
-                # return o
             elif isinstance(o, int):
                 return o
             elif isinstance(o, Decimal):
