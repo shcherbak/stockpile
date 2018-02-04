@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.6
 -- Dumped by pg_dump version 9.6.6
 
--- Started on 2018-02-04 00:56:24 EET
+-- Started on 2018-02-04 01:03:23 EET
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -27305,7 +27305,7 @@ SET search_path = adjustmentcredit, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: adjustmentcredit; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 143, true);
+SELECT pg_catalog.setval('head_id_seq', 6, true);
 
 
 --
@@ -27340,7 +27340,7 @@ SET search_path = adjustmentdebit, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: adjustmentdebit; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 143, true);
+SELECT pg_catalog.setval('head_id_seq', 6, true);
 
 
 --
@@ -27690,7 +27690,7 @@ SET search_path = cutoff, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: cutoff; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 31, true);
+SELECT pg_catalog.setval('head_id_seq', 2, true);
 
 
 --
@@ -27725,7 +27725,7 @@ SET search_path = delivery, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: delivery; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 98, true);
+SELECT pg_catalog.setval('head_id_seq', 4, true);
 
 
 --
@@ -27760,7 +27760,7 @@ SET search_path = demand, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: demand; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 98, true);
+SELECT pg_catalog.setval('head_id_seq', 4, true);
 
 
 --
@@ -27795,7 +27795,7 @@ SET search_path = despatch, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: despatch; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 196, true);
+SELECT pg_catalog.setval('head_id_seq', 8, true);
 
 
 --
@@ -27891,7 +27891,7 @@ SET search_path = goal, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: goal; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 244, true);
+SELECT pg_catalog.setval('head_id_seq', 8, true);
 
 
 --
@@ -28130,7 +28130,7 @@ SET search_path = issue, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: issue; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 147, true);
+SELECT pg_catalog.setval('head_id_seq', 6, true);
 
 
 --
@@ -28184,7 +28184,7 @@ SET search_path = picklist, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: picklist; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 140, true);
+SELECT pg_catalog.setval('head_id_seq', 6, true);
 
 
 --
@@ -28219,7 +28219,7 @@ SET search_path = rebound, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: rebound; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 98, true);
+SELECT pg_catalog.setval('head_id_seq', 4, true);
 
 
 --
@@ -28254,7 +28254,7 @@ SET search_path = receipt, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: receipt; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 98, true);
+SELECT pg_catalog.setval('head_id_seq', 4, true);
 
 
 --
@@ -28289,7 +28289,7 @@ SET search_path = reserve, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: reserve; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 140, true);
+SELECT pg_catalog.setval('head_id_seq', 6, true);
 
 
 --
@@ -28344,7 +28344,7 @@ SET search_path = stocktake, pg_catalog;
 -- Name: head_id_seq; Type: SEQUENCE SET; Schema: stocktake; Owner: postgres
 --
 
-SELECT pg_catalog.setval('head_id_seq', 98, true);
+SELECT pg_catalog.setval('head_id_seq', 4, true);
 
 
 --
@@ -30762,7 +30762,7 @@ ALTER TABLE ONLY information
     ADD CONSTRAINT uom_base_uom_code_fkey FOREIGN KEY (base_uom_code) REFERENCES information(uom_code);
 
 
--- Completed on 2018-02-04 00:56:25 EET
+-- Completed on 2018-02-04 01:03:24 EET
 
 --
 -- PostgreSQL database dump complete
