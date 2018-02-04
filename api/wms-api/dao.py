@@ -20,6 +20,8 @@ class BaseDocument:
         self.errors = []
         if document_id:
             self.load(document_id)
+            #print(type(self.head))
+            #print(type(self.body[0]))
         else:
             self.head = None
             self.body = None
@@ -31,12 +33,15 @@ class BaseDocument:
             conn = self.pool.getconn()
             pgcast.register(conn)
             curs = conn.cursor()
+            #print(self.CREATE_DOCUMENT_SQL % (self.head, self.body,))
             curs.execute(self.CREATE_DOCUMENT_SQL, (self.head, self.body,))
             document_id = curs.fetchone()[0]
             conn.commit()
             curs.close()
         except (Exception, psycopg2.DatabaseError) as error:
-            self.errors.append(error.pgerror)
+            #self.errors.append(error.pgerror)
+            print(error)
+            self.errors.append(str(error))
         finally:
             if conn is not None:
                 self.pool.putconn(conn)

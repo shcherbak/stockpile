@@ -79,17 +79,24 @@ class PgUserTypeMaping(object):
     def decimal_from_pg(self, sqlnumeric):
         pass
 
-    @staticmethod
-    def _adapt(o):
+    def py2pg_adapt(self, o):
         if o is None:
             return 'NULL'
         else:
-            # return _ext.adapt(o)
             if isinstance(o, str):
                 return "'{0}'".format(o)
+                # return o
+            elif isinstance(o, int):
+                return o
+            elif isinstance(o, Decimal):
+                return o
+            elif isinstance(o, datetime.date):
+                return _ext.DateFromPy(o)
+            elif isinstance(o, datetime.timedelta):
+                return _ext.IntervalFromPy(o)
             else:
-                # return _ext.adapt(obj=o, alternate=None, protocol=None)
-                return _ext.adapt(obj=o, alternate=None, protocol=None)
+                #return _ext.adapt(obj=o, alternate=None, protocol=None)
+                return _ext.adapt(o, None, None)
 
     _re_tokenize = re.compile(r"""
       \(? ([,)])                        # an empty token, representing NULL
@@ -114,8 +121,7 @@ class PgUserTypeMaping(object):
     def __repr__(self):
         return self.repr_helper(self.pg_field_list).format(t=self.pg_type_name, d=self.to_dict())
 
-    @staticmethod
-    def repr_helper(field_list):
+    def repr_helper(self, field_list):
         result = '{t}=('
         idx = 1
         length = len(field_list)
@@ -142,13 +148,12 @@ class PgUserTypeMaping(object):
         self.from_tuple(tuple(rv))
 
     def adapt_tuple(self, t):
-        l = []
+        result = []
         for i in t:
-            l.append(self._adapt(i))
-        return tuple(l)
+            result.append(self.py2pg_adapt(i))
+        return tuple(result)
 
-    @staticmethod
-    def repr_helper2(field_list):
+    def repr_helper2(self, field_list):
         result = '('
         idx = 0
         length = len(field_list) - 1
@@ -161,8 +166,28 @@ class PgUserTypeMaping(object):
         return result
 
     def getquoted(self):
+        tpl = self.adapt_tuple(self.to_tuple())
+        #print(self.repr_helper2(self.pg_field_list) \
+        #    .format(schema=self.pg_schm_name, pgtype=self.pg_type_name, t=tpl))
         return self.repr_helper2(self.pg_field_list) \
-            .format(schema=self.pg_schm_name, pgtype=self.pg_type_name, t=self.adapt_tuple(self.to_tuple()))
+            .format(schema=self.pg_schm_name, pgtype=self.pg_type_name, t=tpl)
+
+    def _complex_string_to_list(self, s):
+        if s == '{}':
+            return ()
+        s = s.replace("{\"", "")
+        s = s.replace("\"}", "")
+        result = s.split("\",\"")
+        if len(result) > 0:
+            return tuple(result)
+        else:
+            return ()
+
+    def _adapt_list_to_dict(self, spec_list):
+        _res = []
+        for s in spec_list:
+            _res.append(s.to_dict())
+        return tuple(_res)
 
 
 class DocumentBody(PgUserTypeMaping):
@@ -171,15 +196,15 @@ class DocumentBody(PgUserTypeMaping):
     pg_field_list = ['good_code', 'quantity', 'uom_code']
 
     def __init__(self, s=None, curs=None):
-        self.good_code = ''
-        self.quantity = Decimal(0)
-        self.uom_code = ''
+        self.good_code = None
+        self.quantity = None
+        self.uom_code = None
         if s:
             self.from_string(s)
 
     def to_dict(self):
         return {"good_code": self.good_code,
-                "quantity": float(self.quantity),
+                "quantity": float('%.4f'%(self.quantity)),
                 "uom_code": self.uom_code}
 
     def from_dict(self, d):
@@ -204,18 +229,18 @@ class StocktakeBody(PgUserTypeMaping):
     pg_field_list = ['good_code', 'quantity', 'uom_code', 'quantity_diff']
 
     def __init__(self, s=None, curs=None):
-        self.good_code = ''
-        self.quantity = Decimal(0)
-        self.uom_code = ''
-        self.quantity_diff = Decimal(0)
+        self.good_code = None
+        self.quantity = None
+        self.uom_code = None
+        self.quantity_diff = None
         if s:
             self.from_string(s)
 
     def to_dict(self):
         return {"good_code": self.good_code,
-                "quantity": float(self.quantity),
+                "quantity": float('%.4f'%(self.quantity)),
                 "uom_code": self.uom_code,
-                "quantity_diff": float(self.quantity_diff)}
+                "quantity_diff": float('%.4f'%(self.quantity_diff))}
 
     def from_dict(self, d):
         self.good_code = d['good_code']
@@ -285,7 +310,7 @@ class DocumentHead(PgUserTypeMaping):
         self.gid = uuid.UUID(t[1])
         self.display_name = t[2]
         if len(t[3]) > 0:
-            self.document_date = datetime.datetime.strptime(t[3], "%Y-%m-%d")
+            self.document_date = datetime.datetime.strptime(t[3], "%Y-%m-%d").date()
         else:
             self.document_date = None
         self.facility_code = t[4]
